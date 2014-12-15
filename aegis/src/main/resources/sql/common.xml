@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.common">
+
+	<!-- 그룹별 공통코드 목록 조회 -->
+	<select id="selectList" parameterType="java.lang.String" resultType="HashMap">
+		<![CDATA[
+			SELECT GROUP_CODE	/* 그룹코드 */
+			     , GROUP_NAME	/* 그룹코드명 */
+			     , COMM_CODE	/* 공통코드 */
+			     , COMM_NAME	/* 공통코드명 */
+			     , VAL_1		/* 값1 */
+			     , VAL_2		/* 값2 */
+			     , VAL_3		/* 값3 */
+			  FROM COMMON
+			 WHERE GROUP_CODE = #{groupCode}
+			 ORDER BY ORDER_SEQ, COMM_CODE
+		]]>
+	</select>
+	
+	<select id="selectNextVal" parameterType="java.lang.String" resultType="HashMap">
+		<![CDATA[
+			SELECT FN_NEXTVAL(#{seqName}) AS ID
+		]]>
+	</select>
+	
+</mapper>

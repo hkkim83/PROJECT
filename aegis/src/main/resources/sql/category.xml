@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.category">
+
+	<!-- 기술분류(관리자) 완료목록 조회 -->
+	<select id="selectProjectCategoryCmpl" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID	/* 프로젝트 ID */
+			     , KEYWORD		/* 키워드 */
+			     , SCATE		/* 대표 키워드 */
+			     , MCATE		/* 중분류 */
+			     , LCATE		/* 대분류 */
+			  FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND (SCATE IS NOT NULL AND SCATE <> '' )
+			 ORDER BY KEYWORD			
+		]]>
+	</select>
+		
+	<!-- 기술분류(프로젝트) 미완료목록 조회 -->
+	<select id="selectProjectCategoryIncmpl" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID	/* 프로젝트 ID */
+			     , KEYWORD		/* 키워드 */
+			     , SCATE		/* 대표 키워드 */
+			     , MCATE		/* 중분류 */
+			     , LCATE		/* 대분류 */
+			  FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND (SCATE IS NULL OR SCATE = '' )	
+			 ORDER BY KEYWORD
+		]]>
+	</select>
+	
+	<!-- 기술분류(관리자) 수정여부 조회 -->
+	<select id="selectUpdateableAdminCategory" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'F' ELSE 'T' END DUP_CHECK
+			  FROM (
+						SELECT COUNT(*) CNT
+						  FROM ADMIN_CATEGORY
+						 WHERE ADMIN_ID   = #{ADMIN_ID}
+						   AND KEYWORD    = #{KEYWORD}
+						   AND IFNULL(MCATE, '') <> ''
+						   AND IFNULL(LCATE, '') <> ''
+			       ) A				
+		]]>
+	</select>
+	
+	<!-- 기술분류(특허) 조회 -->
+	<select id="selectPatentCategoryList" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID	/* 프로젝트 ID */
+			     , KEYWORD		/* 키워드 */
+			     , PATENT_ID	/* 특허ID */
+			  FROM PATENT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND PATENT_ID  = #{PATENT_ID} 			
+		]]>
+	</select>
+	
+	<!-- 기술분류(특허) 조회 -->
+	<select id="selectCategoryList" resultType="HashMap" parameterType="java.lang.String" >
+		<if test="FLAG!=null and FLAG.equalsIgnoreCase('L')"><![CDATA[
+			SELECT DISTINCT LCATE AS CATE
+			  FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			 ORDER BY LCATE			
+		]]></if>
+		<if test="FLAG!=null and FLAG.equalsIgnoreCase('M')"><![CDATA[
+			SELECT DISTINCT MCATE AS CATE
+			  FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND LCATE      = #{CATE}
+			 ORDER BY MCATE			
+		]]></if>
+		<if test="FLAG!=null and FLAG.equalsIgnoreCase('S')"><![CDATA[
+			SELECT DISTINCT SCATE
+			  FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND MCATE      = #{CATE}
+			 ORDER BY SCATE			
+		]]></if>				
+	</select>	
+	
+	<!-- 기술분류(관리자) 조회 -->
+	<select id="selectAdminCategory" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT SCATE, MCATE, LCATE
+			  FROM (
+						SELECT 1 AS FLAG, SCATE, MCATE, LCATE 
+						  FROM ADMIN_CATEGORY 
+						 WHERE ADMIN_ID = #{ADMIN_ID} AND SCATE = #{SCATE} AND IFNULL(MCATE,'') <> ''
+						 UNION ALL
+						SELECT 2 AS FLAG, SCATE, MCATE, LCATE 
+						  FROM PROJECT_CATEGORY 
+						 WHERE PROJECT_ID = #{PROJECT_ID} AND SCATE = #{SCATE} AND IFNULL(MCATE,'') <> ''
+				   ) CA
+			 ORDER BY FLAG
+			 LIMIT 1,1
+		]]>
+	</select>
+		
+	<!-- 기술분류(특허) 등록 -->
+	<insert id="insertPatentCategory" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PATENT_CATEGORY
+			     ( PROJECT_ID
+			     , KEYWORD
+			     , PATENT_ID
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			SELECT PROJECT_ID
+			     , #{KEYWORD}
+			     , PATENT_ID
+			     , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW()
+			  FROM PATENT PA
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="KEYWORD_MAIN != null">
+		<![CDATA[
+			   AND (TITLE LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR ABSTRACT LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR CLAIM_MAIN LIKE CONCAT('%',#{KEYWORD_MAIN},'%'))
+		]]>
+		</if>
+		<if test="KEYWORD_TITLE != null">
+		<![CDATA[
+			   AND TITLE            LIKE CONCAT('%',#{KEYWORD_TITLE},'%')	                                    -- 발명의명칭
+		]]>
+		</if>
+		<if test="KEYWORD_ABSTRACT != null">
+		<![CDATA[
+			   AND ABSTRACT         LIKE CONCAT('%',#{KEYWORD_ABSTRACT},'%')	                                -- 요약
+		]]>
+		</if>
+		<if test="KEYWORD_CLAIM_MAIN != null">
+		<![CDATA[
+			   AND CLAIM_MAIN       LIKE CONCAT('%',#{KEYWORD_CLAIM_MAIN},'%')	                                -- 대표청구항
+		]]>
+		</if>
+		<![CDATA[
+               AND NOT EXISTS ( SELECT 1 FROM PATENT_CATEGORY WHERE PROJECT_ID = PA.PROJECT_ID	AND PATENT_ID = PA.PATENT_ID AND KEYWORD LIKE CONCAT('%',#{KEYWORD},'%'))	
+		]]>
+	</insert>
+
+	<!-- 기술분류(특허) 등록 또는 수정 -->
+	<insert id="mergePatentCategory" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PATENT_CATEGORY
+			     ( PROJECT_ID
+			     , KEYWORD
+			     , PATENT_ID
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES
+			     ( #{PROJECT_ID}
+			     , #{KEYWORD}
+			     , #{PATENT_ID}
+			     , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW() )
+			ON DUPLICATE KEY UPDATE UPD_DATE = NOW()
+		]]>
+	</insert>
+	
+	<!-- 기술분류(특허) 삭제 -->
+	<delete id="deletePatentCategory" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PATENT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="KEYWORD != null">
+		<![CDATA[
+			   AND KEYWORD    = #{KEYWORD}
+		]]>
+		</if>
+		<if test="PATENT_ID != null">
+		<![CDATA[
+			   AND PATENT_ID  = #{PATENT_ID}
+		]]>
+		</if>
+	</delete>
+		
+	<!-- 기술분류(프로젝트) 등록 -->
+	<insert id="mergeProjectCategory" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_CATEGORY
+			     ( PROJECT_ID
+			     , KEYWORD
+			     , SCATE
+			     , MCATE
+			     , LCATE
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+			     ( #{PROJECT_ID}
+			     , #{KEYWORD}
+			     , (SELECT SCATE FROM ADMIN_CATEGORY WHERE ADMIN_ID = #{ADMIN_ID} AND KEYWORD = #{KEYWORD})
+			     , (SELECT MCATE FROM ADMIN_CATEGORY WHERE ADMIN_ID = #{ADMIN_ID} AND KEYWORD = #{KEYWORD})
+			     , (SELECT LCATE FROM ADMIN_CATEGORY WHERE ADMIN_ID = #{ADMIN_ID} AND KEYWORD = #{KEYWORD})
+				 , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW() )
+			ON DUPLICATE KEY UPDATE UPD_DATE = NOW()
+		]]>
+	</insert>
+	
+	<!-- 기술분류(관리자) 수정 -->
+	<update id="updateProjectCategory" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT_CATEGORY
+			   SET SCATE      = #{SCATE}
+			     , MCATE      = #{MCATE}
+			     , LCATE      = #{LCATE}
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND KEYWORD    = #{KEYWORD}
+		]]>
+	</update>
+
+	<!-- 기술분류(프로젝트) 삭제 -->
+	<delete id="deleteProjectCategory" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="KEYWORD != null">
+		<![CDATA[
+			   AND KEYWORD    = #{KEYWORD}
+		]]>
+		</if>
+	</delete>
+		
+	<!-- 기술분류(관리자) 등록 또는 수정 -->
+	<insert id="mergeAdminCategory" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO ADMIN_CATEGORY
+			     ( ADMIN_ID
+			     , KEYWORD
+			     , SCATE
+			     , MCATE
+			     , LCATE
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+			     ( #{ADMIN_ID}
+			     , #{KEYWORD}
+			     , #{SCATE}
+			     , #{MCATE}
+			     , #{LCATE}
+				 , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW() )
+			ON DUPLICATE KEY UPDATE UPD_DATE = NOW()
+		]]>
+	</insert>
+	
+	<!-- 기술분류(관리자) 등록 -->
+	<insert id="insertAdminCategory" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO ADMIN_CATEGORY
+			     ( ADMIN_ID
+			     , KEYWORD
+			     , SCATE
+			     , MCATE
+			     , LCATE
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+			     ( #{ADMIN_ID}
+			     , #{KEYWORD}
+			     , #{SCATE}
+			     , #{MCATE}
+			     , #{LCATE}
+				 , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW() )
+		]]>
+	</insert>
+
+	<!-- 기술분류(관리자) 수정 -->
+	<update id="updateAdminCategory" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE ADMIN_CATEGORY
+			   SET SCATE    = #{SCATE}
+			     , MCATE    = #{MCATE}
+			     , LCATE    = #{LCATE}
+			     , UPD_USER = #{LOGIN_ID}
+			     , UPD_DATE = NOW()
+			 WHERE ADMIN_ID = #{ADMIN_ID}
+			   AND KEYWORD  = #{KEYWORD}
+		]]>
+	</update>
+			
+</mapper>

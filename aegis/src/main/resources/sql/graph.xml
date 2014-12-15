@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.graph">
+
+	<!-- 그래프조회1 -->
+	<select id="selectGraph1" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT NATL_NAME, CUR_1, CUR_2, CUR_3, CUR_4, CUR_5, CUR_6, CUR_7, CUR_8, CUR_9, CUR_10
+			     , CUR_11, CUR_12, CUR_13, CUR_14, CUR_15, CUR_16, CUR_17, CUR_18, CUR_19, CUR_20, CUR_21, CUR_22
+			  FROM (
+	            SELECT NATL_CODE
+	                 , CASE WHEN IFNULL(NATL_CODE,'') = '' THEN '계' ELSE MAX(CM.COMM_NAME) END          AS NATL_NAME
+	                 , CASE WHEN IFNULL(NATL_CODE,'') = '' THEN 99 ELSE MAX(ORDER_SEQ) END              AS ORDER_SEQ
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) < YEAR(CURDATE()) - 20 THEN 1 ELSE 0 END) AS CUR_1
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 19 THEN 1 ELSE 0 END) AS CUR_2
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 18 THEN 1 ELSE 0 END) AS CUR_3
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 17 THEN 1 ELSE 0 END) AS CUR_4
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 16 THEN 1 ELSE 0 END) AS CUR_5
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 15 THEN 1 ELSE 0 END) AS CUR_6
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 14 THEN 1 ELSE 0 END) AS CUR_7
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 13 THEN 1 ELSE 0 END) AS CUR_8
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 12 THEN 1 ELSE 0 END) AS CUR_9
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 11 THEN 1 ELSE 0 END) AS CUR_10
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 10 THEN 1 ELSE 0 END) AS CUR_11
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 9  THEN 1 ELSE 0 END) AS CUR_12
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 8  THEN 1 ELSE 0 END) AS CUR_13
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 7  THEN 1 ELSE 0 END) AS CUR_14
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 6  THEN 1 ELSE 0 END) AS CUR_15
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 5  THEN 1 ELSE 0 END) AS CUR_16
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 4  THEN 1 ELSE 0 END) AS CUR_17
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 3  THEN 1 ELSE 0 END) AS CUR_18
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 2  THEN 1 ELSE 0 END) AS CUR_19
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE()) - 1  THEN 1 ELSE 0 END) AS CUR_20
+				     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) = YEAR(CURDATE())      THEN 1 ELSE 0 END) AS CUR_21
+				     , SUM(1)                                                                           AS CUR_22
+				  FROM PATENT PM
+	                 , COMMON CM
+				 WHERE PM.PROJECT_ID = #{PROJECT_ID}
+	               AND PM.NATL_CODE  = CM.COMM_CODE
+	               AND CM.GROUP_CODE = '23'
+	               AND SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE())
+	               AND PM.DEL_YN = '0'
+				 GROUP BY PM.NATL_CODE
+				  WITH ROLLUP
+			    ) A
+			ORDER BY ORDER_SEQ
+		]]>
+	</select>
+	
+	<!-- 그래프조회2-->
+	<select id="selectGraph2" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+        SELECT NATL_NAME
+             , S_GRADE, A_GRADE, B_GRADE, C_GRADE, N_GRADE, T_GRADE
+          FROM (
+            SELECT NATL_CODE
+                 , CASE WHEN IFNULL(NATL_CODE,'') = '' THEN '계' ELSE MAX(CM.COMM_NAME) END 	AS NATL_NAME
+                 , CASE WHEN IFNULL(NATL_CODE,'') = '' THEN 99 ELSE MAX(ORDER_SEQ) END    	AS ORDER_SEQ
+			     , SUM(CASE WHEN GRADE_CONST = 'S' THEN 1 ELSE 0 END )           			AS S_GRADE
+			     , SUM(CASE WHEN GRADE_CONST = 'A' THEN 1 ELSE 0 END )          		 	AS A_GRADE
+			     , SUM(CASE WHEN GRADE_CONST = 'B' THEN 1 ELSE 0 END )           			AS B_GRADE
+			     , SUM(CASE WHEN GRADE_CONST = 'C' THEN 1 ELSE 0 END )           			AS C_GRADE
+			     , SUM(CASE WHEN IFNULL(GRADE_CONST,'') = '' THEN 1 ELSE 0 END ) 			AS N_GRADE
+			     , SUM(1)                                                        			AS T_GRADE
+			  FROM PATENT PM
+                 , COMMON CM
+			 WHERE PM.PROJECT_ID = #{PROJECT_ID}
+               AND PM.NATL_CODE  = CM.COMM_CODE
+               AND CM.GROUP_CODE = '23'
+	           AND PM.DEL_YN = '0'
+			 GROUP BY PM.NATL_CODE
+			  WITH ROLLUP
+            ) A
+        ORDER BY ORDER_SEQ
+		]]>
+	</select>
+	
+		
+	<!-- 그래프조회3-->
+	<select id="selectGraph3" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT APPLICANT                                                     AS APPLICANT
+				 , SUM(CASE WHEN GRADE_CONST = 'S' THEN 1 ELSE 0 END )           AS S_GRADE
+				 , SUM(CASE WHEN GRADE_CONST = 'A' THEN 1 ELSE 0 END )           AS A_GRADE
+				 , SUM(CASE WHEN GRADE_CONST = 'B' THEN 1 ELSE 0 END )           AS B_GRADE
+				 , SUM(CASE WHEN GRADE_CONST = 'C' THEN 1 ELSE 0 END )           AS C_GRADE
+				 , SUM(CASE WHEN IFNULL(GRADE_CONST,'') = '' THEN 1 ELSE 0 END ) AS N_GRADE
+				 , SUM(1)                                                        AS T_GRADE
+			  FROM 
+			     ( SELECT IFNULL(APPLICANT_RENAME, APPLICANT) APPLICANT
+					    , IFNULL(GRADE_CONST,'') GRADE_CONST
+					 FROM PATENT
+			        WHERE PROJECT_ID = #{PROJECT_ID}
+					  AND DEL_YN     = '0'	
+		]]>
+		<if test="NATL_CODE != null">
+		<![CDATA[
+			          AND NATL_CODE  = #{NATL_CODE}
+		]]>
+		</if>
+		<![CDATA[						  
+			      ) PM
+			 WHERE IFNULL(APPLICANT,'') <> '' 
+			 GROUP BY APPLICANT
+			 ORDER BY T_GRADE DESC
+			 LIMIT 0, 10
+		]]>
+	</select>
+	
+	<!-- 그래프조회4(중분류)-->
+	<select id="selectGraph4" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT IFNULL(PR.MCATE,'계')                                            AS CATE
+		]]>
+		<if test="FLAG == 01">
+		<![CDATA[
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'S' THEN 1 ELSE 0 END )           AS S_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'A' THEN 1 ELSE 0 END )           AS A_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'B' THEN 1 ELSE 0 END )           AS B_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'C' THEN 1 ELSE 0 END )           AS C_GRADE
+			     , SUM(CASE WHEN IFNULL(PM.GRADE_CONST,'') = '' THEN 1 ELSE 0 END ) AS N_GRADE
+			     , SUM(1)                                                           AS T_GRADE
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+		]]>
+		</if>
+		<if test="FLAG == 02">
+		<![CDATA[
+			     , SUM(CASE WHEN PM.NATL_CODE = 'KR'  THEN 1 ELSE 0 END )           AS KR_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'JP'  THEN 1 ELSE 0 END )           AS JP_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'US'  THEN 1 ELSE 0 END )           AS US_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'EP'  THEN 1 ELSE 0 END )           AS EP_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'CN'  THEN 1 ELSE 0 END )           AS CN_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'PCT' THEN 1 ELSE 0 END )           AS PCT_GRADE
+			     , SUM(1)                                                           AS TOT_GRADE
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+		]]>
+		</if>	
+		<if test="FLAG == 03">
+		<![CDATA[
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 22 THEN 1 ELSE 0 END)                                                    AS SUM_1
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 17 && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 22 THEN 1 ELSE 0 END) AS SUM_2
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 12 && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 17 THEN 1 ELSE 0 END) AS SUM_3
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 7  && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 12 THEN 1 ELSE 0 END) AS SUM_4
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 2  && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 7  THEN 1 ELSE 0 END) AS SUM_5
+			     , SUM(1)                                                                                                                               AS SUM_6
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+			   AND SUBSTRING(PM.APPL_DATE,1,4) <= YEAR(CURDATE()) - 2
+		]]>
+		</if>			
+		<![CDATA[	
+			   AND IFNULL(PR.MCATE,'') <> ''
+	           AND PM.DEL_YN = '0'		 
+			   AND PM.PROJECT_ID = #{PROJECT_ID}
+			 GROUP BY PR.MCATE
+			  WITH ROLLUP
+		]]>
+	</select>
+	
+	<!-- 그래프조회5(소분류)-->
+	<select id="selectGraph5" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT IFNULL(PR.SCATE,'계')                                            AS CATE
+		]]>
+		<if test="FLAG == 01">
+		<![CDATA[
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'S' THEN 1 ELSE 0 END )           AS S_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'A' THEN 1 ELSE 0 END )           AS A_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'B' THEN 1 ELSE 0 END )           AS B_GRADE
+			     , SUM(CASE WHEN PM.GRADE_CONST = 'C' THEN 1 ELSE 0 END )           AS C_GRADE
+			     , SUM(CASE WHEN IFNULL(PM.GRADE_CONST,'') = '' THEN 1 ELSE 0 END ) AS N_GRADE
+			     , SUM(1)                                                           AS T_GRADE
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+		]]>
+		</if>
+		<if test="FLAG == 02">
+		<![CDATA[
+			     , SUM(CASE WHEN PM.NATL_CODE = 'KR'  THEN 1 ELSE 0 END )           AS KR_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'JP'  THEN 1 ELSE 0 END )           AS JP_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'US'  THEN 1 ELSE 0 END )           AS US_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'EP'  THEN 1 ELSE 0 END )           AS EP_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'CN'  THEN 1 ELSE 0 END )           AS CN_GRADE
+			     , SUM(CASE WHEN PM.NATL_CODE = 'PCT' THEN 1 ELSE 0 END )           AS PCT_GRADE
+			     , SUM(1)                                                           AS TOT_GRADE
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+		]]>
+		</if>	
+		<if test="FLAG == 03">
+		<![CDATA[
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 22 THEN 1 ELSE 0 END)                                                    AS SUM_1
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 17 && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 22 THEN 1 ELSE 0 END) AS SUM_2
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 12 && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 17 THEN 1 ELSE 0 END) AS SUM_3
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 7  && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 12 THEN 1 ELSE 0 END) AS SUM_4
+			     , SUM(CASE WHEN SUBSTRING(APPL_DATE,1,4) <= YEAR(CURDATE()) - 2  && SUBSTRING(APPL_DATE,1,4) > YEAR(CURDATE()) - 7  THEN 1 ELSE 0 END) AS SUM_5
+			     , SUM(1)                                                                                                                               AS SUM_6
+			  FROM PATENT           PM
+			     , PATENT_CATEGORY  PC
+			     , PROJECT_CATEGORY PR
+			 WHERE PM.PROJECT_ID = PC.PROJECT_ID
+			   AND PM.PATENT_ID  = PC.PATENT_ID
+			   AND PC.PROJECT_ID = PR.PROJECT_ID
+			   AND PC.KEYWORD    = PR.KEYWORD
+			   AND SUBSTRING(PM.APPL_DATE,1,4) <= YEAR(CURDATE()) - 2
+		]]>
+		</if>			
+		<![CDATA[	
+			   AND IFNULL(PR.SCATE,'') <> ''
+	           AND PM.DEL_YN = '0'		 
+			   AND PM.PROJECT_ID = #{PROJECT_ID}
+			 GROUP BY PR.SCATE
+			  WITH ROLLUP
+		]]>
+	</select>
+</mapper>

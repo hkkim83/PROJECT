@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.patent">
+
+	<!-- 특허 건수 조회 -->
+	<select id="selectPatentCnt" resultType="hashMap" parameterType="hashMap" >
+		<![CDATA[
+			SELECT SUM(TOTAL_CNT) 			AS TOTAL_CNT		/* 총 건수 */
+			     , SUM(ABLE_CNT)  			AS ABLE_CNT			/* 삭제건수 제외 총 건수 */
+			     , SUM(IMPORTANT_CNT) 		AS IMPORTANT_CNT	/* 중요특허 건수 */
+			     , SUM(INCMPL_CNT) 			AS INCMPL_CNT		/* 미검토 건수 */
+			     , SUM(CMPL_CNT) 			AS CMPL_CNT			/* 검토완료 건수 */
+			     , SUM(DEL_CNT) 			AS DEL_CNT			/* 삭제 건수 */
+			     , SUM(PA_TOTAL_CNT) 		AS PA_TOTAL_CNT		/* 조회조건에 맞는 총 건수 */
+			     , SUM(PA_IMPORTANT_CNT)	AS PA_IMPORTANT_CNT	/* 조회조건에 맞는 중요특허 건수 */
+			 FROM (
+					SELECT IFNULL(SUM(1),0)                                             								AS TOTAL_CNT  
+					     , IFNULL(SUM(CASE WHEN DEL_YN = '0' THEN 1 ELSE 0 END),0)      								AS ABLE_CNT 
+					     , IFNULL(SUM(CASE WHEN DEL_YN = '0' && IMPORTANT_YN ='1' THEN 1 ELSE 0 END),0) 				AS IMPORTANT_CNT 
+					     , IFNULL(SUM(CASE WHEN DEL_YN = '0' && IFNULL(REVIEW_FLAG,'0') = '0' THEN 1 ELSE 0 END),0)     AS INCMPL_CNT
+					     , IFNULL(SUM(CASE WHEN DEL_YN = '0' && IFNULL(REVIEW_FLAG,'0') = '2' THEN 1 ELSE 0 END),0)     AS CMPL_CNT
+					     , IFNULL(SUM(CASE WHEN DEL_YN = '1' THEN 1 ELSE 0 END),0)      								AS DEL_CNT 
+					     , 0 AS PA_TOTAL_CNT
+					     , 0 AS PA_IMPORTANT_CNT
+					  FROM PATENT
+					 WHERE PROJECT_ID = #{PROJECT_ID}	
+					 UNION ALL		
+					SELECT 0 AS TOTAL_CNT
+					     , 0 AS ABLE_CNT
+					     , 0 AS IMPORTANT_CNT
+					     , 0 AS INCMPL_CNT
+					     , 0 AS CMPL_CNT
+					     , 0 AS DEL_CNT
+					     , IFNULL(SUM(1),0)                                             AS PA_TOTAL_CNT   
+					     , IFNULL(SUM(CASE WHEN IMPORTANT_YN ='1' THEN 1 ELSE 0 END),0) AS PA_IMPORTANT_CNT 
+					  FROM PATENT PT
+					 WHERE PROJECT_ID = #{PROJECT_ID}
+					   AND DEL_YN     = #{DEL_YN}
+		]]>
+		<if test="KEYWORD_MAIN != null">
+		<![CDATA[
+					   AND (TITLE LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR ABSTRACT LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR CLAIM_MAIN LIKE CONCAT('%',#{KEYWORD_MAIN},'%'))
+		]]>
+		</if>
+		<if test="KEYWORD_TITLE != null">
+		<![CDATA[
+					   AND TITLE            LIKE CONCAT('%',#{KEYWORD_TITLE},'%')	                                    /* 발명의명칭 */
+		]]>
+		</if>
+		<if test="KEYWORD_ABSTRACT != null">
+		<![CDATA[
+					   AND ABSTRACT         LIKE CONCAT('%',#{KEYWORD_ABSTRACT},'%')	                                /* 요약 */
+		]]>
+		</if>
+		<if test="KEYWORD_CLAIM_MAIN != null">
+		<![CDATA[
+					   AND CLAIM_MAIN       LIKE CONCAT('%',#{KEYWORD_CLAIM_MAIN},'%')	                                /* 대표청구항 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPLICANT != null">
+		<![CDATA[
+					   AND APPLICANT        LIKE CONCAT('%',#{KEYWORD_APPLICANT},'%')	                                /* 발명자 */
+		]]>
+		</if>
+		<if test="KEYWORD_INVENTOR != null">
+		<![CDATA[
+					   AND INVENTOR         LIKE CONCAT('%',#{KEYWORD_INVENTOR},'%')	                                /* 발명자 */
+		]]>
+		</if>
+		<if test="KEYWORD_NATL_CODE != null">
+		<![CDATA[
+					   AND NATL_CODE        LIKE CONCAT('%',#{KEYWORD_NATL_CODE},'%')	                               /* 출원국가 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_NUM != null">
+		<![CDATA[
+					   AND APPL_NUM        LIKE CONCAT('%',#{KEYWORD_APPL_NUM},'%')	                               		/* 출원번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_NUM != null">
+		<![CDATA[
+					   AND LAID_PUBLICL_NUM        LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    /* 공개번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_REGI_NUM != null">
+		<![CDATA[
+					   AND REGI_NUM        LIKE CONCAT('%',#{KEYWORD_REGI_NUM},'%')	                               		/* 등록번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_SEQ_NUM_FR != null">
+		<![CDATA[
+					   AND SEQ_NUM        >= #{KEYWORD_SEQ_NUM_FR}                 										/* 연번 */
+		]]>
+		</if>
+		<if test="KEYWORD_SEQ_NUM_TO != null">
+		<![CDATA[
+					   AND SEQ_NUM        <= #{KEYWORD_SEQ_NUM_TO}                 										/* 연번 */
+		]]>
+		</if>
+		<if test="KEYWORD_KINDS_LCATE != null">
+		<![CDATA[
+			           AND EXISTS ( SELECT PB.PATENT_ID FROM PROJECT_CATEGORY PA, PATENT_CATEGORY PB WHERE PA.PROJECT_ID = PB.PROJECT_ID AND PA.KEYWORD = PB.KEYWORD 
+                                       AND PB.PROJECT_ID = PT.PROJECT_ID AND PB.PATENT_ID = PT.PATENT_ID AND PA.PROJECT_ID = #{PROJECT_ID} AND LCATE = #{KEYWORD_KINDS_LCATE})                           /* 대분류 */
+		]]>
+		</if>	
+		<if test="KEYWORD_KINDS_MCATE != null">
+		<![CDATA[
+			           AND EXISTS ( SELECT PB.PATENT_ID FROM PROJECT_CATEGORY PA, PATENT_CATEGORY PB WHERE PA.PROJECT_ID = PB.PROJECT_ID AND PA.KEYWORD = PB.KEYWORD 
+                                       AND PB.PROJECT_ID = PT.PROJECT_ID AND PB.PATENT_ID = PT.PATENT_ID AND PA.PROJECT_ID = #{PROJECT_ID} AND CONCAT('%',#{KEYWORD_KINDS_MCATE},'%'))                   /* 중분류 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_OBJ != null and KEYWORD_GRADE_OBJ.equalsIgnoreCase('N')">
+		<![CDATA[
+			   	       AND IFNULL(GRADE_OBJ,'') = ''        	                                						/* 목적등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_OBJ != null and !KEYWORD_GRADE_OBJ.equalsIgnoreCase('N')">
+		<![CDATA[
+			   	       AND GRADE_OBJ        LIKE CONCAT('%',#{KEYWORD_GRADE_OBJ},'%')	                                /* 목적등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_CONST != null and KEYWORD_GRADE_CONST.equalsIgnoreCase('N')">
+		<![CDATA[
+			   	       AND IFNULL(GRADE_CONST,'') = ''                                 									/* 구성등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_CONST != null and !KEYWORD_GRADE_CONST.equalsIgnoreCase('N')">
+		<![CDATA[
+			   	       AND GRADE_CONST      LIKE CONCAT('%',#{KEYWORD_GRADE_CONST},'%')	                                /* 구성등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_DATE_FR != null">
+		<![CDATA[
+					   AND APPL_DATE        >= #{KEYWORD_APPL_DATE_FR}                 /* 출원일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_DATE_TO != null">
+		<![CDATA[
+					   AND APPL_DATE        <= #{KEYWORD_APPL_DATE_TO}                 /* 출원일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_DATE_FR != null">
+		<![CDATA[
+					   AND LAID_PUBLIC_DATE >= #{KEYWORD_LAID_PUBLIC_DATE_FR}   /* 공개일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_DATE_TO != null">
+		<![CDATA[
+					   AND LAID_PUBLIC_DATE <= #{KEYWORD_LAID_PUBLIC_DATE_TO}   /* 공개일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REGI_DATE_FR != null">
+		<![CDATA[
+					   AND REGI_DATE        >= #{KEYWORD_REGI_DATE_FR}                 /* 등록일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REGI_DATE_TO != null">
+		<![CDATA[
+					   AND REGI_DATE        <= #{KEYWORD_REGI_DATE_TO}                 /* 등록일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REVIEWER != null">
+		<![CDATA[
+					   AND REVIEWER    LIKE CONCAT('%',#{KEYWORD_REVIEWER},'%')                                         /* 검토자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REVIEW_FLAG != null and !KEYWORD_REVIEW_FLAG.equals('')">
+		<![CDATA[
+					   AND REVIEW_FLAG = #{KEYWORD_REVIEW_FLAG}                                                         /* 검토구분 */
+		]]>
+		</if>
+		<if test="KEYWORD_KEYWORD != null">
+		<![CDATA[
+					   AND EXISTS ( SELECT 1 FROM PATENT_CATEGORY WHERE PROJECT_ID = PT.PROJECT_ID AND PATENT_ID = PT.PATENT_ID AND PROJECT_ID = #{PROJECT_ID}
+					                   AND KEYWORD LIKE CONCAT('%',#{KEYWORD_KEYWORD},'%'))                             /* 키워드 */
+		]]>
+		</if>
+		<if test="REVIEW_FLAG != null and !REVIEW_FLAG.equals('')">
+		<![CDATA[
+					   AND REVIEW_FLAG = #{REVIEW_FLAG}                                                         /* 검토구분 */
+		]]>
+		</if>
+		<if test="IMPORTANT_YN != null">
+		<![CDATA[
+					   AND IMPORTANT_YN = #{IMPORTANT_YN}                                                      /* 중요특허여부 */
+		]]>
+		</if>		
+		<![CDATA[
+			      ) A
+		]]>
+	</select>
+	
+	<!-- 특허 페이지별 목록 조회 -->
+	<select id="selectPatentList" resultType="hashMap" parameterType="hashMap" >
+		<![CDATA[
+			SELECT PROJECT_ID            /* 프로젝트아이디 */
+			     , PATENT_ID             /* 특허아이디 */
+			     , NATL_CODE             /* 국가코드 */
+			     , KINDS_IP_TYPE         /* 특허/실용구분 */
+			     , KINDS_IP_CODE         /* 문헌종류코드 */
+			     , TITLE                 /* 발명의명칭 */
+			     , APPL_NUM              /* 출원번호 */
+			     , APPL_NUM_ORG          /* 출원번호_원본 */
+			     , CASE WHEN APPL_DATE IS NOT NULL AND APPL_DATE <> '' THEN CAST(STR_TO_DATE(APPL_DATE,'%Y%m%d') AS CHAR) ELSE APPL_DATE END AS APPL_DATE /* 출원일자 */
+			     , APPLICANT             /* 출원인 */
+			     , APPLICANT_NATL        /* 출원인국가 */
+			     , PRIORITY_NATL         /* 우선권국가 */
+			     , PRIORITY_NUM          /* 우선권번호 */
+			     , CASE WHEN PRIORITY_DATE IS NOT NULL AND PRIORITY_DATE <> '' THEN CAST(STR_TO_DATE(PRIORITY_DATE,'%Y%m%d') AS CHAR) ELSE PRIORITY_DATE END AS PRIORITY_DATE /* 우선권주장일 */
+			     , ABSTRACT              /* 요약 */
+			     , CLAIM_MAIN            /* 대표청구항 */
+			     , LAID_PUBLIC_NUM       /* 공개번호 */
+			     , CASE WHEN LAID_PUBLIC_DATE IS NOT NULL AND LAID_PUBLIC_DATE <> '' THEN CAST(STR_TO_DATE(LAID_PUBLIC_DATE,'%Y%m%d') AS CHAR) ELSE LAID_PUBLIC_DATE END AS LAID_PUBLIC_DATE /* 공개일 */
+			     , REGI_NUM              /* 등록번호 */
+			     , CASE WHEN REGI_DATE IS NOT NULL AND REGI_DATE <> '' THEN CAST(STR_TO_DATE(REGI_DATE,'%Y%m%d') AS CHAR) ELSE REGI_DATE END AS REGI_DATE /* 등록일 */
+			     , INVENTOR              /* 발명자/고인자 */
+			     , IPC_ALL               /* IPC(All) */
+			     , F_TERM_JP             /* F-Term(JP) */
+			     , FI_CODE_JP            /* FI코드(JP) */
+			     , UPC_CURRENT_ALL       /* 미국분류(Current-All) */
+			     , BC_COUNT              /* 인용문헌수(B1) */
+			     , BC_BE_NUM             /* 인용문헌번호 (B1) + 심사관(BE) 인용 (KR,US) */
+			     , FC_COUNT              /* 인용문헌수 (F1) */
+			     , FC_FE_NUM             /* 인용문헌번호 (F1) + 심사관(FE) 인용 (KR,US) */
+			     , FM_NUM                /* 패밀리문헌번호(출원기준) */
+			     , FM_COUNT              /* 패밀리문헌수(출원기준) */
+			     , LEGAL_STATUS_DOCDB    /* DOCDB법적상태 */
+			     , SEQ_NUM               /* 연번 */
+			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CONCAT('* ',APPLICANT) ELSE APPLICANT_RENAME END APPLICANT_RENAME       /* 출원인대표명화 */
+			     , FM_TYPE               /* 패밀리구분 */
+			     , FM_SEQ_NUM            /* 패밀리연번 */
+			     , IMAGE_MAIN            /* 대표도면 */
+			     , IMAGE_SMALL           /* 대표도면(작은사이즈) */
+			     , PATENT_FULLTXT        /* 특허전문 */
+			     , PATENT_TRANS_FULLTXT  /* 번역문 */
+			     , REVIEWER              /* 검토자 */
+			     , CASE WHEN REVIEW_DATE IS NOT NULL AND REVIEW_DATE <> '' THEN CAST(STR_TO_DATE(REVIEW_DATE,'%Y%m%d') AS CHAR) ELSE REVIEW_DATE END AS PRIORITY_DATE /* 검토일자 */
+			     , REVIEW_FLAG           /* 검토구분 */
+			     , ( SELECT COMM_NAME FROM COMMON WHERE GROUP_CODE = '25' AND COMM_CODE = PT.REVIEW_FLAG ) AS REVIEW_FLAG_NM  /* 검토구분명 */
+			     , KINDS_TECH            /* 기술분류 */
+			     , KINDS_LCATE           /* 대분류 */
+			     , KINDS_MCATE           /* 중분류 */
+			     , GRADE_IDEA            /* Idea등급
+			     , IFNULL(GRADE_OBJ,'')   GRADE_OBJ            /* 목적등급 */
+			     , IFNULL(GRADE_CONST,'') GRADE_CONST          /* 구성등급 */
+			     , LEGAL_STATUS          /* 법적상태 */
+			     , CMT_LAW_FIRMS         /* 검토의견(사무소) */
+			     , CMT_CO                /* 검토의견(참여기관) */
+			     , IMPORTANT_YN          /* 중요특허여부 */
+			     , ( SELECT COMM_NAME FROM COMMON WHERE GROUP_CODE = '26' AND COMM_CODE = PT.IMPORTANT_YN ) AS IMPORTANT_YN_NM  /* 중요특허여부명 */
+			     , DEL_YN                /* 삭제여부 */
+			     , RESERVE_TITLE_1       /* 임시컬럼1 */
+			     , RESERVE_CONTENT_1     /* 임시컬럼내용1 */
+			     , RESERVE_TITLE_2       /* 임시컬럼2 */
+			     , RESERVE_CONTENT_2     /* 임시컬럼내용2 */
+			     , RESERVE_TITLE_3       /* 임시컬럼3 */
+			     , RESERVE_CONTENT_3     /* 임시컬럼내용3 */
+			     , RESERVE_TITLE_4       /* 임시컬럼4 */
+			     , RESERVE_CONTENT_4     /* 임시컬럼내용4 */
+			     , RESERVE_TITLE_5       /* 임시컬럼5 */
+			     , RESERVE_CONTENT_5     /* 임시컬럼내용5 */
+			     , RESERVE_TITLE_6       /* 임시컬럼6 */
+			     , RESERVE_CONTENT_6     /* 임시컬럼내용6 */
+			     , RESERVE_TITLE_7       /* 임시컬럼7 */
+			     , RESERVE_CONTENT_7     /* 임시컬럼내용7 */
+			  FROM PATENT PT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN     = #{DEL_YN}
+		]]>
+		<if test="KEYWORD_MAIN != null">
+		<![CDATA[
+			   AND (TITLE LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR ABSTRACT LIKE CONCAT('%',#{KEYWORD_MAIN},'%') OR CLAIM_MAIN LIKE CONCAT('%',#{KEYWORD_MAIN},'%'))
+		]]>
+		</if>
+		<if test="KEYWORD_TITLE != null">
+		<![CDATA[
+			   AND TITLE            LIKE CONCAT('%',#{KEYWORD_TITLE},'%')	                                    /* 발명의명칭 */
+		]]>
+		</if>
+		<if test="KEYWORD_ABSTRACT != null">
+		<![CDATA[
+			   AND ABSTRACT         LIKE CONCAT('%',#{KEYWORD_ABSTRACT},'%')	                                /* 요약 */
+		]]>
+		</if>
+		<if test="KEYWORD_CLAIM_MAIN != null">
+		<![CDATA[
+			   AND CLAIM_MAIN       LIKE CONCAT('%',#{KEYWORD_CLAIM_MAIN},'%')	                                /* 대표청구항 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPLICANT != null">
+		<![CDATA[
+			   AND APPLICANT        LIKE CONCAT('%',#{KEYWORD_APPLICANT},'%')	                                /* 발명자 */
+		]]>
+		</if>
+		<if test="KEYWORD_INVENTOR != null">
+		<![CDATA[
+			   AND INVENTOR         LIKE CONCAT('%',#{KEYWORD_INVENTOR},'%')	                                /* 발명자 */
+		]]>
+		</if>
+		<if test="KEYWORD_NATL_CODE != null">
+		<![CDATA[
+			   AND NATL_CODE        LIKE CONCAT('%',#{KEYWORD_NATL_CODE},'%')	                               /* 출원국가 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_NUM != null">
+		<![CDATA[
+			   AND APPL_NUM        LIKE CONCAT('%',#{KEYWORD_APPL_NUM},'%')	                               		/* 출원번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_NUM != null">
+		<![CDATA[
+			   AND LAID_PUBLICL_NUM        LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    /* 공개번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_REGI_NUM != null">
+		<![CDATA[
+			   AND REGI_NUM        LIKE CONCAT('%',#{KEYWORD_REGI_NUM},'%')	                               		/* 등록번호 */
+		]]>
+		</if>
+		<if test="KEYWORD_SEQ_NUM_FR != null">
+		<![CDATA[
+			   AND SEQ_NUM        >= #{KEYWORD_SEQ_NUM_FR}                 										/* 연번 */
+		]]>
+		</if>
+		<if test="KEYWORD_SEQ_NUM_TO != null">
+		<![CDATA[
+			   AND SEQ_NUM        <= #{KEYWORD_SEQ_NUM_TO}                 										/* 연번 */
+		]]>
+		</if>	
+		<if test="KEYWORD_KINDS_LCATE != null">
+		<![CDATA[
+			   AND EXISTS ( SELECT PB.PATENT_ID FROM PROJECT_CATEGORY PA, PATENT_CATEGORY PB WHERE PA.PROJECT_ID = PB.PROJECT_ID AND PA.KEYWORD = PB.KEYWORD 
+                               AND PB.PROJECT_ID = PT.PROJECT_ID AND PB.PATENT_ID = PT.PATENT_ID AND PA.PROJECT_ID = #{PROJECT_ID} AND LCATE = #{KEYWORD_KINDS_LCATE})                           /* 대분류 */
+		]]>
+		</if>	
+		<if test="KEYWORD_KINDS_MCATE != null">
+		<![CDATA[
+			   AND EXISTS ( SELECT PB.PATENT_ID FROM PROJECT_CATEGORY PA, PATENT_CATEGORY PB WHERE PA.PROJECT_ID = PB.PROJECT_ID AND PA.KEYWORD = PB.KEYWORD 
+                               AND PB.PROJECT_ID = PT.PROJECT_ID AND PB.PATENT_ID = PT.PATENT_ID AND PA.PROJECT_ID = #{PROJECT_ID} AND CONCAT('%',#{KEYWORD_KINDS_MCATE},'%'))                   /* 중분류 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_OBJ != null and KEYWORD_GRADE_OBJ.equalsIgnoreCase('N')">
+		<![CDATA[
+			   AND IFNULL(GRADE_OBJ,'') = ''        	                                						/* 목적등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_OBJ != null and !KEYWORD_GRADE_OBJ.equalsIgnoreCase('N')">
+		<![CDATA[
+			   AND GRADE_OBJ        LIKE CONCAT('%',#{KEYWORD_GRADE_OBJ},'%')	                                /* 목적등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_CONST != null and KEYWORD_GRADE_CONST.equalsIgnoreCase('N')">
+		<![CDATA[
+			   AND IFNULL(GRADE_CONST,'') = ''                                 									/* 구성등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_GRADE_CONST != null and !KEYWORD_GRADE_CONST.equalsIgnoreCase('N')">
+		<![CDATA[
+			   AND GRADE_CONST      LIKE CONCAT('%',#{KEYWORD_GRADE_CONST},'%')	                                /* 구성등급 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_DATE_FR != null">
+		<![CDATA[
+			   AND APPL_DATE        >= #{KEYWORD_APPL_DATE_FR}                 /* 출원일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_APPL_DATE_TO != null">
+		<![CDATA[
+			   AND APPL_DATE        <= #{KEYWORD_APPL_DATE_TO}                 /* 출원일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_DATE_FR != null">
+		<![CDATA[
+			   AND LAID_PUBLIC_DATE >= #{KEYWORD_LAID_PUBLIC_DATE_FR}   /* 공개일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_LAID_PUBLIC_DATE_TO != null">
+		<![CDATA[
+			   AND LAID_PUBLIC_DATE <= #{KEYWORD_LAID_PUBLIC_DATE_TO}   /* 공개일자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REVIEWER != null">
+		<![CDATA[
+			   AND REVIEWER    LIKE CONCAT('%',#{KEYWORD_REVIEWER},'%')                                         /* 검토자 */
+		]]>
+		</if>
+		<if test="KEYWORD_REVIEW_FLAG != null and !KEYWORD_REVIEW_FLAG.equals('')">
+		<![CDATA[
+			   AND REVIEW_FLAG = #{KEYWORD_REVIEW_FLAG}                                                         /* 검토구분 */
+		]]>
+		</if>
+		<if test="KEYWORD_KEYWORD != null">
+		<![CDATA[
+			   AND EXISTS ( SELECT 1 FROM PATENT_CATEGORY WHERE PROJECT_ID = PT.PROJECT_ID AND PATENT_ID = PT.PATENT_ID
+			                   AND KEYWORD LIKE CONCAT('%',#{KEYWORD_KEYWORD},'%'))                                     /* 키워드 */
+		]]>
+		</if>
+		<if test="REVIEW_FLAG != null and !REVIEW_FLAG.equals('')">
+		<![CDATA[
+			   AND REVIEW_FLAG = #{REVIEW_FLAG}                                                         /* 검토구분 */
+		]]>
+		</if>
+		<if test="IMPORTANT_YN != null">
+		<![CDATA[
+			   AND IMPORTANT_YN = #{IMPORTANT_YN}                                                      /* 중요특허여부 */
+		]]>
+		</if>				
+		<![CDATA[	   
+			 ORDER BY SEQ_NUM	
+		]]>
+		<if test="PAGE_NO != null">
+		<![CDATA[
+			 LIMIT #{PAGE_FR}, #{PAGE_CNT}
+		]]>
+		</if>	
+	</select>
+	
+	<!-- 특허 조회 -->
+	<select id="selectPatentDtl" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID            /* 프로젝트아이디 */
+			     , PATENT_ID             /* 특허아이디 */
+			     , NATL_CODE             /* 국가코드 */
+			     , KINDS_IP_TYPE         /* 특허/실용구분 */
+			     , KINDS_IP_CODE         /* 문헌종류코드 */
+			     , TITLE                 /* 발명의명칭 */
+			     , APPL_NUM              /* 출원번호 */
+			     , APPL_NUM_ORG          /* 출원번호_원본 */
+			     , CASE WHEN APPL_DATE IS NOT NULL AND APPL_DATE <> '' THEN CAST(STR_TO_DATE(APPL_DATE,'%Y%m%d') AS CHAR) ELSE APPL_DATE END AS APPL_DATE /* 출원일자 */
+			     , APPLICANT             /* 출원인 */
+			     , APPLICANT_NATL        /* 출원인국가 */
+			     , PRIORITY_NATL         /* 우선권국가 */
+			     , PRIORITY_NUM          /* 우선권번호 */
+			     , CASE WHEN PRIORITY_DATE IS NOT NULL AND PRIORITY_DATE <> '' THEN CAST(STR_TO_DATE(PRIORITY_DATE,'%Y%m%d') AS CHAR) ELSE PRIORITY_DATE END AS PRIORITY_DATE /* 우선권주장일 */
+			     , IFNULL(ABSTRACT,'')   ABSTRACT              /* 요약 */
+			     , IFNULL(CLAIM_MAIN,'') CLAIM_MAIN            /* 대표청구항 */
+			     , LAID_PUBLIC_NUM       /* 공개번호 */
+			     , CASE WHEN LAID_PUBLIC_DATE IS NOT NULL AND LAID_PUBLIC_DATE <> '' THEN CAST(STR_TO_DATE(LAID_PUBLIC_DATE,'%Y%m%d') AS CHAR) ELSE LAID_PUBLIC_DATE END AS LAID_PUBLIC_DATE /* 공개일 */
+			     , REGI_NUM              /* 등록번호 */
+			     , CASE WHEN REGI_DATE IS NOT NULL AND REGI_DATE <> '' THEN CAST(STR_TO_DATE(REGI_DATE,'%Y%m%d') AS CHAR) ELSE REGI_DATE END AS REGI_DATE /* 등록일 */
+			     , INVENTOR              /* 발명자/고인자 */
+			     , IPC_ALL               /* IPC(All) */
+			     , F_TERM_JP             /* F-Term(JP) */
+			     , FI_CODE_JP            /* FI코드(JP) */
+			     , UPC_CURRENT_ALL       /* 미국분류(Current-All) */
+			     , BC_COUNT              /* 인용문헌수(B1) */
+			     , BC_BE_NUM             /* 인용문헌번호 (B1) + 심사관(BE) 인용 (KR,US) */
+			     , FC_COUNT              /* 인용문헌수 (F1) */
+			     , FC_FE_NUM             /* 인용문헌번호 (F1) + 심사관(FE) 인용 (KR,US) */
+			     , FM_NUM                /* 패밀리문헌번호(출원기준) */
+			     , FM_COUNT              /* 패밀리문헌수(출원기준) */
+			     , LEGAL_STATUS_DOCDB    /* DOCDB법적상태 */
+			     , SEQ_NUM               /* 연번 */
+			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CONCAT('* ',APPLICANT) ELSE APPLICANT_RENAME END APPLICANT_RENAME       /* 출원인대표명화 */
+			     , FM_TYPE               /* 패밀리구분 */
+			     , FM_SEQ_NUM            /* 패밀리연번 */
+			     , IMAGE_MAIN            /* 대표도면 */
+			     , IMAGE_SMALL           /* 대표도면(작은사이즈) */
+			     , PATENT_FULLTXT        /* 특허전문 */
+			     , PATENT_TRANS_FULLTXT  /* 번역문 */
+			     , REVIEWER              /* 검토자 */
+			     , CASE WHEN REVIEW_DATE IS NOT NULL AND REVIEW_DATE <> '' THEN CAST(STR_TO_DATE(REVIEW_DATE,'%Y%m%d') AS CHAR) ELSE REVIEW_DATE END AS PRIORITY_DATE /* 검토일자 */
+			     , REVIEW_FLAG           /* 검토구분 */
+			     , KINDS_TECH            /* 기술분류 */
+			     , KINDS_LCATE           /* 대분류 */
+			     , KINDS_MCATE           /* 중분류 */
+			     , GRADE_IDEA            /* Idea등급 */
+			     , IFNULL(GRADE_OBJ,'')   GRADE_OBJ            /* 목적등급 */
+			     , IFNULL(GRADE_CONST,'') GRADE_CONST          /* 구성등급 */
+			     , LEGAL_STATUS          /* 법적상태 */
+			     , IFNULL(CMT_LAW_FIRMS,'') CMT_LAW_FIRMS         /* 검토의견(사무소) */
+			     , IFNULL(CMT_CO,'')        CMT_CO                /* 검토의견(참여기관) */
+			     , IMPORTANT_YN          /* 중요특허여부 */
+			     , DEL_YN                /* 삭제여부 */
+			     , RESERVE_TITLE_1       /* 임시컬럼1 */
+			     , RESERVE_CONTENT_1     /* 임시컬럼내용1 */
+			     , RESERVE_TITLE_2       /* 임시컬럼2 */
+			     , RESERVE_CONTENT_2     /* 임시컬럼내용2 */
+			     , RESERVE_TITLE_3       /* 임시컬럼3 */
+			     , RESERVE_CONTENT_3     /* 임시컬럼내용3 */
+			     , RESERVE_TITLE_4       /* 임시컬럼4 */
+			     , RESERVE_CONTENT_4     /* 임시컬럼내용4 */
+			     , RESERVE_TITLE_5       /* 임시컬럼5 */
+			     , RESERVE_CONTENT_5     /* 임시컬럼내용5 */
+			     , RESERVE_TITLE_6       /* 임시컬럼6 */
+			     , RESERVE_CONTENT_6     /* 임시컬럼내용6 */
+			     , RESERVE_TITLE_7       /* 임시컬럼7 */
+			     , RESERVE_CONTENT_7     /* 임시컬럼내용7 */
+			  FROM PATENT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND PATENT_ID  = #{PATENT_ID}
+		]]>
+	</select>
+	
+	<!-- 핵심특허 조회 -->
+	<select id="selectExistsPatent" resultType="java.lang.String" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'T' ELSE 'F' END DUP_CHECK
+			  FROM (
+						SELECT COUNT(*) CNT
+						  FROM PATENT
+						 WHERE PROJECT_ID = #{PROJECT_ID}
+			       ) A				
+		]]>
+	</select>
+
+
+	<!-- 핵심특허 조회 -->
+	<select id="selectKeyPatentList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PM.PROJECT_ID         /* 프로젝트아이디 */
+			     , PM.PATENT_ID          /* 특허아이디 */
+			     , PM.TITLE              /* 발명의명칭 */
+			     , PM.APPL_NUM           /* 출원번호 */
+			     , PM.SEQ_NUM            /* 연번 */
+			     , CASE WHEN PM.GRADE_OBJ = 'S' OR PM.GRADE_CONST = 'S' THEN 'S' ELSE 'X' END GRADE_CONST      /* 구성등급 */
+			  FROM PATENT PM
+		]]>
+		<if test="MCATE01 != null and !MCATE01.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, MCATE MCATE01, '' MCATE02, '' MCATE03, '' MCATE04, '' MCATE05, '' MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '01'
+					   AND PR.MCATE      = #{MCATE01}
+ 				    ) MC01
+		]]></if>
+		<if test="MCATE02 != null and !MCATE02.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, MCATE MCATE02, '' MCATE03, '' MCATE04, '' MCATE05, '' MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '02'
+					   AND PR.MCATE      = #{MCATE02}
+ 				    ) MC02
+		]]></if>
+		<if test="MCATE03 != null and !MCATE03.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, '' MCATE02, MCATE MCATE03, '' MCATE04, '' MCATE05, '' MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '03'
+					   AND PR.MCATE      = #{MCATE03}
+ 				    ) MC03
+		]]></if>
+		<if test="MCATE04 != null and !MCATE04.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, '' MCATE02, '' MCATE03, MCATE MCATE04, '' MCATE05, '' MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '04'
+					   AND PR.MCATE      = #{MCATE04}
+ 				    ) MC04
+		]]></if>
+		<if test="MCATE05 != null and !MCATE05.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, '' MCATE02, '' MCATE03, '' MCATE04, MCATE MCATE05, '' MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '05'
+					   AND PR.MCATE      = #{MCATE05}
+ 				    ) MC05
+		]]></if>
+		<if test="MCATE06 != null and !MCATE06.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, '' MCATE02, '' MCATE03, '' MCATE04, '' MCATE05, MCATE MCATE06, '' MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '06'
+					   AND PR.MCATE      = #{MCATE06}
+ 				    ) MC06
+		]]></if>
+		<if test="MCATE07 != null and !MCATE07.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, '' MCATE02, '' MCATE03, '' MCATE04, '' MCATE05, '' MCATE06, MCATE MCATE07, '' MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '07'
+					   AND PR.MCATE      = #{MCATE07}
+ 				    ) MC07
+		]]></if>
+		<if test="MCATE08 != null and !MCATE08.equals('')"><![CDATA[
+			     , (
+					SELECT PA.PROJECT_ID, PA.PATENT_ID, '' MCATE01, MCATE MCATE02, '' MCATE03, '' MCATE04, '' MCATE05, '' MCATE06, '' MCATE07, MCATE MCATE08
+					  FROM PATENT_CATEGORY  PA
+					     , PROJECT_CATEGORY PR
+					 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+					   AND PA.KEYWORD    = PR.KEYWORD
+					   AND PA.PROJECT_ID = #{PROJECT_ID}
+					   AND PR.LCATE      = '08'
+					   AND PR.MCATE      = #{MCATE08}
+ 				    ) MC08
+		]]></if>												
+		<![CDATA[
+			 WHERE PM.PROJECT_ID = #{PROJECT_ID}	
+			   AND PM.DEL_YN     = '0'		 
+		]]>
+		<if test="MCATE01 != null and !MCATE01.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC01.PROJECT_ID
+			   AND PM.PATENT_ID  = MC01.PATENT_ID
+		]]></if>	
+		<if test="MCATE02 != null and !MCATE02.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC02.PROJECT_ID
+			   AND PM.PATENT_ID  = MC02.PATENT_ID
+		]]></if>	
+		<if test="MCATE03 != null and !MCATE03.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC03.PROJECT_ID
+			   AND PM.PATENT_ID  = MC03.PATENT_ID
+		]]></if>	
+		<if test="MCATE04 != null and !MCATE04.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC04.PROJECT_ID
+			   AND PM.PATENT_ID  = MC04.PATENT_ID
+		]]></if>	
+		<if test="MCATE05 != null and !MCATE05.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC05.PROJECT_ID
+			   AND PM.PATENT_ID  = MC05.PATENT_ID
+		]]></if>	
+		<if test="MCATE06 != null and !MCATE06.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC06.PROJECT_ID
+			   AND PM.PATENT_ID  = MC06.PATENT_ID
+		]]></if>	
+		<if test="MCATE07 != null and !MCATE07.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC07.PROJECT_ID
+			   AND PM.PATENT_ID  = MC07.PATENT_ID
+		]]></if>	
+		<if test="MCATE08 != null and !MCATE08.equals('')"><![CDATA[
+			   AND PM.PROJECT_ID = MC08.PROJECT_ID
+			   AND PM.PATENT_ID  = MC08.PATENT_ID
+		]]></if>										
+		<![CDATA[			   
+			 ORDER BY PM.SEQ_NUM			 
+		]]>
+	</select>	
+	
+	<!-- 중복 출원번호 여부 조회 -->
+	<select id="selectExistsApplNum" resultType="java.lang.String" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'T' ELSE 'F' END DUP_CHECK
+			  FROM (
+						SELECT COUNT(*) CNT
+						  FROM PATENT
+						 WHERE PROJECT_ID = #{PROJECT_ID}
+						   AND NATL_CODE  = #{NATL_CODE}
+						   AND APPL_NUM   = #{APPL_NUM}
+			       ) A				
+		]]>
+	</select>
+	
+	<!-- 키워드 저장 -->
+	<update id="updatePatent" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PATENT
+			   SET ABSTRACT             = #{ABSTRACT}               /* 요약 */
+			     , CLAIM_MAIN           = #{CLAIM_MAIN}             /* 대표청구항 */
+			     , CMT_LAW_FIRMS        = #{CMT_LAW_FIRMS}          /* 검토의견(사무소) */
+			     , CMT_CO               = #{CMT_CO}                 /* 검토의견(참여기관) */
+		]]>
+		<if test="GRADE_OBJ != null"><![CDATA[			     
+			     , GRADE_OBJ            = #{GRADE_OBJ}              /* 목적등급 */
+		]]></if>										
+		<if test="IMPORTANT_YN != null"><![CDATA[			     
+			     , IMPORTANT_YN        = #{IMPORTANT_YN}            /* 중요특허여부 */
+		]]></if>										
+		<if test="REVIEWER != null"><![CDATA[			     
+			     , REVIEWER            = #{REVIEWER}                /* 검토자 */
+		]]></if>												
+		<if test="REVIEW_FLAG != null"><![CDATA[			     
+			     , REVIEW_FLAG         = #{REVIEW_FLAG}             /* 검토구분 */
+		]]></if>									
+		<if test="GRADE_CONST != null"><![CDATA[			     
+			     , GRADE_CONST          = #{GRADE_CONST}            /* 구성등급 */
+		]]></if>										
+		<if test="LEGAL_STATUS != null"><![CDATA[			     
+			     , LEGAL_STATUS         = #{LEGAL_STATUS}           /* 법적상태 */
+		]]></if>										
+		<if test="RESERVE_TITLE_1 != null"><![CDATA[			     
+			     , RESERVE_TITLE_1      = #{RESERVE_TITLE_1}        /* 임시컬럼1 */
+			     , RESERVE_CONTENT_1    = #{RESERVE_CONTENT_1}      /* 임시컬럼내용1 */
+		]]></if>										
+		<if test="RESERVE_TITLE_2 != null"><![CDATA[			     
+			     , RESERVE_TITLE_2      = #{RESERVE_TITLE_2}        /* 임시컬럼2 */
+			     , RESERVE_CONTENT_2    = #{RESERVE_CONTENT_2}      /* 임시컬럼내용2 */
+		]]></if>										
+		<if test="RESERVE_TITLE_3 != null"><![CDATA[			     
+			     , RESERVE_TITLE_3      = #{RESERVE_TITLE_3}        /* 임시컬럼3 */
+			     , RESERVE_CONTENT_3    = #{RESERVE_CONTENT_3}      /* 임시컬럼내용3 */
+		]]></if>										
+		<if test="RESERVE_TITLE_4 != null"><![CDATA[			     
+			     , RESERVE_TITLE_4      = #{RESERVE_TITLE_4}        /* 임시컬럼4 */
+			     , RESERVE_CONTENT_4    = #{RESERVE_CONTENT_4}      /* 임시컬럼내용4 */
+		]]></if>										
+		<if test="RESERVE_TITLE_5 != null"><![CDATA[			     
+			     , RESERVE_TITLE_5      = #{RESERVE_TITLE_5}        /* 임시컬럼5 */
+			     , RESERVE_CONTENT_5    = #{RESERVE_CONTENT_5}      /* 임시컬럼내용5 */
+		]]></if>										
+		<if test="RESERVE_TITLE_6 != null"><![CDATA[			     
+			     , RESERVE_TITLE_6      = #{RESERVE_TITLE_6}        /* 임시컬럼6 */
+			     , RESERVE_CONTENT_6    = #{RESERVE_CONTENT_6}      /* 임시컬럼내용6 */
+		]]></if>										
+		<if test="RESERVE_TITLE_7 != null"><![CDATA[			     
+			     , RESERVE_TITLE_7      = #{RESERVE_TITLE_7}        /* 임시컬럼7 */
+			     , RESERVE_CONTENT_7    = #{RESERVE_CONTENT_7}      /* 임시컬럼내용7 */
+		]]></if>										
+		<![CDATA[			     
+				 , UPD_USER             = #{LOGIN_ID}               /* 수정자 */
+			     , UPD_DATE             = NOW()                     /* 수정일 */
+			 WHERE PROJECT_ID           = #{PROJECT_ID}
+			   AND PATENT_ID            = CAST(#{PATENT_ID} AS UNSIGNED)
+		]]>
+	</update>	
+	
+	<!-- 키워드 저장 -->
+	<update id="updateKeyword" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET KEYWORD     = CONCAT(CASE WHEN ISNULL(KEYWORD) THEN '' ELSE '|' END, #{KEYWORD})
+				 , UPD_USER    = #{LOGIN_ID}
+			     , UPD_DATE    = NOW()
+		     WHERE PROJECT_ID  = #{PROJECT_ID}
+		]]>
+		<if test="FAST_SEARCH != null">
+		<![CDATA[
+			   AND (TITLE LIKE CONCAT('%',#{FAST_SEARCH},'%') OR ABSTRACT LIKE CONCAT('%',#{FAST_SEARCH},'%') OR CLAIM_MAIN LIKE CONCAT('%',#{FAST_SEARCH},'%'))
+		]]>
+		</if>
+		<if test="TITLE != null">
+		<![CDATA[
+			   AND TITLE            LIKE CONCAT('%',#{TITLE},'%')	                                    /* 발명의명칭 */
+		]]>
+		</if>
+		<if test="ABSTRACT != null">
+		<![CDATA[
+			   AND ABSTRACT         LIKE CONCAT('%',#{ABSTRACT},'%')	                                /* 요약 */
+		]]>
+		</if>
+		<if test="CLAIM_MAIN != null">
+		<![CDATA[
+			   AND CLAIM_MAIN       LIKE CONCAT('%',#{CLAIM_MAIN},'%')	                                /* 대표청구항 */
+		]]>
+		</if>
+	</update>	
+		
+	<!-- 중요특허여부 저장 -->
+	<update id="updateImportantYn" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET IMPORTANT_YN = #{IMPORTANT_YN}
+				 , UPD_USER     = #{LOGIN_ID}
+			     , UPD_DATE     = NOW()
+		     WHERE PROJECT_ID   = #{PROJECT_ID}
+			   AND PATENT_ID    = #{PATENT_ID}
+		]]>
+	</update>	
+	
+	<!-- 특허 삭제 -->
+	<update id="updateDelYn" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET DEL_YN       = #{DEL_YN} 
+				 , UPD_USER     = #{LOGIN_ID}
+			     , UPD_DATE     = NOW()
+		     WHERE PROJECT_ID   = #{PROJECT_ID}
+			   AND PATENT_ID    = #{PATENT_ID}
+		]]>
+	</update>		
+		
+	<!-- 업로드 임시 조회 -->
+	<select id="selectUploadTempList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT USER_ID, KINDS_DB, A_01, A_02, A_03, A_04, A_05, A_06, A_07, A_08, A_09, A_10
+			     , A_11, A_12, A_13, A_14, A_15, A_16, A_17, A_18, A_19, A_20
+			     , A_21, A_22, A_23, A_24, A_25, A_26, A_27, A_28, A_29, A_30
+			     , A_31, A_32, A_33, A_34, A_35, A_36, A_37, A_38, A_39, A_40
+			     , A_41, A_42, A_43, A_44, A_45, A_46, A_47, A_48, A_49, A_50
+			     , A_51, A_52, A_53, A_54, A_55, A_56, A_57, A_58, A_59, A_60       
+			  FROM UPLOAD_TEMP
+			 WHERE USER_ID = #{USER_ID}
+		]]>
+	</select>
+	
+	<!-- 업로드 임시 저장 -->
+	<insert id="insertUploadTemp" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO UPLOAD_TEMP
+			     ( USER_ID, KINDS_DB, A_01, A_02, A_03, A_04, A_05, A_06, A_07, A_08, A_09, A_10
+			     , A_11, A_12, A_13, A_14, A_15, A_16, A_17, A_18, A_19, A_20
+			     , A_21, A_22, A_23, A_24, A_25, A_26, A_27, A_28, A_29, A_30
+			     , A_31, A_32, A_33, A_34, A_35, A_36, A_37, A_38, A_39, A_40
+			     , A_41, A_42, A_43, A_44, A_45, A_46, A_47, A_48, A_49, A_50
+			     , A_51, A_52, A_53, A_54, A_55, A_56, A_57, A_58, A_59, A_60 )
+			VALUES
+			    ( #{USER_ID},  #{KINDS_DB}, #{A_01}, #{A_02}, #{A_03}, #{A_04}, #{A_05}, #{A_06}, #{A_07}, #{A_08}, #{A_09}, #{A_10}
+			    , #{A_11}, #{A_12}, #{A_13}, #{A_14}, #{A_15}, #{A_16}, #{A_17}, #{A_18}, #{A_19}, #{A_20}  
+			    , #{A_21}, #{A_22}, #{A_23}, #{A_24}, #{A_25}, #{A_26}, #{A_27}, #{A_28}, #{A_29}, #{A_30}  
+			    , #{A_31}, #{A_32}, #{A_33}, #{A_34}, #{A_35}, #{A_36}, #{A_37}, #{A_38}, #{A_39}, #{A_40}  
+			    , #{A_41}, #{A_42}, #{A_43}, #{A_44}, #{A_45}, #{A_46}, #{A_47}, #{A_48}, #{A_49}, #{A_50}  
+			    , #{A_51}, #{A_52}, #{A_53}, #{A_54}, #{A_55}, #{A_56}, #{A_57}, #{A_58}, #{A_59}, #{A_60} )
+		]]>
+	</insert>
+	
+	<!-- 특허 임시 조회 -->
+	<select id="selectPatentTempList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PT.PATENT_ID
+			     , PT.USER_ID
+			     , PT.NATL_CODE
+			     , PT.KINDS_IP_TYPE
+			     , PT.KINDS_IP_CODE
+			     , PT.TITLE
+			     , PT.APPL_NUM
+			     , PT.APPL_NUM_ORG
+			     , PT.APPL_DATE
+			     , PT.APPLICANT
+			     , PT.APPLICANT_NATL
+			     , PT.PRIORITY_NATL
+			     , PT.PRIORITY_NUM
+			     , PT.PRIORITY_DATE
+			     , PT.ABSTRACT
+			     , PT.CLAIM_MAIN
+			     , PT.LAID_PUBLIC_NUM
+			     , PT.LAID_PUBLIC_DATE
+			     , PT.REGI_NUM
+			     , PT.REGI_DATE
+			     , PT.INVENTOR
+			     , PT.IPC_ALL
+			     , PT.F_TERM_JP
+			     , PT.FI_CODE_JP
+			     , PT.UPC_CURRENT_ALL
+			     , PT.BC_COUNT
+			     , PT.BC_BE_NUM
+			     , PT.FC_COUNT
+			     , PT.FC_FE_NUM
+			     , PT.FM_NUM
+			     , PT.FM_COUNT
+			     , PT.LEGAL_STATUS_DOCDB 
+			     , CAST(PC.CNT AS CHAR) CNT  
+			  FROM PATENT_TEMP PT
+			     , ( 
+			         SELECT NATL_CODE, APPL_NUM, COUNT(*) CNT
+			           FROM PATENT_TEMP
+			          WHERE USER_ID = #{USER_ID}
+			          GROUP BY NATL_CODE, APPL_NUM
+			       ) PC
+			     , COMMON CM
+			 WHERE PT.USER_ID = #{USER_ID}
+			   AND PT.NATL_CODE = PC.NATL_CODE
+			   AND PT.APPL_NUM  = PC.APPL_NUM
+			   AND CM.GROUP_CODE = '27'
+               AND CM.COMM_CODE = PT.KINDS_IP_CODE
+			 ORDER BY PT.NATL_CODE, PT.APPL_NUM, CM.ORDER_SEQ
+		]]>
+	</select>
+	
+	<!-- 특허 임시 저장 -->
+	<insert id="insertPatentTemp" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PATENT_TEMP
+			     ( USER_ID
+			     , NATL_CODE
+			     , KINDS_IP_TYPE
+			     , KINDS_IP_CODE
+			     , TITLE
+			     , APPL_NUM
+			     , APPL_NUM_ORG
+			     , APPL_DATE
+			     , APPLICANT
+			     , APPLICANT_NATL
+			     , PRIORITY_NATL
+			     , PRIORITY_NUM
+			     , PRIORITY_DATE
+			     , ABSTRACT
+			     , CLAIM_MAIN
+			     , LAID_PUBLIC_NUM
+			     , LAID_PUBLIC_DATE
+			     , REGI_NUM
+			     , REGI_DATE
+			     , INVENTOR
+			     , IPC_ALL
+			     , F_TERM_JP
+			     , FI_CODE_JP
+			     , UPC_CURRENT_ALL
+			     , BC_COUNT
+			     , BC_BE_NUM
+			     , FC_COUNT
+			     , FC_FE_NUM
+			     , FM_NUM
+			     , FM_COUNT
+			     , LEGAL_STATUS_DOCDB )
+			VALUES
+			     ( #{USER_ID}
+			     , #{NATL_CODE}
+			     , #{KINDS_IP_TYPE}
+			     , #{KINDS_IP_CODE}
+			     , #{TITLE}
+			     , #{APPL_NUM}
+			     , #{APPL_NUM_ORG}
+			     , #{APPL_DATE}
+			     , #{APPLICANT}
+			     , #{APPLICANT_NATL}
+			     , #{PRIORITY_NATL}
+			     , #{PRIORITY_NUM}
+			     , #{PRIORITY_DATE}
+			     , #{ABSTRACT}
+			     , #{CLAIM_MAIN}
+			     , #{LAID_PUBLIC_NUM}
+			     , #{LAID_PUBLIC_DATE}
+			     , #{REGI_NUM}
+			     , #{REGI_DATE}
+			     , #{INVENTOR}
+			     , #{IPC_ALL}
+			     , #{F_TERM_JP}
+			     , #{FI_CODE_JP}
+			     , #{UPC_CURRENT_ALL}
+			     , #{BC_COUNT}
+			     , #{BC_BE_NUM}
+			     , #{FC_COUNT}
+			     , #{FC_FE_NUM}
+			     , #{FM_NUM}
+			     , #{FM_COUNT}
+			     , #{LEGAL_STATUS_DOCDB} )
+		]]>
+	</insert>
+	
+	<!-- 연번부여를 위해 정렬 후 조회 -->
+	<select id="selectSeqNumList" resultType="hashMap" parameterType="java.lang.String" >
+		<if test="FLAG == 01">
+		<![CDATA[
+			SELECT PROJECT_ID, PATENT_ID, SEQ_NUM, FM_NUM, FM_SEQ_NUM, FM_TYPE
+			  FROM PATENT 
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN = '0'
+			 ORDER BY FM_NUM, SEQ_NUM
+		]]>
+		</if>
+		<if test="FLAG == 02">
+		<![CDATA[
+			SELECT P.PATENT_ID, P.NATL_CODE, P.APPL_DATE
+			  FROM PATENT P
+			     , (SELECT * FROM COMMON WHERE GROUP_CODE = '23') C
+			 WHERE P.NATL_CODE  = C.COMM_CODE
+			   AND P.PROJECT_ID = #{PROJECT_ID}
+			   AND P.DEL_YN = '0'
+			 ORDER BY C.ORDER_SEQ, P.APPL_NUM, P.APPL_DATE
+		]]>
+		</if>
+		<if test="FLAG == 03">
+		<![CDATA[
+			SELECT PATENT_ID, FM_NUM, BC_BE_NUM, FC_FE_NUM, PROJECT_ID
+			     , CONCAT(NATL_CODE, LAID_PUBLIC_NUM, KINDS_IP_CODE) APPL_KEY
+			  FROM PATENT 
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN = '0'
+			 ORDER BY SEQ_NUM
+		]]>
+		</if>
+		<if test="FLAG == 04">
+		<![CDATA[
+			SELECT PATENT_ID, PROJECT_ID, APPLICANT, KINDS_IP_TYPE, KINDS_IP_CODE, APPL_NUM, NATL_CODE
+			  FROM PATENT 
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN = '0'
+		]]>
+		<if test="NATL_CODE != null">
+		<![CDATA[
+			  AND NATL_CODE   = #{NATL_CODE}
+		]]>
+		</if>
+		<![CDATA[
+			 ORDER BY SEQ_NUM
+		]]>
+		</if>
+	</select>
+	
+	<!-- OS 매트릭스 조회 -->
+	<select id="selectMcateList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PR.MCATE
+			  FROM PATENT_CATEGORY  PA
+				 , PROJECT_CATEGORY PR
+				 , PATENT           PM
+			 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+			   AND PA.KEYWORD    = PR.KEYWORD
+			   AND PA.PROJECT_ID = PM.PROJECT_ID
+			   AND PA.PATENT_ID  = PM.PATENT_ID
+			   AND PA.PROJECT_ID = #{PROJECT_ID}
+			   AND IFNULL(PR.MCATE,'') <> ''
+		]]>
+		<if test="FLAG == 01">
+		<![CDATA[
+			   AND PR.LCATE IN ('01','02')
+		]]>
+		</if>
+		<if test="FLAG == 02">
+		<![CDATA[
+			   AND PR.LCATE NOT IN ('01','02')
+		]]>
+		</if>
+		<![CDATA[
+			 GROUP BY PR.MCATE
+			 ORDER BY PR.LCATE, PR.MCATE
+		]]>
+	</select>	
+
+	<!-- OS 매트릭스 특허 조회 -->
+	<select id="selectOSMatrixList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PM.PATENT_ID, PR.MCATE, PM.APPL_NUM
+			     , IFNULL(IFNULL(PM.APPLICANT_RENAME, PM.APPLICANT),'')                       APPLICANT
+			     , CASE WHEN PM.GRADE_OBJ = 'S' OR PM.GRADE_CONST = 'S' THEN 'S' ELSE 'X' END GRADE
+			  FROM PATENT_CATEGORY  PA
+				 , PROJECT_CATEGORY PR
+				 , PATENT           PM
+			 WHERE PA.PROJECT_ID = PR.PROJECT_ID
+			   AND PA.KEYWORD    = PR.KEYWORD
+			   AND PA.PROJECT_ID = PM.PROJECT_ID
+			   AND PA.PATENT_ID  = PM.PATENT_ID
+			   AND PA.PROJECT_ID = #{PROJECT_ID}
+			   AND IFNULL(PR.MCATE,'') <> ''
+		]]>
+		<if test="FLAG == 01">
+		<![CDATA[
+			   AND PR.LCATE IN ('01','02')
+		]]>
+		</if>
+		<if test="FLAG == 02">
+		<![CDATA[
+			   AND PR.LCATE NOT IN ('01','02')
+		]]>
+		</if>
+	</select>	
+		
+	<!-- 특허 저장 -->
+	<insert id="insertPatent" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PATENT
+			     ( PROJECT_ID
+			     , NATL_CODE
+			     , KINDS_IP_TYPE
+			     , KINDS_IP_CODE
+			     , TITLE
+			     , APPL_NUM
+			     , APPL_NUM_ORG
+			     , APPL_DATE
+			     , APPLICANT
+			     , APPLICANT_NATL
+			     , PRIORITY_NATL
+			     , PRIORITY_NUM
+			     , PRIORITY_DATE
+			     , ABSTRACT
+			     , CLAIM_MAIN
+			     , LAID_PUBLIC_NUM
+			     , LAID_PUBLIC_DATE
+			     , REGI_NUM
+			     , REGI_DATE
+			     , INVENTOR
+			     , IPC_ALL
+			     , F_TERM_JP
+			     , FI_CODE_JP
+			     , UPC_CURRENT_ALL
+			     , BC_COUNT
+			     , BC_BE_NUM
+			     , FC_COUNT
+			     , FC_FE_NUM
+			     , FM_NUM
+			     , FM_COUNT
+			     , LEGAL_STATUS_DOCDB
+			     , IMAGE_MAIN
+			     , IMAGE_SMALL
+			     , PATENT_FULLTXT
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES
+			     ( #{PROJECT_ID}
+			     , #{NATL_CODE}
+			     , #{KINDS_IP_TYPE}
+			     , #{KINDS_IP_CODE}
+			     , #{TITLE}
+			     , #{APPL_NUM}
+			     , #{APPL_NUM_ORG}
+			     , #{APPL_DATE}
+			     , #{APPLICANT}
+			     , #{APPLICANT_NATL}
+			     , #{PRIORITY_NATL}
+			     , #{PRIORITY_NUM}
+			     , #{PRIORITY_DATE}
+			     , #{ABSTRACT}
+			     , #{CLAIM_MAIN}
+			     , #{LAID_PUBLIC_NUM}
+			     , #{LAID_PUBLIC_DATE}
+			     , #{REGI_NUM}
+			     , #{REGI_DATE}
+			     , #{INVENTOR}
+			     , #{IPC_ALL}
+			     , #{F_TERM_JP}
+			     , #{FI_CODE_JP}
+			     , #{UPC_CURRENT_ALL}
+			     , #{BC_COUNT}
+			     , #{BC_BE_NUM}
+			     , #{FC_COUNT}
+			     , #{FC_FE_NUM}
+			     , #{FM_NUM}
+			     , #{FM_COUNT}
+			     , #{LEGAL_STATUS_DOCDB}
+			     , #{IMAGE_MAIN}
+			     , #{IMAGE_SMALL}
+			     , #{PATENT_FULLTXT}
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() )
+		]]>
+	</insert>
+	
+		
+	<!-- 특허 저장 -->
+	<update id="insertToSelectPatent" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PATENT
+			     ( PROJECT_ID
+			     , NATL_CODE
+			     , KINDS_IP_TYPE
+			     , KINDS_IP_CODE
+			     , TITLE
+			     , APPL_NUM
+			     , APPL_NUM_ORG
+			     , APPL_DATE
+			     , APPLICANT
+			     , APPLICANT_NATL
+			     , PRIORITY_NATL
+			     , PRIORITY_NUM
+			     , PRIORITY_DATE
+			     , ABSTRACT
+			     , CLAIM_MAIN
+			     , LAID_PUBLIC_NUM
+			     , LAID_PUBLIC_DATE
+			     , REGI_NUM
+			     , REGI_DATE
+			     , INVENTOR
+			     , IPC_ALL
+			     , F_TERM_JP
+			     , FI_CODE_JP
+			     , UPC_CURRENT_ALL
+			     , BC_COUNT
+			     , BC_BE_NUM
+			     , FC_COUNT
+			     , FC_FE_NUM
+			     , FM_NUM
+			     , FM_COUNT
+			     , LEGAL_STATUS_DOCDB
+			     , IMAGE_MAIN
+			     , IMAGE_SMALL
+			     , PATENT_FULLTXT
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			SELECT #{PROJECT_ID}
+			     , NATL_CODE
+			     , KINDS_IP_TYPE
+			     , KINDS_IP_CODE
+			     , TITLE
+			     , APPL_NUM
+			     , APPL_NUM_ORG
+			     , APPL_DATE
+			     , APPLICANT
+			     , APPLICANT_NATL
+			     , PRIORITY_NATL
+			     , PRIORITY_NUM
+			     , PRIORITY_DATE
+			     , ABSTRACT
+			     , CLAIM_MAIN
+			     , LAID_PUBLIC_NUM
+			     , LAID_PUBLIC_DATE
+			     , REGI_NUM
+			     , REGI_DATE
+			     , INVENTOR
+			     , IPC_ALL
+			     , F_TERM_JP
+			     , FI_CODE_JP
+			     , UPC_CURRENT_ALL
+			     , BC_COUNT
+			     , BC_BE_NUM
+			     , FC_COUNT
+			     , FC_FE_NUM
+			     , FM_NUM
+			     , FM_COUNT
+			     , LEGAL_STATUS_DOCDB
+			     , #{IMAGE_MAIN}
+			     , #{IMAGE_SMALL}
+			     , #{PATENT_FULLTXT}
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() 
+			  FROM PATENT_TEMP
+			 WHERE PATENT_ID = #{PATENT_ID}
+		]]>
+	</update>
+	
+	<!-- 특허 연번 수정 -->
+	<update id="updateSeqNum" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET SEQ_NUM     = #{SEQ_NUM}
+				 , UPD_USER    = #{LOGIN_ID}
+			     , UPD_DATE    = NOW()
+		     WHERE PROJECT_ID  = #{PROJECT_ID}
+		       AND PATENT_ID   = #{PATENT_ID}
+		]]>
+	</update>
+		
+	<!-- 출원인 대표명 수정 -->
+	<update id="updateAllApplicantRename" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT A
+			   SET APPLICANT_RENAME = (SELECT RE_APPLICANT FROM ADMIN_APPLICANT WHERE ADMIN_ID = #{ADMIN_ID} AND APPLICANT = A.APPLICANT)
+                 , UPD_USER         = #{LOGIN_ID}
+			     , UPD_DATE         = NOW() 
+			 WHERE PROJECT_ID       = #{PROJECT_ID}
+		]]>
+	</update>
+		
+	<!-- 출원인 대표명 수정 -->
+	<update id="updateApplicantRename" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT A
+			   SET APPLICANT_RENAME = (SELECT RE_APPLICANT FROM PROJECT_APPLICANT WHERE PROJECT_ID = A.PROJECT_ID AND APPLICANT = A.APPLICANT)
+                 , UPD_USER         = #{LOGIN_ID}
+			     , UPD_DATE         = NOW() 
+			 WHERE PROJECT_ID       = #{PROJECT_ID}
+			   AND APPLICANT        = #{APPLICANT}
+		]]>
+	</update>
+		
+	<!-- 패밀리 연번 수정 -->
+	<update id="updateFmSeqNum" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET FM_SEQ_NUM = #{FM_SEQ_NUM}
+		         , FM_TYPE    = #{FM_TYPE}
+				 , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+		     WHERE PROJECT_ID  = #{PROJECT_ID}
+		       AND PATENT_ID   = #{PATENT_ID}
+		]]>
+	</update>
+	
+	<!-- 패밀리 연번 수정 -->
+	<update id="updateLegalStatus" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET LEGAL_STATUS = #{LEGAL_STATUS}
+				 , UPD_USER     = #{LOGIN_ID}
+			     , UPD_DATE     = NOW()
+		     WHERE PROJECT_ID   = #{PROJECT_ID}
+		       AND PATENT_ID    = #{PATENT_ID}
+		]]>
+	</update>
+		
+	<!-- 대표도면 수정 -->
+	<update id="updateImageMain" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET IMAGE_MAIN  = #{IMAGE_MAIN}
+				 , UPD_USER    = #{LOGIN_ID}
+			     , UPD_DATE    = NOW()
+		     WHERE PROJECT_ID  = #{PROJECT_ID}
+		       AND PATENT_ID   = #{PATENT_ID}
+		]]>
+	</update>
+	
+	<!-- 업로드 임시 삭제 -->
+	<delete id="deleteUploadTemp" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM UPLOAD_TEMP
+			 WHERE USER_ID = #{LOGIN_ID}
+		]]>
+	</delete>
+	
+	<!-- 특허 임시 삭제 -->
+	<delete id="deletePatentTemp" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PATENT_TEMP
+			 WHERE USER_ID = #{LOGIN_ID}
+		]]>
+		<if test="PATENT_ID != null">
+		<![CDATA[
+			   AND PATENT_ID = #{PATENT_ID}
+		]]>
+		</if>
+	</delete>
+	
+	<!-- 특허 삭제 -->
+	<delete id="deletePatent" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PATENT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="PATENT_ID != null">
+		<![CDATA[
+			   AND PATENT_ID = #{PATENT_ID}
+		]]>
+		</if>
+	</delete>
+	
+	<!-- 누락DB 조회 -->
+	<select id="selectOmissionTempList" resultType="hashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT COL_NAME
+			     , CASE WHEN COL_NAME='FM_NUM'    THEN NUM ELSE '' END AS FM_NUM
+			     , CASE WHEN COL_NAME='BC_BE_NUM' THEN NUM ELSE '' END AS BC_BE_NUM
+			     , CASE WHEN COL_NAME='FC_FE_NUM' THEN NUM ELSE '' END AS FC_FE_NUM
+			  FROM OMISSION_TEMP
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="COL_NAME != null">
+		<![CDATA[
+			   AND COL_NAME = #{COL_NAME}
+		]]>
+		</if>
+		<![CDATA[
+			 ORDER BY COL_NAME, NUM
+		]]>
+	</select>
+	
+	<!-- 누락DB 삭제 -->
+	<delete id="deleteOmissionTemp" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM OMISSION_TEMP
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND EXCEL_YN   = 'Y'
+		]]>
+	</delete>
+	
+	<!-- 누락DB 등록 -->
+	<insert id="insertOmissionTemp" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO OMISSION_TEMP  ( PROJECT_ID, COL_NAME, NUM, EXCEL_YN )
+			VALUES ( #{PROJECT_ID}, #{COL_NAME}, #{NUM}, 'N' )
+			ON DUPLICATE KEY UPDATE EXCEL_YN = 'N'
+		]]>
+	</insert>
+	
+	<!-- 누락DB 수정 -->
+	<update id="updateOmissionTemp" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE OMISSION_TEMP
+			   SET EXCEL_YN = 'Y'
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+	</update>
+</mapper>

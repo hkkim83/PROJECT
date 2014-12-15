@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.project">
+
+	<!-- 로그인 사용자 프로젝트 조회 -->
+	<select id="selectWriteYn" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID	/* 프로젝트 ID */
+			     , ID			/* ID */
+			     , WRITE_YN		/* 프로젝트 권한 */
+			  FROM PROJECT_AUTH
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND ID         = #{LOGIN_ID}
+		]]>
+	</select>
+	
+	<!-- 로그인 사용자 프로젝트 조회 -->
+	<select id="selectLoginProject" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PM.PROJECT_ID	/* 프로젝트 ID */
+			     , PM.PROJECT_NAME	/* 프로젝트명 */
+			     , PA.WRITE_YN		/* 프로젝트 권한 */
+			  FROM PROJECT PM
+			     , PROJECT_AUTH PA
+			 WHERE PM.PROJECT_ID = PA.PROJECT_ID
+			   AND PM.DEL_YN     = '0'
+			   AND PA.ID = BINARY(#{ID})
+			 ORDER BY PM.REG_DATE 
+		]]>
+	</select>
+	
+	<!-- 프로젝트리스트 조회 -->
+	<select id="selectProjectList" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID			/* 프로젝트ID */
+			     , PROJECT_NAME			/* 프로젝트명 */
+			     , '0'  AS WRITE_AUTH 	/* 프로젝트 편집권한 */
+			     , '0'  AS READ_AUTH	/* 프로젝트 편집제한 */
+			  FROM PROJECT
+			 WHERE ADMIN_ID = #{LOGIN_ID}
+			   AND DEL_YN = '0'
+		]]>
+	</select>
+	
+		
+	<!-- 프로젝트ID 조회 -->
+	<select id="selectProjectId" resultType="java.lang.String">
+		<![CDATA[
+			SELECT FN_NEXTVAL('PROJECT_ID')
+		]]>
+	</select>
+	
+	<!-- 프로젝트 등록 -->
+	<insert id="insertProject" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT 
+			     ( PROJECT_ID
+			     , ADMIN_ID
+			     , PROJECT_NAME
+				 , DEL_YN
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+				 ( #{PROJECT_ID}
+			     , #{LOGIN_ID}
+			     , #{PROJECT_NAME}
+			     , '0'
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() )
+		]]>
+	</insert>
+	
+	<!-- 프로젝트 수정 -->
+	<update id="updateProject" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT
+			   SET PROJECT_NAME = #{PROJECT_NAME}
+			     , UPD_USER     = #{LOGIN_ID}
+			     , UPD_DATE     = NOW()
+			 WHERE PROJECT_ID   = #{PROJECT_ID}
+		]]>
+	</update>
+	
+	<!-- 프로젝트 삭제 -->
+	<delete id="deleteProject" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT
+			   SET DEL_YN     = '1'
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+	</delete>
+	
+	<!-- 프로젝트권한 리스트조회 -->
+	<select id="selectProjectAuthList" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PA.PROJECT_ID
+			     , PM.PROJECT_NAME
+			     , PA.ID
+			     , UM.NAME
+			     , PA.WRITE_YN
+			  FROM PROJECT_AUTH PA
+			     , USER         UM
+			     , PROJECT      PM
+			 WHERE PA.ID         = UM.ID
+			   AND PA.PROJECT_ID = PM.PROJECT_ID
+		]]>
+		<if test="PROJECT_ID != null"><![CDATA[
+			   AND PA.PROJECT_ID = #{PROJECT_ID}
+		]]></if>		
+		<if test="ID != null"><![CDATA[
+			   AND PA.ID         = #{ID}
+		]]></if>		
+		<if test="WRITE_YN != null"><![CDATA[
+			   AND PA.WRITE_YN   = #{WRITE_YN}
+		]]></if>	
+		<![CDATA[
+		     ORDER BY ID
+		]]>	
+	</select>
+	
+	<!-- 프로젝트권한 리스트조회 -->
+	<select id="selectProjectAuthList2" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PM.PROJECT_ID
+			     , PM.PROJECT_NAME
+			     , #{ID} ID
+			     , ''  NAME
+			     , 'X' WRITE_YN
+			  FROM PROJECT PM
+			 WHERE ADMIN_ID = #{ADMIN_ID}
+			   AND DEL_YN   = '0'
+			   AND NOT EXISTS ( SELECT 1 
+			                      FROM PROJECT_AUTH 
+			                     WHERE PROJECT_ID = PM.PROJECT_ID 
+			                       AND ID = #{ID})
+			 ORDER BY ID
+		]]>
+	</select>
+	
+	<!-- 프로젝트권한 리스트조회 조회조건 아이디 -->
+	<select id="selectProjectAuthListWithId" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PM.PROJECT_ID
+				 , PM.PROJECT_NAME
+			     , PA.ID
+			     , CASE WHEN PA.WRITE_YN = '1' THEN '1' ELSE '0' END WRITE_AUTH 
+			     , CASE WHEN PA.WRITE_YN = '0' THEN '1' ELSE '0' END READ_AUTH 
+			  FROM PROJECT PM
+			     , PROJECT_AUTH PA
+			 WHERE PM.PROJECT_ID = PA.PROJECT_ID
+			   AND PA.ID         = #{ID}
+		]]>		
+	</select>
+	
+	
+	<!-- 프로젝트권한 등록 -->
+	<insert id="insertProjectAuth" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_AUTH 
+			     ( PROJECT_ID
+			     , ID
+			     , WRITE_YN
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+				 ( #{PROJECT_ID}
+			     , #{ID}
+			     , #{WRITE_YN}
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() )
+		]]>
+	</insert>
+	
+	<!-- 프로젝트권한 등록 -->
+	<insert id="insertToSelectProjectAuth" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_AUTH 
+			     ( PROJECT_ID
+			     , ID
+			     , WRITE_YN
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			SELECT #{PROJECT_ID}
+			     , ID
+			     , '0'
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() 
+			  FROM USER
+			 WHERE ADMIN_ID = #{LOGIN_ID}
+			   AND PRIORITY = 'U'
+			   AND DEL_YN   = '0'
+			   AND APPV_YN  = '1'
+		]]>
+	</insert>	
+	
+	<!-- 프로젝트권한 등록 -->
+	<insert id="insertToSelectProjectAuth2" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_AUTH 
+			     ( PROJECT_ID
+			     , ID
+			     , WRITE_YN
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			SELECT PROJECT_ID
+			     , #{ID}
+			     , '0'
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() 
+			  FROM PROJECT
+			 WHERE ADMIN_ID = #{LOGIN_ID}
+			   AND DEL_YN   = '0'
+		]]>
+	</insert>	
+	
+	<!-- 프로젝트권한 수정 -->
+	<update id="updateProjectAuth" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT_AUTH
+			   SET WRITE_YN   = #{WRITE_YN}
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND ID         = #{ID}
+		]]>
+	</update>
+	
+	<!-- 프로젝트권한 병합 -->
+	<update id="mergeProjectAuth" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_AUTH 
+			     ( PROJECT_ID
+			     , ID
+			     , WRITE_YN
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+			     ( #{PROJECT_ID}
+			     , #{ID}
+			     , #{WRITE_YN}
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() )
+			    ON DUPLICATE KEY	     		
+			UPDATE WRITE_YN   = #{WRITE_YN}
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+		]]>
+	</update>
+	
+	<!-- 프로젝트권한 삭제 -->
+	<delete id="deleteProjectAuth" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PROJECT_AUTH
+			 WHERE 1 = 1
+		]]>
+		<if test="PROJECT_ID != null"><![CDATA[
+			   AND PROJECT_ID = #{PROJECT_ID}
+		]]></if>		
+		<if test="ID != null"><![CDATA[
+			   AND ID         = #{ID}
+		]]></if>
+	</delete>
+	
+</mapper>

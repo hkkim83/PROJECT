@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.user">
+
+	<!-- 사용자 조회 -->
+	<select id="selectUser" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT ID           /* 사용자아이디 */
+			     , PASSWORD     /* 사용자비밀번호 */
+			     , NAME         /* 사용자이름 */    
+			     , PRIORITY     /* 사용자권한 */    
+			     , COMPANY      /* 소속 */          
+			     , BIZ_NO       /* 사업자번호 */    
+			     , SUBSTRING(BIZ_NO,1,3) AS BIZ_NO1
+			     , SUBSTRING(BIZ_NO,4,2) AS BIZ_NO2
+			     , SUBSTRING(BIZ_NO,6,5) AS BIZ_NO3
+			     , ADMIN_ID     /* 관리자ID */      
+			     , E_MAIL       /* 이메일 */        
+			     , TEL          /* 전화번호 */      
+			     , TEL_1        /* 전화번호1 */     
+			     , TEL_2        /* 전화번호2 */     
+			     , TEL_3        /* 전화번호3 */     
+			     , COMMENT      /* 의견 */          
+			     , APPV_YN      /* 승인여부 */      
+			     , DEL_YN       /* 삭제여부 */
+			     , CAST(IFNULL(( SELECT POINT FROM USER 
+			               WHERE ID = U.ADMIN_ID 
+			           ),0) AS CHAR ) POINT        /* 포인트 */   
+			     , PROJECT_ID   /* 진행중인 프로젝트ID */  
+			     , REG_USER     /* 등록자 */        
+			     , REG_DATE     /* 등록일시 */      
+			     , UPD_USER     /* 수정자 */        
+			     , UPD_DATE     /* 수정일시 */      
+			  FROM USER U
+			 WHERE ID       = BINARY(#{ID})
+			 ORDER BY COMPANY, ID
+		]]>
+	</select>
+
+	<!-- 로그인 사용자 조회 -->
+	<select id="selectLoginUser" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT ID           /* 사용자아이디 */  
+			     , PASSWORD     /* 사용자비밀번호 */
+			     , NAME         /* 사용자이름 */    
+			     , PRIORITY     /* 사용자권한 */    
+			     , COMPANY      /* 소속 */          
+			     , BIZ_NO       /* 사업자번호 */    
+			     , ADMIN_ID     /* 관리자ID */      
+			     , E_MAIL       /* 이메일 */        
+			     , TEL          /* 전화번호 */      
+			     , TEL_1        /* 전화번호1 */     
+			     , TEL_2        /* 전화번호2 */     
+			     , TEL_3        /* 전화번호3 */     
+			     , COMMENT      /* 의견 */          
+			     , APPV_YN      /* 승인여부 */      
+			     , DEL_YN       /* 삭제여부 */ 
+			     , CAST(IFNULL(( SELECT POINT FROM USER 
+			               WHERE ID = U.ADMIN_ID 
+			           ),0) AS CHAR ) POINT        /* 포인트 */   
+			     , IFNULL(PROJECT_ID, ( SELECT PA.PROJECT_ID FROM PROJECT_AUTH PA, PROJECT PM
+			                             WHERE PA.PROJECT_ID = PM.PROJECT_ID
+			                               AND PA.ID = U.ID
+			                               AND PM.DEL_YN = '0'
+			                             ORDER BY PM.REG_DATE LIMIT 1
+			                          )) PROJECT_ID   /* 진행중인 프로젝트ID */  
+			     , REG_USER     /* 등록자 */        
+			     , REG_DATE     /* 등록일시 */      
+			     , UPD_USER     /* 수정자 */        
+			     , UPD_DATE     /* 수정일시 */      
+			  FROM USER U
+			 WHERE ID       = BINARY(#{ID})
+			   AND PASSWORD = PASSWORD(#{PASSWORD})
+			   AND APPV_YN  = '1'
+			   AND DEL_YN   = '0'
+		]]>
+	</select>
+	
+	<!-- 사용자조회 -->
+	<select id="selectUserList" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT ID           /* 사용자아이디 */  
+			     , PASSWORD     /* 사용자비밀번호 */
+			     , PASSWORD AS RE_PASSWORD
+			     , PASSWORD AS OLD_PASSWORD
+			     , NAME         /* 사용자이름 */    
+			     , PRIORITY     /* 사용자권한 */    
+			     , COMPANY      /* 소속 */          
+			     , BIZ_NO       /* 사업자번호 */ 
+			     , SUBSTRING(BIZ_NO,1,3) AS BIZ_NO1
+			     , SUBSTRING(BIZ_NO,4,2) AS BIZ_NO2
+			     , SUBSTRING(BIZ_NO,6,5) AS BIZ_NO3    
+			     , ADMIN_ID     /* 관리자ID */      
+			     , E_MAIL       /* 이메일 */        
+			     , TEL          /* 전화번호 */      
+			     , TEL_1        /* 전화번호1 */     
+			     , TEL_2        /* 전화번호2 */     
+			     , TEL_3        /* 전화번호3 */     
+			     , COMMENT      /* 의견 */          
+			     , APPV_YN      /* 승인여부 */      
+			     , DEL_YN       /* 삭제여부 */ 
+			     , IFNULL(POINT,0) AS POINT     /* 포인트 */    
+			     , '0' AS ADD_POINT      
+			     , REG_USER     /* 등록자 */        
+			     , REG_DATE     /* 등록일시 */      
+			     , UPD_USER     /* 수정자 */        
+			     , UPD_DATE     /* 수정일시 */
+			     , 'F' AS CHECK_ID      
+			  FROM USER
+			 WHERE 1 = 1
+		]]>
+		<if test="PRIORITY != null"><![CDATA[
+			   AND PRIORITY = #{PRIORITY}
+		]]></if>
+		<if test="ADMIN_ID != null"><![CDATA[
+			   AND ADMIN_ID = #{ADMIN_ID}
+		]]></if>
+		<if test="APPV_YN == null"><![CDATA[
+			   AND APPV_YN  = '1'
+		]]></if>
+		<if test="APPV_YN != null"><![CDATA[
+			   AND APPV_YN  = #{APPV_YN}
+		]]></if>
+		<![CDATA[
+			   AND DEL_YN   = '0'
+			 ORDER BY COMPANY, ID
+		]]>
+	</select>
+
+	<!-- 사용자조회 -->
+	<select id="selectUserListForAuth" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT #{PROJECT_ID} PROJECT_ID
+			     , '' PROJECT_NAME
+			     , UM.ID
+			     , UM.NAME
+			     , 'X' WRITE_YN
+			  FROM USER UM 
+			 WHERE APPV_YN = '1' 
+			   AND DEL_YN = '0' 
+			   AND ADMIN_ID = #{ADMIN_ID}
+			   AND PRIORITY = 'U' 
+			   AND NOT EXISTS ( SELECT 1 
+			                      FROM PROJECT_AUTH 
+			                     WHERE PROJECT_ID = #{PROJECT_ID}
+			                       AND ID = UM.ID)
+			 ORDER BY COMPANY, ID
+		]]>
+	</select>
+	
+	<!-- 사용자 등록 -->
+	<insert id="insertUser" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO USER
+			     ( ID
+			     , PASSWORD
+			     , NAME
+			     , PRIORITY
+			     , COMPANY
+			     , BIZ_NO
+			     , ADMIN_ID
+			     , E_MAIL
+			     , TEL
+			     , TEL_1
+			     , TEL_2
+			     , TEL_3
+			     , COMMENT
+			     , APPV_YN
+			     , DEL_YN
+			     , POINT
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES
+			     ( #{ID}
+			     , PASSWORD(#{PASSWORD})
+			     , #{NAME}
+			     , #{PRIORITY}
+			     , #{COMPANY}
+			     , CONCAT(#{BIZ_NO1},#{BIZ_NO2},#{BIZ_NO3})
+			     , CASE WHEN #{PRIORITY} = 'A' THEN #{ID} ELSE #{ADMIN_ID} END
+			     , #{E_MAIL}
+			     , CONCAT(#{TEL_1},'-',#{TEL_2},'-',#{TEL_3})
+			     , #{TEL_1}
+			     , #{TEL_2}
+			     , #{TEL_3}	
+			     , #{COMMENT}
+		]]>
+		<if test="APPV_YN != null"><![CDATA[
+			     , '0'
+		]]></if>
+		<if test="APPV_YN == null"><![CDATA[
+			     , '1'
+		]]></if>
+		<![CDATA[
+			     , '0'
+		]]>
+		<if test="POINT != null"><![CDATA[
+			     , #{POINT}+#{ADD_POINT}
+		]]></if>
+		<if test="POINT == null"><![CDATA[
+			     , '0'
+		]]></if>
+		<![CDATA[
+			     , #{LOGIN_ID}
+			     , NOW()
+			     , #{LOGIN_ID}
+			     , NOW() )
+		]]>
+	</insert>
+	
+	<!-- 사용자 수정 -->
+	<update id="updateUser" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET PASSWORD = CASE WHEN #{PASSWORD} = #{OLD_PASSWORD} THEN #{PASSWORD} ELSE PASSWORD(#{PASSWORD}) END
+			     , NAME     = #{NAME}
+			     , PRIORITY = #{PRIORITY}
+			     , COMPANY  = #{COMPANY}
+			     , BIZ_NO   = CONCAT(#{BIZ_NO1},#{BIZ_NO2},#{BIZ_NO3})
+		]]>
+		<if test="ADMIN_ID != null"><![CDATA[
+			     , ADMIN_ID = #{ADMIN_ID}
+		]]></if>
+		<![CDATA[
+			     , E_MAIL   = #{E_MAIL}
+			     , TEL      = CONCAT(#{TEL_1},'-',#{TEL_2},'-',#{TEL_3})
+			     , TEL_1    = #{TEL_1}
+			     , TEL_2    = #{TEL_2}
+			     , TEL_3    = #{TEL_3}
+			     , POINT    = #{POINT}+#{ADD_POINT}
+			     , UPD_USER = #{LOGIN_ID}
+			     , UPD_DATE = NOW()
+			 WHERE ID       = BINARY(#{ID})
+		]]>
+	</update>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteUser" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET DEL_YN     = '1'
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE ID         = BINARY(#{ID})
+		]]>
+	</delete>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="selectCheckId" parameterType="java.lang.String" resultType="HashMap">
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'T' ELSE 'F' END DUP_CHECK
+			  FROM (
+					SELECT COUNT(*) CNT FROM USER
+					 WHERE ID = BINARY(#{ID})
+			       ) A		
+		]]>
+	</select>
+
+	<!-- 진행중인프로젝트ID 수정 -->
+	<update id="updateProjectId" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET PROJECT_ID = #{PROJECT_ID}
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE ID         = BINARY(#{LOGIN_ID})
+		]]>
+	</update>
+
+
+	<!-- 진행중인프로젝트ID 수정 -->
+	<update id="deleteProjectId" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET PROJECT_ID = ''
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="ID != null"><![CDATA[
+			   AND ID       = #{ID}
+		]]></if>			 
+	</update>	
+	
+	<!-- 포인트 차감 -->
+	<update id="updatePoint" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET POINT      = CASE WHEN POINT - #{COUNT} < 0 THEN 0 ELSE POINT - #{COUNT} END
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE ID         = BINARY(#{ADMIN_ID})
+		]]>
+	</update>
+	
+	<!-- 관리자ID 찾기 -->
+	<select id="selectFindId" parameterType="java.lang.String" resultType="java.lang.String">
+		<![CDATA[
+			SELECT ID
+			  FROM USER
+			 WHERE COMPANY  = #{COMPANY}
+			   AND BIZ_NO   = CONCAT(#{BIZ_NO1},#{BIZ_NO2},#{BIZ_NO3})
+			   AND NAME     = #{NAME}
+		]]>
+		<if test="ID != null"><![CDATA[
+			   AND ID       = #{ID}
+		]]></if>			   
+		<![CDATA[
+			   AND PRIORITY = 'A'
+			   AND DEL_YN   = '0'
+			   AND APPV_YN  = '1'	
+		]]>
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET PASSWORD   = PASSWORD(#{PASSWORD})
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE ID         = BINARY(#{ID})
+		]]>
+	</update>
+	
+	<!-- 승인요청 변경 -->
+	<update id="updateAppvYn" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE USER
+			   SET APPV_YN    = '1'
+			     , UPD_USER   = #{LOGIN_ID}
+			     , UPD_DATE   = NOW()
+			 WHERE ID         = BINARY(#{ID})
+		]]>
+	</update>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql.applicant">
+
+	<!-- 출원인대표명(관리자) 완료목록 조회 -->
+	<select id="selectProjectApplicantCmpl" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID		/* 프로젝트ID */
+			     , APPLICANT		/* 출원인 */
+			     , RE_APPLICANT		/* 대표 출원인 */
+			  FROM PROJECT_APPLICANT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND (RE_APPLICANT IS NOT NULL AND RE_APPLICANT <> ''	)
+			 ORDER BY APPLICANT			
+		]]>
+	</select>
+		
+	<!-- 출원인대표명(프로젝트) 미완료목록 조회 -->
+	<select id="selectProjectApplicantIncmpl" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT PROJECT_ID		/* 프로젝트ID */
+			     , APPLICANT		/* 출원인 */
+			     , RE_APPLICANT		/* 대표 출원인 */
+			  FROM PROJECT_APPLICANT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND (RE_APPLICANT IS NULL OR RE_APPLICANT = '' )	
+			 ORDER BY APPLICANT
+		]]>
+	</select>
+	
+	<!-- 출원인대표명(프록젝트) 등록여부 조회 -->
+	<select id="selectExistProjectApplicant" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'T' ELSE 'F' END DUP_CHECK
+			  FROM (
+						SELECT COUNT(*) CNT
+						  FROM PROJECT_APPLICANT
+						 WHERE PROJECT_ID = #{PROJECT_ID}
+						   AND APPLICANT  = #{APPLICANT}
+			       ) A				
+		]]>
+	</select>
+	
+	<!-- 출원인대표명(프로젝트) 등록 -->
+	<insert id="insertProjectApplicant" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO PROJECT_APPLICANT
+			     ( PROJECT_ID
+			     , APPLICANT
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )
+			VALUES 
+			     ( #{PROJECT_ID}
+			     , #{APPLICANT}
+				 , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW())
+		]]>
+	</insert>
+	
+	<!-- 출원인대표명(프로젝트) 삭제 -->
+	<delete id="deleteProjectApplicant" parameterType="HashMap" >
+		<![CDATA[
+			DELETE FROM PROJECT_CATEGORY
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+		]]>
+		<if test="APPLICANT != null">
+		<![CDATA[
+			   AND APPLICANT  = #{APPLICANT}
+		]]>
+		</if>
+	</delete>
+	
+	<!-- 출원인대표명(관리자) 등록여부 조회 -->
+	<select id="selectExistAdminApplicant" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT CASE WHEN CNT > 0 THEN 'T' ELSE 'F' END DUP_CHECK
+			  FROM (		
+					SELECT COUNT(*) CNT
+					  FROM ADMIN_APPLICANT
+					 WHERE ADMIN_ID  = #{ADMIN_ID}
+					   AND APPLICANT = #{APPLICANT}
+			       ) A	
+		]]>
+	</select>
+	
+	
+	<!-- 출원인대표명(관리자) 등록 -->
+	<insert id="insertAdminApplicant" parameterType="HashMap" >
+		<![CDATA[
+			INSERT INTO ADMIN_APPLICANT 
+			     ( ADMIN_ID
+			     , APPLICANT
+			     , RE_APPLICANT
+			     , REG_USER
+			     , REG_DATE
+			     , UPD_USER
+			     , UPD_DATE )  
+			VALUES 
+			     ( #{ADMIN_ID}
+			     , #{APPLICANT}
+			     , #{RE_APPLICANT}
+				 , #{LOGIN_ID}
+			     , NOW()
+				 , #{LOGIN_ID}
+			     , NOW() )
+			ON DUPLICATE KEY UPDATE UPD_DATE = NOW()
+		]]>
+	</insert>
+		
+	<!-- 프로젝트대표명화 수정 -->
+	<update id="updateProjectApplicant" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT_APPLICANT
+			   SET RE_APPLICANT = #{RE_APPLICANT}
+				 , UPD_USER     = #{LOGIN_ID}
+			     , UPD_DATE     = NOW()
+			 WHERE PROJECT_ID   = #{PROJECT_ID}
+			   AND APPLICANT    = #{APPLICANT}
+		]]>
+	</update>
+		
+	<!-- 관리자대표명화를 이용한 프로젝트대표명화 수정 -->
+	<update id="updateAllProjectApplicant" parameterType="HashMap" >
+		<![CDATA[
+			UPDATE PROJECT_APPLICANT A INNER JOIN ADMIN_APPLICANT B
+			    ON B.ADMIN_ID     = #{ADMIN_ID}
+			   AND A.APPLICANT    = B.APPLICANT
+			   SET A.RE_APPLICANT = B.RE_APPLICANT
+			 WHERE A.PROJECT_ID   = #{PROJECT_ID}
+		]]>
+	</update>
+		
+</mapper>
