@@ -21,9 +21,9 @@ public class FileUtil {
 	 * @param userId
 	 * @return
 	 */
-	public static String getFilePath(String rootPath, String userId) {
-		File filePath = new File(rootPath+"/"+userId);
-		if(!filePath.exists()) filePath.mkdir();
+	public static String getFilePath(String rootPath, String subPath) {
+		File filePath = new File(rootPath+"/"+subPath);
+		if(!filePath.exists()) filePath.mkdirs();
 		return filePath.getPath();
 	}
 	

@@ -393,7 +393,7 @@
 					<div class="searchResults">
 						<h4>검색결과</h4>
 						<div class="expression">
-							<p class="left w70"><strong>입력검색식 : </strong><span><c:out value="${PARAM.INPUT_STRING}"/></span></p>
+							<p class="left w67"><strong>입력검색식 : </strong><span><c:out value="${PARAM.INPUT_STRING}"/></span></p>
 							<p class="right">
 								<button type="button" id="btnSaveKeyword" class="btnSmall green">키워드 저장</button>
 								<button type="button" id="btnImportCnt" class="btnSmall write">중요특허</button>
@@ -461,20 +461,20 @@
 								</c:if>
 									<td>
 										<input type="checkbox" name="chk" title="선택" />
-										<input type="hidden" name="PATENT_ID" value="${PATENT.PATENT_ID}"/>
-										<input type="hidden" name="PROJECT_ID" value="${PATENT.PROJECT_ID}"/>
-										<input type="hidden" name="IMPORTANT_YN" value="${PATENT.IMPORTANT_YN}"/>
-										<input type="hidden" name="SEQ_NUM" value="${PATENT.SEQ_NUM}"/>
-										<input type="hidden" name="NATL_CODE" value="${PATENT.NATL_CODE}"/>
-										<input type="hidden" name="APPL_NUM" value="${PATENT.APPL_NUM}"/>
+										<input type="hidden" name="PATENT_ID" value="<c:out value="${PATENT.PATENT_ID}"/>"/>
+										<input type="hidden" name="PROJECT_ID" value="<c:out value="${PATENT.PROJECT_ID}"/>"/>
+										<input type="hidden" name="IMPORTANT_YN" value="<c:out value="${PATENT.IMPORTANT_YN}"/>"/>
+										<input type="hidden" name="SEQ_NUM" value="<c:out value="${PATENT.SEQ_NUM}"/>"/>
+										<input type="hidden" name="NATL_CODE" value="<c:out value="${PATENT.NATL_CODE}"/>"/>
+										<input type="hidden" name="APPL_NUM" value="<c:out value="${PATENT.APPL_NUM}"/>"/>
 										<input type="hidden" name="TITLE" value="<c:out value="${PATENT.TITLE}"/>"/>
-										<input type="hidden" name="GRADE_OBJ" value="${PATENT.GRADE_OBJ}"/>
-										<input type="hidden" name="GRADE_CONST" value="${PATENT.GRADE_CONST}"/>
+										<input type="hidden" name="GRADE_OBJ" value="<c:out value="${PATENT.GRADE_OBJ}"/>"/>
+										<input type="hidden" name="GRADE_CONST" value="<c:out value="${PATENT.GRADE_CONST}"/>"/>
 										<input type="hidden" name="APPLICANT_RENAME" value="<c:out value="${PATENT.APPLICANT_RENAME}"/>"/>
-										<input type="hidden" name="REVIEWER" value="${PATENT.REVIEWER}"/>
+										<input type="hidden" name="REVIEWER" value="<c:out value="${PATENT.REVIEWER}"/>"/>
 										<input type="hidden" name="CMT_LAW_FIRMS" value="<c:out value="${PATENT.CMT_LAW_FIRMS}"/>"/>
 										<input type="hidden" name="CMT_CO" value="<c:out value="${PATENT.CMT_CO}"/>"/>
-										<input type="hidden" name="DEL_YN" value="${PATENT.DEL_YN}"/>
+										<input type="hidden" name="DEL_YN" value="<c:out value="${PATENT.DEL_YN}"/>"/>
 									</td>
 									<td>${PATENT.SEQ_NUM}</td>
 									<td class="cout">${PATENT.NATL_CODE}</td>

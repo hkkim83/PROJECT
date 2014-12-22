@@ -1292,6 +1292,19 @@
 		]]>
 	</update>
 	
+		
+	<!-- 전문 수정 -->
+	<update id="updatePatentFulltxt" parameterType="HashMap" >
+		<![CDATA[
+		    UPDATE PATENT
+		       SET PATENT_FULLTXT = #{PATENT_FULLTXT}
+				 , UPD_USER       = #{LOGIN_ID}
+			     , UPD_DATE       = NOW()
+		     WHERE PROJECT_ID     = #{PROJECT_ID}
+		       AND PATENT_ID      = #{PATENT_ID}
+		]]>
+	</update>	
+	
 	<!-- 업로드 임시 삭제 -->
 	<delete id="deleteUploadTemp" parameterType="HashMap" >
 		<![CDATA[

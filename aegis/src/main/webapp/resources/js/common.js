@@ -2,7 +2,8 @@ Common = {};
 
 // 공통코드 조회
 Common.getCommonCodeList = function(groupCode){
-	
+
+  console.log("getCommonCodeList:::"+groupCode);
 	var result = null;
 	
 	var strParam = 'GROUP_CODE=' + groupCode;
@@ -20,6 +21,7 @@ Common.getCommonCodeList = function(groupCode){
 
 // 공통코드 콤보 셋팅
 Common.setCommonCodeCombo = function(groupCode, $combo, fn) {
+  console.log("setCommonCodeCombo::"+groupCode);
 	$combo.find('option').remove();
 	var data = Common.getCommonCodeList(groupCode);
 	$.each(data, function() {

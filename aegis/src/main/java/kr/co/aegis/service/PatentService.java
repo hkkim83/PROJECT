@@ -406,4 +406,14 @@ public class PatentService extends BaseService {
 	public void setImageMain(Map<String, String> param) {
 		patentDAO.updateImageMain(param);
 	}
+	
+
+	/**
+	 * 전문 저장
+	 * @param param
+	 */
+	@Transactional
+	public void setPatentFulltxt(Map<String, String> param) {
+		patentDAO.updatePatentFulltxt(param);
+	}
 }

@@ -137,6 +137,11 @@
 		$('#IMAGE_MAIN_A').attr("href", "/patent/imageView.do?IMAGE="+data.IMAGE_MAIN);
 	};
 	
+	// 파일정보 보여주기
+	var uploadPDFCompleted = function(data) {
+		$('#btnPDFView').attr("href", "/patent/pdfView.do?PDF="+data.PATENT_FULLTXT).attr("target", "_blank");
+	};
+	
 	// 중요특허일 경우 배경색, 중요특구 문구 추가
 	var setImportantClass = function(importantYn) {
 		if(importantYn == "1") {
@@ -237,6 +242,28 @@
 				}
 			}
 		});
+		
+		// 전문변경
+		$('#file1').fileupload({
+			url: '/patent/uploadPDF.do?PROJECT_ID='+$('#loginProjectList option:selected').val()+'&PATENT_ID=${PATENT.PATENT_ID}',
+			dataType: 'json',
+			beforeSend:function() {
+				var fileName = $('#fileName1').val();
+				var index = fileName.lastIndexOf(".");
+				var ext = fileName.substring(index+1, fileName.length);
+ 				if(!(ext == "pdf" || ext == "PDF")) {
+					alert("PDF파일만 업로드 가능합니다.");
+					return false;
+				}
+			},
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					uploadPDFCompleted(data.FILE_INFO);
+				} else {
+					alert(data.RESULT_MSG);
+				}
+			}
+		});
 				
 	});
 })(jQuery);
@@ -292,11 +319,14 @@
 									<a href="#" id="btnSave" class="btntype1"><span>정보수정</span></a>
 									</c:if>
 									<c:if test="${PATENT.PATENT_FULLTXT == '/process/error.do'}">
-										<a href="javascript:alert('전문이 존재하지 않습니다.');" class="btntype1"><span>전문보기</span></a>
+										<a id="btnPDFView" href="javascript:alert('전문이 존재하지 않습니다.');" class="btntype1"><span>전문보기</span></a>
 									</c:if>
 									<c:if test="${PATENT.PATENT_FULLTXT != '/process/error.do'}">
-										<a href="/patent/pdfView.do?PDF=${PATENT.PATENT_FULLTXT}" target="_blank" class="btntype1"><span>전문보기</span></a>
+										<a id="btnPDFView" href="/patent/pdfView.do?PDF=${PATENT.PATENT_FULLTXT}" target="_blank" class="btntype1"><span>전문보기</span></a>
 									</c:if>
+									<input type="hidden" id="fileName1" readonly/>
+									<input type="file" id="file1" name="file1" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName1').value = this.value" />
+									<a id="btnAddPDFFile" href="#" class="btntype2"><span>전문변경</span></a>
 								</dd>
 							</dl>						
 							<!-- 리스트 시작 -->

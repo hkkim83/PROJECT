@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.aegis.base.BaseController;
-import kr.co.aegis.core.properties.Message;
 import kr.co.aegis.core.view.JsonModelAndView;
 import kr.co.aegis.dto.User;
 import kr.co.aegis.paging.PagingHelper;
@@ -41,8 +40,9 @@ import com.itextpdf.text.DocumentException;
 @RequestMapping(value = "/patent")
 public class PatentController extends BaseController {
 	@Value("${patent.dir}") private String patentDir;
-	@Value("${image.dir}") private String imageDir;
+	@Value("${image.dir}")  private String imageDir;
 	@Value("${image.path}") private String imagePath;
+	@Value("${pdf.path}")   private String pdfPath;
 	
 	private PatentService patentService;
 	private ProjectService projectService;
@@ -343,31 +343,78 @@ public class PatentController extends BaseController {
 		String svrFileName = PATENT_ID+ext;
 		// 파일 업로드 변수 설정
 		File newFile = new File(svrfilePath, svrFileName);
-		// 파일 업로드 실행
-		boolean isUploaded = FileUtil.uploadFormFile(file, newFile);
-		if(!isUploaded)
-			modelAndView.error(Message.ERR_0033);
-		else
-		{
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("FILE_NAME" , fileName);
-			map.put("FILE_SIZE" , String.valueOf(file.getSize()));
-			map.put("IMAGE_MAIN", "/"+imagePath+"/"+PROJECT_ID+"/"+svrFileName);
-			map.put("PROJECT_ID", PROJECT_ID);
-			map.put("PATENT_ID" , PATENT_ID);
-			map.put("LOGIN_ID"  , getLoginId(session));
-			
-			patentService.setImageMain(map);
-			
-			// 파일복사
-			if(!rootPath.equals(imageDir))
-				FileUtil.fileCopy(svrfilePath+"/"+svrFileName, svrfilePath2+"/"+svrFileName);
-			
-			modelAndView.addObject("FILE_INFO", map);
-			modelAndView.success();
-		}
+		file.transferTo(newFile);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("FILE_NAME" , fileName);
+		map.put("FILE_SIZE" , String.valueOf(file.getSize()));
+		map.put("IMAGE_MAIN", "/"+imagePath+"/"+PROJECT_ID+"/"+svrFileName);
+		map.put("PROJECT_ID", PROJECT_ID);
+		map.put("PATENT_ID" , PATENT_ID);
+		map.put("LOGIN_ID"  , getLoginId(session));
+		
+		patentService.setImageMain(map);
+		
+		// 파일복사
+		if(!rootPath.equals(imageDir))
+			FileUtil.fileCopy(svrfilePath+"/"+svrFileName, svrfilePath2+"/"+svrFileName);
+		
+		modelAndView.addObject("FILE_INFO", map);
+		modelAndView.success();
 		return modelAndView;
 	}
+	
+	/**
+	 * 전문 업로드
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 */
+	@RequestMapping(value = "/uploadPDF.do")
+	public ModelAndView uploadPDF(@RequestParam("file1") MultipartFile file, @RequestParam("PROJECT_ID") String PROJECT_ID, @RequestParam("PATENT_ID") String PATENT_ID, HttpServletRequest request, HttpSession session) throws FileNotFoundException, IOException
+	{
+		System.out.println("uploadPDF:::::::::::::::::::");
+		JsonModelAndView modelAndView = new JsonModelAndView();
+		// 파일명
+		String fileName = file.getOriginalFilename();
+		// 업로드 경로 설정
+		String rootPath     = request.getSession().getServletContext().getRealPath("/");
+		String svrfilePath  = FileUtil.getFilePath(rootPath+pdfPath, PROJECT_ID);
+		String svrfilePath2 = "";
+
+		if(!rootPath.equals(imageDir+"/"))
+			svrfilePath2 = FileUtil.getFilePath(imageDir+"/"+pdfPath, PROJECT_ID);
+		
+		String ext = fileName.substring(fileName.lastIndexOf("."));
+		String svrFileName = PATENT_ID+ext;
+		// 파일 업로드 변수 설정
+		File newFile = new File(svrfilePath, svrFileName);
+		file.transferTo(newFile);
+		
+		System.out.println("svrfilePath:::"+svrfilePath);
+		System.out.println("svrfilePath2:::"+svrfilePath2);
+		System.out.println("svrFileName:::"+svrFileName);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("FILE_NAME"     , fileName);
+		map.put("FILE_SIZE"     , String.valueOf(file.getSize()));
+		map.put("PATENT_FULLTXT", "/"+pdfPath+"/"+PROJECT_ID+"/"+svrFileName);
+		map.put("PROJECT_ID"    , PROJECT_ID);
+		map.put("PATENT_ID"     , PATENT_ID);
+		map.put("LOGIN_ID"      , getLoginId(session));
+		
+		patentService.setPatentFulltxt(map);
+		// 파일복사
+		if(!rootPath.equals(imageDir))
+			FileUtil.fileCopy(svrfilePath+"/"+svrFileName, svrfilePath2+"/"+svrFileName);
+		
+		modelAndView.addObject("FILE_INFO", map);
+		modelAndView.success();
+
+		return modelAndView;
+	}	
 	
 	/**
 	 * 특허 리스트 파일다운로드

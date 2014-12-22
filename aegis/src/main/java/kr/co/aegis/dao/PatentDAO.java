@@ -231,12 +231,23 @@ public class PatentDAO extends BaseDAO {
 	
 
 	/**
-	 * 특허 삭제
+	 * 대표도면 저장
 	 * 
 	 * @param param
 	 */
 	public void updateImageMain(Map<String, String> param) {
 		getSqlSession().update("sql.patent.updateImageMain", param);
+	}
+	
+	
+
+	/**
+	 * 전문저장
+	 * 
+	 * @param param
+	 */
+	public void updatePatentFulltxt(Map<String, String> param) {
+		getSqlSession().update("sql.patent.updatePatentFulltxt", param);
 	}
 	
 

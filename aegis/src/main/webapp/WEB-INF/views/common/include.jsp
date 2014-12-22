@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/dhtmlxgrid.css">
 <link rel="stylesheet" type="text/css" href="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css">
 
-<script type="text/javascript" src="/resources/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/resources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="/resources/js/i18n/grid.locale-kr.js" ></script>
 <script type="text/javascript" src="/resources/js/jquery.jqGrid.min.js"></script>
