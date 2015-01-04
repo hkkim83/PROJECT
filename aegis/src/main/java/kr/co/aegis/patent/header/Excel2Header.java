@@ -16,7 +16,6 @@ public class Excel2Header {
 	public static final HashMap<String, String> DBMAP_WIPSON = new HashMap<String, String>() {
 
 		private static final long serialVersionUID = 1L;
-
 		{
 			put("NATL_CODE", 		"국가코드");								put("KINDS_IP_TYPE", 	"특허/실용 구분"); 				put("KINDS_IP_CODE", 		"문헌종류 코드");	
 			put("APPL_NUM", 		"출원번호");								put("APPL_NUM_ORG", 	"출원번호");					put("APPL_DATE", 			"출원일");			
@@ -38,7 +37,6 @@ public class Excel2Header {
 	public static final HashMap<String, String> DBMAP_FOCUST = new HashMap<String, String>() {
 
 		private static final long serialVersionUID = 1L;
-
 		{
 			put("NATL_CODE", 		"");					put("KINDS_IP_TYPE", 	""); 					put("KINDS_IP_CODE", 		"");	
 			put("APPL_NUM", 		"출원번호");				put("APPL_NUM_ORG", 	"출원번호");				put("APPL_DATE", 			"출원일");			
@@ -60,7 +58,6 @@ public class Excel2Header {
 
 		private static final long serialVersionUID = 1L;
 		{
-			
 			put("NATL_CODE", 		"");					put("KINDS_IP_TYPE", 	"");			put("KINDS_IP_CODE", 		"");		
 			put("APPL_NUM", 		"출원번호");				put("APPL_NUM_ORG", 	"출원번호");		put("APPL_DATE", 			"출원일자");	
 			put("LAID_PUBLIC_NUM", 	"공개번호");				put("LAID_PUBLIC_DATE", "공개일자");		put("REGI_NUM", 			"등록번호");	
@@ -71,7 +68,6 @@ public class Excel2Header {
 			put("FI_CODE_JP", 		"");					put("UPC_CURRENT_ALL", 	"");			put("BC_COUNT", 			"");		
 			put("BC_BE_NUM", 		"");					put("FC_COUNT",			"");			put("FC_FE_NUM", 			"");		
 			put("FM_NUM", 			"");					put("FM_COUNT", 		"");			put("LEGAL_STATUS_DOCDB", 	"등록상태");
-			
 		}
 	};
 
@@ -82,7 +78,6 @@ public class Excel2Header {
 	public static final HashMap<String, String> DBMAP_KIPRIS_A = new HashMap<String, String>() {
 
 		private static final long serialVersionUID = 1L;
-
 		{
 			put("NATL_CODE", 		"국가");				put("KINDS_IP_TYPE", 	"");			put("KINDS_IP_CODE", 		"");		
 			put("APPL_NUM", 		"출원번호");			put("APPL_NUM_ORG", 	"출원번호");		put("APPL_DATE", 			"출원일자");	
@@ -94,21 +89,8 @@ public class Excel2Header {
 			put("FI_CODE_JP", 		"");				put("UPC_CURRENT_ALL", 	"");			put("BC_COUNT", 			"");		
 			put("BC_BE_NUM", 		"");				put("FC_COUNT",			"");			put("FC_FE_NUM", 			"");		
 			put("FM_NUM", 			"DOCDB 패밀리정보");	put("FM_COUNT", 		"");			put("LEGAL_STATUS_DOCDB", 	"");
-			
 		}
 	};
-	
-	/**
-	 * KIPRIS 해외 엑셀 헤더
-	 */
-	public static final String KIPRIS_A[] = {
-		"국가",			"출원번호",		"출원일자",		"공개번호",			"공개일자",
-		"공보번호",		"공보일자",		"국제출원번호",		"국제출원일자",			"국제공개번호",
-		"국제공개일자",		"IPC분류",		"지정국",			"출원인",				"발명자/고안자",
-		"대리인",			"우선권정보",		"발명의명칭",		"UPC",				"심사관",
-		"EPC",			"초록",			"청구항",			"DOCDB 패밀리정보"
-	};
-
 	
 	/**
 	 * 리스트 다운로드 헤더

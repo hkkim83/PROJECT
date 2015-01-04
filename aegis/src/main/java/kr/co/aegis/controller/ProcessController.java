@@ -17,16 +17,18 @@ import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.properties.Message;
 import kr.co.aegis.core.view.JsonModelAndView;
 import kr.co.aegis.dto.User;
-import kr.co.aegis.parser.ExcelParser;
-import kr.co.aegis.parser.FocustExcelParser;
-import kr.co.aegis.parser.KiprisAExcelParser;
-import kr.co.aegis.parser.KiprisNExcelParser;
-import kr.co.aegis.parser.WipsonExcelParser;
-import kr.co.aegis.patent.excel.Excel;
+import kr.co.aegis.patent.excel2.Excel;
+import kr.co.aegis.patent.excel2.HSSExcel;
+import kr.co.aegis.patent.excel2.XSSExcel;
 import kr.co.aegis.patent.header.ExcelHeader;
 import kr.co.aegis.patent.legal.JpLegalStatus;
 import kr.co.aegis.patent.legal.KrLegalStatus;
 import kr.co.aegis.patent.legal.LegalStatus;
+import kr.co.aegis.patent.parser.ExcelParser;
+import kr.co.aegis.patent.parser.FocustExcelParser;
+import kr.co.aegis.patent.parser.KiprisAExcelParser;
+import kr.co.aegis.patent.parser.KiprisNExcelParser;
+import kr.co.aegis.patent.parser.WipsonExcelParser;
 import kr.co.aegis.service.PatentService;
 import kr.co.aegis.service.UserService;
 import kr.co.aegis.util.FileUtil;
@@ -126,29 +128,26 @@ public class ProcessController extends BaseController {
 	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(value = "/upload.do")
-	public ModelAndView upload(@RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
+	public ModelAndView upload(@RequestParam("type") String type, @RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
 	{
+		System.out.println("type::::::"+type);
+		
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 파일명
 		String fileName = file.getOriginalFilename();
 		// 업로드 경로 설정
 		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
-		String svrFileName = fileName;
+		String svrFileName = type+"_"+fileName;
 		// 파일 업로드 변수 설정
 		File newFile = new File(svrfilePath, svrFileName);
-		// 파일 업로드 실행
-		boolean isUploaded = FileUtil.uploadFormFile(file, newFile);
-		if(!isUploaded)
-			modelAndView.error(Message.ERR_0033);
-		else
-		{
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("FILE_NAME", fileName);
-			map.put("FILE_SIZE", String.valueOf(file.getSize()));
-			map.put("FILE_PATH", svrfilePath+"/"+svrFileName);
-			modelAndView.addObject("FILE_INFO", map);
-			modelAndView.success();
-		}
+		file.transferTo(newFile);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("FILE_NAME", svrFileName);
+		map.put("FILE_SIZE", String.valueOf(file.getSize()));
+		map.put("FILE_PATH", svrfilePath+"/"+svrFileName);
+		modelAndView.addObject("FILE_INFO", map);
+		modelAndView.success();
 		return modelAndView;
 	}
 	
@@ -172,13 +171,17 @@ public class ProcessController extends BaseController {
 		}
 		
 		// 2. 파일 목록만큼 루프를 돌면서 DB종류를 체크한다.
-		Excel excel = new Excel();
+		Excel excel = null;
 		int cnt = 0;
 		for(File tempFile : fileList) {
 			String tempFileName = tempFile.getName();
 			String path = dirFile.getPath()+"/"+tempFileName;
+			if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
+				excel = new XSSExcel(path);
+			else 
+				excel = new HSSExcel(path);
 			
-			cnt += excel.getRowCount(path) - 1;
+			cnt += excel.getRowCount() - 1;
 		}
 		
 		Map<String, String> param = new HashMap<String, String>();
@@ -276,38 +279,38 @@ public class ProcessController extends BaseController {
 			return modelAndView;
 		}
 		
-		Excel excel = new Excel();
-
-		// 2. 파일 목록만큼 루프를 돌면서 DB종류를 체크한다.
+		Excel excel = null;
+		Map<String, Object> saveMap = new HashMap<String, Object>();
+		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
+		saveMap.put("LOGIN_ID", getLoginId(session));
+		// 파일 목록만큼 루프를 돌면서
 		for(File tempFile : fileList) {
 			String tempFileName = tempFile.getName();
 			String path = dirFile.getPath()+"/"+tempFileName;
-			String kindsDB = excel.getKindsDB(path);
+			if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
+				excel = new XSSExcel(path);
+			else 
+				excel = new HSSExcel(path);
+			// 2. DB종류를 체크한다.
+			String kindsDB = excel.getKindsDB();
 			if(StringUtil.isNull(kindsDB)) {
 				modelAndView.error(Message.ERR_0032);
 				return modelAndView;
 			}
-
-			if(!excel.checkHeader(path, kindsDB)) {
-				modelAndView.error(Message.ERR_0032);
-				return modelAndView;
-			}
-		}
-		
-		// 3. 파일을 임시테이블에 등록한다.
-		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
-		Map<String, Object> saveMap = new HashMap<String, Object>();
-		saveMap.put("LOGIN_ID", getLoginId(session));
-		for(File tempFile : fileList) {
-			String tempFileName = tempFile.getName();
-			String path = dirFile.getPath()+"/"+tempFileName;
-			List<Map<String, String>> list = excel.readExcel( path);
+			
+			// 3. 파일을 임시테이블에 등록한다.
+			List<Map<String, String>> list = excel.readExcel(kindsDB);
+			
+			// 데이터 가공 처리
+			doProcessing(list, kindsDB);			
+			// 4. 데이터를 파싱한다.
 			
 			for(Map<String, String> map : list)
-				saveList.add(map);
+				saveList.add(map);			
 		}
+
 		saveMap.put("list"    , saveList);
-		patentService.saveUploadTemp(saveMap);
+		patentService.savePatentTemp(saveMap);
 
 		modelAndView.success();
 		return modelAndView;

@@ -15,7 +15,7 @@ Date : 2013-12-25
 .expressionList li:first-child {border-top:0 none}
 .expressionList li label {float:left;width:12%;vertical-align:middle;line-height:21px;font-weight:bold;letter-spacing:-1px;text-align:center;color:#25ac01}
 .expressionList li label.txtStar {text-align:right;color:#f3460e}
-.expressionList li span {float:right;width:86%;vertical-align:middle;display:inline-block;text-align:left;}
+.expressionList li span {float:right;width:86%;vertical-align:middle;display:inline-block;text-align:left;line-height:21px;}
 .expressionList li span select {height:20px;}
 .expressionList li textarea {height:80px}
 .expressionBox .btnRight {position: absolute;top:10px;right:10px;}

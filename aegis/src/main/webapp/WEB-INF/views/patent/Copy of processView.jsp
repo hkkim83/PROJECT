@@ -307,73 +307,39 @@
 		});		
 	};
 	
-	// 파일 업로드
-	var upload = function() {
-		var formData = new FormData();
-		formData.append("file", $('#file')[0].files[0]);
-		$.ajax({
-			url : '/process/upload.do?type=' + $('#db_type').val(),
-			data : formData,
-			processData : false,
-			contentType : false,
-			beforeSend : function() {
-				alert($('#db_type').val());
-				var fileName = $('#fileName').val();
-				var index = fileName.lastIndexOf(".");
-				var ext = fileName.substring(index + 1, fileName.length);
-				if (!(ext == "xls" || ext == "xlsx" || ext == "xlsm")) {
-					alert("엑셀파일만 업로드 가능합니다.");
-					return false;
-				}
-			},
-			success : function(data) {
-				if (data.RESULT_CD == "SUCC_0001") {
-					uploadCompleted(data.FILE_INFO);
-				} else {
-					alert(data.RESULT_MSG);
-				}
-			}
-		});
-		return result;
-	};
-
-	$(document).ready(function() {
+	$(document).ready(function(){
 
 		$baseInfo = $('#fileInfo').remove();
-
-		$('#btn_batch').bind('click', function(event) {
+		
+		$('#btn_batch').bind('click', function(event){
 			event.preventDefault();
 			batch();
 		});
-
+		
 		getFileList();
-
-		Common.setCommonCodeCombo('01', $('#db_type'));
-
-		$('#file').bind('change', upload);
-		/* 
+		
 		$('#file').fileupload({
-			url : '/process/upload.do?type=' + $('#db_type').val(),
-			dataType : 'json',
-			beforeSend : function() {
-				alert($('#db_type').val());
+			url: '/process/upload.do',
+			dataType: 'json',
+			beforeSend:function() {
 				var fileName = $('#fileName').val();
 				var index = fileName.lastIndexOf(".");
-				var ext = fileName.substring(index + 1, fileName.length);
-				if (!(ext == "xls" || ext == "xlsx" || ext == "xlsm")) {
+				var ext = fileName.substring(index+1, fileName.length);
+ 				if(!(ext == "xls" || ext == "xlsx" || ext == "xlsm")) {
 					alert("엑셀파일만 업로드 가능합니다.");
 					return false;
 				}
 			},
-			success : function(data) {
-				if (data.RESULT_CD == "SUCC_0001") {
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
 					uploadCompleted(data.FILE_INFO);
 				} else {
 					alert(data.RESULT_MSG);
 				}
 			}
-		}); */
+		});
 	});
+	
 })(jQuery);
 </script>
 <div id="dlg_process_progress_bar" class="layer_dialog">
@@ -414,13 +380,10 @@
 							<input type="hidden" id="fileName" readonly/>
 							<div class="btnArea right file_input_div">
 								<table align="right">
-									<tr>
-									<td>
-										<select id="db_type" style="margin-bottom:16px; height:22px;"></select>
+									<tr><td>
 										<input type="file" id="file" name="file" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
 										<a id="addFile" href="#" class="btntype2"><span>파일추가</span></a>
-									</td>
-									</tr>
+									</td></tr>
 								</table>
 							</div>
 							<div id="divBox" class="expressionBox">
