@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+/************************************************
+Author :  Gu ji yeon 
+Version : AEGIS
+Date : 2013-12-27
+*************************************************/
+ 
+.layerPopup {position: absolute;top:0;left:0;z-index:10000;border:2px solid #8cc63f;overflow:hidden;}
+.layerPopup.wid1 {width:428px;}
+.layerPopup.wid2 {width:300px;}
+.layerPopup .pHeader{overflow:hidden;border-bottom:1px solid #ccc;padding:12px 0 10px 15px;}
+.layerPopup .pHeader h2{font-size:16px;letter-spacing:-1px;}
+.layerPopup .pContents{clear:both;overflow:hidden;padding:20px;}
+.layerPopup .pFooter{clear:both;border-top:1px solid #ccc;margin:0 10px 5px}
+
+/* 컨텐츠 */
+.psechForm {clear:both;width:100%;padding:5px 0;overflow:hidden}
+.psechForm dt {float:left;background:#f2f2f2;padding:8px 30px 5px;font-weight:bold;overflow:hidden}
+.psechForm dd {float:left;width:73%;overflow:hidden;padding:2px 0 0 5px}
+.psechForm dd span.percent{height:23px;display:inline-block;width:30%;background:#f64911;line-height:23px;color:#fff; vertical-align:top;}
+.psechForm dd span.percent em {padding-left:5px}
+
+.psearchList {clear:both;border:1px solid #d8d8d8;height:150px;overflow-x:hidden;overflow-y:auto;clear:both;margin-top:8px}
+.psearchList p {padding:5px;line-height:14px}
+.psearchList.inb_con {display:none;}
+.psearchList.active {display:block;}
+.selist.inb_con {display:none;} 
+.selist.active {display:block;}
+.selist textarea {height:129px;width:94%;margin-top:8px}
+
+/* 데이터 가공 팝업 */
+.progress {clear:both;}
+.progress dt {float:left}
+.progress dd {}
+
+/* tab */
+.popTab {width:100%;border-bottom:1px solid #ccc;height:30px;}
+.popTab li {float:left;border:1px solid #ccc;border-bottom:0;margin-left:-1px;text-align:center;letter-spacing:-1px;}
+.popTab li img {vertical-align:middle;}
+.popTab li a {display:block;height:30px;width:120px;line-height:30px;color:transparent;color:#6b6b6b}
+.popTab li a.on {border-top:1px solid #8cc63f;background-color:#fff;color:#578e0e;font-weight:bold}
+
+/* 버튼 */
+.pbtn {padding:10px 0;text-align:center;}
+.pbtn button {vertical-align:top;color:#fff;font-size:12px;font-weight:bold;margin:0 2px}
+.pbtn a  {vertical-align:top;color:#fff;font-size:12px;font-weight:bold;}
+.btnPoGreen {display:inline-block;background:#5aa04b;padding:8px 25px 6px;overflow:hidden;border:1px solid #135d19;}
+.btnPoGray{display:inline-block;background:#525a64;padding:8px 25px 6px;overflow:hidden;border:1px solid #404852;}
+a.btnPoGray  {display:inline-block;background:#525a64;padding:8px 25px 6px;overflow:hidden;border:1px solid #404852;}
+.btnPoOrang{display:inline-block;background:#f54a14;padding:8px 25px 6px;overflow:hidden;border:1px solid #ee3a05;}
+a.btnPoOrang  {display:inline-block;background:#f54a14;padding:8px 25px 6px;overflow:hidden;border:1px solid #ee3a05;}
+
+/* popup login */
+.logtxt {line-height:16px;padding:0 0 10px}
+.popLogin {position:relative;float:left;background:#f6f6f6;width:98%;height:86px;border:1px solid #c3d6b9;}
+.popLogin ul {padding:11px 0 0 10px;}
+.popLogin ul li {margin:0 0 3px;}
+.popLogin ul li label {position:absolute; left:-50000px;}
+.popLogin ul li input {width:160px;line-height:18px;}
+.popLogin span {position:absolute;top:11px;right:12px;}
+.popLogin span a.btnLogin {display:block;}
+.loinmm {clear:both;font-size:11px;color:#5f6164;letter-spacing:-1px;}
+.loinmm .left {position:absolute;left:12px;top:66px}
+.loinmm .right {position:absolute;right:12px;top:66px}
+

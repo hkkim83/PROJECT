@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AGEIS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta name="subject" content="AGEIS 특허분석시스템" />
+<meta name="keywords" content="AGEIS 특허분석시스템" />
+<meta name="description" content="AGEIS 특허분석시스템" /> 
+<meta name="language" content="ko" /> 
+<link type="text/css" rel="stylesheet" href="../css/style.css" /> 
+<!--[if lte IE 7]><link	rel="stylesheet" href="../css/ie7.css" type="text/css" media="all"><![endif]-->
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/smartFinder.js"></script>
+</head>
+<body>
+<!-- skipToContent -->
+<div id="skipToContent"> 
+   <a href="#container">메인콘텐츠 바로가기</a> 
+</div>
+<!-- //skipToContent -->
+
+<div id="wrap"> 
+    <!-- header -->
+    <div id="header">
+		<%@include file="/include/header.jsp"%> 
+    </div>
+    <!-- //header -->  
+            
+    <!-- container -->
+    <div id="container"> 
+        <!-- contents -->
+		<div id="contents">
+			<div class="contsMiddle">
+
+				<!-- contents body -->
+				<div class="contBody">
+					<!-- 검색시작 -->
+					<section id="smart_finder">	
+						<form name="SearchItemForm" method="post" onsubmit="return false;">
+						<fieldset>
+							<legend>스마트검색</legend>
+							<div id="divSmartFinderWrap" class="detail_smart" style="top: 0px; z-index: 100; display: block; position: relative;">
+								<div id="divSmartFinder">
+									<div class="directSearch">
+										<p class="mid">아래의 조건들을 선택하셔서 검색하시면 오른쪽에 검색결과가 보여집니다.</p>
+									</div>
+									<div class="searchCondition type2">
+										<h4>키워드 검색</h4>
+										<div class="searchBox">
+											<div class="analysis">
+												<table summary="목적/효과,기능,구성,재료/성분,응용분야,공정/제어,동력/원리">
+												<caption>선택</caption>
+												<colgroup>
+													<col width="13%" />
+													<col width="20%" />
+													<col width="13%" />
+													<col width="20%" />
+													<col width="13%" />
+													<col width="20%" />
+												</colgroup>
+												<tbody>
+												<tr>
+													<th><label for="g01">목적/효과</label></th>
+													<td>
+														<select class="w95" id="g01">
+															<option>크기 감소</option>
+														</select>
+													</td>
+													<th><label for="g02">기능</label></th>
+													<td>
+														<select class="w95" id="g01">
+															<option>일체형</option>
+														</select>
+													</td>
+													<th class="last">&nbsp;</th>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<th><label for="g03">구성</label></th>
+													<td>
+														<select class="w95" id="g03">
+															<option>일체형</option>
+														</select>
+													</td>
+													<th><label for="g04">재료/성분</label></th>
+													<td>
+														<select class="w95" id="g04">
+															<option>선택</option>
+														</select>
+													</td>
+													<th class="last">&nbsp;</th>
+													<td>&nbsp;</td>
+												</tr>
+												<tr>
+													<th><label for="g05">응용분야</label></th>
+													<td>
+														<select class="w95" id="g05">
+															<option>선택</option>
+														</select>
+													</td>
+													<th><label for="g06">공정/제어</label></th>
+													<td>
+														<select class="w95" id="g06">
+															<option>선택</option>
+														</select>
+													</td>
+													<th><label for="g07">동력/원리</label></th>
+													<td>
+														<select class="w95" id="g07">
+															<option>선택</option>
+														</select>
+													</td>
+												</tr>
+												</tbody>
+												</table>
+												<div class="btn_area">
+													<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+												</div>
+											</div>
+											<div class="searchInfo w38">
+												<h5>검색결과</h5>
+												<div class="searchBox2">
+													<div class="searchDetail">
+														<div class="detailList2">
+															<table summary="연변,출원번호,발명의 명칭">
+															<caption>검색결과</caption>
+															<colgroup>
+																<col width="5%" />
+																<col width="15%" />
+																<col width="20%" />
+																<col width="60%" />
+															</colgroup>
+															<thead>
+															<tr>
+																<th scope="col"><input type="checkbox" title="전체선택" /></th>
+																<th scope="col">연변</th>
+																<th scope="col">출원번호</th>
+																<th scope="col">발명의 명칭</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr>
+																<td><input type="checkbox" title="선택" /></td>
+																<td>#0005</td>
+																<td>1979-012010</td>
+																<td>DRVING APPARATUS</td>
+															</tr>
+															<tr>
+																<td><input type="checkbox" title="선택" /></td>
+																<td>#0005</td>
+																<td>1979-012010</td>
+																<td>DRVING APPARATUS</td>
+															</tr>
+															<tr>
+																<td><input type="checkbox" title="선택" /></td>
+																<td>#0005</td>
+																<td>1979-012010</td>
+																<td>DRVING APPARATUS</td>
+															</tr>
+															<tr>
+																<td><input type="checkbox" title="선택" /></td>
+																<td>#0005</td>
+																<td>1979-012010</td>
+																<td>DRVING APPARATUS</td>
+															</tr>
+															<tr>
+																<td><input type="checkbox" title="선택" /></td>
+																<td>#0005</td>
+																<td>1979-012010</td>
+																<td>DRVING APPARATUS</td>
+															</tr>
+															</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div id="divDummySmartFinderBtn" class="sfinder_open" style="display: none; top: 5px;">
+									<span class="sfinder_txt"><a href="#" onclick="return false;">
+									<img id="DummySmartFinder" src="../images/common/btn_smartfinder_close.gif" alt="스마트검색 닫기"></a></span> 
+								</div>
+							</div>
+							<div id="divSmartFinderBtn" class="sfinder_open" style="position: relative; opacity: 1; top: 0px; left: 0px; z-index: 99; display: block;">
+								<span class="sfinder_txt">
+									<a id="btnToggleSmartFinder" href="#" onclick="return false;">
+										<img id="ToggleSmartFinder" src="../images/common/btn_smartfinder_open_m.gif" alt="스마트검색 열기">
+									</a>
+								</span> 
+							</div>
+						</fieldset>
+						</form>
+					</section>
+					<!-- //검색 끝 -->
+					
+					<!-- title/location -->
+					<div class="hgroup finder">
+						<h3><img src="../images/common/h3_03_3.png" alt="핵심특허분석"></h3>
+						<div class="localtion">
+							<ul>
+								<li><a href="">홈</a></li>
+								<li><a href="">데이터분석</a></li>
+								<li><a href=""><strong>핵심특허분석</strong></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- // title/location -->
+					
+					<!-- 검색 결과  -->
+					<div class="searchResults">
+						<!-- 검색 상세리스트 -->
+						<div class="resultDetail">
+							<div class="resultBox">
+								<ul class="resultDetailList">
+									<li><em>출원국가</em><span>KR</span></li>
+									<li><em>권리구분</em><span>특허</span></li>
+									<li><em>대표 IPC</em><span>F16H-001/32</span></li>
+									<li><em>출원번호(일자)</em><span>2008-70003310(2008-02-11)</span></li>
+									<li><em>공개번호(일자)</em><span>2008-70003310(2008-02-11)</span></li>
+									<li><em>등록번호(일자)</em><span></span></li>
+									<li><em>출원인</em><span>NABTESCO</span></li>
+									<li><em>Family 정보</em><span></span></li>
+								</ul>
+								<p class="resultImg">
+									<img src="../images/common/img_sam01.jpg" alt="">
+									<span><a href=""><img src="../images/common/btn_bogi_1.gif" alt="전문보기"></a></span>
+								</p>
+								
+								<div class="resultInfo">
+									<h4>발명의 요약</h4>
+									<p class="executive">
+										<textarea title="요약내용">
+										</textarea>
+									</p>
+								</div>
+								<div class="resultInfo">
+									<h4>대표청구항</h4>
+									<p class="executive">
+										<textarea title="요약내용">
+										</textarea>
+									</p>
+								</div>
+								<div class="resultInfo">
+									<h4>검토의견</h4>
+									<p class="executive">
+										<textarea title="검토의견 입력">
+										</textarea>
+									</p>
+								</div>
+							</div>
+							<div class="resultBox">
+								<ul class="resultDetailList">
+									<li><em>출원국가</em><span>KR</span></li>
+									<li><em>권리구분</em><span>특허</span></li>
+									<li><em>대표 IPC</em><span>F16H-001/32</span></li>
+									<li><em>출원번호(일자)</em><span>2008-70003310(2008-02-11)</span></li>
+									<li><em>공개번호(일자)</em><span>2008-70003310(2008-02-11)</span></li>
+									<li><em>등록번호(일자)</em><span></span></li>
+									<li><em>출원인</em><span>NABTESCO</span></li>
+									<li><em>Family 정보</em><span></span></li>
+								</ul>
+								<p class="resultImg">
+									<img src="../images/common/img_sam01.jpg" alt="">
+									<span><a href=""><img src="../images/common/btn_bogi_1.gif" alt="전문보기"></a></span>
+								</p>
+								
+								<div class="resultInfo">
+									<h4>발명의 요약</h4>
+									<p class="executive">
+										<textarea title="요약내용">
+										</textarea>
+									</p>
+								</div>
+								<div class="resultInfo">
+									<h4>대표청구항</h4>
+									<p class="executive">
+										<textarea title="요약내용">
+										</textarea>
+									</p>
+								</div>
+								<div class="resultInfo">
+									<h4>검토의견</h4>
+									<p class="executive">
+										<textarea title="검토의견 입력">
+										</textarea>
+									</p>
+								</div>
+							</div>
+						</div>
+						<!-- //검색 상세리스트 -->
+	
+					</div>
+					<!-- //검색결과 -->
+
+					<!-- 버튼 -->
+					<div class="btnArea right">
+						<a href="#" class="btntype2"><span>저장</span></a>
+					</div>
+					<!-- 버튼 -->
+					
+				</div>
+				<!-- //contents body -->
+			</div>
+		</div>
+        <!-- //contents --> 
+    </div>
+	<!-- //container -->
+    
+	<!-- footer -->
+    <div id="footer"> 
+		<%@include file="/include/footer.jsp"%> 
+	</div>
+    <!-- //footer -->
+	
+</div><!-- //wrap -->
+</body>
+</html>

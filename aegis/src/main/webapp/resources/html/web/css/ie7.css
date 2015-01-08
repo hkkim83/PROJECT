@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+/************************************************
+Author :  Gu ji yeon 
+Version : AEGIS
+Date : 2013-12-20
+*************************************************/  
+
+.location > ul > li {line-height:100%;}
+ 
+ /* 버튼 */
+.btnPoGreen {display:inline-block;background:#5aa04b;padding:6px 12px 5px;overflow:hidden;border:1px solid #135d19;}
+.btnPoOrang{display:inline-block;background:#f54a14;padding:6px 12px 5px;overflow:hidden;border:1px solid #ee3a05;}

@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AGEIS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta name="subject" content="AGEIS 특허분석시스템" />
+<meta name="keywords" content="AGEIS 특허분석시스템" />
+<meta name="description" content="AGEIS 특허분석시스템" /> 
+<meta name="language" content="ko" /> 
+<link type="text/css" rel="stylesheet" href="../css/style.css" /> 
+<!--[if lte IE 7]><link	rel="stylesheet" href="../css/ie7.css" type="text/css" media="all"><![endif]-->
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/smartFinder.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	//테이블 tr over효과
+	$(document).ready(function() {
+		$("table tr:gt(0)").hover(
+			function() { $(this).addClass("hover"); },
+			function() { $(this).removeClass("hover"); }
+		);
+	});
+	//'table tr:gt(0) 0보다 큰것만 마우스 오버 효과가 나타남
+//]]>
+</script>
+</head>
+<body>
+<!-- skipToContent -->
+<div id="skipToContent"> 
+   <a href="#container">메인콘텐츠 바로가기</a> 
+</div>
+<!-- //skipToContent -->
+
+<div id="wrap"> 
+    <!-- header -->
+    <div id="header">
+		<%@include file="/include/header.jsp"%> 
+    </div>
+    <!-- //header -->  
+            
+    <!-- container -->
+    <div id="container"> 
+        <!-- contents -->
+		<div id="contents">
+			<div class="contsMiddle">
+
+				<!-- contents body -->
+				<div class="contBody">
+					<!-- 검색시작 -->
+					<section id="smart_finder">	
+						<form name="SearchItemForm" method="post" onsubmit="return false;">
+						<fieldset>
+							<legend>스마트검색</legend>
+							<div id="divSmartFinderWrap" class="detail_smart" style="top: 0px; z-index: 100; display: block; position: relative;">
+								<div id="divSmartFinder">
+									<div class="directSearch">
+										<p class="left">
+											<a href="#" class="btnSmall write">전체검색</a> <em>952건[총 1200건]</em>
+											<a href="#" class="btnSmall write">중요특허</a> <em>총 44건</em>
+											<a href="#" class="btnSmall write">미검토</a> <em>총 44건</em>
+											<a href="#" class="btnSmall write">검토완료</a> <em>총 952건</em>
+										</p>
+									</div>
+									<div class="searchCondition">
+										<h4>키워드 검색</h4>
+										<div class="searchBox">
+											<ul class="w45">
+												<li>
+													<label for="s01">발명의 명칭</label>
+													<select class="w30" id="s01">
+														<option>발명의 명칭</option>
+													</select>
+													<input type="text" class="w40" title="텍스트 입력" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</li>
+												<li>
+													<label for="s02">요약</label>
+													<select class="w30" id="s02">
+														<option>요약</option>
+													</select>
+													<input type="text" class="w40" title="텍스트 입력" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</li>
+												<li>
+													<label for="s03">청구 범위</label>
+													<select class="w30" id="s03">
+														<option>청구 범위</option>
+													</select>
+													<input type="text" class="w40" title="텍스트 입력" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</li>
+											</ul>
+											<div class="searchInfo w50">
+												<p><strong>예)</strong> driv => driv로 시작하는 모든 단어<br />
+													출원(공개)번호 : KR => 2004-1234567 // JP,US  => 2004-123456<br />
+													등록번호 : KR, JP, US => 0926575 [7자리]</p>
+												<p><strong>주)</strong> 각 검색창은 발명의 명칭, 요약, 청구범위,<br />
+													 출원(공개, 등록)번호 가운데 자유롭게 선택할 수 있으며,<br />
+													 빈 칸은 전체 선택과 같습니다.</p>
+											</div>
+										</div>
+									</div>
+									<div class="searchCondition">
+										<h4>출원인, 발명자 검색</h4>
+										<div class="searchBox">
+											<ul class="w45">
+												<li>
+													<label for="s04">출원인</label>
+													<select class="w30" id="s04">
+														<option>출원인</option>
+													</select>
+													<input type="text" class="w40" title="텍스트 입력" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</li>
+												<li>
+													<label for="s05">발명자</label>
+													<select class="w30" id="s05">
+														<option>발명자</option>
+													</select>
+													<input type="text" class="w40" title="텍스트 입력" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="searchCondition">
+										<h4>국가 및 기술분류 선택</h4>
+										<div class="searchBox">
+											<table summary="대분류,중분류,출원국가,목적등급,목적,해결수단등급,해결수단">
+											<caption>국가 및 기술분류 선택</caption>
+											<colgroup>
+												<col width="12%" />
+												<col width="38%" />
+												<col width="12%" />
+												<col width="38%" />
+											</colgroup>
+											<tbody>
+											<tr>
+												<th scope="row"><label for="s06">대분류</label></th>
+												<td>
+													<input type="text" class="w50" id="s06" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s07">중분류</label></th>
+												<td>
+													<input type="text" class="w50" id="s07" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s08">출원국가</label></th>
+												<td>
+													<input type="text" class="w50" id="s08" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s09">목적등급</label></th>
+												<td>
+													<input type="text" class="w50" id="s09" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<th scope="row"><label for="s10"><em>목적</em></label></th>
+												<td>
+													<input type="text" class="w50" id="s10" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s11"><em>해결수단등급</em></label></th>
+												<td>
+													<input type="text" class="w50" id="s11" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<th scope="row"><label for="s12"><em>해결수단</em></label></th>
+												<td>
+													<input type="text" class="w50" id="s12" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+											</tr>
+											</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="searchCondition">
+										<h4>검색구간 지정(출원일,공개일,등록일 기준)</h4>
+										<div class="searchBox">
+											<table summary="출원일자,공개일자,검토결과,검토구분">
+											<caption>검색구간 지정(출원일,공개일,등록일 기준)</caption>
+											<colgroup>
+												<col width="12%" />
+												<col width="38%" />
+												<col width="12%" />
+												<col width="38%" />
+											</colgroup>
+											<tbody>
+											<tr>
+												<td colspan="2">
+													<p>
+														<label for="s13" class="blind">출원일자</label>
+														<select class="w25" id="s13">
+															<option>출원일자</option>
+														</select>
+														<input type="text" class="w20" title="시작일" /> -
+														<input type="text" class="w20" title="종료일" />
+														<select class="w20" title="and">
+															<option>and</option>
+														</select>
+													</p>
+												</td>
+												<td rowspan="2" colspan="2">
+													<span><strong>예)</strong>
+														<input type="text" class="w20" title="시작일" value="20060710" /> - <input type="text" class="w20"  value="20071205" title="종료일" />
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<p>
+														<label for="s14" class="blind">공개일자</label>
+														<select class="w25" id="s14">
+															<option>공개일자</option>
+														</select>
+														<input type="text" class="w20" title="시작일" /> -
+														<input type="text" class="w20" title="종료일" />
+														<select class="w20" title="and">
+															<option>and</option>
+														</select>
+													</p>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s15"><em>검토결과</em></label></th>
+												<td>
+													<input type="text" class="w60" id="s15" />
+													<select class="w20" title="and">
+														<option>and</option>
+													</select>
+												</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<th scope="row"><label for="s16"><em>검토구분</em></label></th>
+												<td>
+													<select class="w65" id="s16">
+														<option>선택</option>
+													</select>
+												</td>
+												<td>&nbsp;</td>
+												<td>&nbsp;</td>
+											</tr>
+											</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="btn_area">
+										<a id="btnClearSmartFinder" href="#" onclick="return false;"><img src="../images/common/btn_clear.gif" alt="초기화"></a>
+										<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+									</div>
+								</div>
+								<div id="divDummySmartFinderBtn" class="sfinder_open" style="display: none; top: 5px;">
+									<span class="sfinder_txt"><a href="#" onclick="return false;">
+									<img id="DummySmartFinder" src="../images/common/btn_smartfinder_close.gif" alt="스마트검색 닫기"></a></span> 
+								</div>
+							</div>
+							<div id="divSmartFinderBtn" class="sfinder_open" style="position: relative; opacity: 1; top: 0px; left: 0px; z-index: 99; display: block;">
+								<span class="sfinder_txt">
+									<a id="btnToggleSmartFinder" href="#" onclick="return false;">
+										<img id="ToggleSmartFinder" src="../images/common/btn_smartfinder_open_m.gif" alt="스마트검색 열기">
+									</a>
+								</span> 
+							</div>
+						</fieldset>
+						</form>
+					</section>
+					<!-- //검색 끝 -->
+					
+					<!-- title/location -->
+					<div class="hgroup finder">
+						<h3><img src="../images/common/h3_03_1.png" alt="특허검색"></h3>
+						<div class="localtion">
+							<ul>
+								<li><a href="">홈</a></li>
+								<li><a href="">데이터분석</a></li>
+								<li><a href=""><strong>특허검색</strong></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- // title/location -->
+					
+					<!-- 검색 결과  -->
+					<div class="searchResults">
+						<h4>검색결과</h4>
+						<div class="expression">
+							<p class="left"><span class="searchtitle">입력검색식 :</span>
+							<span class="searchbody">
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            </span></p>
+							<p class="right">
+								<button type="button" class="btnSmall green">키워드 저장</button>
+								<a href="#" class="btnSmall write">중요특허</a>
+								<span>총 944건</span>
+								<span>(아래 리스트의  <img src="../images/common/ico_ferretout.gif" alt="" /> 색출)</span>
+							</p>
+						</div>
+						<!-- 검색 상세리스트 -->
+						<div class="finderDetail">
+							<dl class="detailTop">
+								<dt>
+									<a href="sub03_01.html"><img src="../images/btn/btn_list.gif" alt="기본리스트" /></a>
+									<a href="sub03_01_2.html"><img src="../images/btn/btn_represents.gif" alt="초록대표도" /></a>
+									<a href="sub03_01_3.html"><img src="../images/btn/btn_download.gif" alt="다운로드" /></a>
+								</dt>
+								<dd>
+									<span>총 982건 검색</span>
+									<select title="검색결과 수량">
+										<option>10개씩 보기</option>
+									</select>
+									<span>[1-10/48]</span>
+								</dd>
+							</dl>
+							<div class="detailList">
+								<table summary="연변,국가,구분,출원번호,출원일자,발명의 명칭,등급,전문,출원인">
+								<caption>검색조건</caption>
+								<colgroup>
+									<col width="5%" />
+									<col width="6%" />
+									<col width="5%" />
+									<col width="5%" />
+									<col width="12%" />
+									<col width="11%" />
+									<col width="*" />
+									<col width="5%" />
+									<col width="5%" />
+									<col width="16%" />
+								</colgroup>
+								<thead>
+								<tr>
+									<th scope="col"><input type="checkbox"  title="전체선택" /></th>
+									<th scope="col">연변</th>
+									<th scope="col">국가</th>
+									<th scope="col">구분</th>
+									<th scope="col">출원번호</th>
+									<th scope="col">출원일자</th>
+									<th scope="col">발명의 명칭</th>
+									<th scope="col">등급</th>
+									<th scope="col">전문</th>
+									<th scope="col">출원인</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">HOIST DEVICE FOR ELEVATOR</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"  title="선택" /></td>
+									<td>0005</td>
+									<td class="cout">JP</td>
+									<td class="pate">특허</td>
+									<td class="num">1979-012010</td>
+									<td class="date">1979-02-05</td>
+									<td class="name">DRVING APPARATUS</td>
+									<td>CIC</td>
+									<td><img src="../images/common/ico_file.gif" alt="파일" /></td>
+									<td class="app">SUMITOMO HEAVY</td>
+								</tr>
+								</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- //검색 상세리스트 -->
+						
+						<!-- 버튼 -->
+						<div class="btnArea left">
+							<a href="#" class="btntype1"><span>선택문헌 중요특허 추가</span></a>
+							<a href="#" class="btntype1"><span>선택문헌 중요특허 제외</span></a>
+							<a href="#" class="btntype1"><span>선택문헌 삭제</span></a>
+						</div>
+						<!-- 버튼 -->
+
+						<!-- paging center --> 
+						<div class="paging"> 
+							<span class="btn"><a href="#" class="first">처음</a></span>
+							<span class="btn"><a href="#" class="prev">이전</a> </span>
+							<span class="num">
+								<strong class="on">1</strong> 
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
+								<a href="#">5</a>
+								<a href="#">6</a>
+								<a href="#">7</a>
+								<a href="#">8</a>
+								<a href="#">9</a>
+								<a href="#" class="end">10</a>
+							</span>
+							<span class="btn"><a href="#" class="next">다음</a></span> 
+							<span class="btn"><a href="#" class="last">마지막</a></span>           
+						</div> 
+						<!--// paging --> 
+					</div>
+					<!-- //검색결과 -->
+					
+				</div>
+				<!-- //contents body -->
+			</div>
+		</div>
+        <!-- //contents --> 
+    </div>
+	<!-- //container -->
+    
+	<!-- footer -->
+    <div id="footer"> 
+		<%@include file="/include/footer.jsp"%> 
+	</div>
+    <!-- //footer -->
+	
+</div><!-- //wrap -->
+</body>
+</html>

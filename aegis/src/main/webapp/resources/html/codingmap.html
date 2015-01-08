@@ -1,0 +1,703 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>2013 에어스 디자인-코딩맵</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+<style type="text/css">
+  html{width:100%;min-height:100%;padding: 0px;margin: 0px;}
+  body{color: #363636;min-height:100%;font-size:12px;font-family:"돋움",arial,Dotum,AppleGothic,sans-serif;line-height:1.2;padding:0;margin:0;-webkit-text-size-adjust:none;background:#f5f5f5;word-wrap: break-word; word-break: keep-all;letter-spacing:0.5;}
+
+  div, p, ol, ul, li, img, a, h1, h2, h3, h4, h5, h6 form, span, iframe, dl, dt, dd, button, span{margin:0px;padding:0px;border:0;}
+  ul, ol, li{list-style:none;}
+  button, span, label{display:inline-block;background:none;border:0;}
+  table, th, td{border-collapse:collapse;margin:0;padding:0;}
+  table caption{display:none;}
+  select, input, textarea{font-family:dotum,AppleGothic,sans-serif;color:#363636;padding:0;margin:0;}
+  textarea, iframe{font-size:12px;font-family:dotum,AppleGothic,sans-serif;color:#363636;outline-style:none;}
+  input, select{outline-style:none;outline:none;background:#fff;color:#363636;}
+  fieldset{border:0;margin:0;padding:0;}
+  legend{display:none;}
+  a:link, a:visited, a:active{color:#6c6c6c;text-decoration:none;padding:0;/*outline-style:none;*/}
+  a:hover{color:#6c6c6c;text-decoration:underline;}
+  img{border:0;margin:0;}
+
+  .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;margin:0;padding:0;}
+  .clearfix{display:inline-block;}
+
+  /* Hides from IE-mac \*/
+  * html .clearfix{height:1%;}
+  .clearfix{display: block;}
+  /* End hide from IE-mac */
+
+  body{background:#fff;}
+  #wrap{width:98%;margin:10px auto;padding-bottom:50px;}
+  .tit{width:100%;padding:20px 0 10px;overflow:hidden;}
+  .tit h1{font-size:22px;padding:0;float:left;}
+  .tit p{padding:10px 10px 0 0;float:right;}
+  .tit p .date{font-size:14px;font-weight:bold;color:red;}
+
+  table.list{width:100%;}
+  table.list th{background:#000;color:#fff;}
+  table.list th, table.list td{border:1px solid #ccc;padding:4px 7px;}
+  table.list td{color:#555;}
+  table.list tbody .hover td{background:#FFFFC0;}
+  table.list td a {color:blue;text-decoration:underline;} 
+  table.list td:first-child{text-align:right;}/* number */
+  table.list td:nth-child(2){font-weight:bold;}/* 1depth */
+  table.list tr:nth-child(even){background:#f1f1f1;}
+  table.list tr.cut td{border-top:2px solid #999;}
+  table.list tr.del td,
+  table.list tr.del td *{color:#999 !important;}
+  table.list tr.del td{text-decoration:line-through;}
+  table.list tr.del td:first-child{text-decoration:none;font-size:11px;}
+  table.list tr.del td.bigo{text-decoration:none;}
+
+  .type{text-align:center;}
+  .html{color:#666 !important;}
+  .bbs{color:#00cc00 !important;}
+  .pgm{color:#cc0000 !important;}
+  .link{color:#0000cc !important;}
+
+  .date{text-align:center;}
+  .last{background:#F63 !important;color:#fff !important;}
+  .nowork{background:#666 !important;color:#fff !important;}
+  .bigo{font-size:11px;}
+  .red{color:red;}
+
+  .menu{width:99%;background:#000;position:fixed;bottom:0;left:0;}
+  .menu li{float:right;}
+  .menu li a{display:inline-block;padding:5px 10px;color:#fff;}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	//테이블 tr over효과
+	$(document).ready(function() {
+		$("table tr:gt(0)").hover(
+			function() { $(this).addClass("hover"); },
+			function() { $(this).removeClass("hover"); }
+		);
+		$("table tr:not(.del)").each(function(index){
+			$("td:first-child", this).text(index);
+		});
+		$("table tr.del td:first-child").text("삭제");
+		$tr = $("tbody tr:not(.del)");
+		$("#rate").html("( 총:"+$tr.length+" / 잔여:"+$("td.date:empty",$tr).length+" / 진행:"+parseInt((($tr.length-$("td.date:empty",$tr).length)/$tr.length*100))+"% )");
+	});
+	//'table tr:gt(0) 0보다 큰것만 마우스 오버 효과가 나타남
+//]]>
+</script>
+</head>
+<body>
+<div id="wrap">
+		
+	<div class="tit">
+		<h1>2013 에어스 디자인맵</h1>
+		<p>
+			<span class="date">2013.12.03 00</span>
+			<span id="rate"></span><br />
+		</p>
+	</div>
+
+	<table class="list">
+		<colgroup>
+			<col width="20px" />
+			<col width="120px" />
+			<col width="200px" />
+			<col width="200px" />
+			<col width="" />
+			<col width="" />
+			<col width="200px" />
+			<col width="70px" />
+			<col width="90px" />
+			<col width="200px" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>1depth</th>
+				<th>2depth</th>
+				<th>3depth</th>
+				<th>4depth</th>
+				<th>directory</th>
+				<th>디자인</th>
+				<th align="center">개발</th>
+				<th align="center">date</th>
+				<th>비고</th>
+		    </tr>
+	    </thead>
+		<tbody>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 1</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type1.html" target="_blank">main_type1.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 2</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type2.html" target="_blank">main_type2.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 2</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type2_2.html" target="_blank">main_type2_2.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">헤더와 이미지변경</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 3</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type3.html" target="_blank">main_type3.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 3</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type3_3.html" target="_blank">main_type3_3.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">헤더 부분만 변경</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 4</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type4.html" target="_blank">main_type4.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">수정작업</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>메인시안 type 5</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/main_type5.html" target="_blank">main_type5.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">수정작업</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>팝업 3종</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/popup.html" target="_blank">popup.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		   <tr>
+		    <td></td>
+		    <td>서브 type 1</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		      <td><a href="sian/sub_type1.html" target="_blank">sub_type1.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+
+		  <tr>
+		    <td></td>
+		    <td>서브 type 2</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/sub_type2.html" target="_blank">sub_type2.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>서브 type 3</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/sub_type3.html" target="_blank">sub_type3.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+           <tr>
+		    <td></td>
+		    <td>서브 type 4</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/sub_type4.html" target="_blank">sub_type4.html</a></td>
+		    <td align="center"></td>
+		    <td align="center">&nbsp;</td>
+		    <td align="center" class="bigo">수정작업</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>서브 type 5</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="sian/sub_type5.html" target="_blank">sub_type5.html</a></td>
+		    <td align="center"></td>
+		    <td align="center">&nbsp;</td>
+		    <td align="center" class="bigo">수정작업</td>
+	      </tr>
+      </tbody>
+  </table>
+
+	<div class="tit">
+		<h1>2013 에어스 코딩맵</h1>
+		<p>
+			<span class="date">2013.12.23 00</span>
+			<span id="rate"></span><br />
+		</p>
+	</div>
+
+	<table class="list">
+		<colgroup>
+			<col width="20px" />
+			<col width="120px" />
+			<col width="200px" />
+			<col width="200px" />
+			<col width="" />
+			<col width="" />
+			<col width="200px" />
+			<col width="70px" />
+			<col width="90px" />
+			<col width="200px" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>1depth</th>
+				<th>2depth</th>
+				<th>3depth</th>
+				<th>4depth</th>
+				<th>directory</th>
+				<th>퍼블리싱</th>
+				<th align="center">개발</th>
+				<th align="center">date</th>
+				<th>비고</th>
+		    </tr>
+	    </thead>
+		<tbody>
+		  <tr>
+		    <td></td>
+		    <td>메인</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/index.html" target="_blank">index.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>검색식</td>
+		    <td>&nbsp;</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub01.html" target="_blank">sub01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>검색식 신규 팝업</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_01.html" target="_blank">popup_01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>검색식 수정 팝업</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_02.html" target="_blank">popup_02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>검색식 불러오기 팝업</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_03.html" target="_blank">popup_03.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>데이터가공</td>
+		    <td>일괄자동등록</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub02_01.html" target="_blank">sub02_01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>일괄자동등록</td>
+		    <td>일괄 자동 등록 진행 팝업</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_04.html" target="_blank">popup_04.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>대표명화 관리</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub02_02.html" target="_blank">sub02_02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>특허문헌 누락 처리</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub02_03.html" target="_blank">sub02_03.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>일괄자동등록</td>
+		    <td>특허문헌 누락처리 진행</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_05.html" target="_blank">popup_05.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>OS 관리</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub02_04.html" target="_blank">sub02_04.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>단계별 데이터 처리</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub02_05.html" target="_blank">sub02_05.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>데이터분석</td>
+		    <td>특허검색</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub03_01.html" target="_blank">sub03_01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>특허검색</td>
+		    <td>초록대표도</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub03_01_2.html" target="_blank">sub03_01_2.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>특허검색</td>
+		    <td>요지리스트</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub03_01_3.html" target="_blank">sub03_01_3.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td>OS Matrix</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub03_02.html" target="_blank">sub03_02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td>핵심특허분석</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub03_03.html" target="_blank">sub03_03.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>그래프분석</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub04.html" target="_blank">sub04.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		   <tr>
+		    <td></td>
+		    <td>로그인</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_06.html" target="_blank">popup_06.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>회원가입</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_j01.html" target="_blank">sub_j01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>아이디/비밀번호찾기</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_j02.html" target="_blank">sub_j02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>마스터화면</td>
+		    <td>고객관리</td>
+		    <td>&nbsp;</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_m01.html" target="_blank">sub_m01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td>MA-1 Master</td>
+		    <td>공지사항</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_m02.html" target="_blank">sub_m02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		   <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>공지사항</td>
+		    <td>공지사항 신규/수정 (팝업)</td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_07.html" target="_blank">popup_07.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>Q&amp;A</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_m03.html" target="_blank">sub_m03.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>Q&amp;A</td>
+		    <td>Q&A (팝업)</td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_08.html" target="_blank">popup_08.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>FAQ</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_m04.html" target="_blank">sub_m04.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>FAQ</td>
+		    <td>FAQ (팝업)</td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_09.html" target="_blank">popup_09.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td>관리자화면</td>
+		    <td></td>
+		    <td>프로젝트 관리</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_a01.html" target="_blank">sub_a01.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>사용자조회(팝업)</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/popup_10.html" target="_blank">popup_10.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>사용자관리</td>
+		    <td></td>
+		    <td>&nbsp;</td>
+		    <td><a href="web/sub/sub_a02.html" target="_blank">sub_a02.html</a></td>
+		    <td align="center"></td>
+		    <td align="center"></td>
+		    <td align="center" class="bigo">&nbsp;</td>
+	      </tr>
+      </tbody>
+  </table>
+</div>
+</body>
+</html>

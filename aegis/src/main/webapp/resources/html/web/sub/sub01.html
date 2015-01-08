@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AGEIS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta name="subject" content="AGEIS 특허분석시스템" />
+<meta name="keywords" content="AGEIS 특허분석시스템" />
+<meta name="description" content="AGEIS 특허분석시스템" /> 
+<meta name="language" content="ko" /> 
+<link type="text/css" rel="stylesheet" href="../css/style.css" /> 
+<!--[if lte IE 7]><link	rel="stylesheet" href="../css/ie7.css" type="text/css" media="all"><![endif]-->
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/smartFinder.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	//테이블 tr over효과
+	$(document).ready(function() {
+		$("table tr:gt(0)").hover(
+			function() { $(this).addClass("hover"); },
+			function() { $(this).removeClass("hover"); }
+		);
+	});
+	//'table tr:gt(0) 0보다 큰것만 마우스 오버 효과가 나타남
+//]]>
+</script>
+</head>
+<body>
+<!-- skipToContent -->
+<div id="skipToContent"> 
+   <a href="#container">메인콘텐츠 바로가기</a> 
+</div>
+<!-- //skipToContent -->
+
+<div id="wrap"> 
+    <!-- header -->
+    <div id="header">
+		<div class="headConts">
+			<ul class="topAdmin">
+				<li><strong>홍길동님</strong></li>
+				<li>잔여포인트 : <em>1000p</em></li>
+				<li><label for="">프로젝트</label>
+					<select name="" id="">
+						<option value="">WIPSON</option>
+					</select>
+				</li>
+				<li><a href="">로그아웃</a></li>
+			</ul>
+			<div class="topGroup">
+				<h1><a href="./index.html"><img src="../images/common/logo.png" alt="AGEIS" /></a></h1>
+				<div class="nav">
+					<ul>
+						<li><a href="#"><img src="../images/common/nav_01_off.png" alt="검색식" /></a></li>
+						<li><a href="#"><img src="../images/common/nav_02_on.png" alt="데이터가공" /></a>
+							<ul style="display:block;">
+								<li><a href="#">일괄자동등록</a></li>
+								<li><a href="#">대표명화관리</a></li>
+								<li><a href="#">특허문헌 누락처리</a></li>
+								<li><a href="#">OS 관리</a></li>
+								<li><a href="#">단계별 데이터 처리</a></li>
+							</ul>
+						</li>
+						<li><a href="#"><img src="../images/common/nav_03_off.png" alt="데이터분석" /></a>
+							<ul style="display:none;">
+								<li><a href="#">특허검색</a></li>
+								<li><a href="#">OS Matrix</a></li>
+								<li><a href="#">핵심특허분석</a></li>
+							</ul>
+						</li>
+						<li><a href="#"><img src="../images/common/nav_04_off.png" alt="그래프분석" /></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+    </div>
+    <!-- //header -->  
+            
+    <!-- container -->
+    <div id="container"> 
+        <!-- contents -->
+		<div id="contents">
+			<div class="contsMiddle">
+
+				<!-- contents body -->
+				<div class="contBody">
+
+					<!-- title/location -->
+					<div class="hgroup">
+						<h3><img src="../images/common/h3_01.png" alt="검색식"></h3>
+						<div class="localtion">
+							<ul>
+								<li><a href="./index.html">홈</a></li>
+								<li><a href=""><strong>검색식</strong></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- // title/location -->
+					
+					<!-- 검색 결과  -->
+					<form>
+						<fieldset>
+						<div class="btnArea2 right">
+							<a href="#" class="btntype1"><span>불러오기</span></a>
+							<a href="#" class="btntype1"><span>수정</span></a>
+							<a href="#" class="btntype1"><span>신규</span></a>
+						</div>
+						<div class="searchexpression">
+							<p class="btoon"><button type="button" class="btnSmall gray">검색식 생성</button></p>
+							<div class="expressionBox">
+								<ul class="expressionList">
+									<li>
+										<label for="db1">DB 종류</label>
+										<span>
+											<select class="w30" id="db1">
+												<option>WIPSON</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label for="ko1">키워드 1</label>
+										<span>
+											<input type="text"  id="ko1" class="w70" value="철도* 열차* 기차* 객차* 트레인* 전철* 지하철* 레일* subway* train* rail*" />
+											<select class="w20" title="명칭">
+												<option>명칭</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label for="ko2">키워드 2</label>
+										<span>
+											<input type="text" id="ko2" class="w70" value="승강문* 출입문* 도어* door* 게이트* gate* 리프* leaf* (#1 near2 #2)" />
+											<select class="w20" title="전체">
+												<option>전체</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label for="ko2" class="txtStar">#1</label>
+										<span>
+											<input type="text" id="ko2" class="w70" value="승강* 출입* board* alight* access* enter* incoming outgoing" />
+											<select class="w20" title="전체">
+												<option>전체</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label for="ko2" class="txtStar">#2</label>
+										<span>
+											<input type="text" id="ko2" class="w70" value="문* 장치* device* equipment* 수단* means way method measure expedient" />
+											<select class="w20" title="전체">
+												<option>전체</option>
+											</select>
+										</span>
+									</li>
+									<li>
+										<label for="aa1">특허분류</label>
+										<span>
+											<input type="text" id="aa1" class="w70" value="B61b* b61c* b61d* b61f* b60j*" />
+											<select class="w20" title="IPC">
+												<option>IPC</option>
+											</select>
+										</span>
+									</li>
+								</ul>
+								<div class="btnRight"><a href="#" class="btntype1"><span>추가</span></a></div>
+							</div>
+							<div class="expressionBox">
+								<ul class="expressionList">
+									<li>
+										<label for="gg1">검색식</label>
+										<span>
+											<textarea class="w95" id="gg1">(철도* 열차* 기차* 객차* 트레인* train* 전철* 지하철* 레일* subway* rail*).ti. and (승강문* 출입문* 도어* door* 게이트* gate* 리프* leaf* ((승강* 출입* board* alight* access* enter* incoming outgoing) near2 (문* 장치* device* equipment* 수단* means way method measure expedient))) and (b61b* b61c* b61d* b61f* b60j*).ipc.
+											</textarea>
+										</span>
+									</li>
+								</ul>
+							</div>
+							<div class="btnArea right">
+								<a href="#" class="btntype1"><span>복사</span></a>
+								<a href="#" class="btntype1"><span>검색DB 바로가기 [www.wipson.com]</span></a>
+							</div>
+						</div>
+						</fieldset>
+					</form>
+					<!-- //검색결과 -->
+					
+				</div>
+				<!-- //contents body -->
+
+			</div>
+		</div>
+        <!-- //contents --> 
+    </div>
+	<!-- //container -->
+    
+	<!-- footer -->
+    <div id="footer"> 
+		<div class="footerCont">
+			<div>
+				<h1><img src="../images/common/footer_logo.png" alt="로고" /></h1>
+				<address>Copyright @ AIRS All rights reserved.</address>
+			</div>
+		 </div>
+	</div>
+    <!-- //footer -->
+	
+</div><!-- //wrap -->
+</body>
+</html>
