@@ -135,7 +135,7 @@ public class KiprisNExcelParser extends ExcelParser {
 	private String getApplicant(String applicant) {
 		String result = "";
 		if(!StringUtil.isNull(applicant)) {
-			String first = applicant.split("|")[0];
+			String first = applicant.split("[|]")[0];
 			result = StringUtil.subStr(first, first.lastIndexOf('(') > -1 ? first.lastIndexOf('(') : first.length());
 		}
 		return result;

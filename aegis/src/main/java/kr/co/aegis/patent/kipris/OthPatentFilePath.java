@@ -28,7 +28,7 @@ public class OthPatentFilePath extends PatentFilePath{
 	 * @param map
 	 * @throws RemoteException
 	 */
-	public Map<String, String> getFilePath(Map<String, String>map) throws RemoteException {
+	public void getFilePath(Map<String, String>map) throws RemoteException {
 		
 		ForeignPatentImageAndFullTextServicePortTypeProxy proxy = new ForeignPatentImageAndFullTextServicePortTypeProxy();
 		ForeignPatentImageAndFullTextServiceSoap11BindingStub stub =(ForeignPatentImageAndFullTextServiceSoap11BindingStub)proxy.getForeignPatentImageAndFullTextServicePortType();
@@ -46,7 +46,7 @@ public class OthPatentFilePath extends PatentFilePath{
 		String natlCode = map.get("NATL_CODE");
 		
 		if(StringUtil.isNull(applNum)) 
-			return map;
+			return;
 		
 		String applNumArr[] = applNum.split(",");
 		
@@ -61,7 +61,15 @@ public class OthPatentFilePath extends PatentFilePath{
 		map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)  ? _defaultPath : imageMain);
 		map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall) ? _defaultPath : imageSmall);
 
-		return map;
+	}
+	
+	/***
+	 * 업로드시 없는 정보 가져오기
+	 * @param map
+	 * @throws RemoteException
+	 */
+	public void getMoreInfo(Map<String, String>map) throws RemoteException {
+		
 	}
 	
 	/**

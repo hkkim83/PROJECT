@@ -21,6 +21,9 @@ import kr.co.aegis.patent.excel2.Excel;
 import kr.co.aegis.patent.excel2.HSSExcel;
 import kr.co.aegis.patent.excel2.XSSExcel;
 import kr.co.aegis.patent.header.ExcelHeader;
+import kr.co.aegis.patent.kipris.KrPatentFilePath;
+import kr.co.aegis.patent.kipris.OthPatentFilePath;
+import kr.co.aegis.patent.kipris.PatentFilePath;
 import kr.co.aegis.patent.legal.JpLegalStatus;
 import kr.co.aegis.patent.legal.KrLegalStatus;
 import kr.co.aegis.patent.legal.LegalStatus;
@@ -264,6 +267,7 @@ public class ProcessController extends BaseController {
 	 * @param response
 	 * @return
 	 * @throws IOException
+	 * @throws InterruptedException 
 	 */
 	@RequestMapping(value = "/register.do")
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException
@@ -280,6 +284,7 @@ public class ProcessController extends BaseController {
 		}
 		
 		Excel excel = null;
+		ExcelParser parser = null;
 		Map<String, Object> saveMap = new HashMap<String, Object>();
 		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
 		saveMap.put("LOGIN_ID", getLoginId(session));
@@ -302,13 +307,26 @@ public class ProcessController extends BaseController {
 			List<Map<String, String>> list = excel.readExcel(kindsDB);
 			
 			// 데이터 가공 처리
-			doProcessing(list, kindsDB);			
-			// 4. 데이터를 파싱한다.
+			if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
+				parser = new WipsonExcelParser();
+			} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
+				parser = new FocustExcelParser();
+			} else if(kindsDB.equals(ExcelHeader.DB[2])) {	// KIPRIS_N
+				parser = new KiprisNExcelParser();
+			} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
+				parser = new KiprisAExcelParser();
+			}
+			parser.parse(list);
 			
-			for(Map<String, String> map : list)
+			doProcessing(list, kindsDB);
+			
+			// 4. 데이터를 파싱한다.
+			for(Map<String, String> map : list) {
 				saveList.add(map);			
+			}
 		}
-
+		
+		// 데이터 patent_temp insert 처리
 		saveMap.put("list"    , saveList);
 		patentService.savePatentTemp(saveMap);
 
@@ -342,7 +360,7 @@ public class ProcessController extends BaseController {
 		for(int i=0; i<ExcelHeader.DB.length; i++) {
 			dbList = getDBList(list, ExcelHeader.DB[i]);
 			// 데이터 가공 처리
-			tempList = doProcessing(dbList, ExcelHeader.DB[i]);
+			doProcessing(dbList, ExcelHeader.DB[i]);
 			
 			for(Map<String, String> map : tempList)
 				saveList.add(map);
@@ -384,11 +402,16 @@ public class ProcessController extends BaseController {
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		ExcelParser parser = new ExcelParser();
 		List<Map<String, String>> saveList = parser.deleteDuplication(list);
+		
 		// KIPRIS문의할것
 		// 프로그램을 사용한 반복요청이 확인되었습니다. 이 요청은 차단되었습니다. 관리자에게 연락바랍니다.
-		saveList = parser.getPatentFilePath(saveList, userId, userKey, kiprisUrl, defaultPath);
 		
-		// 2.DB별로 별도의 가공처리
+		// 1. 해외특허일 경우 출원번호원본을 다시 만든다.
+		parser.setApplNumOrg(saveList, userId, userKey, kiprisUrl, defaultPath);
+
+		// 2. 대표도면, 전문을 KIPRIS로부터 가져온다.
+		parser.getPatentFilePath(saveList, userId, userKey, kiprisUrl, defaultPath);
+		
 		// 3. 데이터 insert(patent)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 
 		saveMap.put("list"      , saveList);
@@ -409,6 +432,60 @@ public class ProcessController extends BaseController {
 		
 		modelAndView.success();
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/getKiprisData.do")
+	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
+	{	
+		JsonModelAndView modelAndView = new JsonModelAndView();
+		int ret = 0;
+		Map<String, String> param = new HashMap<String, String>();
+		User user = (User)session.getAttribute(USER_SESSION);
+		String loginId = user.getId();
+		String adminId = user.getAdminId();
+		param.put("USER_ID", loginId);
+		param.put("ID"     , loginId);
+		List<Map<String, String>> list = patentService.selectPatentTempList(param);
+		
+		PatentFilePath pfp = null;
+		int index = 0;
+		for(Map<String, String> map : list) {
+			if(index++%10 == 9) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}			
+			if("KR".equals(map.get("NATL_CODE"))) 
+				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			else
+				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			
+			// 1. 해외특허일 경우 출원번호원본을 다시 만든다.
+			pfp.setApplNumOrg(map);
+			// 2. 대표도면, 전문을 KIPRIS로부터 가져온다.
+			pfp.getFilePath(map);
+			// 3. 추가적인 정보를  KIPRIS로 부터 가져온다.
+			pfp.getMoreInfo(map);
+		}
+
+		// 3. 데이터 insert(patent)
+		Map<String, Object> saveMap = new HashMap<String, Object>(); 
+		saveMap.put("list"      , list);
+		saveMap.put("LOGIN_ID"  , loginId);
+		saveMap.put("PROJECT_ID", projectId);
+		saveMap.put("ADMIN_ID"  , adminId);
+		
+		ret = patentService.savePatent(saveMap);
+		Map<String, String> userMap = userService.selectUser(param);
+		modelAndView.addObject("POINT", ret);
+		
+		// 세션 POINT 변경
+		user.setPoint(userMap.get("POINT"));
+		
+		// 폴더 삭제
+		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
+		FileUtils.deleteDirectory(new File(svrfilePath));
+		
+		modelAndView.success();
+		return modelAndView;		
 	}
 	
 	/**
@@ -582,21 +659,17 @@ public class ProcessController extends BaseController {
 	 * @param kindsDB
 	 * @return
 	 */
-	private List<Map<String, String>> doProcessing(List<Map<String, String>> list, String kindsDB) {
-		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
+	private void doProcessing(List<Map<String, String>> list, String kindsDB) {
+		ExcelParser parser = null;
 		if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
-			WipsonExcelParser wipson = new WipsonExcelParser();
-			saveList = wipson.parse(list);
+			parser = new WipsonExcelParser();
 		} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
-			FocustExcelParser focust = new FocustExcelParser();
-			saveList = focust.parse(list);
+			parser = new FocustExcelParser();
 		} else if(kindsDB.equals(ExcelHeader.DB[2])) {	// KIPRIS_N
-			KiprisNExcelParser kiprisN = new KiprisNExcelParser();
-			saveList = kiprisN.parse(list);
+			parser = new KiprisNExcelParser();
 		} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
-			KiprisAExcelParser kiprisA = new KiprisAExcelParser();
-			saveList = kiprisA.parse(list);
+			parser = new KiprisAExcelParser();
 		}
-		return saveList;
+		parser.parse(list);
 	}
 }

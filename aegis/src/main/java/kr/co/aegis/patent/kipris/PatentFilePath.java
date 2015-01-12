@@ -30,7 +30,15 @@ abstract public class PatentFilePath {
 	 * @return
 	 * @throws RemoteException
 	 */
-	abstract public Map<String, String> getFilePath(Map<String, String>map) throws RemoteException;
+	abstract public void getFilePath(Map<String, String>map) throws RemoteException;
+	
+	/**
+	 * 추가적인 정보 가져오기
+	 * @param map
+	 * @return
+	 * @throws RemoteException
+	 */
+	abstract public void getMoreInfo(Map<String, String>map) throws RemoteException;
 	
 	/***
 	 * KIPRIS PLUS용 출원번호 가져오기

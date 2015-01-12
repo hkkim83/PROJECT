@@ -1,10 +1,8 @@
 package kr.co.aegis.patent.parser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.aegis.patent.header.ExcelHeader;
 import kr.co.aegis.util.StringUtil;
 
 public class KiprisNExcelParser extends ExcelParser {
@@ -14,50 +12,45 @@ public class KiprisNExcelParser extends ExcelParser {
 	 * @param list
 	 * @return
 	 */
-	public List<Map<String, String>> parse(List<Map<String, String>> list) {
-		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
+	public void parse(List<Map<String, String>> list) {
 		for(Map<String, String> map : list) {
-			Map<String, String> saveMap = copyMap(map, ExcelHeader.DBMAP_KIPRIS_N);
-
-			String regiNum          = saveMap.get("REGI_NUM");				// 등록번호
-			String applNum          = saveMap.get("APPL_NUM");				// 출원번호
-			String laidPublicNum    = saveMap.get("LAID_PUBLIC_NUM");		// 공개번호
-			String regiDate         = saveMap.get("REGI_DATE");				// 등록일자
-			String applDate         = saveMap.get("APPL_DATE");				// 출원일자
-			String laidPublicDate   = saveMap.get("LAID_PUBLIC_DATE");		// 공개일자
+			String regiNum          = map.get("REGI_NUM");				// 등록번호
+			String applNum          = map.get("APPL_NUM");				// 출원번호
+			String laidPublicNum    = map.get("LAID_PUBLIC_NUM");		// 공개번호
+			String regiDate         = map.get("REGI_DATE");				// 등록일자
+			String applDate         = map.get("APPL_DATE");				// 출원일자
+			String laidPublicDate   = map.get("LAID_PUBLIC_DATE");		// 공개일자
 			String natlCode         = getNatlCode(applNum);					// 국가코드
 			String kindsIpType      = getKindsIpType(applNum);				// 특실구분
 
 			// N01. 국가코드
-			saveMap.put("NATL_CODE", natlCode);
+			map.put("NATL_CODE", natlCode);
 			// N02. 문헌종류코드
-			saveMap.put("KINDS_IP_CODE", getKindsIpCode(regiNum, laidPublicNum, kindsIpType));
+			map.put("KINDS_IP_CODE", getKindsIpCode(regiNum, laidPublicNum, kindsIpType));
 			// N03. 특허/실용 구분
-			saveMap.put("KINDS_IP_TYPE", kindsIpType);
+			map.put("KINDS_IP_TYPE", kindsIpType);
 			// N04. 출원번호
-			saveMap.put("APPL_NUM", getApplNum(applNum));
+			map.put("APPL_NUM", getApplNum(applNum));
 			// N05. 출원일
-			saveMap.put("APPL_DATE", replaceString(applDate, "[.]", ""));
+			map.put("APPL_DATE", replaceString(applDate, "[.]", ""));
 			// N06. 공개번호
-			saveMap.put("LAID_PUBLIC_NUM", getLaidPublicNum(laidPublicNum));
+			map.put("LAID_PUBLIC_NUM", getLaidPublicNum(laidPublicNum));
 			// N07. 공개일
-			saveMap.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
+			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
-			saveMap.put("REG_NUM", getRegiNum(regiNum));
+			map.put("REG_NUM", getRegiNum(regiNum));
 			// N11. 등록일
-			saveMap.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
+			map.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
 			// N12. 출원인
-			saveMap.put("APPLICANT", getApplicant(saveMap.get("APPLICANT")));
+			map.put("APPLICANT", getApplicant(map.get("APPLICANT")));
 			// N22. IPC-ALL
-			saveMap.put("IPC_ALL", getIpcAll(saveMap.get("IPC_ALL")));
+			map.put("IPC_ALL", getIpcAll(map.get("IPC_ALL")));
 			// N23. 대표청구항
-			saveMap.put("CLAIM_MAIN", getClaimMain(saveMap.get("CLAIM_MAIN")));
+			map.put("CLAIM_MAIN", getClaimMain(map.get("CLAIM_MAIN")));
 			
 			// 출원번호_원본(2014.03.17추가)
-			saveMap.put("APPL_NUM_ORG", replaceString(applNum, "-", ""));
-			saveList.add(saveMap);
+			map.put("APPL_NUM_ORG", replaceString(applNum, "-", ""));
 		}
-		return saveList;
 	}
 	
 	/**
@@ -135,8 +128,11 @@ public class KiprisNExcelParser extends ExcelParser {
 	private String getApplicant(String applicant) {
 		String result = "";
 		if(!StringUtil.isNull(applicant)) {
-			String first = applicant.split("|")[0];
+			String first = applicant.split("[|]")[0];
 			result = StringUtil.subStr(first, first.lastIndexOf('(') > -1 ? first.lastIndexOf('(') : first.length());
+			// 2015.01.12 추가, ()가 2개 이상이고, (주)로 시작하지 않으면 나머지 괄호도 삭제
+			if(result.lastIndexOf('(') > 0)
+				result = StringUtil.subStr(result, result.lastIndexOf('('));
 		}
 		return result;
 	}
@@ -148,7 +144,7 @@ public class KiprisNExcelParser extends ExcelParser {
 	 */
 	private String getIpcAll(String ipcAll) {
 		String result = "";
-		if(StringUtil.isNull(ipcAll)) {
+		if(!StringUtil.isNull(ipcAll)) {
 			String first = ipcAll.split(",")[0];
 			result = StringUtil.subStr(first, first.lastIndexOf('(') > -1 ? first.lastIndexOf('(') : first.length());
 		}

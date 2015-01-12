@@ -18,7 +18,7 @@ public class Header {
 		private static final long serialVersionUID = 1L;
 		{
 			put("국가코드", "NATL_CODE");									put("특허/실용 구분", "KINDS_IP_TYPE"); 					put("문헌종류 코드", "KINDS_IP_CODE");	
-			put("출원번호", "APPL_NUM");									put("출원번호", "APPL_NUM_ORG");						put("출원일", "APPL_DATE");			
+			put("출원번호", "APPL_NUM");									put("출원일", "APPL_DATE");			
 			put("공개번호/공표번호/재공표번호", "LAID_PUBLIC_NUM");				put("공개일", "LAID_PUBLIC_DATE");					put("등록번호", "REGI_NUM");	
 			put("등록일", "REGI_DATE");									put("발명의 명칭", "TITLE");							put("요약", "ABSTRACT");										
 			put("대표청구항", "CLAIM_MAIN");								put("출원인", "APPLICANT");							put("출원인 국적", "APPLICANT_NATL");	
@@ -40,13 +40,15 @@ public class Header {
 		{
 			put("출원번호", "APPL_NUM");				put("출원일", "APPL_DATE");				put("공개번호", "LAID_PUBLIC_NUM");		
 			put("공개일", "LAID_PUBLIC_DATE");		put("등록번호", "REGI_NUM");				put("등록일", "REGI_DATE");				
-			put("명칭", "TITLE");						put("요약", "ABSTRACT");										
-			put("대표청구항", "CLAIM_MAIN");			put("출원인", "APPLICANT");				put("출원인국가", "APPLICANT_NATL");	
-			put("발명자", "INVENTOR");				put("국제특허분류", "IPC_ALL");				put("우선권번호", "PRIORITY_NATL");	
-			put("우선권번호", "PRIORITY_NUM");			put("우선권번호", "PRIORITY_DATE");			put("F-Term", "F_TERM_JP");	
+			put("명칭", "TITLE");						put("요약", "ABSTRACT");					put("대표 청구항", "CLAIM_MAIN");			
+			put("출원인", "APPLICANT");				put("출원인국가", "APPLICANT_NATL");	 	put("발명자", "INVENTOR");				
+			put("국제특허분류", "IPC_ALL");				put("우선권번호", "PRIORITY_NUM");			put("F-Term", "F_TERM_JP");	
 			put("FI", "FI_CODE_JP");				put("미국특허분류", "UPC_CURRENT_ALL");		put("자국인용횟수", "BC_COUNT");
 			put("자국인용특허", "BC_BE_NUM");			put("자국피인용횟수", "FC_COUNT");			put("자국피인용특허", "FC_FE_NUM");		
 			put("전체 청구항수", "FM_NUM");				put("전체 청구항(원문)", "FM_COUNT");		put("Final Status", "LEGAL_STATUS_DOCDB");
+			// ------------------------------------ DB 컬럼이 존재하지 않는 데이터, 가공시에만 사용된다. --------------------------------------------
+			put("공고일", "NOTICE_PUBLIC_DATE");		put("출원인영문명", "EN_APPLICANT");		put("출원인대표명", "RE_APPLICANT");
+			put("최종권리자-출원인", "LAST_APPLICANT");
 		}
 	};
 

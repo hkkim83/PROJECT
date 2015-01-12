@@ -55,7 +55,22 @@ public class HSSExcel extends Excel{
 			index = 0;
 			for(Cell cell : row) {
 				if(index > 3) break;
-				str += cell.getStringCellValue();
+				switch (cell.getCellType()) {
+				case HSSFCell.CELL_TYPE_STRING:
+					str += cell.getRichStringCellValue().getString();
+					break;
+				case HSSFCell.CELL_TYPE_NUMERIC:
+					str += String.valueOf((long)cell.getNumericCellValue());
+					break;
+				case HSSFCell.CELL_TYPE_FORMULA:
+					str += cell.getCellFormula();
+					break;
+				case HSSFCell.CELL_TYPE_BOOLEAN:
+					str += String.valueOf(cell.getBooleanCellValue());
+					break;
+				default:
+					break;
+				}
 				index++;
 			}
 			if(StringUtil.isNull(str)) break;

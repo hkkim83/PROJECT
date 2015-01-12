@@ -261,6 +261,7 @@
 		    } ,			
 			success: function( data ) {
 				if(data.RESULT_CD == "SUCC_0001") {
+					return;
 					setPercent(1);
 					processing();	
 				} else {
@@ -317,7 +318,6 @@
 			processData : false,
 			contentType : false,
 			beforeSend : function() {
-				alert($('#db_type').val());
 				var fileName = $('#fileName').val();
 				var index = fileName.lastIndexOf(".");
 				var ext = fileName.substring(index + 1, fileName.length);

@@ -22,7 +22,7 @@ public class KrPatentFilePath extends PatentFilePath{
 	 * @param map
 	 * @throws RemoteException
 	 */
-	public Map<String, String> getFilePath(Map<String, String>map) throws RemoteException {
+	public void getFilePath(Map<String, String>map) throws RemoteException {
 		
 		PatentImageAndFullTextServicePortTypeProxy proxy = new PatentImageAndFullTextServicePortTypeProxy();
 		PatentImageAndFullTextServiceSoap11BindingStub stub =(PatentImageAndFullTextServiceSoap11BindingStub)proxy.getPatentImageAndFullTextServicePortType();
@@ -47,7 +47,16 @@ public class KrPatentFilePath extends PatentFilePath{
 		map.put("PATENT_FULLTXT", StringUtil.isNull(patentFullText)  ? _defaultTxtPath : patentFullText);
 		map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)  ? _defaultPath : imageMain);
 		map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall) ? _defaultPath : imageSmall);
-
-		return map;
 	}
+	
+	
+	/***
+	 * 업로드시 없는 정보 가져오기
+	 * @param map
+	 * @throws RemoteException
+	 */
+	public void getMoreInfo(Map<String, String>map) throws RemoteException {
+		
+	}
+
 }

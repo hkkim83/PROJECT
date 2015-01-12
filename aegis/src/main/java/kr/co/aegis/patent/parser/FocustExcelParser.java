@@ -1,10 +1,8 @@
 package kr.co.aegis.patent.parser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.aegis.patent.header.ExcelHeader;
 import kr.co.aegis.util.StringUtil;
 
 public class FocustExcelParser extends ExcelParser {
@@ -14,61 +12,55 @@ public class FocustExcelParser extends ExcelParser {
 	 * @param list
 	 * @return
 	 */
-	public List<Map<String, String>> parse(List<Map<String, String>> list) {
+	public void parse(List<Map<String, String>> list) {
 
-		List<Map<String, String>> saveList = new ArrayList<Map<String, String>>();
 		for(Map<String, String> map : list) {
-			Map<String, String> saveMap = copyMap(map, ExcelHeader.DBMAP_FOCUST);
-
-			String regiNum          = saveMap.get("REGI_NUM");				// 등록번호
-			String applNum          = saveMap.get("APPL_NUM");				// 출원번호
-			String laidPublicNum    = saveMap.get("LAID_PUBLIC_NUM");		// 공개번호
-			String priorityNum      = saveMap.get("PRIORITY_NUM");			// 우선권번호
-			String regiDate         = saveMap.get("REGI_DATE");				// 등록일자
-			String applDate         = saveMap.get("APPL_DATE");				// 출원일자
-			String laidPublicDate   = saveMap.get("LAID_PUBLIC_DATE");		// 공개일자
-			String noticePublicDate = map.get("A_26");						// 공고일자(업로드데이터)
+			String regiNum          = map.get("REGI_NUM");				// 등록번호
+			String applNum          = map.get("APPL_NUM");				// 출원번호
+			String laidPublicNum    = map.get("LAID_PUBLIC_NUM");		// 공개번호
+			String priorityNum      = map.get("PRIORITY_NUM");			// 우선권번호
+			String regiDate         = map.get("REGI_DATE");				// 등록일자
+			String applDate         = map.get("APPL_DATE");				// 출원일자
+			String laidPublicDate   = map.get("LAID_PUBLIC_DATE");		// 공개일자
+			String noticePublicDate = map.get("NOTICE_PUBLIC_DATE");	// 공고일자(업로드데이터)
 			String natlCode         = getNatlCode(applNum);					// 국가코드
 			String kindsIpType      = getKindsIpType(natlCode, applNum);	// 특실구분
 			
 			// N01. 국가코드
-			saveMap.put("NATL_CODE", natlCode);
+			map.put("NATL_CODE", natlCode);
 			// N02. 문헌종류코드
-			saveMap.put("KINDS_IP_CODE", getKindsIpCode(regiNum, kindsIpType));
+			map.put("KINDS_IP_CODE", getKindsIpCode(regiNum, kindsIpType));
 			// N03. 특허/실용 구분
-			saveMap.put("KINDS_IP_TYPE", kindsIpType);
+			map.put("KINDS_IP_TYPE", kindsIpType);
 			// N04. 출원번호
-			saveMap.put("APPL_NUM", getApplNum(natlCode, applNum, applDate));
+			map.put("APPL_NUM", getApplNum(natlCode, applNum, applDate));
 			// N05. 출원일
-			saveMap.put("APPL_DATE", replaceString(applDate,"[.]", ""));
+			map.put("APPL_DATE", replaceString(applDate,"[.]", ""));
 			// N06. 공개번호
-			saveMap.put("LAID_PUBLIC_NUM", getLaidPublicNum(natlCode, laidPublicNum, laidPublicDate));
+			map.put("LAID_PUBLIC_NUM", getLaidPublicNum(natlCode, laidPublicNum, laidPublicDate));
 			// N07. 공개일
-			saveMap.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
+			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
-			saveMap.put("REG_NUM", getRegiNum(natlCode, regiNum));
+			map.put("REG_NUM", getRegiNum(natlCode, regiNum));
 			// N11. 등록일
-			saveMap.put("REGI_DATE", getRegiDate(natlCode, regiDate, noticePublicDate));
+			map.put("REGI_DATE", getRegiDate(natlCode, regiDate, noticePublicDate));
 			// N12. 출원인
-			saveMap.put("APPLICANT", getApplicant(natlCode, map));
+			map.put("APPLICANT", getApplicant(natlCode, map));
 			// N13. 우선권번호
-			saveMap.put("PRIORITY_NUM", getPriorityNum(priorityNum));
+			map.put("PRIORITY_NUM", getPriorityNum(priorityNum));
 			// N14. 우선권국가
-			saveMap.put("PRIORITY_NATL", getPriorityNatl(priorityNum));
+			map.put("PRIORITY_NATL", getPriorityNatl(priorityNum));
 			// N15. 우선권일자
-			saveMap.put("PRIORITY_DATE", getPriorityDate(priorityNum));
+			map.put("PRIORITY_DATE", getPriorityDate(priorityNum));
 			// N16. 자국인용특허
-			saveMap.put("BC_BE_NUM", replaceString(saveMap.get("BC_BE_NUM"), ",","|"));			
+			map.put("BC_BE_NUM", replaceString(map.get("BC_BE_NUM"), ",","|"));			
 			// N17. 자국피인용특허
-			saveMap.put("FC_FE_NUM", replaceString(saveMap.get("FC_FE_NUM"), ",","|"));		
+			map.put("FC_FE_NUM", replaceString(map.get("FC_FE_NUM"), ",","|"));		
 			// N18. INPADOC 패밀리
-			saveMap.put("FM_NUM", replaceString(saveMap.get("FM_NUM"), ",","|"));	
+			map.put("FM_NUM", replaceString(map.get("FM_NUM"), ",","|"));	
 			// 출원번호_원본(2014.03.08 추가)
-			saveMap.put("APPL_NUM_ORG", getApplNumOrg(natlCode, applNum, kindsIpType));	
-
-			saveList.add(saveMap);
+			map.put("APPL_NUM_ORG", getApplNumOrg(natlCode, applNum, kindsIpType));	
 		}
-		return saveList;
 	}
 	
 	/**
@@ -113,7 +105,7 @@ public class FocustExcelParser extends ExcelParser {
 	 * @return
 	 */
 	private String getKindsIpType(String natlCode, String applNum) {
-		String result = "";
+		String result = "";	
 		if(!StringUtil.isNull(applNum) && ("KR".equals(natlCode) || "JP".equals(natlCode))) {
 			if("U".equals(StringUtil.subStr(applNum, -1)))
 				result = "U";
@@ -270,14 +262,14 @@ public class FocustExcelParser extends ExcelParser {
 	 */
 	private String getApplicant(String natlCode, Map<String, String> param) {
 		String result = "";
-		if(!StringUtil.isNull(param.get("A_08")))
-			result = param.get("A_08");			// 최종권리자_출원인
-		else if("JP".equals(natlCode) && !StringUtil.isNull(param.get("A_05")))
-			result = param.get("A_05");			// 출원인영문명("KR" 제외)
-		else if(!StringUtil.isNull(param.get("A_07")))
-			result = param.get("A_05");			// 출원인대표명
+		if(!StringUtil.isNull(param.get("LAST_APPLICANT")))
+			result = param.get("LAST_APPLICANT");		// 최종권리자_출원인
+		else if("JP".equals(natlCode) && !StringUtil.isNull(param.get("EN_APPLICANT")))
+			result = param.get("EN_APPLICANT");			// 출원인영문명("KR" 제외)
+		else if(!StringUtil.isNull(param.get("RE_APPLICANT")))
+			result = param.get("RE_APPLICANT");			// 출원인대표명
 		else 
-			result = param.get("A_04");			// 출원인
+			result = param.get("APPLICANT");			// 출원인
 		return result;
 	}
 	

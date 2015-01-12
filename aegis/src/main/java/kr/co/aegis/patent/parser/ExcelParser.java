@@ -1,11 +1,8 @@
 package kr.co.aegis.patent.parser;
 
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import kr.co.aegis.patent.kipris.KrPatentFilePath;
 import kr.co.aegis.patent.kipris.OthPatentFilePath;
@@ -13,30 +10,9 @@ import kr.co.aegis.patent.kipris.PatentFilePath;
 import kr.co.aegis.util.StringUtil;
 
 public class ExcelParser {
-
-	/**
-	 * Map복사
-	 * @param map
-	 * @param dbMap
-	 * @return
-	 */
-	protected Map<String, String> copyMap(Map<String, String> map, Map<String, String> dbMap) {
-		Map<String, String> saveMap = new HashMap<String, String>();
-		Set<String> keySet = dbMap.keySet();
-		Iterator<String> iterator = keySet.iterator();
-
-		while(iterator.hasNext()) {
-			String key = iterator.next();
-			String column = dbMap.get(key);
-			
-			if(!StringUtil.isNull(column))
-				saveMap.put(key, map.get(column));
-			else 
-				saveMap.put(key, null);
-		}
-		return saveMap;
-	}
 	
+	public void parse(List<Map<String, String>> list) {}
+
 	protected String replaceString(String str, String regex, String replacement) {
 		return StringUtil.isNull(str) ? "" : str.replaceAll(regex, replacement);
 	}
@@ -74,21 +50,21 @@ public class ExcelParser {
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 */
-	public List<Map<String, String>> getPatentFilePath(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+	public void getPatentFilePath(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
 		
-		PatentFilePath filePath = null;
+		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-			if(index++%10 == 9) {
-				Thread.sleep(1000); // ms단위 - 1초 멈춤
-			}
+//			if(index++%10 == 9) {
+//				Thread.sleep(1000); // ms단위 - 1초 멈춤
+//			}
 			
 			if("KR".equals(map.get("NATL_CODE"))) {
-				filePath = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				map = filePath.getFilePath(map);
-			} else if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("NATL_CODE"))) {
-				filePath = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				map = filePath.getFilePath(map);
+				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+				pfp.getFilePath(map);
+			} else if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("Npfp"))) {
+				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+				pfp.getFilePath(map);
 			} else {
 				// 그외 국가는 기본값으로 전문, 대표도면 값 설정
 				map.put("PATENT_FULLTXT", "/process/error.do");
@@ -96,7 +72,6 @@ public class ExcelParser {
 				map.put("IMAGE_SMALL"   , defaultPath);
 			}
 		}
-		return list;
 	}
 	
 	/**
@@ -112,16 +87,16 @@ public class ExcelParser {
 	 */
 	public void setApplNumOrg(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
 		
-		PatentFilePath filePath = null;
+		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-			if(index++%10 == 9) {
-				Thread.sleep(1000); // ms단위 - 1초 멈춤
-			}
+//			if(index++%10 == 9) {
+//				Thread.sleep(1000); // ms단위 - 1초 멈춤
+//			}
 			
-			if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("NATL_CODE"))) {
-				filePath = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				filePath.setApplNumOrg(map);
+			if(!"KR".equals(map.get("NATL_CODE")) && !"CN".equals(map.get("NATL_CODE"))) {
+				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+				pfp.setApplNumOrg(map);
 			}
 		}
 	}

@@ -40,7 +40,22 @@ public class XSSExcel extends Excel{
 			index = 0;
 			for(Cell cell : row) {
 				if(index > 3) break;
-				str += cell.getStringCellValue();
+				switch (cell.getCellType()) {
+				case XSSFCell.CELL_TYPE_STRING:
+					str += cell.getRichStringCellValue().getString();
+					break;
+				case XSSFCell.CELL_TYPE_NUMERIC:
+					str += String.valueOf((long)cell.getNumericCellValue());
+					break;
+				case XSSFCell.CELL_TYPE_FORMULA:
+					str += cell.getCellFormula();
+					break;
+				case XSSFCell.CELL_TYPE_BOOLEAN:
+					str += String.valueOf(cell.getBooleanCellValue());
+					break;
+				default:
+					break;
+				}
 				index++;
 			}
 			if(StringUtil.isNull(str)) break;
@@ -188,5 +203,7 @@ public class XSSExcel extends Excel{
 					break;					
 	    	}
 	    }
+	    System.out.println("setTitleArr::::::::::::::::::\n");
+	    System.out.println(titleArr);
 	}
 }

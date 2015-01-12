@@ -9,7 +9,7 @@ abstract public class Excel {
 	protected String path;
 	protected File file;
 	protected Map<String, String> DBMap = null;
-	protected String[] titleArr = new String[30];
+	protected String[] titleArr = new String[100];
 	
 	public Excel(String path) {
 		this.path = path;
