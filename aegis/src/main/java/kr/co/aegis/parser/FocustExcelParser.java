@@ -124,7 +124,7 @@ public class FocustExcelParser extends ExcelParser {
 	}
 	
 	/**
-	 * 출원번호
+	 * 출원번호 
 	 * @param natlCode
 	 * @param applNum
 	 * @param applDate

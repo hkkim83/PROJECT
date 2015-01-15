@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTMLEditorKit.Parser;
 
 import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.properties.Message;
@@ -133,7 +134,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/upload.do")
 	public ModelAndView upload(@RequestParam("type") String type, @RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
 	{
-		System.out.println("type::::::"+type);
+		logger.info("type::::::"+type);
 		
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 파일명
@@ -270,7 +271,7 @@ public class ProcessController extends BaseController {
 	 * @throws InterruptedException 
 	 */
 	@RequestMapping(value = "/register.do")
-	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException
+	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, InterruptedException
 	{	
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 1. 업로드 폴더에서 파일 목록을 가져온다.
@@ -292,10 +293,7 @@ public class ProcessController extends BaseController {
 		for(File tempFile : fileList) {
 			String tempFileName = tempFile.getName();
 			String path = dirFile.getPath()+"/"+tempFileName;
-			if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
-				excel = new XSSExcel(path);
-			else 
-				excel = new HSSExcel(path);
+			excel = tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1 ? new XSSExcel(path) : new HSSExcel(path);
 			// 2. DB종류를 체크한다.
 			String kindsDB = excel.getKindsDB();
 			if(StringUtil.isNull(kindsDB)) {
@@ -306,7 +304,7 @@ public class ProcessController extends BaseController {
 			// 3. 파일을 임시테이블에 등록한다.
 			List<Map<String, String>> list = excel.readExcel(kindsDB);
 			
-			// 데이터 가공 처리
+			// 4. 데이터 가공 처리
 			if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
 				parser = new WipsonExcelParser();
 			} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
@@ -318,14 +316,14 @@ public class ProcessController extends BaseController {
 			}
 			parser.parse(list);
 			
-			doProcessing(list, kindsDB);
-			
 			// 4. 데이터를 파싱한다.
 			for(Map<String, String> map : list) {
+				map.put("status", "insert");
 				saveList.add(map);			
 			}
 		}
-		
+		// 문서번호 가져오기
+		parser.setApplNumOrg(saveList, userId, userKey, kiprisUrl, defaultPath);
 		// 데이터 patent_temp insert 처리
 		saveMap.put("list"    , saveList);
 		patentService.savePatentTemp(saveMap);
@@ -392,47 +390,37 @@ public class ProcessController extends BaseController {
 	public ModelAndView deleteDuplication(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
 	{	
 		JsonModelAndView modelAndView = new JsonModelAndView();
-		int ret = 0;
 		Map<String, String> param = new HashMap<String, String>();
 		User user = (User)session.getAttribute(USER_SESSION);
 		String loginId = user.getId();
-		String adminId = user.getAdminId();
 		param.put("USER_ID", loginId);
-		param.put("ID"     , loginId);
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		ExcelParser parser = new ExcelParser();
-		List<Map<String, String>> saveList = parser.deleteDuplication(list);
+		// 중복 데이터 삭제
+		parser.deleteDuplication(list);
 		
-		// KIPRIS문의할것
-		// 프로그램을 사용한 반복요청이 확인되었습니다. 이 요청은 차단되었습니다. 관리자에게 연락바랍니다.
-		
-		// 1. 해외특허일 경우 출원번호원본을 다시 만든다.
-		parser.setApplNumOrg(saveList, userId, userKey, kiprisUrl, defaultPath);
+		// 해외특허 정보 추출을 위한 문헌정보 추출
+		parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
 
-		// 2. 대표도면, 전문을 KIPRIS로부터 가져온다.
-		parser.getPatentFilePath(saveList, userId, userKey, kiprisUrl, defaultPath);
-		
 		// 3. 데이터 insert(patent)
+		// 4. 데이터 insert(patent_temp)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 
-		saveMap.put("list"      , saveList);
-		saveMap.put("LOGIN_ID"  , loginId);
-		saveMap.put("PROJECT_ID", projectId);
-		saveMap.put("ADMIN_ID"  , adminId);
-		
-		ret = patentService.savePatent(saveMap);
-		Map<String, String> userMap = userService.selectUser(param);
-		modelAndView.addObject("POINT", ret);
-		
-		// 세션 POINT 변경
-		user.setPoint(userMap.get("POINT"));
-		
-		// 폴더 삭제
-		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
-		FileUtils.deleteDirectory(new File(svrfilePath));
+		saveMap.put("list"    , list);
+		saveMap.put("LOGIN_ID", loginId);
+		patentService.savePatentTemp(saveMap);
 		
 		modelAndView.success();
 		return modelAndView;
 	}
+	
+	/**
+	 * 서지정보 추출
+	 * @param projectId
+	 * @param session
+	 * @return
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	
 	@RequestMapping(value = "/getKiprisData.do")
 	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
@@ -447,25 +435,11 @@ public class ProcessController extends BaseController {
 		param.put("ID"     , loginId);
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		
-		PatentFilePath pfp = null;
-		int index = 0;
-		for(Map<String, String> map : list) {
-			if(index++%10 == 9) {
-				Thread.sleep(1000); // ms단위 - 1초 멈춤
-			}			
-			if("KR".equals(map.get("NATL_CODE"))) 
-				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-			else
-				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-			
-			// 1. 해외특허일 경우 출원번호원본을 다시 만든다.
-			pfp.setApplNumOrg(map);
-			// 2. 대표도면, 전문을 KIPRIS로부터 가져온다.
-			pfp.getFilePath(map);
-			// 3. 추가적인 정보를  KIPRIS로 부터 가져온다.
-			pfp.getMoreInfo(map);
-		}
-
+		ExcelParser parser  = new ExcelParser();
+		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
+		
+		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
+		
 		// 3. 데이터 insert(patent)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 
 		saveMap.put("list"      , list);

@@ -3,7 +3,12 @@ package kr.co.aegis.patent.kipris;
 import java.rmi.RemoteException;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 abstract public class PatentFilePath {
+	protected final Log logger = LogFactory.getLog(this.getClass());
+	
 	protected String _userId;
 	protected String _userKey;
 	protected String _kiprisUrl;
@@ -38,7 +43,7 @@ abstract public class PatentFilePath {
 	 * @return
 	 * @throws RemoteException
 	 */
-	abstract public void getMoreInfo(Map<String, String>map) throws RemoteException;
+	abstract public void getBibliography(Map<String, String>map) throws RemoteException;
 	
 	/***
 	 * KIPRIS PLUS용 출원번호 가져오기

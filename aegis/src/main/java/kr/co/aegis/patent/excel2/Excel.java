@@ -5,7 +5,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import kr.co.aegis.patent.header.ExcelHeader;
+import kr.co.aegis.patent.parser.FocustExcelParser;
+import kr.co.aegis.patent.parser.KiprisAExcelParser;
+import kr.co.aegis.patent.parser.KiprisNExcelParser;
+import kr.co.aegis.patent.parser.WipsonExcelParser;
+
 abstract public class Excel {
+	protected final Log logger = LogFactory.getLog(this.getClass());
+	
 	protected String path;
 	protected File file;
 	protected Map<String, String> DBMap = null;
@@ -47,13 +58,13 @@ abstract public class Excel {
 	 * @param kindsDB
 	 */
 	protected void getDBMap(String kindsDB) {
-		if("WIPSON".equals(kindsDB)) {
+		if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
 			DBMap =  Header.DBMAP_WIPSON;
-		} else if("FOCUST".equals(kindsDB)) {
+		} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
 			DBMap =  Header.DBMAP_FOCUST;
-		} else if("KIPRIS_N".equals(kindsDB)) {
+		} else if(kindsDB.equals(ExcelHeader.DB[2])) {	// KIPRIS_N
 			DBMap =  Header.DBMAP_KIPRIS_N;
-		} else {
+		} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
 			DBMap =  Header.DBMAP_KIPRIS_A;
 		}
 	}

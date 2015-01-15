@@ -203,7 +203,7 @@ public class XSSExcel extends Excel{
 					break;					
 	    	}
 	    }
-	    System.out.println("setTitleArr::::::::::::::::::\n");
-	    System.out.println(titleArr);
+	    logger.info("setTitleArr::::::::::::::::::\n");
+	    logger.info(titleArr);
 	}
 }

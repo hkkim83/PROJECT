@@ -197,6 +197,29 @@
 			}
 		});	
 	};
+	
+
+	// 서지정보 가져오기
+	var getKiprisData = function() {
+		$.ajax({
+			url : '/process/getKiprisData.do',
+			dataType: 'json',
+			timeout: 0,
+			async: true,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					point = data.POINT;
+					setPercent(3);				
+					setSeqNum();		
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});		
+	};
 
 	// DB 중복제거
 	var deleteDuplication = function() {
@@ -208,9 +231,9 @@
 			async: true,
 			success: function( data ) {
 				if(data.RESULT_CD == "SUCC_0001") {
-					point = data.POINT;
-					setPercent(3);					
-					setSeqNum();			
+					return;
+					setPercent(2);					
+					getKiprisData();			
 				} else {
 			        //통신이 완료된 후 처리
 			        $('#dlg_process_progress_bar').fadeOut();
@@ -256,14 +279,14 @@
 				$dialog.find('iframe').css('left', left);
 				$dialog.height($(document).height());
 				$dialog.show().fadeIn('fast'); 
-		        
 		        $('#dlg_progress_bar').show().fadeIn('fast'); 
 		    } ,			
 			success: function( data ) {
 				if(data.RESULT_CD == "SUCC_0001") {
 					return;
 					setPercent(1);
-					processing();	
+					deleteDuplication();
+					//processing();	
 				} else {
 			        //통신이 완료된 후 처리
 			        $('#dlg_process_progress_bar').fadeOut();

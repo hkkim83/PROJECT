@@ -4,8 +4,11 @@ import java.rmi.RemoteException;
 import java.util.Map;
 
 import kr.co.aegis.util.StringUtil;
+import kr.or.kipris.plus.PatentBibliographicInfoServicePortTypeProxy;
+import kr.or.kipris.plus.PatentBibliographicInfoServiceSoap11BindingStub;
 import kr.or.kipris.plus.PatentImageAndFullTextServicePortTypeProxy;
 import kr.or.kipris.plus.PatentImageAndFullTextServiceSoap11BindingStub;
+import kr.or.kipris.plus.webservice.services.patentbean.xsd.BiblioSummaryInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.FilePathInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.ImagePathInfo;
 
@@ -55,8 +58,23 @@ public class KrPatentFilePath extends PatentFilePath{
 	 * @param map
 	 * @throws RemoteException
 	 */
-	public void getMoreInfo(Map<String, String>map) throws RemoteException {
-		
-	}
+	public void getBibliography(Map<String, String>map) throws RemoteException {
+		PatentBibliographicInfoServicePortTypeProxy proxy = new PatentBibliographicInfoServicePortTypeProxy();
+		PatentBibliographicInfoServiceSoap11BindingStub stub =(PatentBibliographicInfoServiceSoap11BindingStub)proxy.getPatentBibliographicInfoServicePortType();
 
+		SOAPHeaderElement id = new SOAPHeaderElement(_kiprisUrl,"userId");
+		id.setValue(_userId);
+		
+		SOAPHeaderElement userKey = new SOAPHeaderElement(_kiprisUrl,"userKey");
+		userKey.setValue(_userKey);
+		
+		stub.setHeader(id);
+		stub.setHeader(userKey);
+		
+		String applNum = map.get("APPL_NUM_ORG");
+		BiblioSummaryInfo biblioSummaryInfo[] = (BiblioSummaryInfo[])stub.biblioSummaryInfo(applNum); 
+		
+		logger.info(":::::::::::::::::::::biblioSummaryInfo");
+		logger.info(biblioSummaryInfo);
+	}
 }

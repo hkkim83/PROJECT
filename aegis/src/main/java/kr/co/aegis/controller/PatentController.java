@@ -375,7 +375,7 @@ public class PatentController extends BaseController {
 	@RequestMapping(value = "/uploadPDF.do")
 	public ModelAndView uploadPDF(@RequestParam("file1") MultipartFile file, @RequestParam("PROJECT_ID") String PROJECT_ID, @RequestParam("PATENT_ID") String PATENT_ID, HttpServletRequest request, HttpSession session) throws FileNotFoundException, IOException
 	{
-		System.out.println("uploadPDF:::::::::::::::::::");
+		logger.info("uploadPDF:::::::::::::::::::");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 파일명
 		String fileName = file.getOriginalFilename();
@@ -393,9 +393,9 @@ public class PatentController extends BaseController {
 		File newFile = new File(svrfilePath, svrFileName);
 		file.transferTo(newFile);
 		
-		System.out.println("svrfilePath:::"+svrfilePath);
-		System.out.println("svrfilePath2:::"+svrfilePath2);
-		System.out.println("svrFileName:::"+svrFileName);
+		logger.info("svrfilePath:::"+svrfilePath);
+		logger.info("svrfilePath2:::"+svrfilePath2);
+		logger.info("svrFileName:::"+svrFileName);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("FILE_NAME"     , fileName);

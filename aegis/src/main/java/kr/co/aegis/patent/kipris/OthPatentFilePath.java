@@ -36,7 +36,7 @@ public class OthPatentFilePath extends PatentFilePath{
 		SOAPHeaderElement id = new SOAPHeaderElement(_kiprisUrl,"userId");
 		id.setValue(_userId);
 		
-		SOAPHeaderElement userKey = new SOAPHeaderElement(_kiprisUrl,"userKey");
+		SOAPHeaderElement userKey = new SOAPHeaderElement(_kiprisUrl,"userK ey");
 		userKey.setValue(_userKey);
 	
 		stub.setHeader(id);
@@ -64,12 +64,35 @@ public class OthPatentFilePath extends PatentFilePath{
 	}
 	
 	/***
-	 * 업로드시 없는 정보 가져오기
+	 * KIPRIS 서지 정보 가져오기
 	 * @param map
 	 * @throws RemoteException
 	 */
-	public void getMoreInfo(Map<String, String>map) throws RemoteException {
+	public void getBibliography(Map<String, String>map) throws RemoteException {
+	   	ForeignPatentAdvencedSearchServicePortTypeProxy proxy = new ForeignPatentAdvencedSearchServicePortTypeProxy();
+		ForeignPatentAdvencedSearchServiceSoap11BindingStub stub =(ForeignPatentAdvencedSearchServiceSoap11BindingStub)proxy.getForeignPatentAdvencedSearchServicePortType();
+
+		SOAPHeaderElement id = new SOAPHeaderElement(_kiprisUrl,"userId");
+		id.setValue(_userId);
 		
+		SOAPHeaderElement userKey = new SOAPHeaderElement(_kiprisUrl,"userKey");
+		userKey.setValue(_userKey);
+	
+		stub.setHeader(id);
+		stub.setHeader(userKey);
+		
+		String applNum  = map.get("APPL_NUM_ORG");
+		String natlCode = map.get("NATL_CODE");
+		
+		if(StringUtil.isNull(applNum)) 
+			return;
+		
+		String applNumArr[] = applNum.split(",");
+		
+		SearchResultArray array = stub.applicationNumberSearch(applNumArr[1], natlCode, "", "", "", "");
+		logger.info("array:::\n"+array);
+		SearchResult[] searchResult = array.getSearchTestResult();
+		logger.info("searchResult:::\n"+searchResult);
 	}
 	
 	/**
@@ -108,6 +131,7 @@ public class OthPatentFilePath extends PatentFilePath{
 		if(Integer.parseInt(array.getTotalSearchCount()) > 0) {
 			SearchResult[] searchResult = array.getSearchTestResult();
 			applNumOrg = searchResult[0] == null || searchResult.length == 0 ? "" : searchResult[0].getVdkVgwKey();
+//			logger.info("SearchResult:::"+searchResult[0]);
 		}
 		map.put("APPL_NUM_ORG", applNumOrg);
 	}

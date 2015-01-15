@@ -178,6 +178,7 @@ public class PatentService extends BaseService {
 		List<Map<String, String>> list = (List<Map<String, String>>)param.get("list");
 		for(Map<String, String> map : list) {
 			map.put("USER_ID", (String)param.get("LOGIN_ID"));
+			if(!"delete".equals(map.get("status")))
 			patentDAO.insertPatentTemp(map);
 		}
 	}

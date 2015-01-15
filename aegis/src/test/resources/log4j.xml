@@ -51,12 +51,12 @@
 		<appender-ref ref="rollingFile" />
 	</logger>	<!-- this log is for internal debugging of log4jdbc, itself -->	<!-- debug logging for log4jdbc itself -->
 	<logger name="log4jdbc.debug" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</logger>
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
