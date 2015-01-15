@@ -178,10 +178,25 @@ public class PatentService extends BaseService {
 		List<Map<String, String>> list = (List<Map<String, String>>)param.get("list");
 		for(Map<String, String> map : list) {
 			map.put("USER_ID", (String)param.get("LOGIN_ID"));
-			if(!"delete".equals(map.get("status")))
 			patentDAO.insertPatentTemp(map);
 		}
 	}
+	
+	/**
+	 * 특허 임시 삭제 
+	 * @param param
+	 */
+	@Transactional
+	@SuppressWarnings("unchecked")
+	public void deletePatentTemp(Map<String, Object> param) {
+		List<Map<String, String>> list = (List<Map<String, String>>)param.get("list");
+		for(Map<String, String> map : list) {
+			map.put("USER_ID", (String)param.get("LOGIN_ID"));
+			if("delete".equals(map.get("status")))
+				patentDAO.deletePatentTemp(map);
+		}
+	}
+	
 	
 	/**
 	 * 특허 마스터 저장

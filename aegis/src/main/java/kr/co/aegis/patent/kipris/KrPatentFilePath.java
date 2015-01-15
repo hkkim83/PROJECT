@@ -40,6 +40,7 @@ public class KrPatentFilePath extends PatentFilePath{
 		stub.setHeader(userKey);
 		
 		String applNum = map.get("APPL_NUM_ORG");
+		logger.info("applNum::::::"+applNum);
 		FilePathInfo filePathInfo = (FilePathInfo)stub.unexPubfullDocPDFInfo(applNum);
 		ImagePathInfo[] imagePathInfos = (ImagePathInfo[])stub.abstractFigure(applNum);
 		

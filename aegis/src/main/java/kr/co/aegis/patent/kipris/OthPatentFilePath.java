@@ -49,8 +49,9 @@ public class OthPatentFilePath extends PatentFilePath{
 			return;
 		
 		String applNumArr[] = applNum.split(",");
-		
-		FullTextInfo fullTextInfo = (FullTextInfo)stub.fullTextInfo(applNumArr[1], natlCode);;
+
+		logger.info("applNum::::::"+applNumArr[1]);
+		FullTextInfo fullTextInfo = (FullTextInfo)stub.fullTextInfo(applNumArr[1], natlCode);
 
 		RepresentationImageInfo[] imagePathInfos = (RepresentationImageInfo[])stub.representationImageInfo(applNumArr[1], natlCode);
 		String patentFullText = fullTextInfo.getPath(); 

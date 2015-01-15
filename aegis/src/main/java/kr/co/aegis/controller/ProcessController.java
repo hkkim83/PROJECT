@@ -273,6 +273,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/register.do")
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, InterruptedException
 	{	
+		logger.info("registerregisterregisterregisterregister");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 1. 업로드 폴더에서 파일 목록을 가져온다.
 		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
@@ -318,7 +319,6 @@ public class ProcessController extends BaseController {
 			
 			// 4. 데이터를 파싱한다.
 			for(Map<String, String> map : list) {
-				map.put("status", "insert");
 				saveList.add(map);			
 			}
 		}
@@ -388,7 +388,8 @@ public class ProcessController extends BaseController {
 	 */
 	@RequestMapping(value = "/deleteDuplication.do")
 	public ModelAndView deleteDuplication(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
-	{	
+	{
+		logger.info("deleteDuplicationdeleteDuplicationdeleteDuplication");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		Map<String, String> param = new HashMap<String, String>();
 		User user = (User)session.getAttribute(USER_SESSION);
@@ -400,14 +401,13 @@ public class ProcessController extends BaseController {
 		parser.deleteDuplication(list);
 		
 		// 해외특허 정보 추출을 위한 문헌정보 추출
-		parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
+		// parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
 
-		// 3. 데이터 insert(patent)
-		// 4. 데이터 insert(patent_temp)
+		// 데이터 delete(patent_temp)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 
 		saveMap.put("list"    , list);
 		saveMap.put("LOGIN_ID", loginId);
-		patentService.savePatentTemp(saveMap);
+		patentService.deletePatentTemp(saveMap);
 		
 		modelAndView.success();
 		return modelAndView;
@@ -425,6 +425,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/getKiprisData.do")
 	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
 	{	
+		logger.info("getKiprisDatagetKiprisDatagetKiprisDatagetKiprisDatagetKiprisData");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		int ret = 0;
 		Map<String, String> param = new HashMap<String, String>();

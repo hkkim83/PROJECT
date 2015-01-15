@@ -201,8 +201,10 @@
 
 	// 서지정보 가져오기
 	var getKiprisData = function() {
+		var strParam = "PROJECT_ID="+projectId;
 		$.ajax({
 			url : '/process/getKiprisData.do',
+			data : strParam,
 			dataType: 'json',
 			timeout: 0,
 			async: true,
@@ -231,7 +233,6 @@
 			async: true,
 			success: function( data ) {
 				if(data.RESULT_CD == "SUCC_0001") {
-					return;
 					setPercent(2);					
 					getKiprisData();			
 				} else {
@@ -283,7 +284,6 @@
 		    } ,			
 			success: function( data ) {
 				if(data.RESULT_CD == "SUCC_0001") {
-					return;
 					setPercent(1);
 					deleteDuplication();
 					//processing();	

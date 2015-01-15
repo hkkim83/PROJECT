@@ -22,7 +22,7 @@ public class PatentImageAndFullTextServiceLocator extends org.apache.axis.client
     }
 
     // Use to get a proxy class for PatentImageAndFullTextServiceHttpSoap11Endpoint
-    private java.lang.String PatentImageAndFullTextServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr:80/kiprisplusws/services/PatentImageAndFullTextService.PatentImageAndFullTextServiceHttpSoap11Endpoint/";
+    private java.lang.String PatentImageAndFullTextServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr/kiprisplusws/services/PatentImageAndFullTextService?wsdl";
 
     public java.lang.String getPatentImageAndFullTextServiceHttpSoap11EndpointAddress() {
         return PatentImageAndFullTextServiceHttpSoap11Endpoint_address;

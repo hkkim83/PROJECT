@@ -22,7 +22,7 @@ public class ForeignPatentAdvencedSearchServiceLocator extends org.apache.axis.c
     }
 
     // Use to get a proxy class for ForeignPatentAdvencedSearchServiceHttpSoap11Endpoint
-    private java.lang.String ForeignPatentAdvencedSearchServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr:80/kiprisplusws/services/ForeignPatentAdvencedSearchService.ForeignPatentAdvencedSearchServiceHttpSoap11Endpoint/";
+    private java.lang.String ForeignPatentAdvencedSearchServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr/kiprisplusws/services/ForeignPatentAdvencedSearchService?wsdl";
 
     public java.lang.String getForeignPatentAdvencedSearchServiceHttpSoap11EndpointAddress() {
         return ForeignPatentAdvencedSearchServiceHttpSoap11Endpoint_address;
