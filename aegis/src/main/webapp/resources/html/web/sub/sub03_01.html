@@ -67,7 +67,10 @@
 										</p>
 									</div>
 									<div class="searchCondition">
-										<h4>키워드 검색</h4>
+                                    <span class="searchtitleicon">
+                                     	<h6><i class="fa fa-chevron-right"></i></h6>
+										</span>
+                                        <h4>키워드 검색</h4>
 										<div class="searchBox">
 											<ul class="w45">
 												<li>
@@ -112,6 +115,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                     <span class="searchtitleicon">
+                                     	<h6><i class="fa fa-chevron-right"></i></h6>
+										</span>
 										<h4>출원인, 발명자 검색</h4>
 										<div class="searchBox">
 											<ul class="w45">
@@ -139,6 +145,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                     <span class="searchtitleicon">
+                                     	<h6><i class="fa fa-chevron-right"></i></h6>
+										</span>
 										<h4>국가 및 기술분류 선택</h4>
 										<div class="searchBox">
 											<table summary="대분류,중분류,출원국가,목적등급,목적,해결수단등급,해결수단">
@@ -220,6 +229,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                     <span class="searchtitleicon">
+                                     	<h6><i class="fa fa-chevron-right"></i></h6>
+										</span>
 										<h4>검색구간 지정(출원일,공개일,등록일 기준)</h4>
 										<div class="searchBox">
 											<table summary="출원일자,공개일자,검토결과,검토구분">
@@ -292,8 +304,9 @@
 										</div>
 									</div>
 									<div class="btn_area">
-										<a id="btnClearSmartFinder" href="#" onclick="return false;"><img src="../images/common/btn_clear.gif" alt="초기화"></a>
-										<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+									  <button id="btnItemizedSearch" type="button" class="reset">초기화</button>
+										<button id="btnItemizedSearch" type="button" class="btn_search">검색하기
+                                        <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
 									</div>
 								</div>
 								<div id="divDummySmartFinderBtn" class="sfinder_open" style="display: none; top: 5px;">
@@ -327,28 +340,21 @@
 					<!-- // title/location -->
 					
 					<!-- 검색 결과  -->
-					<div class="searchResults">
+					<div class="searchResults1">
+                      <span class="searchtitleicon">
+                       <h6><i class="fa fa-chevron-right"></i></h6>
+					 	</span>
 						<h4>검색결과</h4>
 						<div class="expression">
 							<p class="left"><span class="searchtitle">입력검색식 :</span>
 							<span class="searchbody">
                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
                              입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
-                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
-                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
-                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
-                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
-                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
-                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
-                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
-                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
-                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
-                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
                             </span></p>
 							<p class="right">
 								<button type="button" class="btnSmall green">키워드 저장</button>
-								<button type="button" class="btnSmall write">중요특허</button>
-								<span>총 944건</span>
+								<a href="#" class="btnSmall write">중요특허</a>
+								<span>총 44건</span>
 								<span>(아래 리스트의  <img src="../images/common/ico_ferretout.gif" alt="" /> 색출)</span>
 							</p>
 						</div>
@@ -356,9 +362,9 @@
 						<div class="finderDetail">
 							<dl class="detailTop">
 								<dt>
-									<a href="sub03_01.html"><img src="../images/btn/btn_list.gif" alt="기본리스트" /></a>
-									<a href="sub03_01_2.html"><img src="../images/btn/btn_represents.gif" alt="초록대표도" /></a>
-									<a href="sub03_01_3.html"><img src="../images/btn/btn_download.gif" alt="다운로드" /></a>
+									<a href="sub03_01.html"><div class="basiclist">기본리스트</div></a>
+									<a href="sub03_01_2.html"><div class="sub_btn">초록/대표도</div></a>
+									<a href="sub03_01_3.html"><div class="download_btn">다운로드</div></a>
 								</dt>
 								<dd>
 									<span>총 982건 검색</span>
@@ -526,9 +532,9 @@
 						
 						<!-- 버튼 -->
 						<div class="btnArea left">
-							<a href="#" class="btntype1"><span>선택문헌 중요특허 추가</span></a>
-							<a href="#" class="btntype1"><span>선택문헌 중요특허 제외</span></a>
-							<a href="#" class="btntype1"><span>선택문헌 삭제</span></a>
+							<a href="#" class="btntype3"><span>선택문헌 중요특허 추가</span></a>
+							<a href="#" class="btntype3"><span>선택문헌 중요특허 제외</span></a>
+							<a href="#" class="btntype3"><span>선택문헌 삭제</span></a>
 						</div>
 						<!-- 버튼 -->
 

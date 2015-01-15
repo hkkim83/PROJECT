@@ -54,6 +54,9 @@
 										</p>
 									</div>
 									<div class="searchCondition">
+                                     <span class="searchtitleicon">
+                       					<h6><i class="fa fa-chevron-right"></i></h6>
+					 					 </span>
 										<h4>키워드 검색</h4>
 										<div class="searchBox">
 											<ul class="w45">
@@ -99,6 +102,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                      <span class="searchtitleicon">
+                       					<h6><i class="fa fa-chevron-right"></i></h6>
+					 					 </span>
 										<h4>출원인, 발명자 검색</h4>
 										<div class="searchBox">
 											<ul class="w45">
@@ -126,6 +132,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                      <span class="searchtitleicon">
+                       					<h6><i class="fa fa-chevron-right"></i></h6>
+					 					 </span>
 										<h4>국가 및 기술분류 선택</h4>
 										<div class="searchBox">
 											<table summary="대분류,중분류,출원국가,목적등급,목적,해결수단등급,해결수단">
@@ -207,6 +216,9 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+                                    	<span class="searchtitleicon">
+                       					<h6><i class="fa fa-chevron-right"></i></h6>
+					 					 </span>
 										<h4>검색구간 지정(출원일,공개일,등록일 기준)</h4>
 										<div class="searchBox">
 											<table summary="출원일자,공개일자,검토결과,검토구분">
@@ -279,8 +291,10 @@
 										</div>
 									</div>
 									<div class="btn_area">
-										<a id="btnClearSmartFinder" href="#" onclick="return false;"><img src="../images/common/btn_clear.gif" alt="초기화"></a>
-										<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+										<a id="btnClearSmartFinder" href="#" onclick="return false;">
+                                        <button id="btnItemizedSearch" type="button" class="reset">초기화</button>
+										<button id="btnItemizedSearch" type="button" class="btn_search">검색하기
+                                        <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></button>
 									</div>
 								</div>
 								<div id="divDummySmartFinderBtn" class="sfinder_open" style="display: none; top: 5px;">
@@ -316,33 +330,45 @@
 					<!-- // title/location -->
 					
 					<!-- 검색 결과  -->
-					<div class="searchResults">
+					<div class="searchResults1">
+                      <span class="searchtitleicon">
+                       	<h6><i class="fa fa-chevron-right"></i></h6>
+					 	 </span>
 						<h4>검색결과</h4>
 						<div class="expression">
-							<p class="left"><strong>입력검색식 :<strong><span></span></p>
+							<p class="left"><span class="searchtitle">입력검색식 :</span>
+							<span class="searchbody-1">
+                            입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란
+                             입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란입력란 입력란입력란입력란입
+                            </span></p>
 							<p class="right">
 								<a href="#" class="btnSmall write">중요특허</a>
 								<span>총 44건</span>
 								<span>(아래 리스트의  <img src="../images/common/ico_ferretout.gif" alt="" /> 색출)</span>
 							</p>
 						</div>
-						<!-- 검색 상세리스트 -->
+						<p><!-- 검색 상세리스트 -->
+					  </p>
 						<div class="finderDetail">
 							<!-- 리스트 시작 -->
 							<div class="represent">
 								<dl class="detailTop">
 									<dt><span class="title">205. 편심 자동차 감속기</span></dt>
 									<dd class="btn">
-										<a href="#" class="btntype1"><span>정보수정</span></a>
-										<a href="#" class="btntype1"><span>전문보기</span></a>
-										<a href="#" class="btntype1"><span>인쇄</span></a>
+										<a href="#" class="btntype6"><span>정보수정</span></a>
+										<a href="#" class="btntype6"><span>전문보기</span></a>
+										<a href="#" class="btntype4"><span>전문변경</span></a>
 									</dd>
 								</dl>
 								<div class="greenRepresent">
 									<div class="representLeft">
-										<img src="../images/common/img_sam02.jpg" alt="">
-									</div>
-									<div class="representRight">
+									 <img src="../images/common/img_sam02_not.jpg" width="258" height="362">
+									  <div class="imageup">
+                                      <input name="imageup" type="file">
+                                      <h4>도면변경</h4>
+                                      </div>
+                                    </div>
+								  <div class="representRight">
 										<div class="tbl_bbs2">
 											<table summary="">
 											<caption>선택</caption>
@@ -354,35 +380,35 @@
 											</colgroup>
 											<tbody>
 											<tr>
-												<th scope="row"><em>출원국가</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원국가</h4></th>
 												<td colspan="3">KR</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>권리구분</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;권리구분</h4></th>
 												<td colspan="3">특허</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>대표 IPC</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;대표 IPC</h4></th>
 												<td colspan="3">F16H-001/32</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>출원번호(일자)</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원번호(일자)</h4></th>
 												<td colspan="3">2008-70003310(2008-02-11)</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>공개번호(일자)</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호(일자)</h4></th>
 												<td colspan="3">2008-70003310(2008-02-11)</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>등록번호(일자)</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호(일자)</h4></th>
 												<td colspan="3">2008-70003310(2008-02-11)</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>출원인</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원인</h4></th>
 												<td colspan="3">NABTESCO</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re01"><em>법적상태</em></label></th>
+												<th scope="row"><label for="re01"><h4><i class="fa fa-caret-right"></i>&nbsp;법적상태</h4></label></th>
 												<td colspan="3">
 													<select class="w30" id="re01">
 														<option>소멸</option>
@@ -390,7 +416,9 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re02">목적</label></th>
+												<th scope="row"><label for="re02">
+                                                 <div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;목표</h4></div></label></th>
 												<td>
 													<p><input type="text"  class="w50" id="re02" /></p>
 													<p><input type="text"  class="w50" /></p>
@@ -398,7 +426,8 @@
 													<p><input type="text"  class="w50" /></p>
 													<p><input type="text"  class="w50" /></p>
 												</td>
-												<th scope="row"><label for="re03">해결수단</label></th>
+												<th scope="row"><label for="re03"><div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;해결수단</h4></div></label></th>
 												<td>
 													<p><input type="text"  class="w50" id="re03" /></p>
 													<p><input type="text"  class="w50" /></p>
@@ -406,28 +435,32 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re04">목적등급</label></th>
+												<th scope="row"><label for="re04"><div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;목적등급</h4></div></label></th>
 												<td><select class="w50" id="re04">
 														<option>B</option>
 														</select>
 												</td>
-												<th scope="row"><label for="re05">등급</label></th>
+												<th scope="row"><label for="re05"><div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;등급</h4></div></label></th>
 												<td><select class="w50" id="re05">
 														<option>B</option>
 														</select>
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re06">검토구분</label></th>
+												<th scope="row"><label for="re06"><div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;검토구분</h4></div></label></th>
 												<td><input type="text"  class="w50" id="re06" /></td>
-												<th scope="row"><label for="re07">검토결과</label></th>
+												<th scope="row"><label for="re07"><div class="point">
+                                                 <h4><i class="fa fa-caret-right"></i>&nbsp;검토결과</h4></div></label></th>
 												<td><select class="w50" id="re07">
 														<option>소멸</option>
 														</select>
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>Family 정보</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;Family 정보</h4></th>
 												<td colspan="5">JP1995-256741(UBE) l JP1998-235722(KYORAKU) l JP1998-329204(Kyoraku) l JP2009-298089(Kyoraku)</td>
 											</tr>
 											</tbody>
@@ -438,35 +471,29 @@
 							</div>
 
 							<div class="greenRepresent">
-								<dl class="txtInfoL">
-									<dt>목적요약</dt>
+								<dl class="txtInfoLom">
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;목적/해결수단요약</h4></dt>
 									<dd>
 										<textarea class="w96">
 										</textarea>
 									</dd>
 								</dl>
-								<dl class="txtInfoR">
-									<dt>해결수단요약</dt>
-									<dd>
-										<textarea class="w95">
-										</textarea>
-									</dd>
-								</dl>
-								<div class="txtInfoC">
+							
+							  <div class="txtInfoC">
 									<p>주) 목적 및 해결수단을 입력하세요(최대 6개).   복수개의 목적, 해결수단 입력시, 구분자를 사용하세요.   입력 예 :  고강성/안정성</p>
 								</div>
 								<dl class="txtInfoLom">
-									<dt>발명의 요약</dt>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;발명의 요약</h4></dt>
 									<dd>
 										<textarea class="w96">
 										</textarea>
 									</dd>
-									<dt>대표청구항</dt>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;대표청구항</h4></dt>
 									<dd>
 										<textarea class="w96">
 										</textarea>
 									</dd>
-									<dt>검토의견(SBB테크)</dt>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;검토의견(SBB테크)</h4></dt>
 									<dd>
 										<textarea class="w96">
 										</textarea>
