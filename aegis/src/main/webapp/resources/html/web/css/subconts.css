@@ -79,7 +79,7 @@ Date : 2013-12-25
 .representLeft {float:left;width:30%;padding-left:10px; margin-left:10px;}
 .representLeft img {width:258px;height:362px;border:1px solid #ddd;margin-top: 8px;}
 .representRight {float:right;width:65%;margin-right:10px;}
-.representRight li {font-weight:normal;padding:8px 0 6px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;background:url(../images/common/bul_box.gif) no-repeat left 10px;}
+.representRight li {font-weight:normal;padding:8px 0 6px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;}
 .representRight li em {float:left;display:inline-block;width:23%;color:#035f05;text-align:left;}
 .representRight li span {float:right;width:74%;text-align:left;padding:0 5px;vertical-align:top;line-height:14px;}
 

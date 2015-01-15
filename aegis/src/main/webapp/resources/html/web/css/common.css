@@ -13,7 +13,7 @@ Date : 2013-12-20
 
 /* layout */
 #wrap {margin:0;padding:0;}
-#header {height:160px;background:url(../images/common/bg_nav.png) repeat-x bottom;}
+#header {height:156px;background:url(../images/common/bg_nav_1.png) repeat-x bottom;}
 #container {clear:both;margin:0;padding:0 0 30px;width:100%;background:url(../images/common/bg_conts.gif) repeat-x left top !important;}
 #contents {width:100%;clear:both;overflow:hidden}
 #footer {clear:both;position:relative;top:20px}
@@ -29,7 +29,7 @@ Date : 2013-12-20
 .topGroup h1 {float:left;}
 .nav {float:left;padding:30px 0 0 32px;}
 .nav li {float:left;margin:0 18px;position:relative;}
-.nav li > ul {position:absolute;top:58px;left:0;width:500px;margin:0 auto;}
+.nav li > ul {position:absolute;top:68px;left:0;width:500px;margin:0 auto;}
 .nav li > ul > li {display:inline-block;color:#fff;margin:0 0;font-family:'굴림',Gulim;padding:0 10px 0 10px;background:url(../images/common/bul_nav_line.gif) no-repeat left 0;}
 .nav li > ul > li a {display:inline-block;color:#fff;}
 .nav li > ul > li:first-child {background:0 none;padding:0 10px 0 0;}
@@ -456,3 +456,10 @@ textarea.w95{width:91% !important;}
 
 /* padding size */
 .mdl125 {margin-left:125px;}
+
+.savebtn{width:100%; display: inline-block;padding-top: 32px;}
+.savebtn .btnArea{padding:0; width: 50%; float: left;}
+.savebtn .btnArea h4{font-size: 14px;padding-top: 9px;color: #202020;letter-spacing: -1px;}
+.savebtn1{width:100%; display: inline-block;padding-top: 0px;}
+.savebtn1 .btnArea{padding:0; width: 50%; float: left;}
+.savebtn1 .btnArea h4{font-size: 14px;padding-top: 9px;color: #202020;letter-spacing: -1px;}
