@@ -220,18 +220,18 @@ table{font-size: 12px;}
 				<div class="nav" style="float:left;">
 					<div style="display:block;">
 <% if(user == null || "U".equals(user.getPriority())){ %>
-						<span><a id="menu01" href="#"><img src="/resources/images/main/nav_01_off.png" alt="검색식" /></a></span>
+						<span><a id="menu01" href="#"><img src="/resources/images/main/main_nav_01_off.png" alt="검색식" /></a></span>
 	<% if(user != null && "1".equals(user.getProjectAuth())){ %>
-						<span><a id="menu02" href="#"><img src="/resources/images/main/nav_02_off.png" alt="데이터가공" /></a></span>
+						<span><a id="menu02" href="#"><img src="/resources/images/main/main_nav_02_off.png" alt="데이터가공" /></a></span>
 	<%}%>
-						<span><a id="menu03" href="#"><img src="/resources/images/main/nav_03_off.png" alt="데이터분석" /></a></span>
-						<span><a id="menu04" href="#"><img src="/resources/images/main/nav_04_off.png" alt="그래프분석" /></a></span>
+						<span><a id="menu03" href="#"><img src="/resources/images/main/main_nav_03_off.png" alt="데이터분석" /></a></span>
+						<span><a id="menu04" href="#"><img src="/resources/images/main/main_nav_04_off.png" alt="그래프분석" /></a></span>
 <% } else if("A".equals(user.getPriority())){ %>
-						<span><a id="menu11" href="#"><img src="/resources/images/main/nav_11_off.gif" alt="프로젝트관리" /></a></span>
-						<span><a id="menu12" href="#"><img src="/resources/images/main/nav_12_off.gif" alt="사용자관리" /></a></span>
+						<span><a id="menu11" href="#"><img src="/resources/images/main/main_nav_11_off.png" alt="프로젝트관리" /></a></span>
+						<span><a id="menu12" href="#"><img src="/resources/images/main/main_nav_12_off.png" alt="사용자관리" /></a></span>
 <% } else if("M".equals(user.getPriority())){ %>
-						<span><a id="menu21" href="#"><img src="/resources/images/main/nav_21_off.gif" alt="고객관리" /></a></span>
-						<span><a id="menu22" href="#"><img src="/resources/images/main/nav_22_off.gif" alt="게시판관리" /></a></span>
+						<span><a id="menu21" href="#"><img src="/resources/images/main/main_nav_21_off.png" alt="고객관리" /></a></span>
+						<span><a id="menu22" href="#"><img src="/resources/images/main/main_nav_22_off.png" alt="게시판관리" /></a></span>
 <% } %>
 					</div>
 					<div id="header_bottom" align="center" style="display:block;">

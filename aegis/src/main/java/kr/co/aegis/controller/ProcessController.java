@@ -315,15 +315,17 @@ public class ProcessController extends BaseController {
 			} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
 				parser = new KiprisAExcelParser();
 			}
+			// 4-1. 문서번호 가져오기 
+			parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
+			// 4-2. 데이터를 파싱한다.
 			parser.parse(list);
 			
-			// 4. 데이터를 파싱한다.
 			for(Map<String, String> map : list) {
 				saveList.add(map);			
 			}
 		}
 		// 문서번호 가져오기
-		parser.setApplNumOrg(saveList, userId, userKey, kiprisUrl, defaultPath);
+		// parser.setApplNumOrg(saveList, userId, userKey, kiprisUrl, defaultPath);
 		// 데이터 patent_temp insert 처리
 		saveMap.put("list"    , saveList);
 		patentService.savePatentTemp(saveMap);

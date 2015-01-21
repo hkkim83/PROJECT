@@ -22,7 +22,7 @@ public class PatentBibliographicInfoServiceLocator extends org.apache.axis.clien
     }
 
     // Use to get a proxy class for PatentBibliographicInfoServiceHttpSoap11Endpoint
-    private java.lang.String PatentBibliographicInfoServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr/kiprisplusws/services/PatentBibliographicInfoService?wsdl";
+    private java.lang.String PatentBibliographicInfoServiceHttpSoap11Endpoint_address = "http://plus.kipris.or.kr:80/kiprisplusws/services/PatentBibliographicInfoService.PatentBibliographicInfoServiceHttpSoap11Endpoint/";
 
     public java.lang.String getPatentBibliographicInfoServiceHttpSoap11EndpointAddress() {
         return PatentBibliographicInfoServiceHttpSoap11Endpoint_address;

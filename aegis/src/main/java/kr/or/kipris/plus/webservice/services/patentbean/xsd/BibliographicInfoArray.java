@@ -36,6 +36,8 @@ public class BibliographicInfoArray  implements java.io.Serializable {
 
     private kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorityInfo[] priorityInfoArray;
 
+    private kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfoArray;
+
     public BibliographicInfoArray() {
     }
 
@@ -53,7 +55,8 @@ public class BibliographicInfoArray  implements java.io.Serializable {
            kr.or.kipris.plus.webservice.services.patentbean.xsd.IpcInfo[] ipcInfoArray,
            kr.or.kipris.plus.webservice.services.patentbean.xsd.LegalStatusInfo[] legalStatusInfoArray,
            kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorArtDocumentsInfo[] priorArtDocumentsInfoArray,
-           kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorityInfo[] priorityInfoArray) {
+           kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorityInfo[] priorityInfoArray,
+           kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfoArray) {
            this.abstractInfoArray = abstractInfoArray;
            this.agentInfoArray = agentInfoArray;
            this.applicantInfoArray = applicantInfoArray;
@@ -68,6 +71,7 @@ public class BibliographicInfoArray  implements java.io.Serializable {
            this.legalStatusInfoArray = legalStatusInfoArray;
            this.priorArtDocumentsInfoArray = priorArtDocumentsInfoArray;
            this.priorityInfoArray = priorityInfoArray;
+           this.rndInfoArray = rndInfoArray;
     }
 
 
@@ -350,6 +354,26 @@ public class BibliographicInfoArray  implements java.io.Serializable {
         this.priorityInfoArray = priorityInfoArray;
     }
 
+
+    /**
+     * Gets the rndInfoArray value for this BibliographicInfoArray.
+     * 
+     * @return rndInfoArray
+     */
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] getRndInfoArray() {
+        return rndInfoArray;
+    }
+
+
+    /**
+     * Sets the rndInfoArray value for this BibliographicInfoArray.
+     * 
+     * @param rndInfoArray
+     */
+    public void setRndInfoArray(kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfoArray) {
+        this.rndInfoArray = rndInfoArray;
+    }
+
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof BibliographicInfoArray)) return false;
@@ -403,7 +427,10 @@ public class BibliographicInfoArray  implements java.io.Serializable {
               java.util.Arrays.equals(this.priorArtDocumentsInfoArray, other.getPriorArtDocumentsInfoArray()))) &&
             ((this.priorityInfoArray==null && other.getPriorityInfoArray()==null) || 
              (this.priorityInfoArray!=null &&
-              java.util.Arrays.equals(this.priorityInfoArray, other.getPriorityInfoArray())));
+              java.util.Arrays.equals(this.priorityInfoArray, other.getPriorityInfoArray()))) &&
+            ((this.rndInfoArray==null && other.getRndInfoArray()==null) || 
+             (this.rndInfoArray!=null &&
+              java.util.Arrays.equals(this.rndInfoArray, other.getRndInfoArray())));
         __equalsCalc = null;
         return _equals;
     }
@@ -561,6 +588,17 @@ public class BibliographicInfoArray  implements java.io.Serializable {
                 }
             }
         }
+        if (getRndInfoArray() != null) {
+            for (int i=0;
+                 i<java.lang.reflect.Array.getLength(getRndInfoArray());
+                 i++) {
+                java.lang.Object obj = java.lang.reflect.Array.get(getRndInfoArray(), i);
+                if (obj != null &&
+                    !obj.getClass().isArray()) {
+                    _hashCode += obj.hashCode();
+                }
+            }
+        }
         __hashCodeCalc = false;
         return _hashCode;
     }
@@ -681,6 +719,14 @@ public class BibliographicInfoArray  implements java.io.Serializable {
         elemField.setMinOccurs(0);
         elemField.setNillable(true);
         elemField.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "priorityInfo"));
+        typeDesc.addFieldDesc(elemField);
+        elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("rndInfoArray");
+        elemField.setXmlName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "rndInfoArray"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "RndInfo"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(true);
+        elemField.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "rndInfo"));
         typeDesc.addFieldDesc(elemField);
     }
 

@@ -44,58 +44,58 @@ public class ForeignPatentImageAndFullTextServicePortTypeProxy implements kr.or.
     return foreignPatentImageAndFullTextServicePortType;
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RepresentationImageInfo[] representationImageInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RepresentationImageInfo[] representationImageInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.representationImageInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.representationImageInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationFullTextInfo registrationFullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationFullTextInfo registrationFullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.registrationFullTextInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.registrationFullTextInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationNumberLinkInfoArray registrationNumberLinkInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationNumberLinkInfoArray registrationNumberLinkInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.registrationNumberLinkInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.registrationNumberLinkInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult fullTextCheck(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult fullTextCheck(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.fullTextCheck(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.fullTextCheck(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo fullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo fullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.fullTextInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.fullTextInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionAnnounceInfo revisionAnnounceInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionAnnounceInfo revisionAnnounceInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.revisionAnnounceInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.revisionAnnounceInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenFullTextInfo openFullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenFullTextInfo openFullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.openFullTextInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.openFullTextInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextDisplayInfo[] fullTextDisplayInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextDisplayInfo[] fullTextDisplayInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.fullTextDisplayInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.fullTextDisplayInfo(literatureNumber, countryCode);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionInfo[] revisionInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionInfo[] revisionInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.revisionInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.revisionInfo(literatureNumber, countryCode);
   }
   
   public void setForeignPatentImageAndFullTextService(kr.or.kipris.plus.webservice.services.xsd.ForeignPatentImageAndFullTextService foreignPatentImageAndFullTextService) throws java.rmi.RemoteException{
@@ -104,10 +104,10 @@ public class ForeignPatentImageAndFullTextServicePortTypeProxy implements kr.or.
     foreignPatentImageAndFullTextServicePortType.setForeignPatentImageAndFullTextService(foreignPatentImageAndFullTextService);
   }
   
-  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenNumberLinkInfoArray openNumberLinkInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenNumberLinkInfoArray openNumberLinkInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentImageAndFullTextServicePortType == null)
       _initForeignPatentImageAndFullTextServicePortTypeProxy();
-    return foreignPatentImageAndFullTextServicePortType.openNumberLinkInfo(applicationNumber, countryCode);
+    return foreignPatentImageAndFullTextServicePortType.openNumberLinkInfo(literatureNumber, countryCode);
   }
   
   

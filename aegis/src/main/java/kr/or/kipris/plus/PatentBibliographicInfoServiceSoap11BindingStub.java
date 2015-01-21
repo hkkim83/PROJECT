@@ -16,7 +16,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[14];
+        _operations = new org.apache.axis.description.OperationDesc[16];
         _initOperationDesc1();
         _initOperationDesc2();
     }
@@ -70,6 +70,25 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         _operations[2] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("rndInfo");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param.setOmittable(true);
+        param.setNillable(true);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "rndTaskNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param.setOmittable(true);
+        param.setNillable(true);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "RndInfoArray"));
+        oper.setReturnClass(kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "rndInfo"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[3] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("internationalInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
@@ -82,7 +101,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "internationalInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[3] = oper;
+        _operations[4] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("claimInfo");
@@ -97,7 +116,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "claimInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[4] = oper;
+        _operations[5] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("applicantInfo");
@@ -112,7 +131,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "applicantInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[5] = oper;
+        _operations[6] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("designatedStateInfo");
@@ -127,7 +146,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "designatedStateInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[6] = oper;
+        _operations[7] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("familyInfo");
@@ -142,7 +161,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "familyInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[7] = oper;
+        _operations[8] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("abstractInfo");
@@ -157,8 +176,13 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "abstractInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[8] = oper;
+        _operations[9] = oper;
 
+    }
+
+    private static void _initOperationDesc2(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("biblioSummaryInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -172,13 +196,23 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "biblioSummaryInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[9] = oper;
+        _operations[10] = oper;
 
-    }
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("familyInfoV2");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param.setOmittable(true);
+        param.setNillable(true);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoArrayV2"));
+        oper.setReturnClass(kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "familyInfoV2"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[11] = oper;
 
-    private static void _initOperationDesc2(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("priorArtDocumentsInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -192,7 +226,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "priorArtDocumentsInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[10] = oper;
+        _operations[12] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("bibliographicInfo");
@@ -205,7 +239,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         oper.setReturnQName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "return"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[11] = oper;
+        _operations[13] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("inventorInfo");
@@ -220,7 +254,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "inventorInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[12] = oper;
+        _operations[14] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("priorityInfo");
@@ -235,7 +269,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
         param.setItemQName(new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "priorityInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[13] = oper;
+        _operations[15] = oper;
 
     }
 
@@ -387,6 +421,22 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoArrayV2");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoV2");
+            qName2 = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "familyInfoV2");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoV2");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
             qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "ImagePathInfo");
             cachedSerQNames.add(qName);
             cls = kr.or.kipris.plus.webservice.services.patentbean.xsd.ImagePathInfo.class;
@@ -487,6 +537,22 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "PriorityInfo");
             qName2 = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "priorityInfo");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "RndInfo");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "RndInfoArray");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "RndInfo");
+            qName2 = new javax.xml.namespace.QName("http://patentbean.services.webservice.plus.kipris.or.kr/xsd", "rndInfo");
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
@@ -658,12 +724,46 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.patentbean.xsd.InternationalInfo[] internationalInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfo(java.lang.String applicationNumber, java.lang.String rndTaskNumber) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[3]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:rndInfo");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "rndInfo"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, rndTaskNumber});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[]) org.apache.axis.utils.JavaUtils.convert(_resp, kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.InternationalInfo[] internationalInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[4]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:internationalInfo");
         _call.setEncodingStyle(null);
@@ -697,7 +797,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[4]);
+        _call.setOperation(_operations[5]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:claimInfo");
         _call.setEncodingStyle(null);
@@ -731,7 +831,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[5]);
+        _call.setOperation(_operations[6]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:applicantInfo");
         _call.setEncodingStyle(null);
@@ -765,7 +865,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[6]);
+        _call.setOperation(_operations[7]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:designatedStateInfo");
         _call.setEncodingStyle(null);
@@ -799,7 +899,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[7]);
+        _call.setOperation(_operations[8]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:familyInfo");
         _call.setEncodingStyle(null);
@@ -833,7 +933,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[8]);
+        _call.setOperation(_operations[9]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:abstractInfo");
         _call.setEncodingStyle(null);
@@ -867,7 +967,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[9]);
+        _call.setOperation(_operations[10]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:biblioSummaryInfo");
         _call.setEncodingStyle(null);
@@ -896,12 +996,46 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
 }
     }
 
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[] familyInfoV2(java.lang.String applicationNumber) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[11]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:familyInfoV2");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "familyInfoV2"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[]) org.apache.axis.utils.JavaUtils.convert(_resp, kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorArtDocumentsInfo[] priorArtDocumentsInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[10]);
+        _call.setOperation(_operations[12]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:priorArtDocumentsInfo");
         _call.setEncodingStyle(null);
@@ -935,7 +1069,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[11]);
+        _call.setOperation(_operations[13]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:bibliographicInfo");
         _call.setEncodingStyle(null);
@@ -969,7 +1103,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[12]);
+        _call.setOperation(_operations[14]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:inventorInfo");
         _call.setEncodingStyle(null);
@@ -1003,7 +1137,7 @@ public class PatentBibliographicInfoServiceSoap11BindingStub extends org.apache.
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[13]);
+        _call.setOperation(_operations[15]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:priorityInfo");
         _call.setEncodingStyle(null);

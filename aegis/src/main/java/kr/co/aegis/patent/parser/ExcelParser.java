@@ -105,15 +105,10 @@ public class ExcelParser {
 			
 			if("KR".equals(map.get("NATL_CODE"))) {
 				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getFilePath(map);
+				pfp.getBibliography(map);
 			} else if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("NATL_CODE")) || "JP".equals(map.get("NATL_CODE"))) {
 				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getFilePath(map);
-			} else { 
-				// 그외 국가는 기본값으로 전문, 대표도면 값 설정
-				map.put("PATENT_FULLTXT", "/process/error.do");
-				map.put("IMAGE_MAIN"    , defaultPath);
-				map.put("IMAGE_SMALL"   , defaultPath);
+				pfp.getBibliography(map);
 			}
 		}
 	}
@@ -138,7 +133,7 @@ public class ExcelParser {
 //			if(index++%10 == 9) {
 //				Thread.sleep(1000); // ms단위 - 1초 멈춤
 //			}
-			
+			logger.info(map);
 			if(!"KR".equals(map.get("NATL_CODE")) && !"CN".equals(map.get("NATL_CODE"))) {
 				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
 				pfp.setApplNumOrg(map);

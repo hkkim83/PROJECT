@@ -20,8 +20,8 @@ public class KiprisNExcelParser extends ExcelParser {
 			String regiDate         = map.get("REGI_DATE");				// 등록일자
 			String applDate         = map.get("APPL_DATE");				// 출원일자
 			String laidPublicDate   = map.get("LAID_PUBLIC_DATE");		// 공개일자
-			String natlCode         = getNatlCode(applNum);					// 국가코드
-			String kindsIpType      = getKindsIpType(applNum);				// 특실구분
+			String natlCode         = getNatlCode(applNum);				// 국가코드
+			String kindsIpType      = getKindsIpType(applNum);			// 특실구분
 
 			// N01. 국가코드
 			map.put("NATL_CODE", natlCode);

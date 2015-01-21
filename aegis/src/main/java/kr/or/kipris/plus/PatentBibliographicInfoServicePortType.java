@@ -11,12 +11,14 @@ public interface PatentBibliographicInfoServicePortType extends java.rmi.Remote 
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.AgentInfo[] agentInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.IpcInfo[] ipcInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.LegalStatusInfo[] legalStatusInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfo(java.lang.String applicationNumber, java.lang.String rndTaskNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.InternationalInfo[] internationalInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.ClaimInfo[] claimInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.ApplicantInfo[] applicantInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.DesignatedStateInfo[] designatedStateInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfo[] familyInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.AbstractInfo[] abstractInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
+    public kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[] familyInfoV2(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.BiblioSummaryInfo[] biblioSummaryInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorArtDocumentsInfo[] priorArtDocumentsInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.patentbean.xsd.BibliographicInfoArray bibliographicInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException;

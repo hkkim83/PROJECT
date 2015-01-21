@@ -7,6 +7,10 @@ import kr.co.aegis.util.StringUtil;
 
 public class WipsonExcelParser extends ExcelParser {
 	
+	public void getLtrtno(Map<String, String> list) {
+		
+	}
+	
 	public void parse(List<Map<String, String>> list) {
 		for(Map<String, String> map : list) {
 			String regiDate         = map.get("REGI_DATE");				// 등록일자
@@ -39,7 +43,7 @@ public class WipsonExcelParser extends ExcelParser {
 			result = applNum;
 		} else {
 			String newApplNum = applNum.replaceAll("-", "");	// '-' 삭제후 숫자만 남은 출원번호
-			if(kindsIpType.equals("P"))
+			if("P".equals(kindsIpType))
 				result = "10"+newApplNum;
 			else
 				result = "20"+newApplNum;

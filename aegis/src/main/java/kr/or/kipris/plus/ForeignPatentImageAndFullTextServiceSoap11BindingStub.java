@@ -26,7 +26,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("representationImageInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -45,7 +45,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("registrationFullTextInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -62,7 +62,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("registrationNumberLinkInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -79,7 +79,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("fullTextCheck");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -96,7 +96,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("fullTextInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -113,7 +113,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("openFullTextInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -130,7 +130,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("revisionAnnounceInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -147,7 +147,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("fullTextDisplayInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -166,7 +166,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("revisionInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -201,7 +201,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("openNumberLinkInfo");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "applicationNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
         param.setNillable(true);
         oper.addParameter(param);
@@ -431,7 +431,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
         }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RepresentationImageInfo[] representationImageInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RepresentationImageInfo[] representationImageInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -447,7 +447,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -465,7 +465,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationFullTextInfo registrationFullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationFullTextInfo registrationFullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -481,7 +481,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -499,7 +499,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationNumberLinkInfoArray registrationNumberLinkInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationNumberLinkInfoArray registrationNumberLinkInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -515,7 +515,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -533,7 +533,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult fullTextCheck(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult fullTextCheck(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -549,7 +549,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -567,7 +567,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo fullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo fullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -583,7 +583,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -601,7 +601,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenFullTextInfo openFullTextInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenFullTextInfo openFullTextInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -617,7 +617,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -635,7 +635,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionAnnounceInfo revisionAnnounceInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionAnnounceInfo revisionAnnounceInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -651,7 +651,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -669,7 +669,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextDisplayInfo[] fullTextDisplayInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextDisplayInfo[] fullTextDisplayInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -685,7 +685,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -703,7 +703,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionInfo[] revisionInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RevisionInfo[] revisionInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -719,7 +719,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
@@ -757,7 +757,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenNumberLinkInfoArray openNumberLinkInfo(java.lang.String applicationNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenNumberLinkInfoArray openNumberLinkInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -773,7 +773,7 @@ public class ForeignPatentImageAndFullTextServiceSoap11BindingStub extends org.a
 
         setRequestHeaders(_call);
         setAttachments(_call);
- try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {applicationNumber, countryCode});
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
 
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;

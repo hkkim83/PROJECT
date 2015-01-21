@@ -62,6 +62,12 @@ public class PatentBibliographicInfoServicePortTypeProxy implements kr.or.kipris
     return patentBibliographicInfoServicePortType.legalStatusInfo(applicationNumber);
   }
   
+  public kr.or.kipris.plus.webservice.services.patentbean.xsd.RndInfo[] rndInfo(java.lang.String applicationNumber, java.lang.String rndTaskNumber) throws java.rmi.RemoteException{
+    if (patentBibliographicInfoServicePortType == null)
+      _initPatentBibliographicInfoServicePortTypeProxy();
+    return patentBibliographicInfoServicePortType.rndInfo(applicationNumber, rndTaskNumber);
+  }
+  
   public kr.or.kipris.plus.webservice.services.patentbean.xsd.InternationalInfo[] internationalInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException{
     if (patentBibliographicInfoServicePortType == null)
       _initPatentBibliographicInfoServicePortTypeProxy();
@@ -96,6 +102,12 @@ public class PatentBibliographicInfoServicePortTypeProxy implements kr.or.kipris
     if (patentBibliographicInfoServicePortType == null)
       _initPatentBibliographicInfoServicePortTypeProxy();
     return patentBibliographicInfoServicePortType.abstractInfo(applicationNumber);
+  }
+  
+  public kr.or.kipris.plus.webservice.services.patentbean.xsd.FamilyInfoV2[] familyInfoV2(java.lang.String applicationNumber) throws java.rmi.RemoteException{
+    if (patentBibliographicInfoServicePortType == null)
+      _initPatentBibliographicInfoServicePortTypeProxy();
+    return patentBibliographicInfoServicePortType.familyInfoV2(applicationNumber);
   }
   
   public kr.or.kipris.plus.webservice.services.patentbean.xsd.BiblioSummaryInfo[] biblioSummaryInfo(java.lang.String applicationNumber) throws java.rmi.RemoteException{
