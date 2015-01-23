@@ -15,6 +15,7 @@
 										</p>
 									</div>
 									<div class="searchCondition">
+										<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 										<h4>키워드 검색</h4>
 										<div class="searchBox">
 											<table summary="발명의 명칭,요약,청구범위">
@@ -65,6 +66,7 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+										<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 										<h4>국가, 출원인, 발명자 검색</h4>
 										<div class="searchBox">
 											<table summary="출원인,발명자" class="w50">
@@ -97,6 +99,7 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+										<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 										<h4>출원번호, 공개번호, 등록번호, 연번 검색</h4>
 										<div class="searchBox">
 											<table summary="출원번호,공개번호,등록번호,연번">
@@ -134,6 +137,7 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+										<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 										<h4>기술분류 선택</h4>
 										<div class="searchBox">
 											<table summary="대분류,중분류,출원국가,목적등급,목적,해결수단등급,해결수단">
@@ -202,6 +206,7 @@
 										</div>
 									</div>
 									<div class="searchCondition">
+										<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 										<h4>검색구간 지정(출원일,공개일,등록일)</h4>
 										<div class="searchBox">
 											<table summary="출원일자,공개일자,검토결과,검토구분">
@@ -263,8 +268,10 @@
 										</div>
 									</div>
 									<div class="btn_area">
-										<a id="btnClearSmartFinder" href="#" onclick="return false;"><img src="/resources/images/common/btn_clear.gif" alt="초기화"></a>
-										<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+										<button id="btnClearSmartFinder" type="button" class="reset">초기화</button>
+										<button id="btnItemizedSearch" type="button" class="btn_search">검색하기
+										<i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i>
+										</button>
 									</div>
 								</div>
 								<div id="divDummySmartFinderBtn" class="sfinder_open" style="display: none; top: 5px;">

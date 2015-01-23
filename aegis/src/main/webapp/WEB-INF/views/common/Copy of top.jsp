@@ -22,21 +22,40 @@
 <script>
 (function($){
 
-	var showMenu = function(menuId) {
-		$('.nav > li').each(function(){
-			var strSrc = $('img', $(this)).attr('src');
+	var showMenu = function(menuId){
+		var strSrc = $('#'+menuId+' img').attr('src');
+		strSrc = strSrc.replace('_off.png', '_on.png');
+		$('#'+menuId+' img').attr('src', strSrc);
+		if($('#tb_sub_'+menuId) != undefined)
+			$('#tb_sub_'+menuId).show();
+	};
+	
+	var initMenu = function(menuId){
+		$('.nav img').each(function(){
+			var strSrc = $(this).attr('src');
 			strSrc = strSrc.replace('_on', '_off');
-			$('img', $(this)).attr('src', strSrc);
-			if($('ul', $(this)) != undefined)
-				$('ul', $(this)).hide();
+			$(this).attr('src', strSrc);
 		});
 		
-		var strSrc = $('#'+menuId+' img').attr('src');
-		strSrc = strSrc.replace('_off', '_on');
-		$('#'+menuId+' img').attr('src', strSrc);
-		$('#tb_sub_'+menuId).show();
+		console.log(menuId);
+		if(menuId == undefined) {
+			for(var i=2; i<5; i++) {
+				$('#tb_sub_menu0'+i).hide();
+			}
+		} else {
+			console.log("durldurl");
+			for(var i=2; i<5; i++) {
+				if(menuId.substring(5,6) == i) {
+					console.log("123");
+					$('#tb_sub_menu0'+i).show();					
+				} else {
+					console.log("456");
+					$('#tb_sub_menu0'+i).hide();
+				}
+			}
+		}
 	};
-
+	
 	var logout = function() {
 		
 		var strParam = '';
@@ -85,19 +104,17 @@
 	
 	
 	$(document).ready(function(){
-
-/* 		$('.nav div:eq(0) a').bind('mouseover', function(){
+		
+		$('.nav > ul > li > a').bind('mouseover', function(){
+			console.log(1111);
 			var menuId = $(this).attr('id');
 			showMenu(menuId);
 		});
 		
-		$('.nav').bind('mouseleave', function(){
-			initMenu();
-		}); */
-		
-		$('.nav > li > a').bind('mouseover', function() {
+		$('.nav > ul > li > a').bind('mouseleave', function(){
+			console.log(222);
 			var menuId = $(this).attr('id');
-			showMenu(menuId);			
+			initMenu(menuId);
 		});
 		
 		$('#btnLogout').bind('click', logout);
@@ -105,6 +122,8 @@
 		$('#loginProjectList').bind('change', function(event) {
 			changeProject();
 		});
+		
+		initMenu();
 		
 	});
 
@@ -162,8 +181,8 @@
 				<h1><a href="/index.do"><img src="/resources/images/main/logo.png" alt="AGEIS" /></a></h1>
 				
 <!-- 상단메뉴 시작 -->				
-				<div style="float:left;">
-					<ul class="nav">
+				<div class="nav" >
+					<ul>
 <% if(user == null || "U".equals(user.getPriority())){ %>
 						<li><a id="menu01" href="/searchFormula/view.do"><img src="/resources/images/main/main_nav_01_off.png" alt="검색식" /></a></li>
 	<% if(user != null && "1".equals(user.getProjectAuth())){ %>

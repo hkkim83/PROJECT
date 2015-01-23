@@ -130,13 +130,18 @@
 	
 	// 화면 로딩시
 	$(document).ready(function(){
-		$('#btnSetKeyword').bind('click', setKeyword);
+		$('#btnSetKeyword').bind('click', function(e){
+			e.preventDefault();
+			setKeyword();
+		});
 
-		$('#btnSave1').bind('click', function(){
+		$('#btnSave1').bind('click', function(e){
+			e.preventDefault();
 			save(List1, "UPDATE");
 		});
 		
-		$('#btnSave2').bind('click', function(){
+		$('#btnSave2').bind('click', function(e){
+			e.preventDefault();
 			save(List2, "INSERT");
 		});
 		
@@ -174,14 +179,28 @@
 					
 					<!-- 검색 결과  -->
 					<div class="searchResults">
-						<h4>완료 목록<span class="flR"><button type="button" id="btnSave1" class="btnSmall green">저장</button></span></h4>
+						<div class="savebtn1">
+							<div class="btnArea left">
+								<h4>완료 목록</h4>
+							</div>
+							<div class="btnArea right">
+								<a href="#" class="btntype4" id="btnSave1"><span>저장</span></a>
+						 	</div>
+						</div>
 						<div id="gridList1" class="mt10 mb20" style="background-color:white; width:100%; height:200px;"></div>
-						<h4>분류 대상<span class="flR"><button type="button" id="btnSave2" class="btnSmall green">저장</button></span></h4>
+						<div class="savebtn">
+							<div class="btnArea left">
+								<h4>분류 대상</h4>
+						  	</div>
+						  	<div class="btnArea right">
+						  		<a href="#" class="btntype4" id="btnSave2"><span>저장</span></a>
+						  	</div>
+						</div>							
 						<div class="expression">
-							<p class="right">
+							<p class="right1">
 								<span class="green">선택 키워드 대표명 일괄입력</span>
-								<input type="text" id="txtReName" placeholder="대표명 입력 칸" title="대표명 입력 칸" class="w40" />
-								<button type="button" id="btnSetKeyword" class="btnSmall gray">입력</button>
+								<input type="text" id="txtReName" placeholder="대표명 입력 칸" title="대표명 입력 칸" class="w50" autofocus/>
+								<a href="#" class="btnSmall gray" id="btnSetKeyword">입력</a>
 							</p>
 						</div>
 						<div id="gridList2" class="mt10" style="background-color:white; width:100%; height:200px;"></div>					

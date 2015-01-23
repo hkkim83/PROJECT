@@ -248,14 +248,14 @@ var downloadFile = function(filePath) {
 							<ul>
 								<li>
 									<label for="user_id">아이디</label>
-									<input id="user_id" type="text" />
+									<input id="user_id" type="text" autofocus/>
 								</li>
 								<li>
 									<label for="password">비밀번호</label>
 									<input id="password" type="password" />
 								</li>
 							</ul>
-							<span><a href="" class="btnLogin"><img src="/resources/images/main/btn_login.gif" alt="로그인" /></a></span>
+							<button id="btnLogin" type="button" class="btnLogin">로그인</button>
 						</fieldset>
 					</form>
 					<div class="loinmm">

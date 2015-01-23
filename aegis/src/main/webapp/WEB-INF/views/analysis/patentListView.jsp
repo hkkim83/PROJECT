@@ -390,10 +390,14 @@
 					<!-- // title/location -->
 					
 					<!-- 검색 결과  -->
-					<div class="searchResults">
+					<div class="searchResults1">
+						<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 						<h4>검색결과</h4>
 						<div class="expression">
-							<p class="left w67"><strong>입력검색식 : </strong><span><c:out value="${PARAM.INPUT_STRING}"/></span></p>
+							<p class="left">
+								<span class="searchtitle">입력검색식 : </span>
+								<span class="searchbody"><c:out value="${PARAM.INPUT_STRING}"/></span>
+							</p>
 							<p class="right">
 								<button type="button" id="btnSaveKeyword" class="btnSmall green">키워드 저장</button>
 								<button type="button" id="btnImportCnt" class="btnSmall write">중요특허</button>
@@ -404,12 +408,12 @@
 						<!-- 검색 상세리스트 -->
 						<div class="finderDetail">
 							<dl class="detailTop">
-								<dt>
-									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}" class="btntype2"><span>기본리스트</span></a>
-									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}" class="btntype1"><span>초록/대표도</span></a>
-									<a href="#" id="btnDownload0" class="btntype1"><span>전체다운</span></a>
-									<a href="#" id="btnDownload1" class="btntype1"><span>엑셀다운</span></a>
-									<a href="#" id="btnDownload2" class="btntype1"><span>PDF다운</span></a>
+								<dt class="detailMenu">
+									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">기본리스트</div></a>
+									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="sub_btn">초록/대표도</div></a>
+									<a href="#" id="btnDownload0"><div class="download_btn">전체다운</div></a>
+									<a href="#" id="btnDownload1"><div class="download_btn">엑셀다운</div></a>
+									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>
 								</dt>
 								<dd>
 									<span>총 <c:out value="${TOTAL.PA_TOTAL_CNT}"/>건 검색</span>
@@ -509,10 +513,10 @@
 						
 						<!-- 버튼 -->
 						<div class="btnArea left">
-							<a id="btnAddImportant" href="#" class="btntype1"><span>선택문헌 중요특허 추가</span></a>
-							<a id="btnDelImportant" href="#" class="btntype1"><span>선택문헌 중요특허 제외</span></a>
-							<a id="btnDelPatent" href="#" class="btntype1"><span>선택문헌 삭제</span></a>
-							<a id="btnRePatent" href="#" class="btntype1"><span>선택문헌 복구</span></a>
+							<a id="btnAddImportant" href="#" class="btntype3"><span>선택문헌 중요특허 추가</span></a>
+							<a id="btnDelImportant" href="#" class="btntype3"><span>선택문헌 중요특허 제외</span></a>
+							<a id="btnDelPatent" href="#" class="btntype3"><span>선택문헌 삭제</span></a>
+							<a id="btnRePatent" href="#" class="btntype3"><span>선택문헌 복구</span></a>
 						</div>
 						<!-- 버튼 -->
 

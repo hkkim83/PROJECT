@@ -251,7 +251,7 @@
 					<!-- list -->
 					<div class="bbsContes">
 						<div class="btnArea right">
-							<a id="btnDownload" href="#" class="btntype1"><span>Download</span></a>
+							<a id="btnDownload" href="#" class="btntype5"><span>Download</span></a>
 							<form name="form" method="POST">
 								<input type="hidden" id="excelsource"> 
 								<input type="hidden" id="excelfilename">

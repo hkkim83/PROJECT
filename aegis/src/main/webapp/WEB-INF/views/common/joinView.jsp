@@ -185,9 +185,9 @@
 									</colgroup>
 									<tbody>
 									<tr>
-										<th scope="row"><label for="COMPANY">*회사명</label></th>
+										<th scope="row"><label for="COMPANY">* 회사명</label></th>
 										<td><input type="text" class="w90" id="COMPANY" /></td>
-										<th scope="row"><label for="BIZ_NO1BIZ_NO2BIZ_NO3">*사업자등록번호</label></th>
+										<th scope="row"><label for="BIZ_NO1BIZ_NO2BIZ_NO3">* 사업자등록번호</label></th>
 										<td>
 											<input type="text" id="BIZ_NO1" class="w15" maxlength="3" numberOnly=true/> -
 											<input type="text" id="BIZ_NO2" class="w10" maxlength="2" numberOnly=true/> -
@@ -195,13 +195,13 @@
 										</td>										
 									</tr>
 									<tr>
-										<th scope="row"><label for="ID">*관리자 ID</label></th>
+										<th scope="row"><label for="ID">* 관리자 ID</label></th>
 										<td><input type="text" id="ID" alphaOnly=true/> <button type="button" id="btnDupCheck" class="btnSmall gray">중복체크</button></td>
-										<th scope="row"><label for="NAME">*관리자 이름</label></th>
+										<th scope="row"><label for="NAME">* 관리자 이름</label></th>
 										<td colspan="3"><input type="text" id="NAME" class="w50" /></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="PASSWORD">*관리자 PWD</label></th>
+										<th scope="row"><label for="PASSWORD">* 관리자 PWD</label></th>
 										<td><input type="password" id="PASSWORD" class="w90" /></td>
 										<th scope="row"><label for="RE_PASSWORD">PWD 확인</label></th>
 										<td><input type="password" id="RE_PASSWORD" class="w90" /></td>
@@ -227,7 +227,7 @@
 									</tbody>
 									</table>
 									<div class="btnArea">
-										<a href="#" id="btnSave" class="btntype2"><span>가입요청</span></a>
+										<a href="#" id="btnSave" class="btntype4"><span>가입요청</span></a>
 										<a href="#" id="btnCancel" class="btntype1"><span>취소</span></a>
 									</div>
 								</fieldset>

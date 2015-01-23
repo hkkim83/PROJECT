@@ -191,7 +191,7 @@ select {
 	
 	// 필드콤보 값설정
 	var setFieldCombo = function($combo){
-		Common.setCommonCodeCombo('11', $combo, function(oOption){
+		Common.setCommonCodeCombo('11', $combo, "", function(oOption){
 			var $option = $(oOption);
 			$option.val(this['COMM_CODE']);
 			$option.text(this['COMM_NAME']);
@@ -333,7 +333,7 @@ select {
 		});
 		
 		appendKeywordRow();
-		Common.setCommonCodeCombo('01', $('#db_type'));
+		Common.setCommonCodeCombo('01', $('#db_type'), "");
 		$('#db_type').trigger('change');
 		
 		if('<%=request.getAttribute("CONTENT")%>' != 'null'){
@@ -378,14 +378,14 @@ select {
 					<form>
 						<fieldset>
 						<div class="btnArea2 right">
-							<a id="btn_load" href="#" class="btntype1"><span>불러오기</span></a>
-							<a id="btn_modify" href="#" class="btntype1"><span>수정</span></a>
-							<a id="btn_save" href="#" class="btntype1"><span>신규저장</span></a>
+							<a id="btn_load" href="#" class="btntype6"><span>불러오기</span></a>
+							<a id="btn_modify" href="#" class="btntype6"><span>수정</span></a>
+							<a id="btn_save" href="#" class="btntype5"><span>신규저장</span></a>
 						</div>
 						<input id="text_db_type_cd" type="hidden" >
 						<input id="text_search_formula" type="hidden" >			
 						<div class="searchexpression">
-							<p class="btoon" style="text-align:right;margin-top:8px;"><button id="btn_create" type="button" class="btnSmall gray">검색식 생성</button></p>
+							<p class="btoon"><button id="btn_create" type="button" class="btnSmall gray">검색식 생성</button></p>
 							
 							
 							
@@ -502,7 +502,7 @@ select {
 								</table>	
 							</div>
 							<div class="btnArea right">
-								<a id="btn_copy_search_formula" href="#" class="btntype1"><span>복사</span></a>
+								<a id="btn_copy_search_formula" href="#" class="btntype3"><span>복사</span></a>
 								<a id="btn_go_to_search_db" href="#" class="btntype1"><span>검색DB 바로가기</span></a>
 							</div>
 						</div>

@@ -15,41 +15,61 @@ Date : 2013-12-25
 .expressionList li:first-child {border-top:0 none}
 .expressionList li label {float:left;width:12%;vertical-align:middle;line-height:21px;font-weight:bold;letter-spacing:-1px;text-align:center;color:#25ac01}
 .expressionList li label.txtStar {text-align:right;color:#f3460e}
-.expressionList li span {float:right;width:86%;vertical-align:middle;display:inline-block;text-align:left;line-height:21px;}
+.expressionList li span {float:right;width:86%;vertical-align:middle;display:inline-block;text-align:left;}
 .expressionList li span select {height:20px;}
 .expressionList li textarea {height:80px}
 .expressionBox .btnRight {position: absolute;top:10px;right:10px;}
 
  /* 검색결과 */
 .searchResults {clear:both;}
-.searchResults h4 {clear:both;background:url(/resources/images/common/bul_title.gif) no-repeat left 1px;font-size:14px;padding:0 0 0 16px;color:#202020;letter-spacing:-1px;}
+.searchResults h4 {font-size:14px;padding:12px 0 0 7px;color:#202020;letter-spacing:-1px;}
 .searchResults h4 span.flR {vertical-align:top;}
+.searchResults1 {clear:both;}
+.searchResults1 h4 span.flR {vertical-align:top;}
+.searchResults1 h4{float: left;font-size:14px;padding:12px 0 0 7px;color:#202020;letter-spacing:-1px;}
 
-.expression {clear:both;background:url(/resources/images/common/bg_search.gif) no-repeat left top;width:100%;height:41px;margin:10px 0 0}
+.leftConts h4, .rightConts h4 {padding: 0 0 10px 7px;}
+
+.expression {float:left; background:linear-gradient(#ffffff 0%,#ffffff 60%,#e8e8e8 100%) no-repeat left top; border: solid 1px #4a6f03; border-radius: 3px; width:100%; height:auto; margin:10px 0; padding:12px 0 12px 0;}
 .expression p {color:#666;letter-spacing:-1px;}
-.expression p.left {float:left;font-size:12px;padding:15px 0 0 12px;}
+.expression p.left {float:left;font-size:12px;padding:3px 0 0 7px;}
 .expression p.left em {padding:0 15px 0 5px}
 .expression p.left span {padding-left:5px}
-.expression p.right{float:right;display:inline;padding:10px 12px 0 0;text-align:right;margin:0;} 
+.expression p.right{ float:right;display:inline;padding:0 12px 0 0;text-align:right;margin:0;} 
+.expression p.right1{ float:right;width:70%;display:inline;padding:0 12px 0 0;text-align:right;margin:0;}
 .expression p.right button {vertical-align:middle;}
 .expression p.right input {vertical-align:middle;}
 .expression p.right span {font-weight:normal;font-size:11px;vertical-align:middle;}
 
+/*본문입력*/
+.searchtitle{float: left; width: 70px; font-weight: bold; padding-top: 2px;}
+.searchbody{width: 595px; height: auto; float: left; line-height: 130%; font-weight: bold;}
+.searchbody-1{width: 670px; height: auto; float: left; line-height: 130%; font-weight: bold;}
+
 /* 검색결과 상세 내용 */
-.finderDetail {clear:both;margin-top:20px;}
+.finderDetail {clear:both; float: left; margin-top:20px; width:100%;}
 .detailTop {padding:0 0 6px;overflow:hidden}
-.detailTop.tye2 {padding:0 0 12px;overflow:hidden; }
-.detailTop.imprt {background-color:#f5feea }
+.detailTop.tye2 {padding:0 0 12px;overflow:hidden}
 .detailTop dt {float:left;vertical-align:middle}
-.detailTop dt a {display:inline-block}
-.detailTop dt label {vertical-align:middle;display:inline-block;color:#25ac01;font-size:11px}
-.detailTop dt span.title {vertical-align:middle;display:inline-block;color:#25ac01;font-size:11px;padding-top:3px}
+.detailTop .detailMenu a {display:inline-block}
+.detailTop dt label {vertical-align:middle;display:inline;color:#25ac01;font-size:14px}
+.detailTop dt span.title {vertical-align:middle;display:inline; font-weight:bold; color:#25ac01;font-size:14px;padding-top:3px}
 .detailTop dd {float:right;display:inline;font-weight:normal;padding-top:2px}
 .detailTop dd.btn {float:right;display:inline;font-weight:normal;padding:0 0 5px;}
 
+/*검색결과 영역*/
+.typecheckbox{float: left; width: 12px; height: 12px; padding-top: 3px;}
+.titletext{float: left; width: 790px; line-height: 150%; padding: 0 5px 0 7px; font-weight: bold;}
+
 /* 데이터 가공 */
 .infomation {clear:both;padding:0 0 10px;line-height:14px}
-.data_list {clear:both;border:1px solid #d8d8d8;height:250px;overflow-x:hidden;overflow-y:auto;clear:both;margin-top:8px}
+.data_list {clear:both;border:1px solid #d8d8d8;height:250px;overflow-x:hidden;overflow-y:auto;margin-top:8px}
+
+/*버튼css*/
+.basiclist{width: 73px; height: 15px; padding-top: 5px; text-align: center;font-size: 11px; color:#fff; font-weight:bold; border: solid 1px #8dce7c; background: linear-gradient(#ade07f 0%, #ade07f 20%, #6aa81c 100%);border-radius: 3px;}
+.sub_btn{width: 73px; height: 15px; padding-top: 5px;  text-align: center; font-size: 11px; color:#6e6e6e; font-weight: bold; border: solid 1px #b8b8b8; background: linear-gradient(#fff 0%, #fafafa 20%, #ceced2 100%);border-radius: 3px;}
+.download_btn{width: 73px; height: 15px; padding-top: 5px; text-align: center; font-size: 11px; color:#6e6e6e; font-weight: bold; border: solid 1px #b8b8b8; background: linear-gradient(#fff 0%, #fafafa 20%, #ceced2 100%);border-radius: 3px;}
+.reset{width: 53px; height: 21px; background: #fff; border: solid 1px #bbb; color: #737373; font-size: 12px; letter-spacing: -1px; border-radius: 3px;}
 
 /* 아이콘 */
 .ico_red {display:inline-block;background:#f2450b;border:1px solid #ee3a05;font-size:11px;letter-spacing:-0.08em;height:12px;padding:0 3px;line-height:14px;color:#fff;}
@@ -57,22 +77,28 @@ Date : 2013-12-25
 /* 초록대표도 */
 .represent {clear:both;padding:0 0 30px}
 .greenRepresent {clear:both;border-top:2px solid #908c88;padding:20px 0 0;overflow:hidden}
-.representLeft {float:left;width:30%;padding-left:10px}
-.representLeft img {width:258px;height:320px;border:1px solid #ddd;}
+.representLeft {float:left;width:30%;padding-left:10px; margin-left:10px;}
+.representLeft img {width:258px;height:362px;border:1px solid #ddd;margin-top: 8px;}
 .representRight {float:right;width:65%;margin-right:10px;}
-.representRight li {font-weight:normal;padding:8px 0 6px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-0.08em;background:url(/resources/images/common/bul_box.gif) no-repeat left 10px;}
+.representRight li {font-weight:normal;padding:8px 0 6px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;}
 .representRight li em {float:left;display:inline-block;width:23%;color:#035f05;text-align:left;}
 .representRight li span {float:right;width:74%;text-align:left;padding:0 5px;vertical-align:top;line-height:14px;}
 
+/*폰트사이즈*/
+.greenRepresent h4{color:#848484; padding: 0; letter-spacing: 1px; font-size: 12px;}
+.greenRepresent h5{float: left; color:#848484; font-size: 10px; padding: 2px 5px 0 0;}
+.point h4{color: #f6470e; padding: 0; letter-spacing: 1px; font-size: 12px;}
+.point h5{float: left; color:#f6470e; font-size: 10px; padding: 1px 5px 0 0;}
 /* 요지리스트 */
 .txtInfoL {float:left;width:48%;margin:0 auto;}
-.txtInfoL dt, .txtInfoR dt {background:url(/resources/images/common/bul_title.gif) no-repeat left 0;font-size:14px;padding:0 0 10px 16px;color:#202020;letter-spacing:-1px;}
+.txtInfoL h4, .txtInfoR h4, .txtInfoLom h4{color: #f6470e; padding:0 0 10px 5px; letter-spacing: 1px; font-size: 12px;}
+.txtInfoL dt, .txtInfoR dt {letter-spacing:-1px;}
 .txtInfoL dd textarea, .txtInfoR dd textarea {height:40px;margin:0;padding:0;text-align:left;}
 .txtInfoR {float:right;display:inline;width:48%;margin:0 auto;}
-.txtInfoC {clear:both;padding-top:10px}
+.txtInfoC {clear:both;padding-top:10px; width:96%; margin-left:21px;}
 .txtInfoC p {background:#f2f1f0;padding:10px 10px;overflow:hidden;font-size:11px;font-weight:normal;}
-.txtInfoLom {clear:both;width:100%;}
-.txtInfoLom dt {background:url(/resources/images/common/bul_title.gif) no-repeat left 0;font-size:14px;padding:0 0 10px 16px;color:#202020;letter-spacing:-1px;margin-top:20px}
+.txtInfoLom {clear:both;width:100%; margin-left: 20px;}
+.txtInfoLom dt {font-size:14px;padding:0 0 10px 0;color:#202020;letter-spacing:-1px;margin-top:20px}
 .txtInfoLom dd {}
 .txtInfoLom dd textarea {height:60px;margin:0;padding:0;text-align:left;}
 
@@ -85,31 +111,26 @@ Date : 2013-12-25
 .detailList2 table td {text-align:center;color:#666;padding:5px 0 4px;vertical-align:middle;line-height:12px;font-size:11px;border-bottom:1px solid #d3d3d3;overflow:hidden}
 
 .resultDetail {margin:0 0;}
-.resultBox {float:left;width:45%;border:1px solid #e6e5e4;padding:10px 10px;margin:0 12px;}
+.resultBox {float:left;width:45%;border:1px solid #e6e5e4;padding:10px 10px 12px 12px;margin:0 12px;}
 .resultDetailList {float:left;width:65%;}
-.resultDetailList li {padding:7px 0 5px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;background:url(/resources/images/common/bul_box.gif) no-repeat left 10px;}
+.resultDetailList h4{float:left;color:#848484; padding: 0; letter-spacing: 1px; font-size: 12px;}
+.resultDetailList li {padding:7px 0 5px 7px;line-height:13px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;}
 .resultDetailList li em {float:left;display:inline-block;width:35%;color:#035f05;text-align:left;}
-.resultDetailList li span {float:right;width:60%;text-align:left;padding:0 5px;vertical-align:top;line-height:13px;}
-.resultDetailList2 {float:left;width:100%;}
-.resultDetailList2 li {padding:7px 0 5px 7px;line-height:18px;overflow:hidden;border-bottom:1px dashed #908c88;font-size:11px;letter-spacing:-1px;background:url(/resources/images/common/bul_box.gif) no-repeat left 10px;}
-.resultDetailList2 li em {float:left;display:inline-block;width:35%;color:#f6470e;text-align:left;}
-.resultDetailList2 li span {float:right;width:60%;text-align:left;padding:0 5px;vertical-align:top;line-height:13px;}
+.resultDetailList li span {float:right;width:55%;text-align:left;padding:0 0 0 5px;vertical-align:top;line-height:13px;}
 p.resultImg {float:right;display:inline;}
-p.resultImg img {width:100px;height:130px;border:1px solid #dedede}
-p.resultImg span {display:block;text-align:right;padding:10px 0 0}
+p.resultImg img {width:135px;height:174px;margin: 5px 3px 0 0;border:1px solid #dedede}
+p.resultImg span {display:block;text-align:right;padding:5px 0 0}
 p.resultImg span img {height:auto;width:auto;border:0 none;}
 
 .resultInfo {clear:both;padding:20px 0 0;float:left;margin:0;width:100% !important;overflow:hidden}
+.resultInfo .point h4 {margin: 0 0 7px 7px;}
 .executive {width:100%;padding:5px 0 0}
-.executive textarea.h2 {width:95%;height:80px;text-align:left;margin:0;padding:10px;line-height:13px;}
-.executive textarea.h3 {width:95%;height:160px;text-align:left;margin:0;padding:10px;line-height:13px;}
+.executive textarea {width:99%;height:140px;text-align:left;margin:0;padding:0;line-height:13px;}
 
 /* 회원가입 */
 .searchResults .leftConts {float:left;width:45%;}
 .searchResults .rightConts {float:right;display:inline;width:45%;text-align:left;}
-.searchResults .leftConts2 {float:left;width:45%;}
-.searchResults .rightConts2 {float:right;display:inline;width:50%;text-align:left;}
-.idpBox {margin:5px 0;border:1px solid #f2f2f2;width:95%; height:150px}
+.idpBox {margin:5px 0;border:1px solid #f2f2f2;width:100%;}
 .idpBox ul {padding:10px 20px;}
 .idpBox ul li {margin:7px 0;}
 .idpBox ul li label {display:inline-block;width:120px;font-weight:bold}

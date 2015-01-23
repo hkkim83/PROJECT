@@ -122,15 +122,22 @@
 					
 					<!-- 아이디  -->
 					<div class="searchResults">
-						<div class="leftConts2">
-							<h4>아이디 찾기<span class="flR"><button type="button" id="btnFindID" class="btnSmall green">찾기</button></span></h4>
+						<div class="leftConts">
+							<div class="savebtn1">
+								<div class="btnArea left">
+									<h4>아이디 찾기</h4>
+								</div>
+								<div class="btnArea right">
+									<button type="button" class="btnSmall green" id="btnFindID">찾기</button>
+							 	</div>
+							</div>							
 							<form name="" method="post">
 								<fieldset>
 								<div class="idpBox">
 									<ul>
 										<li>
 											<label for="ID_COMPANY">회사명</label>
-											<input type="text" id="ID_COMPANY" class="w60" />
+											<input type="text" id="ID_COMPANY" class="w60" autofocus/>
 										</li>
 										<li>
 											<label for="ID_BIZ_NO1ID_BIZ_NO2ID_BIZ_NO3">사업자등록번호</label>
@@ -142,15 +149,22 @@
 											<label for="ID_NAME">관리자 이름</label>
 											<input type="text" id="ID_NAME" class="w60" />
 										</li>
-										<li><br></li>
+										<li><br><br></li>
 									</ul>
 								</div>
 								</fieldset>
 							</form>
 							<p class="logTxt">가입정보로 아이디를 찾을수 있습니다.</p>
 						</div>
-						<div class="rightConts2">
-							<h4>비밀번호 재설정<span class="flR"><button type="button" id="btnFindPW" class="btnSmall green">재설정</button></span></h4>
+						<div class="rightConts">
+							<div class="savebtn1">
+								<div class="btnArea left">
+									<h4>비밀번호 재설정</h4>
+								</div>
+								<div class="btnArea right">
+									<button type="button" class="btnSmall green" id="btnFindPW">재설정</button>
+							 	</div>
+							</div>						
 							<form name="" method="post">
 								<fieldset>
 								<div class="idpBox">
@@ -185,7 +199,7 @@
 					<div class="join_info">
 						<p class="clrBlue">AEGIS 시스템의 각 회사 관리자 아이디찾기/비밀번호 재설정 화면입니다.<br />
 							회사 관리자가 설정한 사용자 정보를 찾기 원하시는 분은 사내 담당자에게 문의하세요.</p>
-						<p>문의처: TEL  02-OOO-OOOO   [ 전화상담 운영시간 (평일) 09:00 ~ 18:00 ],   ****@aegisOO.com</p>
+						<p>문의전화 : 070-8891-6347(직통), 02-562-1716(대표전화) [ 전화상담 운영시간 (평일) 09:00 ~ 18:00 ],  이메일 : chyim@airsgroup.com</p>
 					</div>
 
 				</div>

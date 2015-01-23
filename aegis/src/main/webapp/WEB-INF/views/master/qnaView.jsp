@@ -168,7 +168,7 @@
 	if(user != null) {
 %>							
 							<div class="btnMore">
-								<a href="#" id="btnCreate" class="btntype2"><span>신규</span></a>
+								<a href="#" id="btnCreate" class="btntype5"><span>신규</span></a>
 							</div>
 <% } %>
 						</div>

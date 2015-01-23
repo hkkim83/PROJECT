@@ -132,7 +132,7 @@ public class ProcessController extends BaseController {
 	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(value = "/upload.do")
-	public ModelAndView upload(@RequestParam("type") String type, @RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
+	public ModelAndView upload(@RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
 	{
 		logger.info("type::::::"+type);
 		
@@ -141,7 +141,7 @@ public class ProcessController extends BaseController {
 		String fileName = file.getOriginalFilename();
 		// 업로드 경로 설정
 		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
-		String svrFileName = type+"_"+fileName;
+		String svrFileName = type+"_"+name+"_"+fileName;
 		// 파일 업로드 변수 설정
 		File newFile = new File(svrfilePath, svrFileName);
 		file.transferTo(newFile);
@@ -246,13 +246,18 @@ public class ProcessController extends BaseController {
 		// 2. 파일 목록만큼 루프를 돌면서 DB종류를 체크한다.
 		if(len > 0) {
 			List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-			for(File tempFile : fileList) {
-				Map<String, String> map = new HashMap<String, String>();
+			for(int i=0; i<fileList.length; i++) {
+				File tempFile = fileList[i];
 				String tempFileName = tempFile.getName();
-				map.put("FILE_NAME", tempFileName);
-				map.put("FILE_SIZE", String.valueOf(tempFile.length()));
-				map.put("FILE_PATH", svrfilePath+"/"+tempFileName);
-				list.add(map);
+				int index = tempFileName.lastIndexOf(".");
+				String ext = tempFileName.substring(index + 1, tempFileName.length());
+				if (ext.startsWith("xls")) {
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("FILE_NAME", tempFileName);
+					map.put("FILE_SIZE", String.valueOf(tempFile.length()));
+					map.put("FILE_PATH", svrfilePath+"/"+tempFileName);
+					list.add(map);					
+				}
 			}
 			modelAndView.addObject("FILE_LIST", list);
 		}

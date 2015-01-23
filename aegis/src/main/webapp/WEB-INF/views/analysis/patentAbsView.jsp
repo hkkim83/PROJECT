@@ -389,26 +389,30 @@
 					<!-- // title/location -->
 					
 					<!-- 검색 결과  -->
-					<div class="searchResults">
+					<div class="searchResults1">
+						<span class="searchtitleicon"><h6><i class="fa fa-chevron-right"></i></h6></span>
 						<h4>검색결과</h4>
 						<div class="expression">
-							<p class="left w67"><strong>입력검색식 :</strong><span>${PARAM.INPUT_STRING}</span></p>
+							<p class="left">
+								<span class="searchtitle">입력검색식 :</span>
+								<span class="searchbody">${PARAM.INPUT_STRING}</span>
+							</p>
 							<p class="right">
 								<button type="button" id="btnSaveKeyword" class="btnSmall green">키워드 저장</button>
 								<button type="button" id="btnImportCnt" class="btnSmall write">중요특허</button>
 								<span>총 <c:out value="${TOTAL.PA_IMPORTANT_CNT}"/>건</span>
-								<span>(아래 리스트의  <img src="/resources/images/common/ico_ferretout.gif" alt="" /> 색출)</span>
+								<span>(아래 리스트의  <img src="/resources/images/common/ico_ferretout.gif" alt="" /> 색줄)</span>
 							</p>
 						</div>
 						<!-- 검색 상세리스트 -->
 						<div class="finderDetail">
-							<dl class="detailTop">
-								<dt>
-									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}" class="btntype1"><span>기본리스트</span></a>
-									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}" class="btntype2"><span>초록/대표도</span></a>
-									<a href="#" id="btnDownload0" class="btntype1"><span>전체다운</span></a>
-									<a href="#" id="btnDownload1" class="btntype1"><span>엑셀다운</span></a>
-									<a href="#" id="btnDownload2" class="btntype1"><span>PDF다운</span></a>								
+							<dl class="detailTop tye2">
+								<dt class="detailMenu">
+									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="sub_btn">기본리스트</div></a>
+									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">초록/대표도</div></a>
+									<a href="#" id="btnDownload0"><div class="download_btn">전체다운</div></a>
+									<a href="#" id="btnDownload1"><div class="download_btn">엑셀다운</div></a>
+									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>																	
 								</dt>
 								<dd>
 									<span>총 <c:out value="${TOTAL.PA_TOTAL_CNT}"/>건 검색</span>
@@ -431,25 +435,25 @@
 								<dl class="detailTop tye2">
 								</c:if>							
 									<dt>
-										<strong>
-										<input type="checkbox" name="chk" title="선택" />
-                    <input type="hidden" name="PATENT_ID" value="<c:out value="${PATENT.PATENT_ID}"/>"/>
-                    <input type="hidden" name="PROJECT_ID" value="<c:out value="${PATENT.PROJECT_ID}"/>"/>
-                    <input type="hidden" name="IMPORTANT_YN" value="<c:out value="${PATENT.IMPORTANT_YN}"/>"/>
-                    <input type="hidden" name="SEQ_NUM" value="<c:out value="${PATENT.SEQ_NUM}"/>"/>
-                    <input type="hidden" name="NATL_CODE" value="<c:out value="${PATENT.NATL_CODE}"/>"/>
-                    <input type="hidden" name="APPL_NUM" value="<c:out value="${PATENT.APPL_NUM}"/>"/>
-                    <input type="hidden" name="TITLE" value="<c:out value="${PATENT.TITLE}"/>"/>
-                    <input type="hidden" name="GRADE_OBJ" value="<c:out value="${PATENT.GRADE_OBJ}"/>"/>
-                    <input type="hidden" name="GRADE_CONST" value="<c:out value="${PATENT.GRADE_CONST}"/>"/>
-                    <input type="hidden" name="APPLICANT_RENAME" value="<c:out value="${PATENT.APPLICANT_RENAME}"/>"/>
-                    <input type="hidden" name="REVIEWER" value="<c:out value="${PATENT.REVIEWER}"/>"/>
-                    <input type="hidden" name="CMT_LAW_FIRMS" value="<c:out value="${PATENT.CMT_LAW_FIRMS}"/>"/>
-                    <input type="hidden" name="CMT_CO" value="<c:out value="${PATENT.CMT_CO}"/>"/>
-                    <input type="hidden" name="DEL_YN" value="<c:out value="${PATENT.DEL_YN}"/>"/>                    
-										<a href="/patent/summaryView.do?${PARAM.QUERY_STRING}&PATENT_ID=${PATENT.PATENT_ID}&PAGE_NO=${PATENT.ROW_PAGE_NO}"><label for="">${PATENT.SEQ_NUM}. ${PATENT.TITLE}</label></a>
+										<div class="typecheckbox"><input type="checkbox" name="chk" title="선택" /></div>
+					                    <input type="hidden" name="PATENT_ID" value="<c:out value="${PATENT.PATENT_ID}"/>"/>
+					                    <input type="hidden" name="PROJECT_ID" value="<c:out value="${PATENT.PROJECT_ID}"/>"/>
+					                    <input type="hidden" name="IMPORTANT_YN" value="<c:out value="${PATENT.IMPORTANT_YN}"/>"/>
+					                    <input type="hidden" name="SEQ_NUM" value="<c:out value="${PATENT.SEQ_NUM}"/>"/>
+					                    <input type="hidden" name="NATL_CODE" value="<c:out value="${PATENT.NATL_CODE}"/>"/>
+					                    <input type="hidden" name="APPL_NUM" value="<c:out value="${PATENT.APPL_NUM}"/>"/>
+					                    <input type="hidden" name="TITLE" value="<c:out value="${PATENT.TITLE}"/>"/>
+					                    <input type="hidden" name="GRADE_OBJ" value="<c:out value="${PATENT.GRADE_OBJ}"/>"/>
+					                    <input type="hidden" name="GRADE_CONST" value="<c:out value="${PATENT.GRADE_CONST}"/>"/>
+					                    <input type="hidden" name="APPLICANT_RENAME" value="<c:out value="${PATENT.APPLICANT_RENAME}"/>"/>
+					                    <input type="hidden" name="REVIEWER" value="<c:out value="${PATENT.REVIEWER}"/>"/>
+					                    <input type="hidden" name="CMT_LAW_FIRMS" value="<c:out value="${PATENT.CMT_LAW_FIRMS}"/>"/>
+					                    <input type="hidden" name="CMT_CO" value="<c:out value="${PATENT.CMT_CO}"/>"/>
+					                    <input type="hidden" name="DEL_YN" value="<c:out value="${PATENT.DEL_YN}"/>"/>                    
+										<div class="titletext">
+										<a href="/patent/summaryView.do?${PARAM.QUERY_STRING}&PATENT_ID=${PATENT.PATENT_ID}&PAGE_NO=${PATENT.ROW_PAGE_NO}"><span class="title">${PATENT.SEQ_NUM}. ${PATENT.TITLE}</span></a>
 										<c:if test="${PATENT.IMPORTANT_YN == '1'}"><span class="ico_red">중요특허</span></c:if>
-										</strong>
+										</div>
 									</dt>
 									<dd>
 									<c:if test="${PATENT.PATENT_FULLTXT == '/process/error.do'}">
@@ -463,17 +467,17 @@
 								</dl>
 								<div class="greenRepresent">
 									<div class="representLeft">
-										<a href="/patent/imageView.do?IMAGE=${PATENT.IMAGE_MAIN}" target="_blank"><img src="${PATENT.IMAGE_MAIN}" alt=""></a>
+										<a href="/patent/imageView.do?IMAGE=${PATENT.IMAGE_MAIN}" target="_blank"><img src="${PATENT.IMAGE_MAIN}" alt="" width="258" height="362"></a>
 									</div>
 									<ul class="representRight">
-										<li><em>출원국가</em><span><strong>${PATENT.NATL_CODE}</strong></span></li>
-										<li><em>권리구분</em><span><strong>${PATENT.KINDS_IP_TYPE}</strong></span></li>
-										<li><em>출원번호</em><span>${PATENT.APPL_NUM} ( ${PATENT.APPL_DATE} )</span></li>
-										<li><em>출원인</em><span>${PATENT.APPLICANT_RENAME}</span></li>
-										<li><em>법적상태</em><span class="clrGreen">${PATENT.LEGAL_STATUS}</span></li>
-										<li><em>목적등급</em><span class="clrGreen">${PATENT.GRADE_OBJ}</span></li>
-										<li><em>해결수단등급</em><span class="clrGreen">${PATENT.GRADE_CONST}</span></li>
-										<li><em>요약</em>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원국가</h4><span><strong>${PATENT.NATL_CODE}</strong></span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;권리구분</h4><span><strong>${PATENT.KINDS_IP_TYPE}</strong></span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원번호</h4><span>${PATENT.APPL_NUM} ( ${PATENT.APPL_DATE} )</span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원인</h4><span>${PATENT.APPLICANT_RENAME}</span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;법적상태</h4><span class="clrGreen">${PATENT.LEGAL_STATUS}</span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;목적등급</h4><span class="clrGreen">${PATENT.GRADE_OBJ}</span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;해결수단등급</h4><span class="clrGreen">${PATENT.GRADE_CONST}</span></li>
+										<li><h4><i class="fa fa-caret-right"></i>&nbsp;요약</h4>
 											<span>${PATENT.ABSTRACT}</span>
 										</li>
 									</ul>
@@ -497,10 +501,10 @@
 						
 						<!-- 버튼 -->
 						<div class="btnArea left">
-							<a id="btnAddImportant" href="#" class="btntype1"><span>선택문헌 중요특허 추가</span></a>
-							<a id="btnDelImportant" href="#" class="btntype1"><span>선택문헌 중요특허 제외</span></a>
-							<a id="btnDelPatent" href="#" class="btntype1"><span>선택문헌 삭제</span></a>
-							<a id="btnRePatent" href="#" class="btntype1"><span>선택문헌 복구</span></a>
+							<a id="btnAddImportant" href="#" class="btntype3"><span>선택문헌 중요특허 추가</span></a>
+							<a id="btnDelImportant" href="#" class="btntype3"><span>선택문헌 중요특허 제외</span></a>
+							<a id="btnDelPatent" href="#" class="btntype3"><span>선택문헌 삭제</span></a>
+							<a id="btnRePatent" href="#" class="btntype3"><span>선택문헌 복구</span></a>
 						</div>
 						<!-- 버튼 -->
 

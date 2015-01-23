@@ -301,9 +301,9 @@
 							<h4>프로젝트 목록</h4>
 							<div id="gridList1" class="mt10" style="background-color:white; width:100%; height:475px;"></div>
 							<!-- 버튼 -->
-							<div class="btnArea">
+							<div class="btnArea right">
 								<a href="#" id="btnAdd" class="btntype1"><span>추가</span></a>
-								<a href="#" id="btnSave" class="btntype1"><span>저장</span></a>
+								<a href="#" id="btnSave" class="btntype4"><span>저장</span></a>
 								<a href="#" id="btnDel" class="btntype1"><span>삭제</span></a>
 							</div>
 							<!-- 버튼 -->

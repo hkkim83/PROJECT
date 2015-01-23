@@ -295,13 +295,20 @@
 					<!-- // title/location -->
 					
 					<!-- 검색 결과  -->
-					<div class="searchResults">
+					<div class="searchResults1">
+						<span class="searchtitleicon">
+							<h6><i class="fa fa-chevron-right"></i></h6>
+						</span>
+						<h4>검색결과</h4>
 						<div class="expression">
-							<p class="left w67"><strong>입력검색식 :</strong><span>${PARAM.INPUT_STRING}</span></p>
+							<p class="left">
+								<span class="searchtitle">입력검색식 :</span>
+								<span class="searchbody-1">${PARAM.INPUT_STRING}</span>
+							</p>
 							<p class="right">
 								<button type="button" id="btnImportCnt" class="btnSmall write">중요특허</button>
 								<span>총 <c:out value="${TOTAL.PA_IMPORTANT_CNT}"/>건</span>
-								<span>(아래 리스트의  <img src="/resources/images/common/ico_ferretout.gif" alt="" /> 색출)</span>
+								<span>(아래 리스트의  <img src="/resources/images/common/ico_ferretout.gif" alt="" /> 색줄)</span>
 							</p>
 						</div>
 						<!-- 검색 상세리스트 -->
@@ -309,24 +316,24 @@
 						<c:when test="${! empty PATENT}"> 
 						<div class="finderDetail">
 							<dl class="detailTop">
-								<dt>
-									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}" class="btntype1"><span>기본리스트</span></a>
-									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}" class="btntype1"><span>초록/대표도</span></a>
-									<a href="#" id="btnDownload" class="btntype1"><span>다운로드</span></a>
+								<dt class="detailMenu">
+									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}"><div class="sub_btn">기본리스트</div></a>
+									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}"><div class="sub_btn">초록/대표도</div></a>
+									<a href="#" id="btnDownload"><div class="download_btn">다운로드</div></a>
 								</dt>
 								<dd class="btn">
 									<c:if test="${PARAM.WRITE_YN == 1}">
-									<a href="#" id="btnSave" class="btntype1"><span>정보수정</span></a>
+									<a href="#" id="btnSave" class="btntype6"><span>정보수정</span></a>
 									</c:if>
 									<c:if test="${PATENT.PATENT_FULLTXT == '/process/error.do'}">
-										<a id="btnPDFView" href="javascript:alert('전문이 존재하지 않습니다.');" class="btntype1"><span>전문보기</span></a>
+										<a id="btnPDFView" href="javascript:alert('전문이 존재하지 않습니다.');" class="btntype6"><span>전문보기</span></a>
 									</c:if>
 									<c:if test="${PATENT.PATENT_FULLTXT != '/process/error.do'}">
-										<a id="btnPDFView" href="/patent/pdfView.do?PDF=${PATENT.PATENT_FULLTXT}" target="_blank" class="btntype1"><span>전문보기</span></a>
+										<a id="btnPDFView" href="/patent/pdfView.do?PDF=${PATENT.PATENT_FULLTXT}" target="_blank" class="btntype6"><span>전문보기</span></a>
 									</c:if>
 									<input type="hidden" id="fileName1" readonly/>
 									<input type="file" id="file1" name="file1" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName1').value = this.value" />
-									<a id="btnAddPDFFile" href="#" class="btntype2"><span>전문변경</span></a>
+									<a id="btnAddPDFFile" href="#" class="btntype4"><span>전문변경</span></a>
 								</dd>
 							</dl>						
 							<!-- 리스트 시작 -->
@@ -334,19 +341,17 @@
 							<div class="represent">
 								<dl id="detailTop" class="detailTop tye2 ">
 									<dt>
-										<strong>
 										<span id="SEQ_NUM" class="title">${PATENT.SEQ_NUM}</span><span class="title">.&nbsp;</span><span id="TITLE" class="title">${PATENT.TITLE}</span>
-										</strong>
 										<span class="ico_red">중요특허</span>
 									</dt>
 								</dl>
 								<div id="greenResult" class="greenRepresent">
-									<div class="representLeft file_input_div">
-										<a id="IMAGE_MAIN_A" href="/patent/imageView.do?IMAGE=${PATENT.IMAGE_MAIN}" target="_blank" ><img id="IMAGE_MAIN" src="${PATENT.IMAGE_MAIN}" alt=""></a>
-										<div class="mt08 mdl190">
-											<input type="hidden" id="fileName" readonly/>
-											<input type="file" id="file" name="file" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-											<a id="btnAddFile" href="#" class="btntype2"><span>도면변경</span></a>
+									<div class="representLeft">
+										<a id="IMAGE_MAIN_A" href="/patent/imageView.do?IMAGE=${PATENT.IMAGE_MAIN}" target="_blank" ><img id="IMAGE_MAIN" src="${PATENT.IMAGE_MAIN}" alt="" width="258" height="362"></a>
+										<div class="imageup">
+											<input type="file" id="file" name="file" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
+											<h4>도면변경</h4>
+											<input type="hidden" id="fileName"/>
 										</div>
 									</div>
 									<div class="representRight">
@@ -361,13 +366,13 @@
 											</colgroup>
 											<tbody>
 											<tr>
-												<th scope="row"><em>출원국가</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원국가</h4></th>
 												<td id="NATL_CODE" colspan="3">${PATENT.NATL_CODE}</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>권리구분</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;권리구분</h4></th>
 												<td id="KINDS_IP_TYPE">${PATENT.KINDS_IP_TYPE}</td>
-												<th scope="row"><label for="re04">중요특허여부</label></th>
+												<th scope="row"><h4><label for="re04"><i class="fa fa-caret-right"></i>&nbsp;중요특허여부</label></h4></th>
 												<td>
 													<select id="IMPORTANT_YN" class="w50">
 														<option value="0">N</option>
@@ -376,37 +381,37 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>대표 IPC</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;대표 IPC</h4></th>
 												<td id="IPC_ALL" colspan="3">${PATENT.IPC_ALL}</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>출원번호</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원번호</h4></th>
 												<td id="APPL_NUM">${PATENT.APPL_NUM}</td>
-												<th scope="row"><em>출원일자</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원일자</h4></th>
 												<td id="APPL_DATE">${PATENT.APPL_DATE}</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>공개번호</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호</h4></th>
 												<td id="LAID_PUBLIC_NUM">${PATENT.LAID_PUBLIC_NUM}</td>
-												<th scope="row"><em>공개일자</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개일자</h4></th>
 												<td id="LAID_PUBLIC_DATE">${PATENT.LAID_PUBLIC_DATE}</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>등록번호</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호</h4></th>
 												<td id="REGI_NUM">${PATENT.REGI_NUM}</td>
-												<th scope="row"><em>등록일자</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;등록일자</h4></th>
 												<td id="REGI_DATE">${PATENT.REGI_DATE}</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>출원인</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;출원인</h4></th>
 												<td id="APPLICANT_RENAME" colspan="3">${PATENT.APPLICANT_RENAME}</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re01"><em>법적상태</em></label></th>
+												<th scope="row"><label for="re01"><h4><i class="fa fa-caret-right"></i>&nbsp;법적상태</h4></label></th>
 												<td id="LEGAL_STATUS" colspan="3">${PATENT.LEGAL_STATUS }</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re04">목적등급</label></th>
+												<th scope="row"><h4><label for="re04"><i class="fa fa-caret-right"></i>&nbsp;목적등급</label></h4></th>
 												<td>
 													<select id="GRADE_OBJ" class="w50">
 														<option value="">미분류</option>
@@ -416,7 +421,7 @@
 														<option value="C">C</option>
 													</select>
 												</td>
-												<th scope="row"><label for="re05">해결수단등급</label></th>
+												<th scope="row"><h4><label for="re04"><i class="fa fa-caret-right"></i>&nbsp;해결수단등급</label></h4></th>
 												<td>
 													<select id="GRADE_CONST" class="w50">
 														<option value="">미분류</option>
@@ -428,9 +433,9 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><label for="re06">검토자</label></th>
+												<th scope="row"><h4><label for="re04"><i class="fa fa-caret-right"></i>&nbsp;검토자</label></h4></th>
 												<td><input type="text" id="REVIEWER" value="${PATENT.REVIEWER}" class="w50"/></td>
-												<th scope="row"><label for="re07">검토결과</label></th>
+												<th scope="row"><h4><label for="re04"><i class="fa fa-caret-right"></i>&nbsp;검토결과</label></h4></th>
 												<td>
 													<select id="REVIEW_FLAG" class="w50">
 														<option value="0">미검토</option>
@@ -440,57 +445,33 @@
 												</td>
 											</tr>
 											<tr>
-												<th scope="row"><em>Family 정보</em></th>
+												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;Family 정보</h4></th>
 												<td id="FM_NUM" colspan="3">${PATENT.FM_NUM}</td>
 											</tr>
 											</tbody>
 											</table>
 										</div>
 									</div>
-									<div class="tbl_bbs2">
-										<table summary="">
-										<caption>선택</caption>
-										<colgroup>
-											<col width="100%" />
-										</colgroup>
-										<tbody>
-										<tr>								
-											<th scope="row"><label for="re02">목적/해결수단 키워드</label></th>
-										</tr>
-										<tr>
-											<td><textarea id="KEYWORD_LIST" class="w96 h1">${PATENT.KEYWORD_LIST}</textarea><input id="PROJECT_ID" type="hidden" value="${PATENT.PROJECT_ID}"/><input id="PATENT_ID" type="hidden" value="${PATENT.PATENT_ID}"/></td>
-										</tr>
-										<tr>
-											<td class="textInfoC"><p>주) 목적 및 해결수단을 입력하세요(최대 6개).   복수개의 목적/해결수단 입력시, 구분자(,)를 사용하세요.   ( 입력 예 : 고강성,안정성 )</p></td>
-										</tr>
-										<tr>
-											<th scope="row"><label for="re02">발명의 요약</label></th>
-										</tr>
-										<tr>
-											<td colspan="3"><textarea id="ABSTRACT" class="w96 h3">${PATENT.ABSTRACT}</textarea></td>
-										</tr>
-										<tr>
-											<th scope="row"><label for="re02">대표청구항</label></th>
-										</tr>
-										<tr>
-											<td colspan="3"><textarea id="CLAIM_MAIN" class="w96 h3">${PATENT.CLAIM_MAIN}</textarea></td>
-										</tr>
-										<tr>
-											<th scope="row"><label for="re02">검토의견1</label></th>
-										</tr>
-										<tr>
-											<td colspan="3"><textarea id="CMT_LAW_FIRMS" class="w96 h2">${PATENT.CMT_LAW_FIRMS}</textarea></td>
-										</tr>
-										<tr>
-											<th scope="row"><label for="re02">검토의견2</label></th>
-										</tr>
-										<tr>
-											<td colspan="3"><textarea id="CMT_CO" class="w96 h2">${PATENT.CMT_CO}</textarea></td>
-										</tr>
-										</tbody>
-										</table>
-									</div>
 								</div>
+							</div>
+							<div class="greenRepresent">
+								<dl class="txtInfoLom">
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;목적/해결수단요약</h4></dt>
+									<dd><textarea id="KEYWORD_LIST" class="w96 h1">${PATENT.KEYWORD_LIST}</textarea><input id="PROJECT_ID" type="hidden" value="${PATENT.PROJECT_ID}"/><input id="PATENT_ID" type="hidden" value="${PATENT.PATENT_ID}"/></dd>
+								</dl>
+								<div class="txtInfoC">
+									<p>주) 목적 및 해결수단을 입력하세요(최대 6개).   복수개의 목적/해결수단 입력시, 구분자(,)를 사용하세요.   ( 입력 예 : 고강성,안정성 )</p>
+								</div>
+								<dl class="txtInfoLom">
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;발명의 요약</h4></dt>
+									<dd><textarea id="ABSTRACT" class="w96 h3">${PATENT.ABSTRACT}</textarea></dd>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;대표청구항</h4></dt>
+									<dd><textarea id="CLAIM_MAIN" class="w96 h3">${PATENT.CLAIM_MAIN}</textarea></dd>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;검토의견1</h4></dt>
+									<dd><textarea id="CMT_LAW_FIRMS" class="w96 h2">${PATENT.CMT_LAW_FIRMS}</textarea></dd>
+									<dt><h4><i class="fa fa-caret-right"></i>&nbsp;검토의견2</h4></dt>
+									<dd><textarea id="CMT_CO" class="w96 h2">${PATENT.CMT_CO}</textarea></dd>
+								</dl>
 							</div>
 							</form>
 						</div>
@@ -519,6 +500,7 @@
 						</c:choose>
 						<!-- //검색 상세리스트 -->
 						<!-- paging center --> 
+						<div class="clear"></div>
 						<div id="paging" class="paging"> 
 							${PAGING_INFO}         
 						</div> 

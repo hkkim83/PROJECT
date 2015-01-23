@@ -73,16 +73,15 @@
 	
 	// 파일정보 노드를 추가
 	var appendRow = function(filePath) {
-		
-		$fileInfo = $baseInfo.clone();
-		$('#fileList').append($fileInfo);
-		$fileInfo.find('#btn_delete').bind('click', function(event){
+		var $fileInfo = $baseInfo.clone();
+		$('a[title=btn_delete]', $fileInfo).bind('click', function(event){
 			event.preventDefault();
 			if(!confirm('삭제하시겠습니까?')){
 				return;
 			}
 			deleteFile($fileInfo, filePath);
 		});
+		$('#fileList').append($fileInfo);
 		return $fileInfo;
 	};
 
@@ -92,7 +91,7 @@
 		var name = data.FILE_NAME;
 		var size = parseInt(data.FILE_SIZE/1000);
 		$fileInfo.find('span').text(name+" ["+size+"KB]");
-		$fileInfo.find('#filePath').val(data.FILE_PATH);
+		$fileInfo.find('input[name=filePath]').val(data.FILE_PATH);
 	};
 	
 	// 포인트 가져오기
@@ -336,7 +335,7 @@
 		var formData = new FormData();
 		formData.append("file", $('#file')[0].files[0]);
 		$.ajax({
-			url : '/process/upload.do?type=' + $('#db_type').val(),
+			url : '/process/upload.do?type=' + $('#db_type').val() + '&name=' + $('#db_type option:selected').text(),
 			data : formData,
 			processData : false,
 			contentType : false,
@@ -352,17 +351,17 @@
 			success : function(data) {
 				if (data.RESULT_CD == "SUCC_0001") {
 					uploadCompleted(data.FILE_INFO);
+					$('#db_type option:eq(0)').attr("selected", "selected");
 				} else {
 					alert(data.RESULT_MSG);
 				}
 			}
 		});
-		return result;
 	};
 
 	$(document).ready(function() {
 
-		$baseInfo = $('#fileInfo').remove();
+		$baseInfo = $('li[title=fileInfo]').remove();
 
 		$('#btn_batch').bind('click', function(event) {
 			event.preventDefault();
@@ -371,31 +370,17 @@
 
 		getFileList();
 
-		Common.setCommonCodeCombo('01', $('#db_type'));
-
-		$('#file').bind('change', upload);
-		/* 
-		$('#file').fileupload({
-			url : '/process/upload.do?type=' + $('#db_type').val(),
-			dataType : 'json',
-			beforeSend : function() {
-				alert($('#db_type').val());
-				var fileName = $('#fileName').val();
-				var index = fileName.lastIndexOf(".");
-				var ext = fileName.substring(index + 1, fileName.length);
-				if (!(ext == "xls" || ext == "xlsx" || ext == "xlsm")) {
-					alert("엑셀파일만 업로드 가능합니다.");
-					return false;
-				}
-			},
-			success : function(data) {
-				if (data.RESULT_CD == "SUCC_0001") {
-					uploadCompleted(data.FILE_INFO);
-				} else {
-					alert(data.RESULT_MSG);
-				}
+		Common.setCommonCodeCombo('01', $('#db_type'), "선택");
+		
+		$('#file').bind('click', function() {
+			if($('#db_type').val() == null || $('#db_type').val() == "") {
+				alert("먼저 업로드할 DB종류를 선택하세요");
+				$('#db_type').focus();
+				return false;
 			}
-		}); */
+		});
+		
+		$('#file').bind('change', upload);
 	});
 })(jQuery);
 </script>
@@ -431,7 +416,7 @@
 					<form>
 						<fieldset>
 						<div class="btnArea2 right">
-							<a id="btn_batch" href="#" class="btntype1"><span>일괄 등록</span></a>
+							<a id="btn_batch" href="#" class="btntype4"><span>일괄 등록</span></a>
 						</div>
 						<div class="searchexpression">
 							<input type="hidden" id="fileName" readonly/>
@@ -441,17 +426,17 @@
 									<td>
 										<select id="db_type" style="margin-bottom:16px; height:22px;"></select>
 										<input type="file" id="file" name="file" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-										<a id="addFile" href="#" class="btntype2"><span>파일추가</span></a>
+										<a id="addFile" href="#" class="btntype3"><span>파일추가</span></a>
 									</td>
 									</tr>
 								</table>
 							</div>
 							<div id="divBox" class="expressionBox">
 								<ul id="fileList" class="expressionList">
-									<li id="fileInfo">
-										<label>파일정보&nbsp;<a id="btn_delete" style="color:red;" href="#">[X]</a></label>
-										<span></sapn>
-										<input type="hidden" id="filePath" readonly/>
+									<li title="fileInfo">
+										<label>파일정보&nbsp;<a title="btn_delete" style="color:red;" href="#">[X]</a></label>
+										<span></span>
+										<input type="hidden" name="filePath" readonly/>
 									</li>
 								</ul>
 							</div>

@@ -78,11 +78,11 @@
 		$('#'+str+"_LAID_PUBLIC_NUM").text(data["LAID_PUBLIC_NUM"]+" ( "+data["LAID_PUBLIC_DATE"]+" )");
 		$('#'+str+"_REGI_NUM").text(data["REGI_NUM"]+" ( "+data["REGI_DATE"]+" )");
 		$('#'+str+"_IMAGE_MAIN").attr("src", data["IMAGE_MAIN"]);
-		$('#'+str+"_IMAGE_VIEW").attr("href", "/patent/imageView.do?IMAGE="+data["IMAGE_MAIN"]);
+		$('#'+str+"_IMAGE_VIEW").attr("href", "/patent/imageView.do?IMAGE="+data["IMAGE_MAIN"]).attr("target", "_blank");
 		if(data["PATENT_FULLTXT"] == "/process/error.do")
 			$('#'+str+"_PATENT_FULLTXT").attr("href", "javascript:alert('전문이 존재하지 않습니다.');");
 		else 
-			$('#'+str+"_PATENT_FULLTXT").attr("href", "/patent/pdfView.do?PDF="+data["PATENT_FULLTXT"]);
+			$('#'+str+"_PATENT_FULLTXT").attr("href", "/patent/pdfView.do?PDF="+data["PATENT_FULLTXT"]).attr("target", "_blank");
 	};
 
 	// 그리드 클릭시 특허정보 조회
@@ -264,13 +264,14 @@
 														</select>
 													<th class="last">&nbsp;</th>
 													<td>&nbsp;</td>
-													</td>
 												</tr>
 												</tbody>
 												</table>
 												<div class="btn_area">
-													<a id="btnClearSmartFinder" href="#" onclick="return false;"><img src="/resources/images/common/btn_clear.gif" alt="초기화"></a>
-													<span class="btn_search"><button id="btnItemizedSearch" type="button">검색하기</button></span>
+													<button id="btnClearSmartFinder" type="button" class="reset">초기화</button>
+													<button id="btnItemizedSearch" type="button" class="btn_search">검색하기
+													<i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i>
+													</button>												
 												</div>
 											</div>
 											<div class="searchInfo w38">
@@ -317,104 +318,123 @@
 						<div class="resultDetail">
 							<div id="LResults" class="resultBox">
 								<ul class="resultDetailList">
-									<li><em>연번</em><span id="L_SEQ_NUM"></span></li>
-									<li><em>발명의명칭</em><span id="L_TITLE"></span></li>
-									<li><em>출원국가</em><span id="L_NATL_CODE"></span></li>
-									<li><em>권리구분</em><span id="L_KINDS_IP_TYPE"></span></li>
-									<li><em>대표 IPC</em><span id="L_IPC_ALL"></span></li>
-									<li><em>출원번호/일자</em><span id="L_APPL_NUM"></span></li>
-									<li><em>공개번호/일자</em><span id="L_LAID_PUBLIC_NUM"></span></li>
-									<li><em>등록번호/일자</em><span id="L_REGI_NUM"></span></li>
-									<li><em>출원인</em><span id="L_APPLICANT"></span></li>
-									<li><em>Family 정보</em><span id="L_FM_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;연번</h4><span id="L_SEQ_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;발명의명칭</h4><span id="L_TITLE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원국가</h4><span id="L_NATL_CODE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;권리구분</h4><span id="L_KINDS_IP_TYPE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;대표 IPC</h4><span id="L_IPC_ALL"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원번호/일자</h4><span id="L_APPL_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호/일자</h4><span id="L_LAID_PUBLIC_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호/일자</h4><span id="L_REGI_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원인</h4><span id="L_APPLICANT"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;Family 정보</h4><span id="L_FM_NUM"></span></li>
 								</ul>
 								<p class="resultImg">
-									<a id="L_IMAGE_VIEW" href="" target="_blank"><img id="L_IMAGE_MAIN" src="" alt=""></a>
-									<span><a id="L_PATENT_FULLTXT" href="" target="_blank"><img src="/resources/images/common/btn_bogi_1.gif" alt="전문보기"></a></span>
+									<a id="L_IMAGE_VIEW" href=""><img id="L_IMAGE_MAIN" src="/resources/images/patent/default.jpg" alt="" width="135" height="174"></a>
+									<span><a id="L_PATENT_FULLTXT" href=""><img src="/resources/images/common/btn_bogi_1.gif" alt="전문보기"></a></span>
 								</p>
-								
-								<ul class="resultDetailList2">
-									<li><em>발명의요약</em>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;발명의요약</h4>
+									</div>
 									<p class="executive">
 										<textarea id="L_ABSTRACT" title="발명의요약" class="h3"></textarea>
 									</p>
-									</li>
-									<li><em>대표청구항</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;대표청구항</h4>
+									</div>
 									<p class="executive">
 										<textarea id="L_CLAIM_MAIN" title="대표청구항" class="h3"></textarea>
 									</p>
-									</li>
-									<li><em>검토의견1</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;검토의견1</h4>
+									</div>
 									<p class="executive">
 										<textarea id="L_CMT_LAW_FIRMS" title="검토의견1" class="h2"></textarea>
 									</p>
-									</li>
-									<li><em>검토의견2</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;검토의견2</h4>
+									</div>
 									<p class="executive">
 										<textarea id="L_CMT_CO" title="검토의견2" class="h2"></textarea>
 										<input type="hidden" id="L_PROJECT_ID"/>
 										<input type="hidden" id="L_PATENT_ID"/>
 									</p>
-									</li>
-								</ul>
-								<!-- 버튼 -->
-								<div class="btnArea right">
-									<a href="#" id="btnSave1" class="btntype2"><span>저장</span></a>
-								</div>
-								<!-- 버튼 -->								
+								</div>						
 							</div>
 							<div id="RResults" class="resultBox">
 								<ul class="resultDetailList">
-									<li><em>연번</em><span id="R_SEQ_NUM"></span></li>
-									<li><em>발명의명칭</em><span id="R_TITLE"></span></li>
-									<li><em>출원국가</em><span id="R_NATL_CODE"></span></li>
-									<li><em>권리구분</em><span id="R_KINDS_IP_TYPE"></span></li>
-									<li><em>대표 IPC</em><span id="R_IPC_ALL"></span></li>
-									<li><em>출원번호(일자)</em><span id="R_APPL_NUM"></span></li>
-									<li><em>공개번호(일자)</em><span id="R_LAID_PUBLIC_NUM"></span></li>
-									<li><em>등록번호(일자)</em><span id="R_REGI_NUM"></span></li>
-									<li><em>출원인</em><span id="R_APPLICANT"></span></li>
-									<li><em>Family 정보</em><span id="R_FM_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;연번</h4><span id="R_SEQ_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;발명의명칭</h4><span id="R_TITLE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원국가</h4><span id="R_NATL_CODE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;권리구분</h4><span id="R_KINDS_IP_TYPE"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;대표 IPC</h4><span id="R_IPC_ALL"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원번호/일자</h4><span id="R_APPL_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호/일자</h4><span id="R_LAID_PUBLIC_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호/일자</h4><span id="R_REGI_NUM"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;출원인</h4><span id="R_APPLICANT"></span></li>
+									<li><h4><i class="fa fa-caret-right"></i>&nbsp;Family 정보</h4><span id="R_FM_NUM"></span></li>
 								</ul>
 								<p class="resultImg">
-									<a id="R_IMAGE_VIEW" href="" target="_blank"><img id="R_IMAGE_MAIN" src="" alt=""></a>
+									<a id="R_IMAGE_VIEW" href="" target="_blank"><img id="R_IMAGE_MAIN" src="/resources/images/patent/default.jpg" alt="" width="135" height="174"></a>
 									<span><a id="R_PATENT_FULLTXT" href="" target="_blank"><img src="/resources/images/common/btn_bogi_1.gif" alt="전문보기"></a></span>
 								</p>
 								
-								<ul class="resultDetailList2">
-									<li><em>발명의요약</em>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;발명의요약</h4>
+									</div>
 									<p class="executive">
 										<textarea id="R_ABSTRACT" title="발명의요약" class="h3"></textarea>
 									</p>
-									</li>
-									<li><em>대표청구항</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;대표청구항</h4>
+									</div>
 									<p class="executive">
 										<textarea id="R_CLAIM_MAIN" title="대표청구항" class="h3"></textarea>
 									</p>
-									</li>
-									<li><em>검토의견1</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+									    <h4><i class="fa fa-caret-right"></i>&nbsp;검토의견1</h4>
+									</div>
 									<p class="executive">
 										<textarea id="R_CMT_LAW_FIRMS" title="검토의견1" class="h2"></textarea>
 									</p>
-									</li>
-									<li><em>검토의견2</em>
+								</div>
+								<div class="resultInfo">
+									<div class="point">
+										<h4><i class="fa fa-caret-right"></i>&nbsp;검토의견2</h4>
+									</div>
 									<p class="executive">
 										<textarea id="R_CMT_CO" title="검토의견2" class="h2"></textarea>
 										<input type="hidden" id="R_PROJECT_ID"/>
 										<input type="hidden" id="R_PATENT_ID"/>
 									</p>
-									</li>
-								</ul>
-								<!-- 버튼 -->
-								<div class="btnArea right">
-									<a href="#" id="btnSave2" class="btntype2"><span>저장</span></a>
 								</div>
-								<!-- 버튼 -->	
 							</div>
 						</div>
 						<!-- //검색 상세리스트 -->
 					</div>
 					<!-- //검색결과 -->
+					<!-- 버튼 -->
+					<div class="btnAreatop">
+						<div class="btnArea1 right">
+							<a href="#" id="btnSave1" class="btntype4"><span>저장</span></a>
+						</div>
+						<div class="btnArea1 right">
+							<a href="#" id="btnSave2" class="btntype4"><span>저장</span></a>
+						</div>
+					</div>
+					<!-- 버튼 -->	
 				</div>
 				<!-- //contents body -->
 			</div>

@@ -202,7 +202,7 @@
 					<form>
 						<fieldset>
 						<div class="btnArea2 right">
-							<a id="btn_batch" href="#" class="btntype1"><span>특허문헌 누락 처리</span></a>
+							<a id="btn_batch" href="#" class="btntype4"><span>특허문헌 누락 처리</span></a>
 						</div>
 						<div class="searchexpression">
 							

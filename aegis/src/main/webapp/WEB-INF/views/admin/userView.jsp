@@ -407,18 +407,18 @@
 									</colgroup>
 									<tbody>
 									<tr>
-										<th scope="row"><label for="ID">*아이디</label></th>
+										<th scope="row"><label for="ID">* 아이디</label></th>
 										<td>
 											<input type="text" id="ID" class="w70" alphaOnly=true/>
 											<button type="button" id="btnDupCheck" class="btnSmall gray">중복체크</button>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="NAME">*이름</label></th>
+										<th scope="row"><label for="NAME">* 이름</label></th>
 										<td><input type="text" id="NAME" class="w90" /></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="PASSWORD">*비밀번호</label></th>
+										<th scope="row"><label for="PASSWORD">* 비밀번호</label></th>
 										<td><input type="password" id="PASSWORD" class="w90" /></td>
 									</tr>
 									<tr>
@@ -431,9 +431,9 @@
 								</fieldset>
 							</form>
 							<!-- 버튼 -->
-							<div class="btnArea">
+							<div class="btnArea right">
 								<a href="#" id="btnAdd" class="btntype1"><span>추가</span></a>
-								<a href="#" id="btnSave" class="btntype1"><span>저장</span></a>
+								<a href="#" id="btnSave" class="btntype4"><span>저장</span></a>
 								<a href="#" id="btnDel" class="btntype1"><span>삭제</span></a>
 							</div>
 							<!-- 버튼 -->
