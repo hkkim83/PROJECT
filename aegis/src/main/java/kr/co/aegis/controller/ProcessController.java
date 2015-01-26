@@ -254,7 +254,7 @@ public class ProcessController extends BaseController {
 				if (ext.startsWith("xls")) {
 					Map<String, String> map = new HashMap<String, String>();
 					map.put("FILE_NAME", tempFileName);
-					map.put("FILE_SIZE", String.valueOf(tempFile.length()));
+					map.put("FILE_SIZE", StringUtil.comma(tempFile.length()/1000));
 					map.put("FILE_PATH", svrfilePath+"/"+tempFileName);
 					list.add(map);					
 				}

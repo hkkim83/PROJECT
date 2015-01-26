@@ -17,13 +17,13 @@
 	var initGrid = function() {
 		var idx = 0;
 		var arr = new Array();
-		arr[idx++] = [""			,"CHK"				,"30"	,"center"	,"ra"	,"str"	,"false"];
+		arr[idx++] = [""				,"CHK"				,"30"	,"center"	,"ra"	,"str"	,"false"];
 		arr[idx++] = ["연번"      	,"SEQ_NUM"			,"50"	,"center"	,"ro"	,"str"	,"false"];
 	    arr[idx++] = ["출원번호" 		,"APPL_NUM"			,"80"	,"center"	,"ro"	,"str"	,"false"];
-	    arr[idx++] = ["발명의명칭" 		,"TITLE"			,"*"	,"left"		,"ro"	,"str"	,"false"];
-	    arr[idx++] = ["" 			,"PROJECT_ID"		,"0"	,"left"		,"ro"	,"str"	,"false"];
-	    arr[idx++] = ["" 			,"PATENT_ID"		,"0"	,"left"		,"ro"	,"str"	,"false"];
-	    arr[idx++] = ["" 			,"GRADE_CONST"		,"0"	,"left"		,"ro"	,"str"	,"false"];
+	    arr[idx++] = ["발명의명칭" 		,"TITLE"				,"*"		,"left"		,"ro"	,"str"	,"false"];
+	    arr[idx++] = ["" 			,"PROJECT_ID"		,"0"		,"left"		,"ro"	,"str"	,"false"];
+	    arr[idx++] = ["" 			,"PATENT_ID"			,"0"		,"left"		,"ro"	,"str"	,"false"];
+	    arr[idx++] = ["" 			,"GRADE_CONST"		,"0"		,"left"		,"ro"	,"str"	,"false"];
 	    
 		List = new CommonGrid('gridList', arr);
 		List.grid.attachEvent("onRowSelect", function(rId,cInd){
@@ -74,6 +74,7 @@
 			}
 		});
 		
+		console.log(data["REGI_NUM"]+"/"+data["REGI_DATE"]);
 		$('#'+str+"_APPL_NUM").text(data["APPL_NUM"]+" ( "+data["APPL_DATE"]+" )");
 		$('#'+str+"_LAID_PUBLIC_NUM").text(data["LAID_PUBLIC_NUM"]+" ( "+data["LAID_PUBLIC_DATE"]+" )");
 		$('#'+str+"_REGI_NUM").text(data["REGI_NUM"]+" ( "+data["REGI_DATE"]+" )");
@@ -170,8 +171,21 @@
 		// 중분류 조회
 		for(var i=1; i<=8; i++)
 			Common.setCategoryCombo(projectId, 'M', '0'+i,  $('#MCATE0'+i));
+
+		var lcate1 = "<c:out value='${param.lcate1}'/>";
+		var mcate1 = "<c:out value='${param.mcate1}'/>";
+		var lcate2 = "<c:out value='${param.lcate2}'/>";
+		var mcate2 = "<c:out value='${param.mcate2}'/>";		
+		
+		// 중분류 셋팅
+		$('#MCATE'+lcate1).val(mcate1);
+		$('#MCATE'+lcate2).val(mcate2);
 		
 		initGrid();
+		
+		// 파라미터가 존재할 경우 조회
+		if(lcate1 != "" || mcate1 != "" || lcate2 != "" || mcate2 != "")
+			searchList();
 	});
 	
 })(jQuery);

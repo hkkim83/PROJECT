@@ -78,7 +78,21 @@
 						$tr.append('<th scope="row" name="'+mcate1[i-1].MCATE+'"><p>'+mcate1[i-1].MCATE+'</p></th>');
 					}
 				} else {
-					$tr.append('<td></td>');
+
+					var lcategory1 = '', lcategory2 = '';
+					var mcategory1 = '', mcategory2 = '';
+					if(mcate1[i-1] != undefined) {
+						lcategory1 = mcate1[i-1].LCATE;	
+						mcategory1 = mcate1[i-1].MCATE;			
+					} 
+					
+					if(mcate2[j-1] != undefined) {
+						lcategory2 = mcate2[j-1].LCATE;	
+						mcategory2 = mcate2[j-1].MCATE;		
+					}
+					
+					$tr.append('<td><a href="/keyPatent/view.do?lcate1='+lcategory1+'&lcate2='+lcategory2+'&mcate1='+mcategory1+'&mcate2='+mcategory2+'">바로가기</a><input type="hidden" name="lcate1" value="'+lcategory1+'"/><input type="hidden" name="lcate2" value="'+lcategory2
+							+'"/></td>');
 				}
 			}
 		}
@@ -95,9 +109,9 @@
 		++idx;
 		
 		// 출원인 글자수가 많으면 말줄임한다. 테이블 개수에 따라 사이즈 조절
-		if(tdCnt <= 8 && tdCnt > 3)
+ 		if(tdCnt <= 8 && tdCnt > 3)
 			applNum = applNum+"("+applicant.cut(lenArr[tdCnt])+")";
-		else if(tdCnt <= 3) 
+		else if(tdCnt <= 3)
 			applNum = applNum+"("+applicant+")";
 		
 		if(grade == "S")

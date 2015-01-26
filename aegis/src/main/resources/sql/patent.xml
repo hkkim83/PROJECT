@@ -79,7 +79,7 @@
 		</if>
 		<if test="KEYWORD_LAID_PUBLIC_NUM != null">
 		<![CDATA[
-					   AND LAID_PUBLICL_NUM        LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    /* 공개번호 */
+					   AND LAID_PUBLIC_NUM        LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    /* 공개번호 */
 		]]>
 		</if>
 		<if test="KEYWORD_REGI_NUM != null">
@@ -304,12 +304,12 @@
 		</if>
 		<if test="KEYWORD_APPL_NUM != null">
 		<![CDATA[
-			   AND APPL_NUM        LIKE CONCAT('%',#{KEYWORD_APPL_NUM},'%')	                               		/* 출원번호 */
+			   AND APPL_NUM        LIKE CONCAT('%',#{KEYWORD_APPL_NUM},'%')	                               	/* 출원번호 */
 		]]>
 		</if>
 		<if test="KEYWORD_LAID_PUBLIC_NUM != null">
 		<![CDATA[
-			   AND LAID_PUBLICL_NUM        LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    /* 공개번호 */
+			   AND LAID_PUBLIC_NUM LIKE CONCAT('%',#{KEYWORD_LAID_PUBLIC_NUM},'%')	                    		/* 공개번호 */
 		]]>
 		</if>
 		<if test="KEYWORD_REGI_NUM != null">
@@ -434,9 +434,9 @@
 			     , CASE WHEN PRIORITY_DATE IS NOT NULL AND PRIORITY_DATE <> '' THEN CAST(STR_TO_DATE(PRIORITY_DATE,'%Y%m%d') AS CHAR) ELSE PRIORITY_DATE END AS PRIORITY_DATE /* 우선권주장일 */
 			     , IFNULL(ABSTRACT,'')   ABSTRACT              /* 요약 */
 			     , IFNULL(CLAIM_MAIN,'') CLAIM_MAIN            /* 대표청구항 */
-			     , LAID_PUBLIC_NUM       /* 공개번호 */
+			     , IFNULL(LAID_PUBLIC_NUM,'') LAID_PUBLIC_NUM       /* 공개번호 */
 			     , CASE WHEN LAID_PUBLIC_DATE IS NOT NULL AND LAID_PUBLIC_DATE <> '' THEN CAST(STR_TO_DATE(LAID_PUBLIC_DATE,'%Y%m%d') AS CHAR) ELSE LAID_PUBLIC_DATE END AS LAID_PUBLIC_DATE /* 공개일 */
-			     , REGI_NUM              /* 등록번호 */
+			     , IFNULL(REGI_NUM,'') REGI_NUM             /* 등록번호 */
 			     , CASE WHEN REGI_DATE IS NOT NULL AND REGI_DATE <> '' THEN CAST(STR_TO_DATE(REGI_DATE,'%Y%m%d') AS CHAR) ELSE REGI_DATE END AS REGI_DATE /* 등록일 */
 			     , INVENTOR              /* 발명자/고인자 */
 			     , IPC_ALL               /* IPC(All) */
@@ -995,7 +995,8 @@
 	<!-- OS 매트릭스 조회 -->
 	<select id="selectMcateList" resultType="hashMap" parameterType="java.lang.String" >
 		<![CDATA[
-			SELECT PR.MCATE
+			SELECT PR.LCATE
+			     , PR.MCATE
 			  FROM PATENT_CATEGORY  PA
 				 , PROJECT_CATEGORY PR
 				 , PATENT           PM

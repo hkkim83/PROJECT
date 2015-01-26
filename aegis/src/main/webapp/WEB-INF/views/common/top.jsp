@@ -1,6 +1,6 @@
 <%@ page session="true" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="kr.co.aegis.dto.User, java.util.Map, java.util.List"%>
+<%@ page import="kr.co.aegis.dto.User, java.util.Map, java.util.List, kr.co.aegis.util.StringUtil"%>
 <%@ page import="kr.co.aegis.base.BaseController"%>
 <% User user = (User)session.getAttribute(BaseController.USER_SESSION); %>
 
@@ -122,22 +122,22 @@
     <!-- header -->
     <div id="header">
 		<div class="headConts">
-<% if(user != null){ %>
+<% if(user != null){ 
+	String str = StringUtil.comma(user.getPoint());
+%>
 			<ul class="topAdmin">
 				<li><strong><%=user.getName()%></strong>님</li>
-				<li>잔여포인트 : <em><%=user.getPoint()%>p</em></li>
+				<li>잔여포인트 : <em><%=str%>p</em></li>
 				<li><label for="">프로젝트</label>
 					<select name="loginProjectList" id="loginProjectList">
 <%	if(!user.getProjectList().isEmpty() || user.getProjectList().size() > 0) {
 		for(Map<String, String> map : user.getProjectList()) {
 			String projectId = user.getProjectId();
 			if(projectId.equals(map.get("PROJECT_ID"))) {
-				System.out.println("equals");
 %>
 						<option value="<%=map.get("PROJECT_ID")%>" selected><%=map.get("PROJECT_NAME")%></option>
 <%		
 			} else {
-				System.out.println("not equals");
 %>
 						<option value="<%=map.get("PROJECT_ID")%>"><%=map.get("PROJECT_NAME")%></option>
 <%				

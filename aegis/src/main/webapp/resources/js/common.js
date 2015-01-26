@@ -336,27 +336,32 @@ CommonGrid.prototype.isDeleted = function() {
 };
 
 /** 
- * string String::cut(int len)
- * 글자를 앞에서부터 원하는 바이트만큼 잘라 리턴합니다.
- * 한글의 경우 2바이트로 계산하며, 글자 중간에서 잘리지 않습니다.
- */
- String.prototype.cut = function(len) {
-         var str = this;
-         var l = 0;
-         for (var i=0; i<str.length; i++) {
-                 l += (str.charCodeAt(i) > 128) ? 2 : 1;
-                 if (l > len) return str.substring(0,i) + "...";
-         }
-         return str;
- };
+* string String::cut(int len)
+* 글자를 앞에서부터 원하는 바이트만큼 잘라 리턴합니다.
+* 한글의 경우 2바이트로 계산하며, 글자 중간에서 잘리지 않습니다.
+*/
+String.prototype.cut = function(len) {
+	var str = this;
+	var l = 0;
+	for (var i=0; i<str.length; i++) {
+		l += (str.charCodeAt(i) > 128) ? 2 : 1;
+		if (l > len) return str.substring(0,i) + "...";
+	}
+	return str;
+};
 
- /** 
- * bool String::bytes(void)
- * 해당스트링의 바이트단위 길이를 리턴합니다. (기존의 length 속성은 2바이트 문자를 한글자로 간주합니다)
- */
- String.prototype.bytes = function() {
-         var str = this;
-         var l = 0;
-         for (var i=0; i<str.length; i++) l += (str.charCodeAt(i) > 128) ? 2 : 1;
-         return l;
- };
+/** 
+* bool String::bytes(void)
+* 해당스트링의 바이트단위 길이를 리턴합니다. (기존의 length 속성은 2바이트 문자를 한글자로 간주합니다)
+*/
+String.prototype.bytes = function() {
+	var str = this;
+	var l = 0;
+	for (var i=0; i<str.length; i++) l += (str.charCodeAt(i) > 128) ? 2 : 1;
+		return l;
+};
+ 
+String.prototype.comma = function() {
+	var str = this;
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};

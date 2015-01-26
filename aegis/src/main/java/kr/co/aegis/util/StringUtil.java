@@ -1,6 +1,7 @@
 package kr.co.aegis.util;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -301,5 +302,44 @@ public class StringUtil {
 		src = src.replaceAll("\\@2", "\\; 및");
 		src = src.replaceAll("\\@3", "1\\.");
 		return src;
+	}
+	
+	/**
+	 * 콤마찍기
+	 * @param num
+	 * @return
+	 */
+	public static String comma(int num) {
+		DecimalFormat df = new DecimalFormat("#,##0");
+		return df.format(num);
+	}
+	
+	/**
+	 * 콤마찍기
+	 * @param num
+	 * @return
+	 */
+	public static String comma(long num) {
+		DecimalFormat df = new DecimalFormat("#,##0");
+		return df.format(num);
+	}
+	
+	/**
+	 * 콤마찍기
+	 * @param num
+	 * @return
+	 */
+	public static String comma(String data) {
+		DecimalFormat df = new DecimalFormat("#,##0");
+		return df.format(Integer.parseInt(data));
+	}
+	
+	/**
+	 * 콤마제거
+	 * @param data
+	 * @return
+	 */
+	public static String uncomma(String data) {
+		return data.replaceAll("\\,", "");
 	}
 }

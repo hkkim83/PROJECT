@@ -89,7 +89,7 @@
 	var uploadCompleted = function(data) {
 		$fileInfo = appendRow(data.FILE_PATH);
 		var name = data.FILE_NAME;
-		var size = parseInt(data.FILE_SIZE/1000);
+		var size = data.FILE_SIZE;
 		$fileInfo.find('span').text(name+" ["+size+"KB]");
 		$fileInfo.find('input[name=filePath]').val(data.FILE_PATH);
 	};
