@@ -10,6 +10,8 @@ Date : 2013-12-25
 .searchexpression {clear:both;}
 .searchexpression .btoon {text-align:right;padding-top:10px}
 .expressionBox {clear:both;position: relative;background:#fff;border:1px solid #4a6f03;padding:10px;overflow:hidden;margin-top:10px}
+.expressionBox .db_label{width: 55px; vertical-align: middle; text-align: center; font-size: 12px; font-weight: normal;}
+.expressionBox .db_label h4{display: inline-block; padding: 4px 8px 0 2px; font-style: 12px; font-weight: normal;}
 .expressionList {display:table;width:100%;}
 .expressionList li {clear:both;padding:5px 0;overflow:hidden;border-top:1px solid #e1ebce}
 .expressionList li:first-child {border-top:0 none}
@@ -20,11 +22,14 @@ Date : 2013-12-25
 .expressionList li textarea {height:80px}
 .expressionBox .btnRight {position: absolute;top:10px;right:10px;}
 
+.expressionList h4{display: inline-block; padding: 4px 8px 0 2px; font-style: 12px; font-weight: normal;}
+.expressionList .w30{float: left; margin-right: 10px;}
+
+
  /* 검색결과 */
 .searchResults {clear:both;}
 .searchResults h4 {font-size:14px;padding:12px 0 0 7px;color:#202020;letter-spacing:-1px;}
 .searchResults h4 span.flR {vertical-align:top;}
-.searchResults1 {clear:both;}
 .searchResults1 h4 span.flR {vertical-align:top;}
 .searchResults1 h4{float: left;font-size:14px;padding:12px 0 0 7px;color:#202020;letter-spacing:-1px;}
 
@@ -47,12 +52,12 @@ Date : 2013-12-25
 .searchbody-1{width: 670px; height: auto; float: left; line-height: 130%; font-weight: bold;}
 
 /* 검색결과 상세 내용 */
-.finderDetail {clear:both; float: left; margin-top:20px; width:100%;}
+.finderDetail {clear:both; float: left; margin-top:20px;}
 .detailTop {padding:0 0 6px;overflow:hidden}
 .detailTop.tye2 {padding:0 0 12px;overflow:hidden}
 .detailTop dt {float:left;vertical-align:middle}
-.detailTop .detailMenu a {display:inline-block}
-.detailTop dt label {vertical-align:middle;display:inline;color:#25ac01;font-size:14px}
+.detailTop dt a {display:inline-block}
+.detailTop dt label {vertical-align:middle;display:inline-block;color:#25ac01;font-size:14px}
 .detailTop dt span.title {vertical-align:middle;display:inline; font-weight:bold; color:#25ac01;font-size:14px;padding-top:3px}
 .detailTop dd {float:right;display:inline;font-weight:normal;padding-top:2px}
 .detailTop dd.btn {float:right;display:inline;font-weight:normal;padding:0 0 5px;}
@@ -95,12 +100,12 @@ Date : 2013-12-25
 .txtInfoL dt, .txtInfoR dt {letter-spacing:-1px;}
 .txtInfoL dd textarea, .txtInfoR dd textarea {height:40px;margin:0;padding:0;text-align:left;}
 .txtInfoR {float:right;display:inline;width:48%;margin:0 auto;}
-.txtInfoC {clear:both;padding-top:10px; width:96%; margin-left:21px;}
+.txtInfoC {clear:both;padding-top:10px; width:97%; margin-left:15px;}
 .txtInfoC p {background:#f2f1f0;padding:10px 10px;overflow:hidden;font-size:11px;font-weight:normal;}
-.txtInfoLom {clear:both;width:100%; margin-left: 20px;}
+.txtInfoLom {clear:both;width:100%; margin-left: 14px;}
 .txtInfoLom dt {font-size:14px;padding:0 0 10px 0;color:#202020;letter-spacing:-1px;margin-top:20px}
 .txtInfoLom dd {}
-.txtInfoLom dd textarea {height:60px;margin:0;padding:0;text-align:left;}
+.txtInfoLom dd textarea {height:60px;margin:0;padding:5px;text-align:left;}
 
 /* 핵심특허분석 검색결과 */
 .searchBox2 {border:1px solid #d8d8d8;overflow:hidden;border-top:0 none;padding:10px 10px 10px}
@@ -118,7 +123,7 @@ Date : 2013-12-25
 .resultDetailList li em {float:left;display:inline-block;width:35%;color:#035f05;text-align:left;}
 .resultDetailList li span {float:right;width:55%;text-align:left;padding:0 0 0 5px;vertical-align:top;line-height:13px;}
 p.resultImg {float:right;display:inline;}
-p.resultImg img {width:135px;height:174px;margin: 5px 3px 0 0;border:1px solid #dedede}
+p.resultImg img {width:135px;height:174px;border:1px solid #dedede; margin: 5px 3px 0 0;}
 p.resultImg span {display:block;text-align:right;padding:5px 0 0}
 p.resultImg span img {height:auto;width:auto;border:0 none;}
 
@@ -130,7 +135,7 @@ p.resultImg span img {height:auto;width:auto;border:0 none;}
 /* 회원가입 */
 .searchResults .leftConts {float:left;width:45%;}
 .searchResults .rightConts {float:right;display:inline;width:45%;text-align:left;}
-.idpBox {margin:5px 0;border:1px solid #f2f2f2;width:100%;}
+.idpBox {margin:5px 0;border:1px solid #f2f2f2;width:95%;}
 .idpBox ul {padding:10px 20px;}
 .idpBox ul li {margin:7px 0;}
 .idpBox ul li label {display:inline-block;width:120px;font-weight:bold}

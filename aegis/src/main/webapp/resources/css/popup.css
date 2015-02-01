@@ -14,6 +14,13 @@ Date : 2013-12-27
 .layerPopup .pContents{clear:both;overflow:hidden;padding:20px;}
 .layerPopup .pFooter{clear:both;border-top:1px solid #ccc;margin:0 10px 5px}
 
+/*요지리스트 팝업*/
+.contents_popup {width:940px; padding: 20px; clear:both;overflow:hidden; border: 2px solid #25ac01;}
+.contents_popup .pHeader {padding-bottom: 10px; border-bottom: 1px solid #ccc;}
+.contents_popup .pFooter{clear:both;border-top:1px solid #ccc;margin:50px 10px 5px 0}
+.contents_popup .pbtn{padding: 20px 0 0 0;}
+.contents_popup .finderDetail{margin-top: 10px;}
+
 /* 컨텐츠 */
 .psechForm {clear:both;width:100%;padding:5px 0;overflow:hidden}
 .psechForm dt {float:left;background:#f2f2f2;padding:8px 30px 5px;font-weight:bold;overflow:hidden}

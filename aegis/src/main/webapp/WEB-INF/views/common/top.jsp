@@ -106,6 +106,7 @@
 			changeProject();
 		});
 		
+		showMenu('menu01');
 	});
 
 })(jQuery);

@@ -1,6 +1,7 @@
 package kr.co.aegis.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.aegis.base.BaseController;
+import kr.co.aegis.patent.parser.ExcelParser;
 import kr.co.aegis.service.SearchFormulaService;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/searchFormula")
 public class SearchFormulaController extends BaseController {
-
+	@Value("${upload.dir}") private String uploadDir;
+	@Value("${kipris.plus.userId}") private String userId;
+	@Value("${kipris.plus.userKey}") private String userKey;
+	@Value("${kipris.plus.url}") private String kiprisUrl;
+	@Value("${kipris.plus.path}") private String defaultPath;
+	
 	private SearchFormulaService searchFormulaService;
 
 	@Autowired
@@ -164,7 +172,7 @@ public class SearchFormulaController extends BaseController {
 //        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = objectMapper.readValue(data, HashMap.class);
-        searchFormulaService.remove(map);;
+        searchFormulaService.remove(map);
         
 		ModelAndView modelAndView = new ModelAndView("jsonView");
 		return modelAndView;
@@ -189,6 +197,39 @@ public class SearchFormulaController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView("jsonView");
 		modelAndView.addObject("RESULT" , result);
 		
+		return modelAndView;
+	}
+	
+
+	/**
+	 * 검색식 DB반영 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws InterruptedException 
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/apply.do")
+	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+		
+		String userId = super.getLoginId(session);
+		String data = request.getParameter("DATA");
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> map = objectMapper.readValue(data, HashMap.class);
+        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+        logger.info("map:::::"+map);
+        ExcelParser parser = new ExcelParser();
+        int cnt = parser.getAdvancedSearch(list, map, userId, userKey, kiprisUrl, defaultPath);
+        logger.info("Controller::::::"+cnt);
+        
+        //searchFormulaService.registry(map, userId);
+        
+		ModelAndView modelAndView = new ModelAndView("jsonView");
 		return modelAndView;
 	}
 }

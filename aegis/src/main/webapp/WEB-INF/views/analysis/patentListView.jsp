@@ -426,7 +426,6 @@
 							</dl>
 							<div class="detailList">
 								<table summary="연번,국가,구분,출원번호,출원일자,발명의 명칭,등급,전문,출원인">
-								<caption>검색조건</caption>
 								<colgroup>
 									<col width="2%" />
 									<col width="5%" />

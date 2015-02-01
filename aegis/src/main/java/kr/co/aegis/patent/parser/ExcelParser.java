@@ -64,9 +64,9 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-//			if(index++%10 == 9) {
-//				Thread.sleep(1000); // ms단위 - 1초 멈춤
-//			}
+			if(index++%20 == 19) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}
 			
 			if("KR".equals(map.get("NATL_CODE"))) {
 				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
@@ -99,9 +99,9 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-//			if(index++%10 == 9) {
-//				Thread.sleep(1000); // ms단위 - 1초 멈춤
-//			}
+			if(index++%20 == 19) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}
 			
 			if("KR".equals(map.get("NATL_CODE"))) {
 				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
@@ -130,14 +130,48 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-//			if(index++%10 == 9) {
-//				Thread.sleep(1000); // ms단위 - 1초 멈춤
-//			}
+			if(index++%20 == 19) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}
 			logger.info(map);
 			if(!"KR".equals(map.get("NATL_CODE")) && !"CN".equals(map.get("NATL_CODE"))) {
 				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
 				pfp.setApplNumOrg(map);
 			}
 		}
+	}
+	
+	/**
+	 * kipris에서 출원번호원본 가져오기
+	 * @param list
+	 * @param userId
+	 * @param userKey
+	 * @param kiprisUrl
+	 * @param defaultPath
+	 * @return
+	 * @throws RemoteException
+	 * @throws InterruptedException
+	 */
+	public int getAdvancedSearch(List<Map<String, String>> list, Map<String, String> map, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+		logger.info("getAdvancedSearch:::::::::::::::::::::::::::::::::::");
+		PatentFilePath pfp = null;
+		int cnt = 0;
+		parseFormular(map);
+		if("KR".equals(map.get("NATL_CODE")))
+			pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+		else
+			pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+		
+		cnt = pfp.getAdvancedSearch(map, list);
+		logger.info("count::::::"+cnt);
+		return cnt;
+	}
+	
+	/**
+	 * 검색식 
+	 * @param map
+	 */
+	private void parseFormular(Map<String, String> map) {
+		map.put("ABSTRACT", map.get("CONTENT"));
 	}
 }

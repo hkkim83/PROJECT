@@ -180,12 +180,18 @@ public class ProcessController extends BaseController {
 		for(File tempFile : fileList) {
 			String tempFileName = tempFile.getName();
 			String path = dirFile.getPath()+"/"+tempFileName;
-			if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
-				excel = new XSSExcel(path);
-			else 
-				excel = new HSSExcel(path);
+			int index = tempFileName.lastIndexOf(".");
+			String ext = tempFileName.substring(index + 1, tempFileName.length());
+			if (ext.startsWith("xls")) {			
+				logger.info("path:::::"+path);
+				logger.info(tempFileName+"::::::"+tempFileName.indexOf(".xlsx"));
+				if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
+					excel = new XSSExcel(path);
+				else 
+					excel = new HSSExcel(path);
+				cnt += excel.getRowCount() - 1;
+			}
 			
-			cnt += excel.getRowCount() - 1;
 		}
 		
 		Map<String, String> param = new HashMap<String, String>();
@@ -299,34 +305,40 @@ public class ProcessController extends BaseController {
 		for(File tempFile : fileList) {
 			String tempFileName = tempFile.getName();
 			String path = dirFile.getPath()+"/"+tempFileName;
-			excel = tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1 ? new XSSExcel(path) : new HSSExcel(path);
-			// 2. DB종류를 체크한다.
-			String kindsDB = excel.getKindsDB();
-			if(StringUtil.isNull(kindsDB)) {
-				modelAndView.error(Message.ERR_0032);
-				return modelAndView;
-			}
-			
-			// 3. 파일을 임시테이블에 등록한다.
-			List<Map<String, String>> list = excel.readExcel(kindsDB);
-			
-			// 4. 데이터 가공 처리
-			if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
-				parser = new WipsonExcelParser();
-			} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
-				parser = new FocustExcelParser();
-			} else if(kindsDB.equals(ExcelHeader.DB[2])) {	// KIPRIS_N
-				parser = new KiprisNExcelParser();
-			} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
-				parser = new KiprisAExcelParser();
-			}
-			// 4-1. 문서번호 가져오기 
-			parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
-			// 4-2. 데이터를 파싱한다.
-			parser.parse(list);
-			
-			for(Map<String, String> map : list) {
-				saveList.add(map);			
+			int index = tempFileName.lastIndexOf(".");
+			String ext = tempFileName.substring(index + 1, tempFileName.length());
+			if(ext.startsWith("xls")) {
+				excel = tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1 ? new XSSExcel(path) : new HSSExcel(path);
+				// 2. DB종류를 체크한다.
+				String kindsDB = excel.getKindsDB();
+				if(StringUtil.isNull(kindsDB)) {
+					modelAndView.error(Message.ERR_0032);
+					return modelAndView;
+				}
+				
+				// 3. 파일을 임시테이블에 등록한다.
+				List<Map<String, String>> list = excel.readExcel(kindsDB);
+				
+				// 4. 데이터 가공 처리
+				if(kindsDB.equals(ExcelHeader.DB[0])) {			// WIPSON
+					parser = new WipsonExcelParser();
+				} else if(kindsDB.equals(ExcelHeader.DB[1])) {	// FOCUST
+					parser = new FocustExcelParser();
+				} else if(kindsDB.equals(ExcelHeader.DB[2])) {	// KIPRIS_N
+					parser = new KiprisNExcelParser();
+				} else if(kindsDB.equals(ExcelHeader.DB[3])) {	// KIPRIS_A
+					parser = new KiprisAExcelParser();
+				}
+				// 4-1. 데이터를 파싱한다.
+				parser.parse(list);
+				
+				// 4-2. 문서번호 가져오기 
+				parser.setApplNumOrg(list, userId, userKey, kiprisUrl, defaultPath);
+
+				
+				for(Map<String, String> map : list) {
+					saveList.add(map);			
+				}				
 			}
 		}
 		// 문서번호 가져오기

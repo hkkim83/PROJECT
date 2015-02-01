@@ -1,6 +1,7 @@
 package kr.co.aegis.patent.kipris;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -52,4 +53,6 @@ abstract public class PatentFilePath {
 	 */
 	public void setApplNumOrg(Map<String, String>map) throws RemoteException{
 	};
+	
+	abstract public int getAdvancedSearch(Map<String, String>map, List<Map<String, String>> list) throws RemoteException;
 }

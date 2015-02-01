@@ -56,27 +56,29 @@
 		$('#tbl_matrix').append(colgroup);
 		
 		for(var i=0; i<trCnt; i++) {
-			if(i == 0)
-				$('#tbl_matrix').append('<thead><tr></tr></thead>');
-			else 
-				$('#tbl_matrix').append('<tr></tr>');
-				
-			var $tr = $('#tbl_matrix tr').eq(i);
+			if(i == 0) 
+				$('#tbl_matrix').append('<thead><tr title="patent"></tr><tr></tr></thead>');				
+			else
+				$('#tbl_matrix').append('<tr title="patent"></tr>').append('<tr></tr>');
+			
+			var $tr1 = $('#tbl_matrix tr').eq(2*i);
+			var $tr2 = $('#tbl_matrix tr').eq(2*i+1);
 			for(var j=0; j<tdCnt; j++) {
 				if(i== 0) {
 					if(j == 0) {
-						$tr.append('<th scope="col"><p>중분류</p></th>');
+						$tr1.append('<th class="th_border_x"><p>중분류</p></th>');
 					} else if(j == (tdCnt-1)) {
-						$tr.append('<th scope="col" name="미분류1"><p>미분류</p></th>');
+						$tr1.append('<th class="th_border_x" name="미분류1"><p>미분류</p></th>');
 					} else {
-						$tr.append('<th scope="col" name="'+mcate2[j-1].MCATE+'"><p>'+mcate2[j-1].MCATE+'</p></th>');
+						$tr1.append('<th class="th_border_x" name="'+mcate2[j-1].MCATE+'"><p>'+mcate2[j-1].MCATE+'</p></th>');
 					} 
 				} else if(j == 0) {
 					if(i == (trCnt-1)) {
-						$tr.append('<th scope="row" name="미분류2"><p>미분류</p></th>');
+						$tr1.append('<th class="th_border_x" name="미분류2"><p>미분류</p></th>');
 					} else {
-						$tr.append('<th scope="row" name="'+mcate1[i-1].MCATE+'"><p>'+mcate1[i-1].MCATE+'</p></th>');
+						$tr1.append('<th class="th_border_x" name="'+mcate1[i-1].MCATE+'"><p>'+mcate1[i-1].MCATE+'</p></th>');
 					}
+					$tr2.append('<th class="th_border_x"></th>');
 				} else {
 
 					var lcategory1 = '', lcategory2 = '';
@@ -91,15 +93,15 @@
 						mcategory2 = mcate2[j-1].MCATE;		
 					}
 					
-					$tr.append('<td><a href="/keyPatent/view.do?lcate1='+lcategory1+'&lcate2='+lcategory2+'&mcate1='+mcategory1+'&mcate2='+mcategory2+'">바로가기</a><input type="hidden" name="lcate1" value="'+lcategory1+'"/><input type="hidden" name="lcate2" value="'+lcategory2
-							+'"/></td>');
+					$tr1.append('<td class="td_border_x"></td>');
+					$tr2.append('<td><a href="/keyPatent/view.do?lcate1='+lcategory1+'&lcate2='+lcategory2+'&mcate1='+mcategory1+'&mcate2='+mcategory2+'" class="tb_btn"><span><i class="fa fa-arrow-right"></i></span></a></td>');
 				}
 			}
 		}
 		
 	};
 	
-	var lenArr = [0, 0, 0, 0, 28, 20, 10, 6, 4];	// td개수에 따른 출원인 글자수
+	var lenArr = [0, 0, 0, 0, 28, 28, 28, 28, 28];	// td개수에 따른 출원인 글자수
 	var idx = 0;
 	// 테이블 데이터 채우기
 	var setData = function($tr, index, applNum, applicant, patentId, grade) {
@@ -109,8 +111,8 @@
 		++idx;
 		
 		// 출원인 글자수가 많으면 말줄임한다. 테이블 개수에 따라 사이즈 조절
- 		if(tdCnt <= 8 && tdCnt > 3)
-			applNum = applNum+"("+applicant.cut(lenArr[tdCnt])+")";
+ 		if(tdCnt > 3)
+			applNum = applNum+"("+applicant.cut(20)+")";
 		else if(tdCnt <= 3)
 			applNum = applNum+"("+applicant+")";
 		
@@ -150,7 +152,8 @@
 		// 그외
 		$.each(osmatrix2, function(i){
 			$th = $('th[name="'+osmatrix2[i].MCATE+'"]');
-			var $tr = $('#tbl_matrix tr:last');
+			var index = $('#tbl_matrix tr').length;
+			var $tr = $('#tbl_matrix tr').eq(index-2);
 			var cnt = 0;
 			$.each(osmatrix1, function(j){
 				// 행과 열에 일치하는 데이터가 존재하면 건너뜀
@@ -190,7 +193,7 @@
 	// 데이터 직렬화
 	var serialize = function() {
 		var data = new Array();
-		$('#tbl_matrix tr').each(function() {
+		$('#tbl_matrix tr[title=patent]').each(function() {
 			var object = new Object();
 			var nodes = $(this).children();	
 			nodes.each(function(index) {

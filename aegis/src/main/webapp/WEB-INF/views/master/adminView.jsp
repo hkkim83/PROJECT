@@ -350,7 +350,7 @@
 							<div id="gridList" class="mt10" style="background-color:white; width:100%; height:495px;"></div>
 							<!-- 버튼 -->
 							<div class="btnArea right">
-								<a href="#" id="btnAppl" class="btntype4"><span>승인요청</span></a>
+								<a href="#" id="btnAppl" class="btntype3"><span>승인요청</span></a>
 								<a href="#" id="btnAdd" class="btntype1"><span>추가</span></a>
 								<a href="#" id="btnSave" class="btntype4"><span>저장</span></a>
 								<a href="#" id="btnDel" class="btntype1"><span>삭제</span></a>

@@ -235,13 +235,17 @@ color: #304c9b;text-decoration: underline;font-size: 0.9em;letter-spacing: -1px;
 
 /* table style */
 .bbsContes {clear:both;width:100%;}
-.tbl_bbs1 {clear:both;height:700px;overflow-x: scroll;overflow-y:scroll;white-space:pre-line;}
+.tbl_bbs1 {clear:both;height:650px;overflow-x: scroll;overflow-y:scroll;white-space:nowrap;}
 .tbl_bbs1 table {width:100%;border-top:1px solid #908c88}
 .tbl_bbs1 table th, .tbl_bbs1 table td {font-size:11px;line-height:13px;}
 .tbl_bbs1 table th {padding:8px 3px;overflow:hidden;text-align:center;background:#f5feea;border-left:1px solid #f2f2f2;border-bottom:1px solid #f2f2f2;vertical-align:middle;letter-spacing:-1px;color:#222}
 .tbl_bbs1 table th:first-child {border-left:0 none;}
 .tbl_bbs1 table td {padding:8px 5px;overflow:hidden;border-left:1px solid #f2f2f2;border-bottom:1px solid #f2f2f2;vertical-align:middle;color:#666;}
 .tbl_bbs1 table tr.hover td{background:#fcfeba;cursor:pointer}
+
+/*테이블안 바로가기*/
+.th_border_x{border-bottom: 1px solid #f5feea !important;}
+.td_border_x{border-bottom: 1px solid #fff !important;}
 
 .tbl_bbs2 {clear:both;}
 .tbl_bbs2 table {width:100%;}
@@ -354,8 +358,8 @@ a.btntype1 {display:inline-block; background: linear-gradient(#fff 0%, #fff 30%,
 a.btntype1 span {display:inline-block; background: linear-gradient(#fff 0%, #fff 30%, #d8d8d8 100%) no-repeat right 0; border-radius: 3px; line-height:230%; padding-right:10px; height:23px;overflow:hidden;}
 /*a.btntype1:hover span {background:linear-gradient(#c1c1c1 0%, #c1c1c1 40%, #8c8c8c 100%) no-repeat right -23px; border-radius: 3px; color:#fff;}*/
 
-a.btntype2 {display:inline-block; background:linear-gradient(#ffe088 0%, #ffe088 50%, #fac200 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #ffe088;  font-weight: bold; color:#916b00; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
-a.btntype2 span {display:inline-block; background:linear-gradient(#ffe088 0%, #ffe088 50%, #fac200 100%) no-repeat right 0; border-radius: 3px; line-height:230%; line-height:230%;padding-right:10px; height:23px;overflow:hidden;}
+a.btntype2 {display:inline-block; background:linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #FF6D5A;  font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
+a.btntype2 span {display:inline-block; background:linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 3px; line-height:230%; line-height:230%;padding-right:10px; height:23px;overflow:hidden;}
 
 a.btntype3 {display:inline-block; background: linear-gradient(#72c3ac 0%, #72c3ac 50%, #589c89 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #72c3ac; font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype3 span {display:inline-block; border-radius: 3px; line-height:230%; padding-right:10px; height:20px;overflow:hidden;}
@@ -371,11 +375,28 @@ a.btntype6 span {display:inline-block; border-radius: 3px; line-height:230%; pad
 
 a.btnData {display:inline-block; background:url(../images/common/bg_btn.gif) no-repeat left 0;text-align:center;font-weight: bold; font-size:12px;border:1px solid #629b15;height:28px;line-height:29px;width:140px;color:#3d6d04;letter-spacing:-1px;}
 
+/*요지리스트 팝업_버튼박스*/
+.top_right_btn{clear: both; float: right;}
+
+
+/*테이블_앵커버튼*/
+a.tb_btn {display:inline-block; float: right;background: linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 20px; font-weight: bold; color:#fff; font-size:14px;padding-top:3px; padding-left:6px; width:17px; height:19px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
+a.tb_btn span {display:inline-block; border-radius: 20px; line-height:230%; padding-right:10px; height:15px;overflow:hidden;}
 
 /*첨부파일*/
 div.imageup {display:inline-block; margin-top:10px; background: linear-gradient(#ea537a 0%, #ea537a 50%, #a02747 100%) no-repeat right 0; border-radius: 3px; border: double 1px #ea537a; font-weight: bold; padding-left:5px; height:20px;overflow:hidden; cursor:pointer;}
 div.imageup input {margin-top: 0px; display: block !important; width: 45px !important; height: 20px !important; opacity: 0 !important; overflow: hidden !important;}
 .greenRepresent .imageup h4{color:#fff; margin-top:-22px; padding-left:3px; font-size:11px; letter-spacing: -1px;}
+
+/*업로드_파일추가*/
+div.imageup1 {display:inline-block; background: linear-gradient(#72c3ac 0%, #72c3ac 50%, #589c89 100%) no-repeat right 0; border-radius: 3px; border: double 1px #72c3ac; font-weight: bold; height:23px;overflow:hidden; cursor:pointer;}
+div.imageup1 input {margin-top: 0px; display: block !important; width: 45px !important; height: 20px !important; opacity: 0 !important; overflow: hidden !important;}
+.imageup1 h4{color:#fff; margin-top:-22px; padding:2px 10px 0 10px; font-size:11px; letter-spacing: -1px;}
+
+/*업로드_전문변경*/
+div.imageup2 {display:inline-block; background: linear-gradient(#2b6184 0%, #2b6184 50%, #16445f 100%) no-repeat right 0; border-radius: 3px; border: double 1px #2b6184; font-weight: bold; height:23px;overflow:hidden; cursor:pointer;}
+div.imageup2 input {margin-top: 0px; display: block !important; width: 45px !important; height: 20px !important; opacity: 0 !important; overflow: hidden !important;}
+.imageup2 h4{color:#fff; margin-top:-22px; padding:2px 10px 0 10px; font-size:11px; letter-spacing: -1px;}
 
 /* paging */
 .paging {overflow:hidden;height:13px;line-height:14px;margin:40px 0;display:block; clear:both;text-align:center} 
@@ -415,6 +436,9 @@ textarea{border:1px solid #d3dadf;line-height:16px;font-family:Dotum;padding:10p
 input[type="text"],
 input[type="file"],
 input[type="number"]{border:1px solid #bebebe;background:#fff;vertical-align: middle;padding:2px 5px 3px;text-align:left;}
+
+/*셀렉트박스*/
+.db_selectbox{width: 10%; margin-top: -18px; padding: 4px 3px 3px 2px;} 
 
 /* width size */
 .w98{width:98% !important;}

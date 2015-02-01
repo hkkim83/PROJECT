@@ -370,7 +370,7 @@
 
 		getFileList();
 
-		Common.setCommonCodeCombo('01', $('#db_type'), "선택");
+		Common.setCommonCodeCombo('01', $('#db_type'), "DB종류");
 		
 		$('#file').bind('click', function() {
 			if($('#db_type').val() == null || $('#db_type').val() == "") {
@@ -416,21 +416,15 @@
 					<form>
 						<fieldset>
 						<div class="btnArea2 right">
+							<select class="db_selectbox" id="db_type"></select>
+							<input type="hidden" id="fileName" readonly/>
+							<div class="imageup1">
+	                             <input type="file" id="file" name="file" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
+								<h4>파일 추가</h4>
+                             </div>													
 							<a id="btn_batch" href="#" class="btntype4"><span>일괄 등록</span></a>
 						</div>
 						<div class="searchexpression">
-							<input type="hidden" id="fileName" readonly/>
-							<div class="btnArea right file_input_div">
-								<table align="right">
-									<tr>
-									<td>
-										<select id="db_type" style="margin-bottom:16px; height:22px;"></select>
-										<input type="file" id="file" name="file" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-										<a id="addFile" href="#" class="btntype3"><span>파일추가</span></a>
-									</td>
-									</tr>
-								</table>
-							</div>
 							<div id="divBox" class="expressionBox">
 								<ul id="fileList" class="expressionList">
 									<li title="fileInfo">

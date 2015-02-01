@@ -287,8 +287,72 @@ select {
 		$dialog.find('iframe').css('left', left);
 		$dialog.height($(document).height());
 		$dialog.show();		
-	};	
+	};
 	
+	// 국가 가져오기
+	var data = Common.getCommonCodeList('23');
+	var getNatlCode =  function() {
+		var innerHTML = '';
+		$.each(data, function(index) {
+			var map = data[index];
+			innerHTML += '<label class="db_label"><input type="radio" name="natl_code" value="'+map['COMM_CODE']+'"><h4>'+map['COMM_NAME']+'</h4></label>';
+		});
+		$('#div_radio').html(innerHTML);
+		$('#div_radio :radio:eq(0)').attr("checked", "checked");
+	};
+	
+	// 라디오버튼 보여주기 / 가리기 
+	var changeDivRadio = function(bool) {
+		if(bool) {
+			getNatlCode();
+			$('#div_radio').show();
+			$('#btn_apply').show();
+		} else {
+			$('#div_radio').hide();
+			$('#btn_apply').hide();
+		}
+	};
+	
+	// 검색식 DB반영
+	var apply = function(){
+		
+		var content = $('#text_search_formula').val();
+		if(content.trim() == ''){
+			alert('생성된 검색식이 없습니다.');
+			return;
+		}
+
+		var data = new Object();
+		data.DB_TYPE_CD = $('#text_db_type_cd').val();
+		data.CONTENT = content;
+		data.NATL_CODE = $('input:radio[name=natl_code]:checked').val();
+		if(data.DB_TYPE_CD != "13") {
+			alert('검색식 DB반영은 KIPRIS만 가능합니다.');
+			return;
+		};
+		
+		if(!Common.checkLogin()){
+			showLoginPop(function(){
+				location.reload();
+			}, data);
+			return;
+		}
+		
+		if(!confirm('검색식을 DB에 반영하시겠습니까?')){
+			return;
+		}
+		
+		var data = 'DATA=' + Common.stringify(data);
+		$.ajax({
+			  url: '/searchFormula/apply.do'
+			, data : data
+			, type: 'POST'
+			, async: false
+			, success: function(data){
+				alert('처리되었습니다.');
+			}
+		});			
+	};
 	
 	$(document).ready(function(){
 		
@@ -319,6 +383,14 @@ select {
 		$('#db_type').bind('change', function(){
 			var dbUrl = $(this).find('option:selected').attr('VAL_1');
 			$('#btn_go_to_search_db').find('span').text('검색DB 바로가기 ['+dbUrl+']');
+			$('#search_formula').val('');
+			var bool = $(this).val() == "13" ? true : false;
+			changeDivRadio(bool);
+		});
+		
+		$('#btn_apply').bind('click', function(event) {
+			event.preventDefault();
+			apply();
 		});
 		
 		$('#btn_copy_search_formula').zclip({ 
@@ -386,11 +458,6 @@ select {
 						<input id="text_search_formula" type="hidden" >			
 						<div class="searchexpression">
 							<p class="btoon"><button id="btn_create" type="button" class="btnSmall gray">검색식 생성</button></p>
-							
-							
-							
-							
-							
 							<div class="expressionBox">
 								<table style="width:100%;">
 									<colgroup>
@@ -406,8 +473,10 @@ select {
 													<span id="title">DB 종류</span>
 												</td>
 												<td style="padding-left:10px;width:70%;padding-right:10px;">
-													<select id="db_type">
+													<select id="db_type" class="w20">
 													</select>
+													<span id="div_radio">
+													</span>
 												</td>
 												<td style="padding-left:10px;width:17%;">
 												</td>
@@ -478,11 +547,6 @@ select {
 								</table>
 								<div class="btnRight"><a id="btn_add" href="#" class="btntype1"><span>추가</span></a></div>
 							</div>
-							
-							
-							
-							
-							
 							<div class="expressionBox">
 								<table style="width:100%;">
 									<tr>
@@ -502,6 +566,7 @@ select {
 								</table>	
 							</div>
 							<div class="btnArea right">
+								<a id="btn_apply" href="#" class="btntype2"><span>검색식 DB반영</span></a>
 								<a id="btn_copy_search_formula" href="#" class="btntype3"><span>복사</span></a>
 								<a id="btn_go_to_search_db" href="#" class="btntype1"><span>검색DB 바로가기</span></a>
 							</div>
