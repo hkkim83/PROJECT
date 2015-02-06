@@ -16,13 +16,6 @@
 }
 </style>
 
-<link rel="stylesheet" type="text/css" href="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/dhtmlxgrid.css">
-<link rel="stylesheet" type="text/css" href="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css">
-<script src="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
-<script src="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>
-<script src="/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
-<script src="/resources/js/dhtmlxGrid/dhtmlxDataProcessor/codebase/dhtmlxdataprocessor.js"></script>
-
 <script type="text/javascript">
 <!--
 //-->

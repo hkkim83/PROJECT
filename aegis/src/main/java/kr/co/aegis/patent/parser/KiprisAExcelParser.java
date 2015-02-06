@@ -20,7 +20,7 @@ public class KiprisAExcelParser extends ExcelParser {
 			String regiDate         = map.get("REGI_DATE");					// 등록일자
 			String applDate         = map.get("APPL_DATE");					// 출원일자
 			String laidPublicDate   = map.get("LAID_PUBLIC_DATE");			// 공개일자
-			String natlCode         = getNatlCode(map.get("NATL_CODE"));	// 국가코드
+			String natlCode         = getNatlCode(map.get("NATL_CODE"));		// 국가코드
 			String kindsIpType      = getKindsIpType(natlCode, applNum);		// 특실구분
 
 			// N01. 국가코드
@@ -38,15 +38,18 @@ public class KiprisAExcelParser extends ExcelParser {
 			// N07. 공개일
 			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
-			map.put("REG_NUM", getRegiNum(natlCode, regiNum, regiDate, laidPublicNum));
+			map.put("REGI_NUM", getRegiNum(natlCode, regiNum, regiDate, laidPublicNum));
 			// N11. 등록일
 			map.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
 			// N12. 출원인
 			map.put("APPLICANT", getApplicant(map.get("APPLICANT")));
 			// N22. IPC-ALL
 			map.put("IPC_ALL", getIpcAll(map.get("IPC_ALL")));
-			// 출원번호_원본(2014.03.08 추가)
-			map.put("APPL_NUM_ORG", applNum);				
+			
+			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
+			map.put("KIPRIS_APPL_NUM", null);
+			map.put("KIPRIS_OPEN_NUM", getKiprisLaidPublicNum(natlCode, laidPublicNum));
+			map.put("KIPRIS_REGI_NUM", getKiprisRegiNum(natlCode, regiNum));
 		}
 	}
 	
@@ -195,6 +198,25 @@ public class KiprisAExcelParser extends ExcelParser {
 	 */
 	private String getRegiNum(String natlCode, String regiNum, String regiDate, String laidPublicNum) {
 		String result = "";
+		if(StringUtil.isNull(regiNum)) return result;
+		if("CN".equals(natlCode)) {
+			result = StringUtil.lpad(regiNum, 9, "0");
+		} else if("US".equals(natlCode)) {
+			result = regiNum;
+		} else if("EP".equals(natlCode)) {
+			result = StringUtil.lpad(regiNum, 7, "0");
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 등록번호
+	 * @param regiNum
+	 * @return
+	 */
+	private String getRegiNum2(String natlCode, String regiNum, String regiDate, String laidPublicNum) {
+		String result = "";
 		if(!StringUtil.isNull(regiNum) && !regiNum.equals(laidPublicNum)) {
 			if("CN".equals(natlCode)) {
 				result = StringUtil.lpad(regiNum, 9, "0");
@@ -230,6 +252,43 @@ public class KiprisAExcelParser extends ExcelParser {
 		if(StringUtil.isNull(ipcAll)) {
 			String first = ipcAll.split(",")[0];
 			result = StringUtil.subStr(first, first.indexOf('(') > -1 ? first.indexOf('(') : first.length());
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * API호출을 위한 공개번호 만들기 
+	 * @param natlCode
+	 * @param applNum
+	 * @return
+	 */
+	private String getKiprisLaidPublicNum(String natlCode, String laidPublicNum) {
+		String result = null;
+		if(StringUtil.isNull(laidPublicNum)) return result;
+		
+		if("US".equals(natlCode) || "WO".equals(natlCode) || "CN".equals(natlCode)) {
+			result = laidPublicNum;
+		} else if("EP".equals(natlCode) || "JP".equals(natlCode)) {
+			result = StringUtil.lpad(laidPublicNum, 8, "0");
+		}
+		return result;
+	}
+	
+	/**
+	 * API호출을 위한 등록번호 만들기 
+	 * @param natlCode
+	 * @param applNum
+	 * @return
+	 */
+	private String getKiprisRegiNum(String natlCode, String regiNum) {
+		String result = null;
+		if(StringUtil.isNull(regiNum)) return result;
+		
+		if("CN".equals(natlCode)) {
+			result = regiNum;
+		} else if("EP".equals(natlCode) || "US".equals(natlCode) || "JP".equals(natlCode)) {
+			result = StringUtil.lpad(regiNum, 8, "0");
 		}
 		return result;
 	}

@@ -124,8 +124,10 @@ public class XSSExcel extends Excel{
 					default:
 						break;
 				}
-				if(cell.getColumnIndex() < 3) sb.append(value);
-				map.put(key, value);
+				if(cell.getColumnIndex() < 3) 
+					sb.append(value);
+				if(key != null)
+					map.put(key, value);
 			}
 			// 컬럼값이 존재하지 않으면 루프를 탈출한다.
 			if(StringUtil.isNull(sb.toString())) break;

@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,6 +16,8 @@ abstract public class PatentFilePath {
 	protected String _kiprisUrl;
 	protected String _defaultPath;
 	protected String _defaultTxtPath;
+	protected SOAPHeaderElement _soapId;
+	protected SOAPHeaderElement _soapKey;
 	/**
 	 * 생성자 호출
 	 * @param userId
@@ -23,11 +26,17 @@ abstract public class PatentFilePath {
 	 * @param defaultPath
 	 */
 	protected PatentFilePath(String userId, String userKey, String kiprisUrl, String defaultPath) {
-		this._userId      = userId;
-		this._userKey     = userKey;
-		this._kiprisUrl   = kiprisUrl;
-		this._defaultPath = defaultPath;
-		this._defaultTxtPath = "/process/error.do";
+		_userId      = userId;
+		_userKey     = userKey;
+		_kiprisUrl   = kiprisUrl;
+		_defaultPath = defaultPath;
+		_defaultTxtPath = "/process/error.do";
+		
+		_soapId = new SOAPHeaderElement(_kiprisUrl,"userId");
+		_soapId.setValue(_userId);
+		
+		_soapKey = new SOAPHeaderElement(_kiprisUrl,"userKey");
+		_soapKey.setValue(_userKey);
 	}
 	
 	/**
@@ -36,7 +45,7 @@ abstract public class PatentFilePath {
 	 * @return
 	 * @throws RemoteException
 	 */
-	abstract public void getFilePath(Map<String, String>map) throws RemoteException;
+	abstract public void getFilePath(Map<String, String>map);
 	
 	/**
 	 * 추가적인 정보 가져오기
@@ -44,15 +53,20 @@ abstract public class PatentFilePath {
 	 * @return
 	 * @throws RemoteException
 	 */
-	abstract public void getBibliography(Map<String, String>map) throws RemoteException;
+	abstract public void getBibliography(Map<String, String>map);
 	
 	/***
 	 * KIPRIS PLUS용 출원번호 가져오기
 	 * @param map
 	 * @throws RemoteException
 	 */
-	public void setApplNumOrg(Map<String, String>map) throws RemoteException{
-	};
+	abstract public void setApplNumOrg(Map<String, String>map);
 	
-	abstract public int getAdvancedSearch(Map<String, String>map, List<Map<String, String>> list) throws RemoteException;
+	/**
+	 * KIPRIS DB검색식으로 전체검색하기  
+	 * @param map
+	 * @param list
+	 * @return
+	 */
+	abstract public int getAdvancedSearch(Map<String, String>map, List<Map<String, String>> list);
 }

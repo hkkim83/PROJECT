@@ -380,8 +380,8 @@ a.btnData {display:inline-block; background:url(../images/common/bg_btn.gif) no-
 
 
 /*테이블_앵커버튼*/
-a.tb_btn {display:inline-block; float: right;background: linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 20px; font-weight: bold; color:#fff; font-size:14px;padding-top:3px; padding-left:6px; width:17px; height:19px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
-a.tb_btn span {display:inline-block; border-radius: 20px; line-height:230%; padding-right:10px; height:15px;overflow:hidden;}
+a.tb_btn {display:inline-block; float: right;background: linear-gradient(#ddd 0%, #ddd 40%, #aaa 100%) no-repeat right 0; border-radius: 3px; font-weight: bold; color:#fff; font-size:12px;padding-top:4px; padding-left:6px; width:14px; height:15px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
+a.tb_btn span {display:inline-block; line-height:230%; height:15px;overflow:hidden;}
 
 /*첨부파일*/
 div.imageup {display:inline-block; margin-top:10px; background: linear-gradient(#ea537a 0%, #ea537a 50%, #a02747 100%) no-repeat right 0; border-radius: 3px; border: double 1px #ea537a; font-weight: bold; padding-left:5px; height:20px;overflow:hidden; cursor:pointer;}

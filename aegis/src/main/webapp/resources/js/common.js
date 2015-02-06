@@ -174,14 +174,14 @@ var CommonGrid = function(gridName, arr) {
       v_sorting=v_sorting+cm+arr[i][5];
     }
 	
-    this.grid.setImagePath("/resources/js/dhtmlxGrid/dhtmlxGrid/codebase/imgs/");
+    this.grid.setImagePath("/resources/images/dhtmlxGrid/");
     this.grid.setHeader(v_header);		// 헤더설정
     this.grid.setColumnIds(v_Ids);		// 컬럼 ID 설정
 	this.grid.setInitWidths(v_width);	// 컬럼 너비 설정
 	this.grid.setColAlign(v_align);		// 컬럼 정렬 설정
-	this.grid.setColTypes(v_types); 	// 컬럼 타입 설정
+	this.grid.setColTypes(v_types); 		// 컬럼 타입 설정
 	this.grid.setColSorting(v_sorting);	// 컬럼 정렬여부
-    this.grid.setSkin("dhx_skyblue");	// skin 설정
+    this.grid.setSkin("dhx_skyblue");				// skin 설정
 	this.grid.enableEditEvents(true,false,false);  
     this.grid.init();
     

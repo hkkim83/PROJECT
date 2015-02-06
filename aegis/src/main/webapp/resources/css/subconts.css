@@ -52,7 +52,7 @@ Date : 2013-12-25
 .searchbody-1{width: 670px; height: auto; float: left; line-height: 130%; font-weight: bold;}
 
 /* 검색결과 상세 내용 */
-.finderDetail {clear:both; float: left; margin-top:20px;}
+.finderDetail {clear:both; float: left; margin-top:20px; width:100%;}
 .detailTop {padding:0 0 6px;overflow:hidden}
 .detailTop.tye2 {padding:0 0 12px;overflow:hidden}
 .detailTop dt {float:left;vertical-align:middle}

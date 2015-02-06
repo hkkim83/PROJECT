@@ -22,8 +22,8 @@ public class FocustExcelParser extends ExcelParser {
 			String regiDate         = map.get("REGI_DATE");				// 등록일자
 			String applDate         = map.get("APPL_DATE");				// 출원일자
 			String laidPublicDate   = map.get("LAID_PUBLIC_DATE");		// 공개일자
-			String noticePublicDate = map.get("NOTICE_PUBLIC_DATE");	// 공고일자(업로드데이터)
-			String natlCode         = getNatlCode(applNum);					// 국가코드
+			String noticePublicDate = map.get("NOTICE_PUBLIC_DATE");		// 공고일자(업로드데이터)
+			String natlCode         = getNatlCode(applNum);				// 국가코드
 			String kindsIpType      = getKindsIpType(natlCode, applNum);	// 특실구분
 			
 			// N01. 국가코드
@@ -41,7 +41,7 @@ public class FocustExcelParser extends ExcelParser {
 			// N07. 공개일
 			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
-			map.put("REG_NUM", getRegiNum(natlCode, regiNum));
+			map.put("REGI_NUM", getRegiNum(natlCode, regiNum));
 			// N11. 등록일
 			map.put("REGI_DATE", getRegiDate(natlCode, regiDate, noticePublicDate));
 			// N12. 출원인
@@ -58,8 +58,11 @@ public class FocustExcelParser extends ExcelParser {
 			map.put("FC_FE_NUM", replaceString(map.get("FC_FE_NUM"), ",","|"));		
 			// N18. INPADOC 패밀리
 			map.put("FM_NUM", replaceString(map.get("FM_NUM"), ",","|"));	
-			// 출원번호_원본(2014.03.08 추가)
-			map.put("APPL_NUM_ORG", getApplNumOrg(natlCode, applNum, kindsIpType));	
+			
+			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
+			map.put("KIPRIS_APPL_NUM", getKiprisApplNum(natlCode, applNum, kindsIpType));
+			map.put("KIPRIS_OPEN_NUM", getKiprisOpenNum(natlCode, laidPublicNum));
+			map.put("KIPRIS_REGI_NUM", getKiprisRegiNum(natlCode, regiNum));
 		}
 	}
 	
@@ -315,25 +318,90 @@ public class FocustExcelParser extends ExcelParser {
 		return StringUtil.isNull(result) ? result : result.replaceAll("[.]", "-");
 	}
 	
-	
 	/**
-	 * 출원번호 원본
+	 * API호출을 위한 출원번호 만들기 
 	 * @param natlCode
 	 * @param applNum
 	 * @return
 	 */
-	private String getApplNumOrg(String natlCode, String applNum, String kindsIpType) {
-		String result = "";
-		
-		if(StringUtil.isNull(applNum) && !"KR".equals(natlCode)) {
-			result = applNum;
-		} else {
+	private String getKiprisApplNum(String natlCode, String applNum, String kindsIpType) {
+		String result = null;
+		if(StringUtil.isNull(applNum)) return result;
+		if("KR".equals(natlCode)) {
 			String newApplNum = applNum.replaceAll("[A-z]", "");	// 영문삭제후 숫자만 남은 출원번호
-			if(kindsIpType.equals("P"))
+			if("P".equals(kindsIpType))
 				result = "10"+newApplNum;
 			else
-				result = "20"+newApplNum;
+				result = "20"+newApplNum;			
+		} else if("WO".equals(natlCode)) {			
+			String[] str = applNum.split("[A-z]{2}");
+			String natl = applNum.substring(6, 8);				// 중간에 국가 가져오기 
+			result = "PCT/"+natl+str[1]+"/"+str[2];
 		}
+		return result;
+	}
+	
+	
+	/**
+	 * API호출을 위한 공개번호 만들기 
+	 * @param natlCode
+	 * @param applNum
+	 * @return
+	 */
+	private String getKiprisOpenNum(String natlCode, String laidPublicNum) {
+		String result = null;
+		if(StringUtil.isNull(laidPublicNum)) return result;
+		String newLaidPublicNum = laidPublicNum.substring(2, laidPublicNum.length());		// 국가코드 삭제후 숫자만 남은 공개번호
+		
+		if("CN".equals(natlCode)) {
+			result = newLaidPublicNum;
+		} else if("EP".equals(natlCode) || "US".equals(natlCode)) {
+			result = StringUtil.subStr(newLaidPublicNum, newLaidPublicNum.length()-2);	// 뒤 2자리 자르기 
+		} else if("JP".equals(natlCode)) {
+			result = laidPublicNum.replaceAll("[A-z]", "");	// 영문삭제후 숫자만 남은 공개번호
+			String year = StringUtil.subStr(result, 4);
+			int iYY = Integer.parseInt(year);			
+			if(result.length() == 10) {
+				if(iYY <= 1988) {	// 1988년 이하일 경우 
+					iYY -= 1925;
+					
+				} else {				// 1988년 초과일 경우 
+					iYY -= 1988;
+				}
+				year = StringUtil.lpad(String.valueOf(iYY), 2, "0");
+				result = year + StringUtil.subStr(result, -6);
+			} 
+			
+			if(laidPublicNum.startsWith("JPWO")) {
+				year = StringUtil.subStr(result, 2);
+				iYY = Integer.parseInt(year);				
+				if(iYY < 60) {	// 60미만일 경우 20을 추가  
+					result = "WO20" + result;
+				} else {				// 60이상일 경우 19를 추가 
+					result = "WO19" + result;
+				}
+			}
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * API호출을 위한 등록번호 만들기 
+	 * @param natlCode
+	 * @param applNum
+	 * @return
+	 */
+	private String getKiprisRegiNum(String natlCode, String regiNum) {
+		String result = null;
+		if(StringUtil.isNull(regiNum)) return result;
+		String newRegiNum = regiNum.substring(2, regiNum.length());		// 국가코드 삭제후 숫자만 남은 공개번호
+		if("JP".equals(natlCode)) {
+			result = StringUtil.subStr(newRegiNum, newRegiNum.length()-2);	// 뒤 2자리 자르기 
+			result = StringUtil.lpad(result, 8, "0");
+		} else if("US".equals(natlCode)) {
+			result = StringUtil.lpad(newRegiNum, 8, "0");
+		} 
 		return result;
 	}
 }

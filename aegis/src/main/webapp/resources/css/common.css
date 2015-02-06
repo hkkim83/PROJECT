@@ -137,7 +137,7 @@ p.txt {line-height:16px;padding:0 0 10px;}
  	}
 #smart_finder span.btn_search button {width: 107px;height: 21px;text-indent: -9999px;}
 .sfinder_open {position: relative;width: 980px;height: 30px;margin: 0 auto;padding: 0;
-	background:#d3e9b6 url(/resources/images/common/bg_finder.gif) no-repeat 0 0;/* z-index: 99; */}
+	background:#d3e9b6;/* z-index: 99; */}
 /* 스마트검색 버튼 이미지변경으로 수정 by lhy 2013.08.06 */
 .sfinder_open .sfinder_txt{  display: block;width: 400px;height: 30px;margin: 0 auto;text-align: center;}
 .sfinder_btn_left { /* 스마트 파인더 왼쪽 버튼 추가 by lhy 2013.08.06 */
@@ -233,7 +233,7 @@ color: #304c9b;text-decoration: underline;font-size: 0.9em;letter-spacing: -1px;
 
 /* table style */
 .bbsContes {clear:both;width:100%;}
-.tbl_bbs1 {clear:both;height:650px;overflow-x: scroll;overflow-y:scroll;white-space:nowrap;}
+.tbl_bbs1 {clear:both;overflow-x: scroll;white-space:nowrap;}
 .tbl_bbs1 table {width:100%;border-top:1px solid #908c88}
 .tbl_bbs1 table th, .tbl_bbs1 table td {font-size:11px;line-height:13px;}
 .tbl_bbs1 table th {padding:8px 3px;overflow:hidden;text-align:center;background:#f5feea;border-left:1px solid #f2f2f2;border-bottom:1px solid #f2f2f2;vertical-align:middle;letter-spacing:-1px;color:#222}
@@ -387,8 +387,8 @@ a.btnData {display:inline-block; background:url(/resources/images/common/bg_btn.
 
 
 /*테이블_앵커버튼*/
-a.tb_btn {display:inline-block; float: right;background: linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 20px; font-weight: bold; color:#fff; font-size:14px;padding-top:3px; padding-left:6px; width:17px; height:19px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
-a.tb_btn span {display:inline-block; border-radius: 20px; line-height:230%; padding-right:10px; height:15px;overflow:hidden;}
+a.tb_btn {display:inline-block; float: right;background: linear-gradient(#ddd 0%, #ddd 40%, #aaa 100%) no-repeat right 0; border-radius: 3px; font-weight: bold; color:#fff; font-size:12px;padding-top:4px; padding-left:6px; width:14px; height:15px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
+a.tb_btn span {display:inline-block; line-height:230%; height:15px;overflow:hidden;}
 
 /*첨부파일*/
 div.imageup {display:inline-block; margin-top:10px; background: linear-gradient(#ea537a 0%, #ea537a 50%, #a02747 100%) no-repeat right 0; border-radius: 3px; border: double 1px #ea537a; font-weight: bold; padding-left:5px; height:20px;overflow:hidden; cursor:pointer;}

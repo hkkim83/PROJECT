@@ -78,8 +78,8 @@ public class Header {
 		private static final long serialVersionUID = 1L;
 		{
 			put("국가", "NATL_CODE");				put("출원번호", "APPL_NUM");				put("출원일자", "APPL_DATE");	
-			put("공개번호", "LAID_PUBLIC_NUM");	put("공개일자", "LAID_PUBLIC_DATE");		put("공보번호", "REGI_NUM");	
-			put("공보일자", "REGI_DATE");			put("발명의명칭", "TITLE");					put("초록", "ABSTRACT");	
+			put("공개번호", "LAID_PUBLIC_NUM");	put("공개일자", "LAID_PUBLIC_DATE");		put("등록번호", "REGI_NUM");	
+			put("등록일자", "REGI_DATE");			put("발명의명칭", "TITLE");					put("초록", "ABSTRACT");	
 			put("청구항", "CLAIM_MAIN");			put("출원인", "APPLICANT");				put("발명자/고안자", "INVENTOR");		
 			put("IPC분류", "IPC_ALL");			put("우선권정보", "PRIORITY_NUM");			put("DOCDB 패밀리정보", "INVENTOR");	
 		}

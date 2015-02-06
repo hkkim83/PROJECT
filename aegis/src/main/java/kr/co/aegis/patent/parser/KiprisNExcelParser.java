@@ -38,7 +38,7 @@ public class KiprisNExcelParser extends ExcelParser {
 			// N07. 공개일
 			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
-			map.put("REG_NUM", getRegiNum(regiNum));
+			map.put("REGI_NUM", getRegiNum(regiNum));
 			// N11. 등록일
 			map.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
 			// N12. 출원인
@@ -48,8 +48,10 @@ public class KiprisNExcelParser extends ExcelParser {
 			// N23. 대표청구항
 			map.put("CLAIM_MAIN", getClaimMain(map.get("CLAIM_MAIN")));
 			
-			// 출원번호_원본(2014.03.17추가)
-			map.put("APPL_NUM_ORG", replaceString(applNum, "-", ""));
+			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
+			map.put("KIPRIS_APPL_NUM", replaceString(applNum, "-", ""));
+			map.put("KIPRIS_OPEN_NUM", null);
+			map.put("KIPRIS_REGI_NUM", null);
 		}
 	}
 	

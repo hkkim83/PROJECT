@@ -14,7 +14,11 @@ import kr.co.aegis.util.StringUtil;
 
 public class ExcelParser {
 	protected final Log logger = LogFactory.getLog(this.getClass());
-		
+	
+	/**
+	 * 
+	 * @param list
+	 */
 	public void parse(List<Map<String, String>> list) {}
 
 	protected String replaceString(String str, String regex, String replacement) {
@@ -32,6 +36,7 @@ public class ExcelParser {
 		for(Map<String, String> map : list) {
 			applNum = map.get("APPL_NUM");
 			if(applNum.equals(oldApplNum)) {
+				logger.info("deleteDuplication::::::"+oldApplNum+","+applNum);
 				map.put("status", "delete");
 			}
 			applNum = oldApplNum;
@@ -59,7 +64,7 @@ public class ExcelParser {
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 */
-	public void getPatentFilePath(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+	public void getPatentFilePath(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
 		
 		PatentFilePath pfp = null;
 		int index = 0;
@@ -67,19 +72,9 @@ public class ExcelParser {
 			if(index++%20 == 19) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
-			
-			if("KR".equals(map.get("NATL_CODE"))) {
-				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getFilePath(map);
-			} else if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("NATL_CODE")) || "JP".equals(map.get("NATL_CODE"))) {
-				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getFilePath(map);
-			} else {
-				// 그외 국가는 기본값으로 전문, 대표도면 값 설정
-				map.put("PATENT_FULLTXT", "/process/error.do");
-				map.put("IMAGE_MAIN"    , defaultPath);
-				map.put("IMAGE_SMALL"   , defaultPath);
-			}
+			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			pfp.getFilePath(map);
+			logger.info("getPatentFilePath::::\n"+map);
 		}
 	}
 	
@@ -94,7 +89,7 @@ public class ExcelParser {
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 */
-	public void getBibliography(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+	public void getBibliography(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
 		
 		PatentFilePath pfp = null;
 		int index = 0;
@@ -102,14 +97,8 @@ public class ExcelParser {
 			if(index++%20 == 19) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
-			
-			if("KR".equals(map.get("NATL_CODE"))) {
-				pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getBibliography(map);
-			} else if("EP".equals(map.get("NATL_CODE")) || "US".equals(map.get("NATL_CODE")) || "WO".equals(map.get("NATL_CODE")) || "JP".equals(map.get("NATL_CODE"))) {
-				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.getBibliography(map);
-			}
+			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			pfp.getBibliography(map);
 		}
 	}
 	
@@ -125,7 +114,7 @@ public class ExcelParser {
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 */
-	public void setApplNumOrg(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+	public void setApplNumOrg(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
 		logger.info("setApplNumOrg:::::::::::::::::::::::::::::::::::");
 		PatentFilePath pfp = null;
 		int index = 0;
@@ -133,11 +122,10 @@ public class ExcelParser {
 			if(index++%20 == 19) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
+			logger.info("1111111:::::"+index+","+map.get("NATL_CODE"));
+			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			pfp.setApplNumOrg(map);
 			logger.info(map);
-			if(!"KR".equals(map.get("NATL_CODE")) && !"CN".equals(map.get("NATL_CODE"))) {
-				pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-				pfp.setApplNumOrg(map);
-			}
 		}
 	}
 	
@@ -152,16 +140,39 @@ public class ExcelParser {
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 */
-	public int getAdvancedSearch(List<Map<String, String>> list, Map<String, String> map, String userId, String userKey, String kiprisUrl, String defaultPath) throws RemoteException, InterruptedException {
+	public void getAdvancedSearch(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
+		logger.info("getAdvancedSearch:::::::::::::::::::::::::::::::::::");
+		PatentFilePath pfp = null;
+		int index = 0;
+		int cnt = 0;
+		for(Map<String, String> map : list) {
+			if(index++%20 == 19) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}
+			logger.info("1111111:::::"+index+","+map.get("NATL_CODE"));
+			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			cnt = pfp.getAdvancedSearch(map, null);
+			logger.info("count::::::"+cnt);
+		}
+	}
+	
+	/**
+	 * kipris에서 출원번호원본 가져오기
+	 * @param list
+	 * @param userId
+	 * @param userKey
+	 * @param kiprisUrl
+	 * @param defaultPath
+	 * @return
+	 * @throws RemoteException
+	 * @throws InterruptedException
+	 */
+	public int getAdvancedSearch(List<Map<String, String>> list, Map<String, String> map, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
 		logger.info("getAdvancedSearch:::::::::::::::::::::::::::::::::::");
 		PatentFilePath pfp = null;
 		int cnt = 0;
 		parseFormular(map);
-		if("KR".equals(map.get("NATL_CODE")))
-			pfp = new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-		else
-			pfp = new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
-		
+		pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
 		cnt = pfp.getAdvancedSearch(map, list);
 		logger.info("count::::::"+cnt);
 		return cnt;

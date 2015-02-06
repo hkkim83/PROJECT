@@ -456,9 +456,11 @@ public class ProcessController extends BaseController {
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		
 		ExcelParser parser  = new ExcelParser();
-		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
+//		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
 		
-		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
+//		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
+		
+		parser.getAdvancedSearch(list, userId, userKey, kiprisUrl, defaultPath);
 		
 		// 3. 데이터 insert(patent)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 

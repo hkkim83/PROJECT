@@ -18,12 +18,12 @@ public class AA {
 		//[도메인/openapi/rest/서비스명/오퍼레이션명]으로 구성.
 		// String apiUrl = "http://plus.kipris.or.kr/openapi/rest/ForeignPatentBibliographicService/bibliographicInfo";
 		// String apiUrl = "http://kipo-api.kipi.or.kr/openapi/service/patUtiModInfoSearchSevice/getBibliographySumryInfoSearch?applicationNumber=1020050050026&accessKey=pkUQM5e0Bwlpk/v7gM9ngP9LYOPcQMKFepkKNpFb1EE=";
-		String apiUrl = "http://plus.kipris.or.kr/openapi/rest/ForeignPatentBibliographicService/bibliographicInfo?literatureNumber=000005640865A1&countryCode=US&accessKey=pkUQM5e0Bwlpk/v7gM9ngP9LYOPcQMKFepkKNpFb1EE=";
+		String apiUrl = "http://plus.kipris.or.kr/openapi/rest/ForeignPatentBibliographicService/bibliographicInfo?literatureNumber=201210040148A0&countryCode=CN&accessKey=pkUQM5e0Bwlpk/v7gM9ngP9LYOPcQMKFepkKNpFb1EE=";
 		//해당 상품 승인 접근키. 회원가입 후 자동발급되며 마이페이지에서 확인 가능.
 		String accessKey = "pkUQM5e0Bwlpk/v7gM9ngP9LYOPcQMKFepkKNpFb1EE=";
 		//입력값 문헌번호 & 국가코드
-		String literatureNumber = "198100001145A1";
-		String countryCode = "WO";
+		String literatureNumber = "201210040148A0";
+		String countryCode = "CN";
 		
 		// apiUrl += "?accessKey="+accessKey+"&literatureNumber="+literatureNumber+"&countryCode="+countryCode;
 		

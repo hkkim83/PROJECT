@@ -46,9 +46,9 @@
 	
 	// 중분류 리스트 가져오기
 	var makeTable = function(mcate1, mcate2) {
-		var colgroup = "<colgroup><col width='10%'/>";
 		trCnt = mcate1.length+2;
 		tdCnt = mcate2.length+2;
+ 		var colgroup = "<colgroup><col width='10%'/>";
 		for(var i=0; i<tdCnt-1; i++) {
 			colgroup += "<col width='"+90/(tdCnt-1)+"%'/>";
 		}
@@ -57,16 +57,16 @@
 		
 		for(var i=0; i<trCnt; i++) {
 			if(i == 0) 
-				$('#tbl_matrix').append('<thead><tr title="patent"></tr><tr></tr></thead>');				
+				$('#tbl_matrix').append('<thead><tr name="patent"></tr><tr></tr></thead>');				
 			else
-				$('#tbl_matrix').append('<tr title="patent"></tr>').append('<tr></tr>');
+				$('#tbl_matrix').append('<tr name="patent"></tr>').append('<tr></tr>');
 			
 			var $tr1 = $('#tbl_matrix tr').eq(2*i);
 			var $tr2 = $('#tbl_matrix tr').eq(2*i+1);
 			for(var j=0; j<tdCnt; j++) {
 				if(i== 0) {
 					if(j == 0) {
-						$tr1.append('<th class="th_border_x"><p>중분류</p></th>');
+						$tr1.append('<th class="th_border_x"><p>&nbsp;&nbsp;&nbsp;&nbsp;중분류&nbsp;&nbsp;&nbsp;&nbsp;</p></th>');
 					} else if(j == (tdCnt-1)) {
 						$tr1.append('<th class="th_border_x" name="미분류1"><p>미분류</p></th>');
 					} else {
@@ -94,14 +94,14 @@
 					}
 					
 					$tr1.append('<td class="td_border_x"></td>');
-					$tr2.append('<td><a href="/keyPatent/view.do?lcate1='+lcategory1+'&lcate2='+lcategory2+'&mcate1='+mcategory1+'&mcate2='+mcategory2+'" class="tb_btn"><span><i class="fa fa-arrow-right"></i></span></a></td>');
+					$tr2.append('<td><a href="/keyPatent/view.do?lcate1='+lcategory1+'&lcate2='+lcategory2+'&mcate1='+mcategory1+'&mcate2='+mcategory2+'" class="tb_btn" title="핵심특허검색바로가기"><span><i class="fa fa-arrow-right"></i></span></a></td>');
 				}
 			}
 		}
 		
 	};
 	
-	var lenArr = [0, 0, 0, 0, 28, 28, 28, 28, 28];	// td개수에 따른 출원인 글자수
+	var lenArr = [0, 0, 0, 0, 7, 28, 28, 28, 28];	// td개수에 따른 출원인 글자수
 	var idx = 0;
 	// 테이블 데이터 채우기
 	var setData = function($tr, index, applNum, applicant, patentId, grade) {
@@ -193,7 +193,7 @@
 	// 데이터 직렬화
 	var serialize = function() {
 		var data = new Array();
-		$('#tbl_matrix tr[title=patent]').each(function() {
+		$('#tbl_matrix tr[name=patent]').each(function() {
 			var object = new Object();
 			var nodes = $(this).children();	
 			nodes.each(function(index) {

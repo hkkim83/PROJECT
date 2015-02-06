@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AGEIS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" /> 
+<meta name="subject" content="AGEIS 특허분석시스템" />
+<meta name="keywords" content="AGEIS 특허분석시스템" />
+<meta name="description" content="AGEIS 특허분석시스템" /> 
+<meta name="language" content="ko" /> 
+<link type="text/css" rel="stylesheet" href="../css/style.css" /> 
+<link type="text/css" rel="stylesheet" href="../css/dhtmlxgrid.css" /> 
+<link type="text/css" rel="stylesheet" href="../css/dhtmlxgrid_dhx_skyblue.css" /> 
+<!--[if lte IE 7]><link	rel="stylesheet" href="../css/ie7.css" type="text/css" media="all"><![endif]-->
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/smartFinder.js"></script>
+<script type="text/javascript" src="../js/dhtmlxGrid/dhtmlxcommon.js"></script>
+<script type="text/javascript" src="../js/dhtmlxGrid/dhtmlxgrid.js"></script>
+<script type="text/javascript" src="../js/dhtmlxGrid/dhtmlxgridcell.js"></script>
+<script type="text/javascript" src="../js/dhtmlxGrid/dhtmlxgrid_selection.js"></script>
+<script type="text/javascript" src="../js/dhtmlxGrid/dhtmlxgrid_nxml.js"></script>
+</head>
+<script>
+	function doOnLoad(){
+		mygrid = new dhtmlXGridObject('gridbox1');
+		mygrid.setImagePath("../images/dhtmlxGrid/");
+		mygrid.setHeader("Sales Dynamic,Title,Description,Price,In Store,Shipping,Date of Publication");
+		mygrid.setInitWidths("120,150,*,50,80,80,150")
+		mygrid.setColAlign("right,left,left,right,center,right,center")
+		mygrid.setColTypes("dyn,ed,txt,price,ch,coro,ro");
+		mygrid.setColSorting("int,str,str,int,str,str,na")
+		mygrid.getCombo(5).put(1,"1 hour");
+		mygrid.getCombo(5).put(12,"12 hours");
+		mygrid.getCombo(5).put(24,"24 hours");    
+		mygrid.getCombo(5).put(48,"2 Days");    
+		mygrid.setSkin("dhx_skyblue");
+		mygrid.init();
+		mygrid.loadXML("grid_big_18_styles_skins.xml");
+
+		mygrid = new dhtmlXGridObject('gridbox2');
+		mygrid.setImagePath("../images/dhtmlxGrid/");
+		mygrid.setHeader("Sales Dynamic,Title,Description,Price,In Store,Shipping,Date of Publication");
+		mygrid.setInitWidths("120,150,*,50,80,80,150")
+		mygrid.setColAlign("right,left,left,right,center,right,center")
+		mygrid.setColTypes("dyn,ed,txt,price,ch,coro,ro");
+		mygrid.setColSorting("int,str,str,int,str,str,na")
+		mygrid.getCombo(5).put(1,"1 hour");
+		mygrid.getCombo(5).put(12,"12 hours");
+		mygrid.getCombo(5).put(24,"24 hours");    
+		mygrid.getCombo(5).put(48,"2 Days");    
+		mygrid.setSkin("xp");
+		mygrid.init();
+		mygrid.loadXML("grid_big_18_styles_skins.xml");
+	}
+</script>
+<body onload="doOnLoad()">
+<!-- skipToContent -->
+<div id="skipToContent"> 
+   <a href="#container">메인콘텐츠 바로가기</a> 
+</div>
+<!-- //skipToContent -->
+
+<div id="wrap"> 
+    <!-- header -->
+    <div id="header">
+		<%@include file="/include/header.jsp"%> 
+    </div>
+    <!-- //header -->  
+            
+    <!-- container -->
+    <div id="container"> 
+        <!-- contents -->
+		<div id="contents">
+			<div class="contsMiddle">
+
+				<!-- contents body -->
+				<div class="contBody">
+
+					<!-- title/location -->
+					<div class="hgroup">
+						<h3><img src="../images/common/h3_02_4.png" alt="OS 관리"></h3>
+						<div class="localtion">
+							<ul>
+								<li><a href="./index.html">홈</a></li>
+								<li><a href="">데이터가공</a></li>
+								<li><a href=""><strong>OS 관리</strong></a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- // title/location -->
+					
+					<!-- 검색 결과  -->
+					<div id="gridbox1" style="width:100%;height:400px;background-color:white;"></div>
+					<h4 class="mt20">분류 대상</h4>
+					<div class="expression">
+						<p class="right">
+							<button type="button" class="btnSmall green">선택 출원인 대표명 일괄입력</button>
+							<input type="text" value="대표명 입력 칸" title="대표명 입력 칸" class="w30" />
+							<a href="#" class="btnSmall write">입력</a>
+							<button type="button" class="btnSmall gray">DB 반영</button>
+						</p>
+					</div>
+					<div id="gridbox2" style="width:100%;height:400px;background-color:white;"></div>
+						
+					<!-- //검색결과 -->
+					
+				</div>
+				<!-- //contents body -->
+
+			</div>
+		</div>
+        <!-- //contents --> 
+    </div>
+	<!-- //container -->
+    
+	<!-- footer -->
+    <div id="footer"> 
+		<%@include file="/include/footer.jsp"%> 
+	</div>
+    <!-- //footer -->
+	
+</div><!-- //wrap -->
+</body>
+</html>

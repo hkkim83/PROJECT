@@ -32,6 +32,8 @@
 		});
 		
 		var strSrc = $('#'+menuId+' img').attr('src');
+		if(strSrc == undefined) return;
+		console.log(strSrc);
 		strSrc = strSrc.replace('_off', '_on');
 		$('#'+menuId+' img').attr('src', strSrc);
 		$('#tb_sub_'+menuId).show();
