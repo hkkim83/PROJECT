@@ -181,7 +181,8 @@ var CommonGrid = function(gridName, arr) {
 	this.grid.setColAlign(v_align);		// 컬럼 정렬 설정
 	this.grid.setColTypes(v_types); 		// 컬럼 타입 설정
 	this.grid.setColSorting(v_sorting);	// 컬럼 정렬여부
-    this.grid.setSkin("dhx_skyblue");				// skin 설정
+    this.grid.setSkin("dhx_skyblue");	// skin 설정
+    this.grid.enableMultiline(true);
 	this.grid.enableEditEvents(true,false,false);  
     this.grid.init();
     

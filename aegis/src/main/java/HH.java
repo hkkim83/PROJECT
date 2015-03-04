@@ -29,8 +29,8 @@ public class HH {
 			_soapKey.setValue(_userKey);
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
-			FpatBeanItem fpatBean = new FpatBeanItem();		
-			fpatBean.setInventionName("Automated image duplicating apparatus");						// 전체
+//			FpatBeanItem fpatBean = new FpatBeanItem();		
+//			fpatBean.setInventionName("camera*video");						// 전체
 //			fpatBean.setInventionName("Automated image duplicating apparatus");						// 발명의 명칭
 //			fpatBean.setAbstracts(map.get("ABSTRACT"));						// 요약 
 //			fpatBean.setClaimExtend(map.get("CLAIM_MAIN"));					// 대표청구항 
@@ -47,12 +47,17 @@ public class HH {
 //			fpatBean.setPriorityNo(map.get("PRIORITY_NUM"));					// 우선권번호 
 //			fpatBean.setPriorityDate(map.get("PRIORITY_DATE"));				// 우선권주장일
 //			fpatBean.setFi(map.get("FI_CODE_JP"));							// FI 
-			fpatBean.setCollectionValues("US,JP,CN,EP,WO*"); 				// 국가 
-			
-			SearchResultArray bean = stub.advancedSearch(fpatBean);
+//			fpatBean.setCollectionValues("US,JP,CN,EP,WO"); 				// 국가 
+//			fpatBean.setCurrentPage("3");
+			//fpatBean.setDocsCount("100");
+//			SearchResultArray bean = stub.advancedSearch(fpatBean);
+			String str = "(TL=[(imag+video+camera)]+AB=[(object+target+body)]+CL=[(track+tracking+system)])*(security+watch)";
+			SearchResultArray bean = stub.freeSearch(str, "US,JP,EP,WO,CN", "3", "15", "", "");
 			SearchResult[] arrays = bean.getSearchTestResult();
+			for(int i=0; i<arrays.length; i++)
+				System.out.println(i+"::::"+arrays[i].getInventionName()+","+arrays[i].getApplicationNo());
 			totalSearchCount = Integer.parseInt(bean.getTotalSearchCount());
-			System.out.println(totalSearchCount);
+			System.out.println("totalSearchCount:::::"+totalSearchCount);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

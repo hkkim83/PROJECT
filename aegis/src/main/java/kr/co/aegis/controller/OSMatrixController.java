@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.view.JsonModelAndView;
-import kr.co.aegis.patent.excel.Excel;
+import kr.co.aegis.patent2.excel.Excel;
 import kr.co.aegis.service.PatentService;
 
 import org.codehaus.jackson.JsonParseException;
@@ -91,7 +91,7 @@ public class OSMatrixController extends BaseController {
 		
 		// 출원인대표명 완료 목록 조회
 		List<Map<String, String>> list = super.getListFromJson(data);
-		Excel excel = new Excel();
+		Excel excel = new Excel(null);
 		String fileName = "OSMatrix";
 		fileName = excel.writeExcelForOSMatrix(familyDir, fileName, list);
 		modelAndView.addObject("FILE_PATH", familyDir+"/"+fileName);

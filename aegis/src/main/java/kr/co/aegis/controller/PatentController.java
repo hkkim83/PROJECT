@@ -16,8 +16,8 @@ import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.view.JsonModelAndView;
 import kr.co.aegis.dto.User;
 import kr.co.aegis.paging.PagingHelper;
-import kr.co.aegis.patent.excel.Excel;
-import kr.co.aegis.patent.pdf.PDF;
+import kr.co.aegis.patent2.excel.Excel;
+import kr.co.aegis.patent2.pdf.PDF;
 import kr.co.aegis.service.CategoryService;
 import kr.co.aegis.service.PatentService;
 import kr.co.aegis.service.ProjectService;
@@ -457,9 +457,9 @@ public class PatentController extends BaseController {
 		if("pdf".equals(docType)) 				// PDF다운
 			fileName = new PDF().writePdfForPatentList(patentDir, fileName, list);
 		else if("excel".equals(docType)) 		// 엑셀다운
-			fileName = new Excel().writeExcelForPatentList(patentDir, fileName, list);
+			fileName = new Excel(null).writeExcelForPatentList(patentDir, fileName, list);
 		else if("excelAll".equals(docType)) 	// 전체필드다운
-			fileName = new Excel().writeExcelForPatentListAll(patentDir, fileName+"All", list);
+			fileName = new Excel(null).writeExcelForPatentListAll(patentDir, fileName+"All", list);
 		modelAndView.addObject("FILE_PATH", patentDir+"/"+fileName);
 		modelAndView.addObject("FILE_NAME", fileName);
 		modelAndView.success();
@@ -483,7 +483,7 @@ public class PatentController extends BaseController {
 		Map<String, Object> param = list.get(0);
 		Map<String, String> map = patentService.selectPatentDtl(param);
 		// 출원인대표명 완료 목록 조회
-		Excel excel = new Excel();
+		Excel excel = new Excel(null);
 		String fileName = "patentDetail";
 		fileName = excel.writeExcelForPatentDtl(patentDir, imageDir, fileName, map);
 		modelAndView.addObject("FILE_PATH", patentDir+"/"+fileName);

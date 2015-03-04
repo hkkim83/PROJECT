@@ -34,49 +34,20 @@ public class GG {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
 			
-			CategorySearchQuery categorySearchQuery = new CategorySearchQuery();
-//			categorySearchQuery.setInventionTitle("VOLTAGE SURGE AND OVERVOLTAGE PROTECTION");						// 발명의 명칭
-//			categorySearchQuery.setAstrtCont(map.get("ABSTRACT"));						// 요약 
-//			categorySearchQuery.setClaimScope(map.get("CLAIM_MAIN"));						// 대표청구항 
-//			categorySearchQuery.setIpcNumber("H04N");						// IPC
-//			categorySearchQuery.setApplicant(map.get("APPLICANT"));						// 출원인 
-//			categorySearchQuery.setInventors(map.get("INVENTOR"));						// 발명자
-//			categorySearchQuery.setAgent(map.get("AGENT"));								// 대리인
-//			categorySearchQuery.setApplicationNumber(map.get("APPL_NUM"));				// 출원번호 
-//			categorySearchQuery.setApplicationDate(map.get("APPL_DATE"));					// 출원일 
-//			categorySearchQuery.setOpenNumber(map.get("OPEN_NUM"));						// 공개번호 
-//			categorySearchQuery.setOpenDate(map.get("OPEN_DATE"));						// 공개일 
-//			categorySearchQuery.setPublicationNumber(map.get("LAID_PUBLIC_NUM"));			// 공고번호
-//			categorySearchQuery.setPublicationDate(map.get("LAID_PUBLIC_DATE"));			// 공고일  
-//			categorySearchQuery.setRegisterNumber(map.get("REGI_NUM"));					// 등록번호
-//			categorySearchQuery.setRegisterDate(map.get("REGI_DATE"));					// 등록일 
-//			categorySearchQuery.setPriorityApplicationNumber(map.get("PRIORITY_NUM"));	// 우선권번호 
-//			categorySearchQuery.setPriorityApplicationDate(map.get("PRIORITY_DATE"));		// 우선권주장일 
-//			categorySearchQuery.setPatent(true);
-//			categorySearchQuery.setUtility(true);
-			
-			AdvancedSearchArray bean = stub.advancedSearch(categorySearchQuery, null, null, null, null);
+//			CategorySearchQuery categorySearchQuery = new CategorySearchQuery();
+//			categorySearchQuery.setInventionTitle("비디오*video");						// 발명의 명칭
+//			categorySearchQuery.setApplicationDate("20130101~20131231");
+			String str = "(video+camera)*AB=[object+target+body+대상+목표+타켓+물체]";
+//			AdvancedSearchArray bean = stub.advancedSearch(categorySearchQuery, 0, 6000, "", null);
+			AdvancedSearchArray bean = stub.freeSearch(str, 2, 30, true, true, "", "", true);
 			System.out.println(bean);
 			AdvancedSearch[] arrays = bean.getAdvancedSearch();
+			int i = 0;
+			for(AdvancedSearch a : arrays) {
+				System.out.println((++i)+":::::"+a.getInventionTitle());
+			}
 			totalSearchCount = bean.getTotalSearchCount();
-			System.out.println(totalSearchCount);
-//			for(AdvancedSearch arr : arrays) {
-//				Map<String, String> tempMap = new HashMap<String, String>();
-//				tempMap.put("APPL_NUM_ORG", arr.getApplicationNumber());			// 문헌번호  	
-//				tempMap.put("TITLE", arr.getInventionTitle());					// 발명의명칭 
-//				tempMap.put("IPC_ALL", arr.getIpcNumber());						// IPC
-//				tempMap.put("REGI_NUM", arr.getRegisterNumber());				// 등록번호 	
-//				tempMap.put("REGI_DATE", arr.getRegisterDate());					// 등록일 
-//				tempMap.put("APPL_NUM", arr.getApplicationNumber());				// 출원번호 	
-//				tempMap.put("APPL_DATE", arr.getApplicationDate());				// 출원일 	
-//				tempMap.put("OPEN_NUM", arr.getOpenNumber());					// 공개번호 
-//				tempMap.put("OPEN_DATE", arr.getOpenDate());						// 공개일 
-//				tempMap.put("LAID_PUBLIC_NUM", arr.getPublicationNumber());		// 공고번호 	
-//				tempMap.put("LAID_PUBLIC_DATE", arr.getPublicationDate());		// 공고일 
-//				tempMap.put("ABSTRACT", arr.getAstrtCont());						// 요약 
-//				tempMap.put("APPLICANT", arr.getApplicantName());				// 출원인 
-//				list.add(tempMap);
-//			}
+			System.out.println("totalSearchCount:::::"+totalSearchCount);
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		} 

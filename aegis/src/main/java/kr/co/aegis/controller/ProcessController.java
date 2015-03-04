@@ -18,21 +18,21 @@ import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.properties.Message;
 import kr.co.aegis.core.view.JsonModelAndView;
 import kr.co.aegis.dto.User;
-import kr.co.aegis.patent.excel2.Excel;
-import kr.co.aegis.patent.excel2.HSSExcel;
-import kr.co.aegis.patent.excel2.XSSExcel;
-import kr.co.aegis.patent.header.ExcelHeader;
-import kr.co.aegis.patent.kipris.KrPatentFilePath;
-import kr.co.aegis.patent.kipris.OthPatentFilePath;
-import kr.co.aegis.patent.kipris.PatentFilePath;
-import kr.co.aegis.patent.legal.JpLegalStatus;
-import kr.co.aegis.patent.legal.KrLegalStatus;
-import kr.co.aegis.patent.legal.LegalStatus;
-import kr.co.aegis.patent.parser.ExcelParser;
-import kr.co.aegis.patent.parser.FocustExcelParser;
-import kr.co.aegis.patent.parser.KiprisAExcelParser;
-import kr.co.aegis.patent.parser.KiprisNExcelParser;
-import kr.co.aegis.patent.parser.WipsonExcelParser;
+import kr.co.aegis.patent2.excel.Excel;
+import kr.co.aegis.patent2.excel.HSSExcel;
+import kr.co.aegis.patent2.excel.XSSExcel;
+import kr.co.aegis.patent2.header.ExcelHeader;
+import kr.co.aegis.patent2.kipris.KrPatentFilePath;
+import kr.co.aegis.patent2.kipris.OthPatentFilePath;
+import kr.co.aegis.patent2.kipris.PatentFilePath;
+import kr.co.aegis.patent2.legal.JpLegalStatus;
+import kr.co.aegis.patent2.legal.KrLegalStatus;
+import kr.co.aegis.patent2.legal.LegalStatus;
+import kr.co.aegis.patent2.parser.ExcelParser;
+import kr.co.aegis.patent2.parser.FocustExcelParser;
+import kr.co.aegis.patent2.parser.KiprisAExcelParser;
+import kr.co.aegis.patent2.parser.KiprisNExcelParser;
+import kr.co.aegis.patent2.parser.WipsonExcelParser;
 import kr.co.aegis.service.PatentService;
 import kr.co.aegis.service.UserService;
 import kr.co.aegis.util.FileUtil;
@@ -456,11 +456,8 @@ public class ProcessController extends BaseController {
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		
 		ExcelParser parser  = new ExcelParser();
-//		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
-		
-//		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
-		
-		parser.getAdvancedSearch(list, userId, userKey, kiprisUrl, defaultPath);
+		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
+		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
 		
 		// 3. 데이터 insert(patent)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 

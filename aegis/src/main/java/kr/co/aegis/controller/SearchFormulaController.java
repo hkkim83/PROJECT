@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.aegis.base.BaseController;
-import kr.co.aegis.patent.parser.ExcelParser;
+import kr.co.aegis.core.view.JsonModelAndView;
+import kr.co.aegis.patent2.parser.ExcelParser;
 import kr.co.aegis.service.SearchFormulaService;
 
 import org.codehaus.jackson.JsonParseException;
@@ -26,11 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/searchFormula")
 public class SearchFormulaController extends BaseController {
-	@Value("${upload.dir}") private String uploadDir;
-	@Value("${kipris.plus.userId}") private String userId;
-	@Value("${kipris.plus.userKey}") private String userKey;
-	@Value("${kipris.plus.url}") private String kiprisUrl;
-	@Value("${kipris.plus.path}") private String defaultPath;
+	@Value("${upload.dir}") private String _uploadDir;
+	@Value("${kipris.plus.userId}") private String _userId;
+	@Value("${kipris.plus.userKey}") private String _userKey;
+	@Value("${kipris.plus.url}") private String _kiprisUrl;
+	@Value("${kipris.plus.path}") private String _defaultPath;
 	
 	private SearchFormulaService searchFormulaService;
 
@@ -200,6 +201,32 @@ public class SearchFormulaController extends BaseController {
 		return modelAndView;
 	}
 	
+	/**
+	 * 검색식 건수 체크 
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws InterruptedException 
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/getTotalCount.do")
+	public ModelAndView getTotalCount(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws JsonParseException, JsonMappingException, IOException, InterruptedException {
+		JsonModelAndView modelAndView = new JsonModelAndView();
+		String data = request.getParameter("DATA");
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> map = objectMapper.readValue(data, HashMap.class);
+        ExcelParser parser = new ExcelParser();
+        int count = parser.getTotalCount(map, _userId, _userKey, _kiprisUrl, _defaultPath);
+        logger.info("Controller::::::"+count);
+        modelAndView.addObject("COUNT", count);
+		modelAndView.success();
+		return modelAndView;
+	}	
 
 	/**
 	 * 검색식 DB반영 
@@ -215,7 +242,7 @@ public class SearchFormulaController extends BaseController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/apply.do")
 	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws JsonParseException, JsonMappingException, IOException, InterruptedException {
-		
+		JsonModelAndView modelAndView = new JsonModelAndView();
 		String userId = super.getLoginId(session);
 		String data = request.getParameter("DATA");
 		
@@ -224,12 +251,10 @@ public class SearchFormulaController extends BaseController {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         logger.info("map:::::"+map);
         ExcelParser parser = new ExcelParser();
-        int cnt = parser.getAdvancedSearch(list, map, userId, userKey, kiprisUrl, defaultPath);
-        logger.info("Controller::::::"+cnt);
-        
-        //searchFormulaService.registry(map, userId);
-        
-		ModelAndView modelAndView = new ModelAndView("jsonView");
+        parser.getAdvancedSearch(list, map, _userId, _userKey, _kiprisUrl, _defaultPath);
+        logger.info("list::::::::::::::::::::::::::");
+        logger.info(list);
+		modelAndView.success();
 		return modelAndView;
 	}
 }

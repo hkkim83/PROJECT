@@ -89,10 +89,12 @@ select {
 		
 		var oSearchFormulaGenerator = new SearchFormulaGenerator();
 		var searchFormula = oSearchFormulaGenerator.generate(arrKeyword, $('#db_type').val());
-		$('#search_formula').val(searchFormula);
+		var searchFormulaArr = searchFormula.split(",");
+		$('#search_formula').val(searchFormulaArr[0]);
 		
 		$('#text_db_type_cd').val($('#db_type').val());
-		$('#text_search_formula').val(searchFormula);
+		$('#text_search_formula').val(searchFormulaArr[0]);
+		$('#text_search_formula_kp').val(searchFormulaArr[1]);
 	};
 	
 	
@@ -313,14 +315,37 @@ select {
 		}
 	};
 	
+	// 검색될 데이터 갯수 검사 
+	var getTotalCount = function(data) {
+		var count = 0;
+		var data = 'DATA=' + Common.stringify(data);		
+		$.ajax({
+			  url: '/searchFormula/getTotalCount.do'
+			, data : data
+			, type: 'POST'
+			, async: false
+			, success: function(data){
+				if(data.RESULT_CD == 'SUCC_0001')
+					count = data.COUNT;
+			}
+		});	
+		return count;	
+	};
+	
 	// 검색식 DB반영
 	var apply = function(){
 		
-		var content = $('#text_search_formula').val();
+		var content = $('#search_formula').val();
 		if(content.trim() == ''){
 			alert('생성된 검색식이 없습니다.');
 			return;
 		}
+		
+		var content = $('#text_search_formula_kp').val();
+		if(content.trim() == ''){
+			alert('DB에 반영할 검색식이 없습니다.\n반영필드:전체,발명의 명칭,요약,대표 청구항,IPC,출원인,발명자');
+			return;
+		}		
 
 		var data = new Object();
 		data.DB_TYPE_CD = $('#text_db_type_cd').val();
@@ -338,10 +363,13 @@ select {
 			return;
 		}
 		
+		var cnt = getTotalCount(data);
+
 		if(!confirm('검색식을 DB에 반영하시겠습니까?')){
 			return;
 		}
 		
+		data.COUNT = cnt;
 		var data = 'DATA=' + Common.stringify(data);
 		$.ajax({
 			  url: '/searchFormula/apply.do'
@@ -349,7 +377,7 @@ select {
 			, type: 'POST'
 			, async: false
 			, success: function(data){
-				alert('처리되었습니다.');
+				alert(data.RESULT_MSG);
 			}
 		});			
 	};
@@ -455,7 +483,8 @@ select {
 							<a id="btn_save" href="#" class="btntype5"><span>신규저장</span></a>
 						</div>
 						<input id="text_db_type_cd" type="hidden" >
-						<input id="text_search_formula" type="hidden" >			
+						<input id="text_search_formula" type="hidden" >	
+						<input id="text_search_formula_kp" type="hidden"/>		
 						<div class="searchexpression">
 							<p class="btoon"><button id="btn_create" type="button" class="btnSmall gray">검색식 생성</button></p>
 							<div class="expressionBox">

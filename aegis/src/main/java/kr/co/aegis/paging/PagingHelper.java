@@ -2,7 +2,7 @@ package kr.co.aegis.paging;
 
 import java.util.Map;
 
-import kr.co.aegis.patent.header.PatentHeader;
+import kr.co.aegis.patent2.header.PatentHeader;
 import kr.co.aegis.util.StringUtil;
 
 public class PagingHelper {

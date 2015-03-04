@@ -5,10 +5,10 @@ var SearchFormula = function(){
 	// 분석
 	//
 	this.parse = function(srcSource){
-
+		console.log(1);
 		var parser = new SearchFormulaParser();
 		var dbTypeCd = parser.checkDbType(srcSource);
-
+		console.log("dbTypeCod ::: "+dbTypeCd);
 		switch(dbTypeCd){
 		case SearchFormula.DB_TYPE_WIPSON :
 			parser = new WipsonParser();
@@ -21,9 +21,11 @@ var SearchFormula = function(){
 			break;
 		}
 
+		console.log(2);
 		var strTarget = srcSource;
 		strTarget = parser.removeUselessParenthesis(strTarget);
 		var arrKeyword = parser.parse(strTarget);
+		console.log(3);
 		
 		var mapResult = new Object();
 		mapResult['dbTypeCd'] = dbTypeCd;
@@ -168,11 +170,20 @@ var SearchFormulaGenerator = function(){
 			return keyword;
 		};
 		
+		// 발명의 명칭, 요약, 대표청구항은 연산자를 or로 추가한다.
+		var orSearchKeyword = function(oResult) {
+			if(oKeyword['field'].match(/01|02|03/)) {	// 발명의 명칭, 요약, 대표청구항인 경우
+				orSearchString += oKeyword['keyword'] + mapConjunction['OR'][this.dbType];
+			}
+		}
+		
 		
 		//===================================//
 		//              처리시작             //
 		//===================================//
-		var arrResult = new Array();
+		var arrResult   = new Array();
+		var arrResultOr = new Array();
+		var arrResultKp = new Array();
 		for(var i=0; i<arrKeyword.length; i++){
 			var oKeyword = arrKeyword[i];
 			
@@ -193,21 +204,65 @@ var SearchFormulaGenerator = function(){
 			var oResult = new Object();
 			oResult['keyword'] = keyword;
 			oResult['field'] = oKeyword['field'];
-			arrResult.push(oResult);
+			console.log("oKeyword['field']::::"+oKeyword['field']);
+			if(oKeyword['fieldCode'].match(/01|02|03/)) {	// 발명의 명칭, 요약, 대표청구항인 경우 OR로 결합한다.
+				arrResultOr.push(oResult);				
+			} else {
+				if(oKeyword['fieldCode'].match(/00|04|05|06/)) {	// 전체, IPC, 발명자, 출원원은 키프리스 검색식에 사용한다.
+					arrResultKp.push(oResult);		
+				}
+				arrResult.push(oResult);				
+			}
 		}
 		
+		// 발명의 명칭, 요약, 대표청구항인 경우 OR로 연결 
+		var searchFormulaOr = '';
+		for(var i=0; i<arrResultOr.length; i++){
+			console.log(":::::arrResultOr:::::");
+			console.log(arrResultOr[i])
+			var oResult = arrResultOr[i];
+			if(oResult['keyword'] != '()'){
+				if(i != 0){
+					searchFormulaOr += mapConjunction['OR'][dbType];
+				} 
+				searchFormulaOr += oResult['keyword'];
+			}
+		}
+		searchFormulaOr = arrResultOr.length < 2 ? searchFormulaOr : '('+searchFormulaOr+')';
+		
+		// 그외 필드인 경우에는 AND로 연결 
 		var searchFormula = '';
 		for(var i=0; i<arrResult.length; i++){
+			console.log(":::::arrResult:::::");
+			console.log(arrResult[i])
 			var oResult = arrResult[i];
 			if(oResult['keyword'] != '()'){
 				if(i != 0){
 					searchFormula += mapConjunction['AND'][dbType];
-				}
+				} 
 				searchFormula += oResult['keyword'];
 			}
 		}
+		if(searchFormulaOr != '')
+			searchFormula += mapConjunction['AND'][dbType] + searchFormulaOr;
+
+		// 키프리스를 위한 검색식 만들기  
+		var searchFormulaKp = '';
+		for(var i=0; i<arrResultKp.length; i++){
+			console.log(":::::arrResult:::::");
+			console.log(arrResultKp[i])
+			var oResult = arrResultKp[i];
+			if(oResult['keyword'] != '()'){
+				if(i != 0){
+					searchFormulaKp += mapConjunction['AND'][dbType];
+				} 
+				searchFormulaKp += oResult['keyword'];
+			}
+		}
+		if(searchFormulaOr != '')
+			searchFormulaKp += mapConjunction['AND'][dbType] + searchFormulaOr;
 		
-		return searchFormula;		
+		return searchFormula+","+searchFormulaKp;
 	};
 	
 	

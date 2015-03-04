@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.view.JsonModelAndView;
 import kr.co.aegis.dto.User;
-import kr.co.aegis.patent.excel.Excel;
+import kr.co.aegis.patent2.excel.Excel;
 import kr.co.aegis.service.PatentService;
 import kr.co.aegis.util.StringUtil;
 
@@ -114,7 +114,7 @@ public class OmissionController extends BaseController {
 		param.put("PROJECT_ID", projectId);
 		// 1. 연번부여를 위해 정렬을 한 리스트 조회
 		List<Map<String, String>> list = patentService.selectOmissionTempList(param);
-		Excel excel = new Excel();
+		Excel excel = new Excel(null);
 		String fileName = "특허문헌누락DB";
 		String colList[] = {"FM_NUM:패밀리문헌번호", "FC_FE_NUM:Forward문헌번호", "BC_BE_NUM:Backward문헌번호"};
 		fileName = excel.writeExcelForFamily(familyDir, fileName, list, colList);
@@ -143,7 +143,7 @@ public class OmissionController extends BaseController {
 		
 		// 1. 연번부여를 위해 정렬을 한 리스트 조회
 		List<Map<String, String>> list = patentService.selectOmissionTempList(param);
-		Excel excel = new Excel();
+		Excel excel = new Excel(null);
 		String fileName = title+"누락DB";
 		String colList[] = {colName+":"+title+"문헌번호"};
 		fileName = excel.writeExcelForFamily(familyDir, fileName, list, colList);
