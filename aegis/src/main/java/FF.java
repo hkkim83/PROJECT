@@ -29,7 +29,7 @@ public class FF {
 		stub.setHeader(_soapKey);
 		
 		String applNum  = null;
-		String natlCode = "JP";
+		String natlCode = "EP";
 		String regiNum  = null;
 		String openNum  = "2012108156";
 		

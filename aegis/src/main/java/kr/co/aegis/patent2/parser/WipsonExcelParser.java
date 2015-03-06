@@ -44,7 +44,7 @@ public class WipsonExcelParser extends ExcelParser {
 	private String getKiprisApplNum(String natlCode, String applNum, String kindsIpType) {
 		String result = null;
 		if(StringUtil.isNull(applNum)) return result;
-		String newApplNum = applNum.replaceAll("-", "");	// '-' 삭제후 숫자만 남은 출원번호
+		String newApplNum = StringUtil.replaceString(applNum,"-", "");	// '-' 삭제후 숫자만 남은 출원번호
 		if("KR".equals(natlCode)) {
 			if("P".equals(kindsIpType))
 				result = "10"+newApplNum;
@@ -60,6 +60,8 @@ public class WipsonExcelParser extends ExcelParser {
 			}
 			year = StringUtil.lpad(String.valueOf(iYY), 2, "0");
 			result = year + StringUtil.subStr(newApplNum, -6);	// 뒤 6자리 
+		} else {
+			result = newApplNum;
 		}
 		return result;
 	}
@@ -73,17 +75,15 @@ public class WipsonExcelParser extends ExcelParser {
 	 */
 	private String getKiprisOpenNum(String natlCode, String laidPublicNum) {
 		String result = null;
-		String newLaidPublicNum = laidPublicNum.replaceAll("-", "");		// 하이픈 제거 후 공개번호
+		String newLaidPublicNum = StringUtil.replaceString(laidPublicNum,"-", "");		// 하이픈 제거 후 공개번호
 		if(StringUtil.isNull(laidPublicNum)) return result;
 		
 		if("CN".equals(natlCode)) {
 			result = new DecimalFormat("0").format(new BigDecimal(laidPublicNum));		// 앞자리 '0' 없애기  
-		} else if("US".equals(natlCode)) {
-			result = newLaidPublicNum;	
 		} else if("WO".equals(natlCode)) {
 			result = newLaidPublicNum.substring(2, newLaidPublicNum.length());	// 앞 2자리 삭제 
-		} else if("EP".equals(natlCode)) {
-			result = StringUtil.lpad(laidPublicNum, 8, "0");
+		} else {
+			result = StringUtil.lpad(newLaidPublicNum, 8, "0");
 		}
 		return result;
 	}
@@ -97,15 +97,13 @@ public class WipsonExcelParser extends ExcelParser {
 	 */
 	private String getKiprisRegiNum(String natlCode, String regiNum) {
 		String result = null;
-		String newRegiNum = regiNum.replaceAll("-", "");		// 하이픈 제거 후 등록번호 
+		String newRegiNum = StringUtil.replaceString(regiNum,"-", "");		// 하이픈 제거 후 등록번호 
 		if(StringUtil.isNull(regiNum)) return result;
 		
 		if("CN".equals(natlCode)) {
 			result = new DecimalFormat("0").format(new BigDecimal(regiNum));		// 앞자리 '0' 없애기  
-		} else if("US".equals(natlCode)) {
-			result = newRegiNum;
-		} else if("EP".equals(natlCode) || "JP".equals(natlCode)) {
-			result = StringUtil.lpad(regiNum, 8, "0");
+		} else {
+			result = StringUtil.lpad(newRegiNum, 8, "0");
 		}
 		return result;
 	}
