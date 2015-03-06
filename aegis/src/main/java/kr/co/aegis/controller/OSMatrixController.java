@@ -91,7 +91,7 @@ public class OSMatrixController extends BaseController {
 		
 		// 출원인대표명 완료 목록 조회
 		List<Map<String, String>> list = super.getListFromJson(data);
-		Excel excel = new Excel(null);
+		Excel excel = new Excel("/");
 		String fileName = "OSMatrix";
 		fileName = excel.writeExcelForOSMatrix(familyDir, fileName, list);
 		modelAndView.addObject("FILE_PATH", familyDir+"/"+fileName);

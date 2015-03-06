@@ -171,7 +171,7 @@
 						<li><a id="menu01" href="/searchFormula/view.do"><img src="/resources/images/main/main_nav_01_off.png" alt="검색식" /></a></li>
 	<% if(user != null && "1".equals(user.getProjectAuth())){ %>
 						<li><a id="menu02" href="#"><img src="/resources/images/main/main_nav_02_off.png" alt="데이터가공" /></a>
-							<ul id="tb_sub_menu02">
+							<ul id="tb_sub_menu02" style="display:none">
 								<li><a href="/process/view.do">일괄자동등록</a></li>
 								<li><a href="/applicant/view.do">대표명화관리</a></li>
 								<li><a href="/omission/view.do">특허문헌 누락처리</a></li>
@@ -181,14 +181,14 @@
 						</li>
 	<%}%>
 						<li><a id="menu03" href="#"><img src="/resources/images/main/main_nav_03_off.png" alt="데이터분석" /></a>
-							<ul id="tb_sub_menu03">
+							<ul id="tb_sub_menu03" style="display:none">
 								<li><a href="/patent/view.do">특허검색</a></li>
 								<li><a href="/OSMatrix/view.do">OS Matrix</a></li>
 								<li><a href="/keyPatent/view.do">핵심특허분석</a></li>
 							</ul>							
 						</li>
 						<li><a id="menu04" href="#"><img src="/resources/images/main/main_nav_04_off.png" alt="그래프분석" /></a>
-							<ul id="tb_sub_menu04">
+							<ul id="tb_sub_menu04" style="display:none">
 								<li><a href="/graph/yearView.do">국가별연도별분석</a></li>
 								<li><a href="/graph/gradeView.do">국가별등급별분석</a></li>
 								<li><a href="/graph/applView.do">출원인별등급별분석</a></li>
