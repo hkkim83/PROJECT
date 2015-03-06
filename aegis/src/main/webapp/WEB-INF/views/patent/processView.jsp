@@ -129,7 +129,7 @@
 	
 	// 패밀리 체크
 	var setFmSeqNum = function() {
-		var strParam = "PROJECT_ID="+projectId;
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=TRUE";
 		$.ajax({
 			url : '/process/setFmSeqNum.do',
 			data : strParam,
@@ -155,7 +155,7 @@
 
 	// 대표명화
 	var setApplicantRename = function() {
-		var strParam = "PROJECT_ID="+projectId;
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=TRUE";
 		$.ajax({
 			url : '/process/setApplicantRename.do',
 			data : strParam,
@@ -177,7 +177,7 @@
 
 	// 연번부여
 	var setSeqNum = function() {
-		var strParam = "PROJECT_ID="+projectId;
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=TRUE";
 		$.ajax({
 			url : '/process/setSeqNum.do',
 			data : strParam,
@@ -200,7 +200,7 @@
 
 	// 서지정보 가져오기
 	var getKiprisData = function() {
-		var strParam = "PROJECT_ID="+projectId;
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=TRUE";
 		$.ajax({
 			url : '/process/getKiprisData.do',
 			data : strParam,
@@ -224,7 +224,7 @@
 
 	// DB 중복제거
 	var deleteDuplication = function() {
-		var strParam = "PROJECT_ID="+projectId;
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=TRUE";
 		$.ajax({
 			url : '/process/deleteDuplication.do',
 			data : strParam,
@@ -341,6 +341,7 @@
 			contentType : false,
 			beforeSend : function() {
 				var fileName = $('#fileName').val();
+				if(fileName == "") return false;
 				var index = fileName.lastIndexOf(".");
 				var ext = fileName.substring(index + 1, fileName.length);
 				if (!(ext == "xls" || ext == "xlsx" || ext == "xlsm")) {
@@ -351,7 +352,6 @@
 			success : function(data) {
 				if (data.RESULT_CD == "SUCC_0001") {
 					uploadCompleted(data.FILE_INFO);
-					$('#db_type option:eq(0)').attr("selected", "selected");
 				} else {
 					alert(data.RESULT_MSG);
 				}
@@ -359,6 +359,19 @@
 		});
 	};
 
+	var checkDB = function() {
+		var dbType = $('#db_type').val();
+		var ret = true;
+		$('#fileList span').each(function() {
+			var str = $(this).text();
+			var code = str.substring(0,2);
+			if(dbType != code) 
+				ret = false;
+		});
+		return ret;
+	};
+	
+	
 	$(document).ready(function() {
 
 		$baseInfo = $('li[title=fileInfo]').remove();
@@ -370,12 +383,16 @@
 
 		getFileList();
 
-		Common.setCommonCodeCombo('01', $('#db_type'), "DB종류");
+		Common.setCommonCodeCombo('28', $('#db_type'), "DB종류");
 		
 		$('#file').bind('click', function() {
 			if($('#db_type').val() == null || $('#db_type').val() == "") {
-				alert("먼저 업로드할 DB종류를 선택하세요");
+				alert("먼저 업로드할 DB종류를 선택하세요.");
 				$('#db_type').focus();
+				return false;
+			}
+			if(!checkDB()) {
+				alert("일괄등록은 같은 종류의 DB만 처리 가능합니다.");
 				return false;
 			}
 		});

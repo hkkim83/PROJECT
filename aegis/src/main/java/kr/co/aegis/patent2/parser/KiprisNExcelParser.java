@@ -32,16 +32,16 @@ public class KiprisNExcelParser extends ExcelParser {
 			// N03. 특허/실용 구분
 			map.put("KINDS_IP_TYPE", kindsIpType);
 			// N05. 출원일
-			map.put("APPL_DATE", replaceString(applDate, "[.]", ""));
+			map.put("APPL_DATE", StringUtil.replaceString(applDate, "[.]", ""));
 			// N07. 공개일
-			map.put("OPEN_DATE", replaceString(openDate, "[.]", ""));
+			map.put("OPEN_DATE", StringUtil.replaceString(openDate, "[.]", ""));
 			// N05. 공고일
-			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
+			map.put("LAID_PUBLIC_DATE", StringUtil.replaceString(laidPublicDate, "[.]", ""));
 			// N11. 등록일
-			map.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
+			map.put("REGI_DATE", StringUtil.replaceString(regiDate, "[.]", ""));
 			
 			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
-			map.put("KIPRIS_APPL_NUM", replaceString(applNum, "-", ""));
+			map.put("KIPRIS_APPL_NUM", StringUtil.replaceString(applNum, "-", ""));
 			map.put("KIPRIS_OPEN_NUM", null);
 			map.put("KIPRIS_REGI_NUM", null);
 		}

@@ -431,7 +431,7 @@
 									<col width="5%" />
 									<col width="4%" />
 									<col width="4%" />
-									<col width="10%" />
+									<col width="12%" />
 									<col width="9%" />
 									<col width="*" />
 									<col width="4%" />

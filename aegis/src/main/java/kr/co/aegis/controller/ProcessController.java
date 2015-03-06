@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.HTMLEditorKit.Parser;
 
 import kr.co.aegis.base.BaseController;
 import kr.co.aegis.core.properties.Message;
@@ -22,9 +21,6 @@ import kr.co.aegis.patent2.excel.Excel;
 import kr.co.aegis.patent2.excel.HSSExcel;
 import kr.co.aegis.patent2.excel.XSSExcel;
 import kr.co.aegis.patent2.header.ExcelHeader;
-import kr.co.aegis.patent2.kipris.KrPatentFilePath;
-import kr.co.aegis.patent2.kipris.OthPatentFilePath;
-import kr.co.aegis.patent2.kipris.PatentFilePath;
 import kr.co.aegis.patent2.legal.JpLegalStatus;
 import kr.co.aegis.patent2.legal.KrLegalStatus;
 import kr.co.aegis.patent2.legal.LegalStatus;
@@ -442,7 +438,7 @@ public class ProcessController extends BaseController {
 	 */
 	
 	@RequestMapping(value = "/getKiprisData.do")
-	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
+	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, @RequestParam("IS_FILE") String isFile, HttpSession session) throws IOException, InterruptedException
 	{	
 		logger.info("getKiprisDatagetKiprisDatagetKiprisDatagetKiprisDatagetKiprisData");
 		JsonModelAndView modelAndView = new JsonModelAndView();
@@ -456,8 +452,9 @@ public class ProcessController extends BaseController {
 		List<Map<String, String>> list = patentService.selectPatentTempList(param);
 		
 		ExcelParser parser  = new ExcelParser();
-		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);
-		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);
+		parser.getPatentFilePath(list, userId, userKey, kiprisUrl, defaultPath);	// 도면,전문 정보 가져오기 
+		parser.getBibliography(list, userId, userKey, kiprisUrl, defaultPath);		// 서지정보 가져오기 
+		parser.getFamilyInfo(list, userId, userKey, kiprisUrl, defaultPath); 		// 패밀리정보 가져오기 
 		
 		// 3. 데이터 insert(patent)
 		Map<String, Object> saveMap = new HashMap<String, Object>(); 
@@ -474,9 +471,10 @@ public class ProcessController extends BaseController {
 		user.setPoint(userMap.get("POINT"));
 		
 		// 폴더 삭제
-		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
-		FileUtils.deleteDirectory(new File(svrfilePath));
-		
+		if("TRUE".equals(isFile)) {
+			String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
+			FileUtils.deleteDirectory(new File(svrfilePath));
+		}
 		modelAndView.success();
 		return modelAndView;		
 	}

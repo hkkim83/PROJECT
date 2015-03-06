@@ -240,6 +240,23 @@ public class StringUtil {
 			result = subStr(str, str.length()+endIndex, str.length());
 		return result;
 	}
+
+	
+	/**
+	 * 글자열 자르기
+	 * @param str
+	 * @param endIndex
+	 * @return
+	 */
+	public static String subStr2(String str, int endIndex) {
+		String result = "";
+		if(isNull(str)) return result;		
+		if(endIndex > -1)
+			result = subStr(str, 0, endIndex);
+		else 
+			result = subStr(str, 0, str.length()+endIndex);
+		return result;
+	}
 	
 	/**
 	 * 우선번호, 우선권국가, 우선권적용일 파싱
@@ -341,5 +358,18 @@ public class StringUtil {
 	 */
 	public static String uncomma(String data) {
 		return data.replaceAll("\\,", "");
+	}
+	
+	/**
+	 * 문자교체 
+	 * @param str
+	 * @param regex
+	 * @param replacement
+	 * @return
+	 */
+	public static String replaceString(String str, String regex, String replacement) {
+		if(isNull(str)) return "";
+		String[] arr = str.split("\\s");
+		return isNull(arr[0]) ? "" : arr[0].replaceAll(regex, replacement);
 	}
 }

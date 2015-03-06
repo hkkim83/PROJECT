@@ -39,8 +39,10 @@ public class DD {
 		stub.setHeader(_soapId);
 		stub.setHeader(_soapKey);
 		
-		String applNum  = "201210040148A0";
-		String natlCode = "CP";
+//		String applNum  = "000006176986B1";
+//		String natlCode = "US";
+		String applNum  = "200200007321A1";
+		String natlCode = "WO";		
 //		String applNum  = "201300223310A0";
 //		String natlCode = "PJ";		
 		try {
@@ -54,12 +56,13 @@ public class DD {
 			
 //			
 //			// ipc정보
-//			IpcInfo[] ipcInfos = (IpcInfo[])stub.ipcInfo(applNum, natlCode);
-//			parser.setIpcInfo(ipcInfos);
+			IpcInfo[] ipcInfos = (IpcInfo[])stub.ipcInfo(applNum, natlCode);
+			parser.setIpcInfo(ipcInfos);
+			
 ////			// 초록
-//			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
-//			parser.setSummation(summations);
-//			System.out.println("summations1::::"+summations.length);
+			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
+			parser.setSummation(summations);
+			System.out.println("summations1::::"+summations.length);
 //
 //			// 청구항
 			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);
@@ -67,16 +70,16 @@ public class DD {
 			System.out.println("demandParagraphInfos::::"+demandParagraphInfos.length);
 //			
 //			// 출원인정보
-//			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
-//			parser.setApplicantInfo(applicantInfos);
+			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
+			parser.setApplicantInfo(applicantInfos);
 //			
 //			// 발명자정보
-//			InventorsInfo[] inventorInfos = (InventorsInfo[])stub.inventorsInfo(applNum, natlCode);
-//			parser.setInventorsInfo(inventorInfos);
+			InventorsInfo[] inventorInfos = (InventorsInfo[])stub.inventorsInfo(applNum, natlCode);
+			parser.setInventorsInfo(inventorInfos);
 //			
 //			// 우선권정보
-//			PriorityNumberDateInfo[] priorityInfos = (PriorityNumberDateInfo[])stub.priorityNumberDateInfo(applNum, natlCode);
-//			parser.setPriorityNumberDateInfo(priorityInfos);
+			PriorityNumberDateInfo[] priorityInfos = (PriorityNumberDateInfo[])stub.priorityNumberDateInfo(applNum, natlCode);
+			parser.setPriorityNumberDateInfo(priorityInfos);
 //			
 //			// f-term정보
 //			FtermInfo[] ftermInfos = (FtermInfo[])stub.ftermInfo(applNum, natlCode);
@@ -87,16 +90,16 @@ public class DD {
 //			parser.setFiInfo(fiInfos);
 //			
 //			// upc정보
-//			UpcInfo[] upcInfos = (UpcInfo[])stub.upcInfo(applNum, natlCode);
-//			parser.setUpcInfo(upcInfos);
+			UpcInfo[] upcInfos = (UpcInfo[])stub.upcInfo(applNum, natlCode);
+			parser.setUpcInfo(upcInfos);
 //			
 //			// cpc정보 
-//			CpcInfo[] cpcInfos = (CpcInfo[])stub.cpcInfo(applNum, natlCode);
-//			parser.setCpcInfo(cpcInfos);
+			CpcInfo[] cpcInfos = (CpcInfo[])stub.cpcInfo(applNum, natlCode);
+			parser.setCpcInfo(cpcInfos);
 
 			// epc정보 
-//			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
-//			parser.setEclaInfo(eclaInfos);
+			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
+			parser.setEclaInfo(eclaInfos);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

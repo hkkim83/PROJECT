@@ -42,11 +42,11 @@ public class FocustExcelParser extends ExcelParser {
 			// N04. 출원번호
 			map.put("APPL_NUM", getApplNum(natlCode, applNum, applDate));
 			// N05. 출원일
-			map.put("APPL_DATE", replaceString(applDate,"[.]", ""));
+			map.put("APPL_DATE", StringUtil.replaceString(applDate,"[.]", ""));
 			// N06. 공개번호
 			map.put("LAID_PUBLIC_NUM", getLaidPublicNum(natlCode, laidPublicNum, laidPublicDate));
 			// N07. 공개일
-			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
+			map.put("LAID_PUBLIC_DATE", StringUtil.replaceString(laidPublicDate, "[.]", ""));
 			// N10. 등록번호
 			map.put("REG_NUM", getRegiNum(natlCode, regiNum));
 			// N11. 등록일
@@ -60,11 +60,11 @@ public class FocustExcelParser extends ExcelParser {
 			// N15. 우선권일자
 			map.put("PRIORITY_DATE", getPriorityDate(priorityNum));
 			// N16. 자국인용특허
-			map.put("BC_BE_NUM", replaceString(map.get("BC_BE_NUM"), ",","|"));			
+			map.put("BC_BE_NUM", StringUtil.replaceString(map.get("BC_BE_NUM"), ",","|"));			
 			// N17. 자국피인용특허
-			map.put("FC_FE_NUM", replaceString(map.get("FC_FE_NUM"), ",","|"));		
+			map.put("FC_FE_NUM", StringUtil.replaceString(map.get("FC_FE_NUM"), ",","|"));		
 			// N18. INPADOC 패밀리
-			map.put("FM_NUM", replaceString(map.get("FM_NUM"), ",","|"));	
+			map.put("FM_NUM", StringUtil.replaceString(map.get("FM_NUM"), ",","|"));	
 			// 출원번호_원본(2014.03.08 추가)
 			map.put("APPL_NUM_ORG", getApplNumOrg(natlCode, applNum, kindsIpType));	
 		}

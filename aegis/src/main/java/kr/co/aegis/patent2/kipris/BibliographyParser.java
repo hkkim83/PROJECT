@@ -2,6 +2,7 @@ package kr.co.aegis.patent2.kipris;
 
 import java.util.Map;
 
+import kr.co.aegis.util.StringUtil;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.BibliographicSummaryInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.CpcInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DemandParagraphInfo;
@@ -57,6 +58,9 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getApplDate(String applDate) {
+		applDate =  StringUtil.replaceString(applDate, "[.]", "");
+		applDate = applDate.replaceAll("[(]", "");
+		applDate = applDate.replaceAll("[)]", "");
 		return applDate;
 	}
 	
@@ -75,6 +79,9 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getOpenDate(String openDate) {
+		openDate = StringUtil.replaceString(openDate, "[.]", "");
+		openDate = openDate.replaceAll("[(]", "");
+		openDate = openDate.replaceAll("[)]", "");
 		return openDate;
 	}
 	
@@ -93,6 +100,9 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getLaidPulbicDate(String laidPulbicDate) {
+		laidPulbicDate =  StringUtil.replaceString(laidPulbicDate, "[.]", "");
+		laidPulbicDate = laidPulbicDate.replaceAll("[(]", "");
+		laidPulbicDate = laidPulbicDate.replaceAll("[)]", "");
 		return laidPulbicDate;
 	}
 	
@@ -111,6 +121,9 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getRegiDate(String regiDate) {
+		regiDate =  StringUtil.replaceString(regiDate, "[.]", "");
+		regiDate = regiDate.replaceAll("[(]", "");
+		regiDate = regiDate.replaceAll("[)]", "");
 		return regiDate;
 	}
 	
@@ -120,7 +133,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getIpcAll(String ipcAll) {
-		return ipcAll;
+		return StringUtil.subStr2(ipcAll, -3);
 	}
 	
 	/**
@@ -129,11 +142,11 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getAbstract(String astrtCont) {
-		return astrtCont;
+		return astrtCont.trim();
 	}
 	
 	protected String getClaimMain(String claimMain) {
-		return claimMain;
+		return claimMain.trim();
 	}
 	
 	/**
@@ -142,7 +155,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getApplicant(String applicant) {
-		return applicant;
+		return StringUtil.isNull(applicant) ? "" : applicant.split(",")[0];
 	}
 	
 	/**
@@ -160,7 +173,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getInventor(String inventor) {
-		return inventor;
+		return StringUtil.isNull(inventor) ? "" : inventor.split(",")[0];
 	}
 	
 	/**
@@ -178,7 +191,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getPriorityDate(String priorityDate) {
-		return priorityDate;
+		return StringUtil.replaceString(priorityDate, "[.]", "");
 	}
 	
 	/**
@@ -191,12 +204,21 @@ public class BibliographyParser {
 	}
 	
 	/**
+	 * bcBeNum정보
+	 * @param ftermInfo
+	 * @return
+	 */
+	protected String getBcBeNum(String bcBeNum) {
+		return StringUtil.subStr2(bcBeNum, -3);
+	}
+	
+	/**
 	 * f-term정보
 	 * @param ftermInfo
 	 * @return
 	 */
-	protected String getFtermInfo(String ftermInfo) {
-		return ftermInfo;
+	protected String getFtermJp(String ftermJp) {
+		return StringUtil.subStr2(ftermJp, -3);
 	}
 
 	/**
@@ -205,7 +227,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getFiCodeJp(String fiCodeJp) {
-		return fiCodeJp;
+		return StringUtil.subStr2(fiCodeJp, -3);
 	}
 
 	/**
@@ -214,7 +236,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getUpcCurrentAll(String upcCurrentAll) {
-		return upcCurrentAll;
+		return StringUtil.subStr2(upcCurrentAll, -3);
 	}
 	
 	/**
@@ -223,7 +245,7 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getCpc(String cpc) {
-		return cpc;
+		return StringUtil.subStr2(cpc, -3);
 	}
 
 	/**
@@ -232,6 +254,6 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getEpc(String epc) {
-		return epc;
+		return StringUtil.subStr2(epc, -3);
 	}
 }

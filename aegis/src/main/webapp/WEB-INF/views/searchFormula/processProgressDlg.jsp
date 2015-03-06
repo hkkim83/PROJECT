@@ -60,26 +60,26 @@ var changePercent = function(level) {
 <div class="layerPopup wid1" id="pop_search1" style="display:block;">
 	<!-- header -->
 	<div class="pHeader">
-		<h2>일괄 자동 등록 진행</h2>
+		<h2>검색식 DB반영 진행</h2>
 	</div>
 	<!-- //header -->
 
 	<!-- contents -->
 	<div class="pContents">
 		<div class="tbl_bbs2">
-			<table summary="원본 불러오기,DB 중복제거,서지정보 가져오기,연번부여,대표명화,패밀리 체크">
-			<caption>일괄 자동 등록 진행창</caption>
+			<table summary="검색식 불러오기,DB 중복제거,서지정보 가져오기,연번부여,대표명화,패밀리 체크">
+			<caption>검색식 DB반영 진행창</caption>
 			<colgroup>
 				<col width="80%"/>
 				<col width="20%" />
 			</colgroup>
 			<tbody>
 			<tr>
-				<th scope="row">STEP 1:  원본 불러오기</th>
+				<th scope="row">STEP 1:  검색식 불러오기</th>
 				<td>진행중</td>
 			</tr>
 			<tr>
-				<th scope="row">STEP 2:  DB 중복제거</th>
+				<th scope="row">STEP 2:  DB 필드정리</th>
 				<td>대기</td>
 			</tr>
 			<tr>

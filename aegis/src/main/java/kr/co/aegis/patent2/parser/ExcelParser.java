@@ -21,9 +21,6 @@ public class ExcelParser {
 	 */
 	public void parse(List<Map<String, String>> list) {}
 
-	protected String replaceString(String str, String regex, String replacement) {
-		return StringUtil.isNull(str) ? "" : str.replaceAll(regex, replacement);
-	}
 	
 	/**
 	 * 특허 중복제거
@@ -69,7 +66,7 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-			if(index++%20 == 19) {
+			if(index++%30 == 29) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
 			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
@@ -79,7 +76,7 @@ public class ExcelParser {
 	}
 	
 	/**
-	 * kipris에서 도면, 전문 정보 가져오기
+	 * kipris에서 서지 정보 가져오기
 	 * @param list
 	 * @param userId
 	 * @param userKey
@@ -94,14 +91,41 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-			if(index++%20 == 19) {
+			if(index++%30 == 29) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
 			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
 			pfp.getBibliography(map);
+			logger.info(map.get("NATL_CODE")+"getBibliography:::::::::::::::::::::::::::::::::::");
+			logger.info(map);
 		}
 	}
 	
+	/**
+	 * kipris에서 패밀리 정보 가져오기
+	 * @param list
+	 * @param userId
+	 * @param userKey
+	 * @param kiprisUrl
+	 * @param defaultPath
+	 * @return
+	 * @throws RemoteException
+	 * @throws InterruptedException
+	 */
+	public void getFamilyInfo(List<Map<String, String>> list, String userId, String userKey, String kiprisUrl, String defaultPath) throws InterruptedException {
+		
+		PatentFilePath pfp = null;
+		int index = 0;
+		for(Map<String, String> map : list) {
+			if(index++%30 == 29) {
+				Thread.sleep(1000); // ms단위 - 1초 멈춤
+			}
+			pfp = "KR".equals(map.get("NATL_CODE")) ? new KrPatentFilePath(userId, userKey, kiprisUrl, defaultPath) : new OthPatentFilePath(userId, userKey, kiprisUrl, defaultPath);
+			pfp.getFamilyInfo(map);
+			logger.info(map.get("NATL_CODE")+"getFamilyInfo:::::::::::::::::::::::::::::::::::");
+			logger.info(map);
+		}
+	}
 	
 	/**
 	 * kipris에서 출원번호원본 가져오기
@@ -119,7 +143,7 @@ public class ExcelParser {
 		PatentFilePath pfp = null;
 		int index = 0;
 		for(Map<String, String> map : list) {
-			if(index++%20 == 19) {
+			if(index++%30 == 29) {
 				Thread.sleep(1000); // ms단위 - 1초 멈춤
 			}
 			logger.info("1111111:::::"+index+","+map.get("NATL_CODE"));

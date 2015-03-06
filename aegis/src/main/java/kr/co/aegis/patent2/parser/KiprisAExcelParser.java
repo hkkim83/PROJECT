@@ -32,13 +32,15 @@ public class KiprisAExcelParser extends ExcelParser {
 			// N03. 특허/실용 구분
 			map.put("KINDS_IP_TYPE", kindsIpType);
 			// N05. 출원일
-			map.put("APPL_DATE", replaceString(applDate, "[.]", ""));
+			map.put("APPL_DATE", StringUtil.replaceString(applDate, "[.]", ""));
 			// N06. 공개일
-			map.put("OPEN_DATE", replaceString(openDate, "[.]", ""));
+			map.put("OPEN_DATE", StringUtil.replaceString(openDate, "[.]", ""));
 			// N07. 공고일
-			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "[.]", ""));
+			map.put("LAID_PUBLIC_DATE", StringUtil.replaceString(laidPublicDate, "[.]", ""));
 			// N11. 등록일
-			map.put("REGI_DATE", replaceString(regiDate, "[.]", ""));
+			map.put("REGI_DATE", StringUtil.replaceString(regiDate, "[.]", ""));
+			// N11. 우선권주장일 
+			map.put("PRIORITY_DATE", StringUtil.replaceString(map.get("PRIORITY_DATE"), "[.]", ""));
 			
 			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
 			map.put("KIPRIS_APPL_NUM", null);
@@ -64,10 +66,10 @@ public class KiprisAExcelParser extends ExcelParser {
 	 */
 	private String getKindsIpCode(String regiNum, String natlCode) {
 		String result = "";
-		if("CN".equals(natlCode) || "EP".equals(natlCode) || "JP".equals(natlCode))
-			result = !StringUtil.isNull(regiNum) ? "B" : "A";
-		else if("PCT".equals(natlCode))
+		if("WO".equals(natlCode))
 			result = "A";
+		else
+			result = !StringUtil.isNull(regiNum) ? "B" : "A";
 		return result;
 	}
 	
@@ -77,10 +79,7 @@ public class KiprisAExcelParser extends ExcelParser {
 	 * @return
 	 */
 	private String getKindsIpType(String natlCode) {
-		String result = "";
-		if("CN".equals(natlCode) || "EP".equals(natlCode))
-			result = "P";
-		return result;
+		return "P";
 	}
 	
 	/**

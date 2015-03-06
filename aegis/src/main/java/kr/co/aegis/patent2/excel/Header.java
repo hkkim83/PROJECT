@@ -17,18 +17,18 @@ public class Header {
 
 		private static final long serialVersionUID = 1L;
 		{
-			put("국가코드", "NATL_CODE");							put("특허/실용 구분", "KINDS_IP_TYPE"); 				put("문헌종류 코드", "KINDS_IP_CODE");	
+			put("국가코드", "NATL_CODE");							put("특허/실용 구분", "KINDS_IP_TYPE"); 			put("문헌종류 코드", "KINDS_IP_CODE");	
 			put("출원번호", "APPL_NUM");							put("출원일", "APPL_DATE");						put("발명의 명칭", "TITLE");	
 			put("요약", "ABSTRACT");								put("대표청구항", "CLAIM_MAIN");	
 			put("공개번호/공표번호/재공표번호", "OPEN_NUM");			put("공개일", "OPEN_DATE");						put("등록번호", "REGI_NUM");	
-			put("등록일", "REGI_DATE");							put("IPC (All)", "IPC_ALL");						put("F - term (JP)", "F_TERM_JP");	
+			put("등록일", "REGI_DATE");							put("IPC (All)", "IPC_ALL");					put("F - term (JP)", "F_TERM_JP");	
 			put("FI 코드 (JP)", "FI_CODE_JP");					put("미국분류 (Current – All)", "UPC_CURRENT_ALL");	
 			put("출원인", "APPLICANT");							put("출원인 국적", "APPLICANT_NATL");				put("발명자/고안자", "INVENTOR");								
-			put("우선권 국가", "PRIORITY_NATL");					put("우선권 번호", "PRIORITY_NUM");					put("우선권 주장일", "PRIORITY_DATE");					
+			put("우선권 국가", "PRIORITY_NATL");					put("우선권 번호", "PRIORITY_NUM");				put("우선권 주장일", "PRIORITY_DATE");					
 			put("인용 문헌 수 (B1)", "BC_COUNT");					put("인용 문헌번호 (B1) + 심사관(BE) 인용 (KR,US)", "BC_BE_NUM");	
 			put("인용 문헌 수 (F1)", "FC_COUNT");					put("인용 문헌번호 (F1) + 심사관(FE) 인용 (KR,US)", "FC_FE_NUM");	
 			put("WIPS패밀리 문헌번호(출원기준)", "FM_NUM");			put("WIPS확장패밀리 문헌 수(출원기준)", "FM_COUNT");	put("DOCDB 법적상태", "LEGAL_STATUS_DOCDB");
-			put("공고번호", "LAID_PUBLIC_NUM");					put("공고일", "LAID_PUBLIC_DATE");					put("CPC", "CPC");		
+			put("공고번호", "LAID_PUBLIC_NUM");					put("공고일", "LAID_PUBLIC_DATE");				put("CPC", "CPC");		
 		}
 	};
 	
@@ -41,10 +41,10 @@ public class Header {
 		private static final long serialVersionUID = 1L;
 		{
 			put("명칭", "TITLE");						put("요약", "ABSTRACT");					put("출원인", "APPLICANT");					
-			put("출원인국가", "APPLICANT_NATL");	 	put("발명자", "INVENTOR");					put("국제특허분류", "IPC_ALL");				
-			put("미국특허분류", "UPC_CURRENT_ALL");		put("FI", "FI_CODE_JP");					put("F-Term", "F_TERM_JP");		
+			put("출원인국가", "APPLICANT_NATL");	 	put("발명자", "INVENTOR");				put("국제특허분류", "IPC_ALL");				
+			put("미국특허분류", "UPC_CURRENT_ALL");		put("FI", "FI_CODE_JP");				put("F-Term", "F_TERM_JP");		
 			put("출원번호", "APPL_NUM");				put("출원일", "APPL_DATE");				put("공개번호", "LAID_PUBLIC_NUM");		
-			put("공개일", "LAID_PUBLIC_DATE");			put("등록번호", "REGI_NUM");				put("등록일", "REGI_DATE");
+			put("공개일", "LAID_PUBLIC_DATE");		put("등록번호", "REGI_NUM");				put("등록일", "REGI_DATE");
 			put("우선권번호(우선권일자, 국가포함)", "PRIORITY_NUM");
 			put("INPADOC 패밀리", "FM_NUM");			put("INPADOC패밀리수", "FM_COUNT");		put("대표 청구항", "CLAIM_MAIN");			
 			put("자국인용특허", "BC_BE_NUM");			put("자국피인용특허", "FC_FE_NUM");			put("자국인용횟수", "BC_COUNT");
@@ -64,9 +64,10 @@ public class Header {
 		{
 			put("출원번호", "APPL_NUM");			put("출원일자", "APPL_DATE");				put("공개번호", "OPEN_NUM");				
 			put("공개일자", "OPEN_DATE");			put("등록번호", "REGI_NUM");				put("등록일자", "REGI_DATE");				
-			put("발명의명칭", "TITLE");				put("공고번호", "LAID_PUBLIC_NUM");		put("공고일자", "LAID_PUBLIC_DATE");	
-			put("출원인", "APPLICANT");			put("발명자", "INVENTOR");					put("IPC분류", "IPC_ALL");	
+			put("발명의명칭", "TITLE");			put("공고번호", "LAID_PUBLIC_NUM");		put("공고일자", "LAID_PUBLIC_DATE");	
+			put("출원인", "APPLICANT");			put("발명자", "INVENTOR");				put("IPC분류", "IPC_ALL");	
 			put("우선권주장번호", "PRIORITY_NUM");	put("우선권주장일자", "PRIORITY_DATE");		put("상태", "LEGAL_STATUS");
+			put("공개번호", "OPEN_NUM");			put("공개일자", "OPEN_DATE");				
 				
 		}
 	};
@@ -81,12 +82,13 @@ public class Header {
 		{
 			put("국가", "NATL_CODE");				put("출원번호", "APPL_NUM");				put("출원일자", "APPL_DATE");	
 			put("공개번호", "OPEN_NUM");			put("공개일자", "OPEN_DATE");				put("등록번호", "REGI_NUM");	
-			put("등록일자", "REGI_DATE");			put("발명의명칭", "TITLE");					put("초록", "ABSTRACT");	
+			put("등록일자", "REGI_DATE");			put("발명의 명칭", "TITLE");				put("초록", "ABSTRACT");	
 			put("청구항", "CLAIM_MAIN");			put("출원인", "APPLICANT");				put("발명자", "INVENTOR");		
 			put("IPC", "IPC_ALL");				put("CPC", "CPC");						put("미국분류(UPC)", "UPC");	
 			put("우선권주장국가", "PRIORITY_NATL");	put("우선권주장번호", "PRIORITY_NUM");		put("우선권주장일자", "PRIORITY_DATE");		
-			put("공고번호", "LAID_PUBLIC_NUM");	put("공고일자", "LAID_PUBLIC_DATE");
-			put("F-TERM", "F_TERM_JP");			put("FI", "FI_CODE_JP");						
+			put("공고번호", "LAID_PUBLIC_NUM");	put("공고일자", "LAID_PUBLIC_DATE");		put("EPC", "EPC");						
+			put("F-TERM", "F_TERM_JP");			put("FI", "FI_CODE_JP");	
+			put("공고번호", "LAID_PUBLIC_NUM");	put("공고일자", "LAID_PUBLIC_DATE");				
 		}
 	};
 	

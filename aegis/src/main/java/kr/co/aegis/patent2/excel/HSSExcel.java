@@ -602,12 +602,12 @@ public class HSSExcel extends Excel{
 	 */
 	private String getDBName(String dbType) throws IOException {
 		String DBName = "";
-		if(dbType.equals("11")) {
+		if(dbType.equals("01")) {
 			DBName = "WIPSON";
-		} else if(dbType.equals("12")) {
-			DBName = "FOCUST";
-		} else if(dbType.equals("13")) {
-			DBName = getKindNA();
+		} else if(dbType.equals("11")) {
+			DBName = "KIPRIS_N";
+		} else  {
+			DBName = "KIPRIS_A";
 		}
 		return DBName;
 	}

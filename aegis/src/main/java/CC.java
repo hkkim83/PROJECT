@@ -3,6 +3,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import kr.co.aegis.util.StringUtil;
+
 
 public class CC {
 	
@@ -70,12 +72,31 @@ public class CC {
 //				str.replaceAll(str1, "");
 //			}
 		}
+        String ucb = "2004/12/07 00:00:00 | ";
+        String[] strarr = ucb.split("\\s");
+        System.out.println(StringUtil.subStr2(ucb, -3));
+        Matcher matcher2 = Pattern.compile("\\d{4}/\\d{2}/\\d{2}").matcher(ucb);
+        while(matcher2.find())
+        		System.out.println(matcher2);
+        
+        String openDate = "2012.02.16";
+		System.out.println("openDate:::::::::"+openDate);
+		openDate = StringUtil.replaceString(openDate, "[.]", "");
+		System.out.println("openDate:::::::::"+openDate);
+		openDate = openDate.replaceAll("[(]", "");
+		System.out.println("openDate:::::::::"+openDate);
+		openDate = openDate.replaceAll("[)]", "");
 		
 		Map<String, String> temp = new HashMap<String, String>();
 		temp.put("abc", "12354");
-        int abc1 = Integer.valueOf(temp.get("abc"));
-        int abc2 = Integer.parseInt(temp.get("abc"));		
-		
+//        int abc1 = Integer.valueOf(temp.get("abc"));
+//        int abc2 = Integer.parseInt(temp.get("abc"));	
+        
+        
+        
+        String ast = "<P align=\"JUSTIFIED\" indent=\"14\">아날로그 영상 신호를 인코딩하는 방법으로서";
+        ast.replaceAll("<P align=\"JUSTIFIED\" indent=\"14\">", "");
+        System.out.println(ast);
 	}
 
 }

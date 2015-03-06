@@ -856,18 +856,14 @@
 			     , PT.LEGAL_STATUS_DOCDB 
 			     , CAST(PC.CNT AS CHAR) CNT  
 			  FROM PATENT_TEMP PT
-			     , ( 
+			  JOIN ( 
 			         SELECT NATL_CODE, APPL_NUM, COUNT(*) CNT
 			           FROM PATENT_TEMP
 			          WHERE USER_ID = #{USER_ID}
 			          GROUP BY NATL_CODE, APPL_NUM
-			       ) PC
-			     , COMMON CM
+			       ) PC ON PT.NATL_CODE = PC.NATL_CODE AND PT.APPL_NUM  = PC.APPL_NUM
+			  LEFT JOIN COMMON CM ON CM.GROUP_CODE = '27' AND CM.COMM_CODE = PT.KINDS_IP_CODE
 			 WHERE PT.USER_ID = #{USER_ID}
-			   AND PT.NATL_CODE = PC.NATL_CODE
-			   AND PT.APPL_NUM  = PC.APPL_NUM
-			   AND CM.GROUP_CODE = '27'
-               AND CM.COMM_CODE = PT.KINDS_IP_CODE
 			 ORDER BY PT.NATL_CODE, PT.APPL_NUM, CM.ORDER_SEQ
 		]]>
 	</select>
@@ -1159,11 +1155,15 @@
 			     , LAID_PUBLIC_DATE
 			     , REGI_NUM
 			     , REGI_DATE
+			     , OPEN_NUM
+			     , OPEN_DATE
 			     , INVENTOR
 			     , IPC_ALL
 			     , F_TERM_JP
 			     , FI_CODE_JP
 			     , UPC_CURRENT_ALL
+			     , CPC
+			     , EPC
 			     , BC_COUNT
 			     , BC_BE_NUM
 			     , FC_COUNT
@@ -1174,50 +1174,55 @@
 			     , IMAGE_MAIN
 			     , IMAGE_SMALL
 			     , PATENT_FULLTXT
+			     , LEGAL_STATUS
 			     , REG_USER
 			     , REG_DATE
 			     , UPD_USER
 			     , UPD_DATE )
-			SELECT #{PROJECT_ID}
-			     , NATL_CODE
-			     , KINDS_IP_TYPE
-			     , KINDS_IP_CODE
-			     , TITLE
-			     , APPL_NUM
-			     , APPL_NUM_ORG
-			     , APPL_DATE
-			     , APPLICANT
-			     , APPLICANT_NATL
-			     , PRIORITY_NATL
-			     , PRIORITY_NUM
-			     , PRIORITY_DATE
-			     , ABSTRACT
-			     , CLAIM_MAIN
-			     , LAID_PUBLIC_NUM
-			     , LAID_PUBLIC_DATE
-			     , REGI_NUM
-			     , REGI_DATE
-			     , INVENTOR
-			     , IPC_ALL
-			     , F_TERM_JP
-			     , FI_CODE_JP
-			     , UPC_CURRENT_ALL
-			     , BC_COUNT
-			     , BC_BE_NUM
-			     , FC_COUNT
-			     , FC_FE_NUM
-			     , FM_NUM
-			     , FM_COUNT
-			     , LEGAL_STATUS_DOCDB
+			VALUES 
+			     ( #{PROJECT_ID}
+			     , #{NATL_CODE}
+			     , #{KINDS_IP_TYPE}
+			     , #{KINDS_IP_CODE}
+			     , #{TITLE}
+			     , #{APPL_NUM}
+			     , #{APPL_NUM_ORG}
+			     , #{APPL_DATE}
+			     , #{APPLICANT}
+			     , #{APPLICANT_NATL}
+			     , #{PRIORITY_NATL}
+			     , #{PRIORITY_NUM}
+			     , #{PRIORITY_DATE}
+			     , #{ABSTRACT}
+			     , #{CLAIM_MAIN}
+			     , #{LAID_PUBLIC_NUM}
+			     , #{LAID_PUBLIC_DATE}
+			     , #{REGI_NUM}
+			     , #{REGI_DATE}
+			     , #{OPEN_NUM}
+			     , #{OPEN_DATE}
+			     , #{INVENTOR}
+			     , #{IPC_ALL}
+			     , #{F_TERM_JP}
+			     , #{FI_CODE_JP}
+			     , #{UPC_CURRENT_ALL}
+			     , #{CPC}
+			     , #{EPC}
+			     , #{BC_COUNT}
+			     , #{BC_BE_NUM}
+			     , #{FC_COUNT}
+			     , #{FC_FE_NUM}
+			     , #{FM_NUM}
+			     , #{FM_COUNT}
+			     , #{LEGAL_STATUS_DOCDB}
 			     , #{IMAGE_MAIN}
 			     , #{IMAGE_SMALL}
 			     , #{PATENT_FULLTXT}
+			     , #{LEGAL_STATUS}
 			     , #{LOGIN_ID}
 			     , NOW()
 			     , #{LOGIN_ID}
-			     , NOW() 
-			  FROM PATENT_TEMP
-			 WHERE PATENT_ID = #{PATENT_ID}
+			     , NOW() )
 		]]>
 	</update>
 	

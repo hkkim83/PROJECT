@@ -23,10 +23,10 @@ public class WipsonExcelParser extends ExcelParser {
 			String kindsIpType      = map.get("KINDS_IP_TYPE");			// 특실구분
 
 			// 날짜 포맷 변경
-			map.put("APPL_DATE", replaceString(applDate, "-", ""));
-			map.put("OPEN_DATE", replaceString(openDate, "-", ""));
-			map.put("LAID_PUBLIC_DATE", replaceString(laidPublicDate, "-", ""));
-			map.put("REGI_DATE", replaceString(regiDate, "-", ""));
+			map.put("APPL_DATE", StringUtil.replaceString(applDate, "-", ""));
+			map.put("OPEN_DATE", StringUtil.replaceString(openDate, "-", ""));
+			map.put("LAID_PUBLIC_DATE", StringUtil.replaceString(laidPublicDate, "-", ""));
+			map.put("REGI_DATE", StringUtil.replaceString(regiDate, "-", ""));
 			
 			// 문서번호 조회를 위한 값 설정 (2015.02.02 추가)
 			map.put("KIPRIS_APPL_NUM", getKiprisApplNum(natlCode, applNum, kindsIpType));

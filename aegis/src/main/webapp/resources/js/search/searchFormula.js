@@ -243,8 +243,9 @@ var SearchFormulaGenerator = function(){
 				searchFormula += oResult['keyword'];
 			}
 		}
+		var conjunction = searchFormula == '' ? '' : mapConjunction['AND'][dbType];
 		if(searchFormulaOr != '')
-			searchFormula += mapConjunction['AND'][dbType] + searchFormulaOr;
+			searchFormula += conjunction + searchFormulaOr;
 
 		// 키프리스를 위한 검색식 만들기  
 		var searchFormulaKp = '';
@@ -260,7 +261,7 @@ var SearchFormulaGenerator = function(){
 			}
 		}
 		if(searchFormulaOr != '')
-			searchFormulaKp += mapConjunction['AND'][dbType] + searchFormulaOr;
+			searchFormulaKp += conjunction + searchFormulaOr;
 		
 		return searchFormula+","+searchFormulaKp;
 	};

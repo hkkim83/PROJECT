@@ -46,6 +46,17 @@ select {
 	z-index:10;
 	border:none;
 }
+.layer_dialog2{
+	display:none;z-index:50;position:absolute;top:0px;left:0px;width:100%;height:100%;
+}
+.layer_dialog2 iframe{
+	position:absolute;
+	top:35%;
+	left:50%;
+	text-align:center;
+	z-index:11;
+	border:none;
+}
 </style>
 <script type="text/javascript" src="/resources/js/search/searchFormula.js" ></script>
 <script type="text/javascript" src="/resources/js/search/wipsonParser.js" ></script>
@@ -64,7 +75,7 @@ select {
 	//var sampleKipris = '자동차*엔진*IPC=[H04N+H04L]*TL=[(imag+video+camera+영상+비디오+비데오+카메라)]*(object+target+body+대상+목표+타켓+물체)*(인식+인지+트래킹+트랙+검출+디텍터)*(보안+감시+탐지+aaa^2bbb)';
 	//var sampleKipris = '자동차*엔진*AN=[1020020012345]*PD=[20120101~20131231]*(^2)';
 	
-	
+	var projectId = $('#loginProjectList option:selected').val();
 	var $trBaseParameter = null;
 	var $trBaseKeyword = null;
 	
@@ -317,19 +328,159 @@ select {
 	
 	// 검색될 데이터 갯수 검사 
 	var getTotalCount = function(data) {
-		var count = 0;
-		var data = 'DATA=' + Common.stringify(data);		
+		count = 0;
+		var data = 'DATA=' + Common.stringify(data);	
+		var ret = false;
 		$.ajax({
 			  url: '/searchFormula/getTotalCount.do'
 			, data : data
 			, type: 'POST'
 			, async: false
 			, success: function(data){
-				if(data.RESULT_CD == 'SUCC_0001')
-					count = data.COUNT;
+				if(data.RESULT_CD == "SUCC_0001") {
+					if(parseInt(data.USER.POINT) < parseInt(data.USER.COUNT)) {
+						alert("포인트가 부족합니다. 충전 후 사용하세요.\n[문의전화 : 070-8891-6347(직통), 02-562-1716(대표전화)] ");
+						ret = false;
+					} else {
+						count = data.USER.COUNT;
+						if(count < 1) {
+							alert("검색된 데이터가 존재하지 않습니다.");
+							ret = false;
+						} else {
+							ret = confirm("차감 예상 포인트 : "+data.USER.COUNT+"p 입니다.\n검색식을 DB에 반영하시겠습니까?");
+						}
+					}
+				} else {
+					alert(data.RESULT_MSG);
+					ret = false;
+				}
 			}
 		});	
-		return count;	
+		return ret;
+	};
+	
+	// 팝업창 UI변경하기 
+	var setPercent = function(level) {
+		var $dialog = $('#dlg_process_progress_bar');
+		var dialogWin = $dialog.find('iframe')[0].contentWindow;
+		dialogWin.changePercent(level);
+	};
+	
+	// 패밀리 체크
+	var setFmSeqNum = function() {
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=FALSE";
+		$.ajax({
+			url : '/process/setFmSeqNum.do',
+			data : strParam,
+			timeout: 0,
+			async: true,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					setPercent(6);	
+					alert("포인트 "+point+"p가 차감되었습니다.");
+					location.href = "/searchFormula/view.do";
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();	
+			        $('#dlg_progress_bar').fadeOut();
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});		
+	};
+
+	// 대표명화
+	var setApplicantRename = function() {
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=FALSE";
+		$.ajax({
+			url : '/process/setApplicantRename.do',
+			data : strParam,
+			timeout: 0,
+			async: true,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					setPercent(5);				
+					setFmSeqNum();		
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});		
+	};
+
+	// 연번부여
+	var setSeqNum = function() {
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=FALSE";
+		$.ajax({
+			url : '/process/setSeqNum.do',
+			data : strParam,
+			timeout: 0,
+			async: false,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					setPercent(4);				
+					setApplicantRename();		
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});	
+	};
+	
+
+	// 서지정보 가져오기
+	var getKiprisData = function() {
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=FALSE";
+		$.ajax({
+			url : '/process/getKiprisData.do',
+			data : strParam,
+			dataType: 'json',
+			timeout: 0,
+			async: true,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					point = data.POINT;
+					setPercent(3);				
+					setSeqNum();		
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});		
+	};
+
+	// DB 중복제거
+	var deleteDuplication = function() {
+		var strParam = "PROJECT_ID="+projectId+"&IS_FILE=FALSE";
+		$.ajax({
+			url : '/process/deleteDuplication.do',
+			data : strParam,
+			timeout: 0,
+			async: true,
+			success: function( data ) {
+				if(data.RESULT_CD == "SUCC_0001") {
+					setPercent(2);					
+					getKiprisData();			
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
+			}
+		});			
 	};
 	
 	// 검색식 DB반영
@@ -348,6 +499,7 @@ select {
 		}		
 
 		var data = new Object();
+		data.PROJECT_ID = projectId;
 		data.DB_TYPE_CD = $('#text_db_type_cd').val();
 		data.CONTENT = content;
 		data.NATL_CODE = $('input:radio[name=natl_code]:checked').val();
@@ -363,21 +515,38 @@ select {
 			return;
 		}
 		
-		var cnt = getTotalCount(data);
-
-		if(!confirm('검색식을 DB에 반영하시겠습니까?')){
+		if(!getTotalCount(data)){
 			return;
 		}
 		
-		data.COUNT = cnt;
+		data.COUNT = count;
 		var data = 'DATA=' + Common.stringify(data);
 		$.ajax({
 			  url: '/searchFormula/apply.do'
 			, data : data
 			, type: 'POST'
-			, async: false
+			, timeout:0
+			, async: true
+			, beforeSend: function() {
+		    	//통신을 시작할때 처리
+		    	var $dialog = $('#dlg_process_progress_bar');
+		    	var left = ($('body').width()-$dialog.find('iframe').width())/2;
+				$dialog.find('iframe').css('left', left);
+				$dialog.height($(document).height());
+				$dialog.show().fadeIn('fast'); 
+		        $('#dlg_progress_bar').show().fadeIn('fast');				
+			}
 			, success: function(data){
-				alert(data.RESULT_MSG);
+				if(data.RESULT_CD == "SUCC_0001") {
+					setPercent(1);
+					deleteDuplication();
+					//processing();	
+				} else {
+			        //통신이 완료된 후 처리
+			        $('#dlg_process_progress_bar').fadeOut();
+			        $('#dlg_progress_bar').fadeOut();
+					alert(data.RESULT_MSG);
+				}
 			}
 		});			
 	};
@@ -454,7 +623,12 @@ select {
 <div id="dlg_search_formula_lst" class="layer_dialog">
 	<iframe src="/searchFormula/lstDlg.do" allowTransparency="true" marginheight="0" marginwidth="0" frameborder="0"></iframe>
 </div>
-
+<div id="dlg_process_progress_bar" class="layer_dialog">
+  <iframe src="/searchFormula/progressDlg.do" allowTransparency="true" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+</div>
+<div id="dlg_progress_bar" class="layer_dialog2">
+  <iframe src="/searchFormula/progressDlg2.do" allowTransparency="true" marginheight="0" marginwidth="0" frameborder="0"></iframe>
+</div>
     <!-- container -->
     <div id="container"> 
         <!-- contents -->

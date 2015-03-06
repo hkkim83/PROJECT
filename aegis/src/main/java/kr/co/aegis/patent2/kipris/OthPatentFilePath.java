@@ -23,7 +23,6 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DemandParagra
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DocdbFamilyInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FiInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FpatBeanItem;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FtermInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.InventorsInfo;
@@ -35,7 +34,6 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResult;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResultArray;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.Summation;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.UpcInfo;
-import kr.or.kipris.plus.webservice.services.patentbean.xsd.ClaimInfo;
 
 public class OthPatentFilePath extends PatentFilePath{
 	
@@ -130,6 +128,7 @@ public class OthPatentFilePath extends PatentFilePath{
 	 * @throws RemoteException
 	 */
 	public void getBibliography(Map<String, String>map) {
+		logger.info("please!!!!!!!!!"+map);
 		ForeignPatentBibliographicServicePortTypeProxy proxy = new ForeignPatentBibliographicServicePortTypeProxy();
 		ForeignPatentBibliographicServiceSoap11BindingStub stub =(ForeignPatentBibliographicServiceSoap11BindingStub)proxy.getForeignPatentBibliographicServicePortType();
 		String applNum  = map.get("APPL_NUM_ORG");
@@ -237,14 +236,14 @@ public class OthPatentFilePath extends PatentFilePath{
 					docdbCountryCode = familyInfo.getDocdbCountryCode();
 					docdbLiteratureNumber = familyInfo.getDocdbLiteratureNumber();
 					docdbLiteratureIdCode = familyInfo.getDocdbLiteratureIdCode();
-					fmNum += docdbCountryCode+docdbLiteratureNumber+docdbLiteratureIdCode+",";
+					fmNum += docdbCountryCode+docdbLiteratureNumber+docdbLiteratureIdCode+" | ";
 				}				
 			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		} finally {
-			map.put("FM_NUM", 	fmNum);
-			map.put("FM_COUNT",  String.valueOf(fmCount));
+			if(StringUtil.isNull(map.get("FM_NUM"))) map.put("FM_NUM", StringUtil.subStr2(fmNum, -3));
+			if(StringUtil.isNull(map.get("FM_COUNT"))) map.put("FM_COUNT", String.valueOf(fmCount));	
 			
 			logger.info("getFamilyInfo_fmNum::::"+fmNum);
 			logger.info("getFamilyInfo_fmCount::::"+fmCount);
@@ -303,26 +302,53 @@ public class OthPatentFilePath extends PatentFilePath{
 				SearchResult[] arrays = bean.getSearchTestResult();
 				for(SearchResult arr : arrays) {
 					Map<String, String> tempMap = new HashMap<String, String>();
-					tempMap.put("APPL_NUM_ORG", arr.getLtrtno());			// 문서번호 
-					tempMap.put("TITLE", arr.getInventionName());			// 발명의명칭 
-					tempMap.put("IPC_ALL", arr.getIpc());					// IPC
-					tempMap.put("REGI_NUM", arr.getRegisterNo());			// 등록번호 
-					tempMap.put("REGI_DATE", arr.getRegisterDate());			// 등록일 	
-					tempMap.put("APPL_NUM", arr.getApplicationNo());			// 출원번호 
-					tempMap.put("APPL_DATE", arr.getApplicationDate());		// 출원일 
-					tempMap.put("OPEN_NUM", arr.getOpenNumber());			// 공개번호 
-					tempMap.put("OPEN_DATE", arr.getOpenDate());				// 공개일 
-					tempMap.put("LAID_PUBLIC_NUM", arr.getPublishrNo());		// 공고번호 
-					tempMap.put("LAID_PUBLIC_DATE", arr.getPublishrDate());	// 공고일 
-					tempMap.put("APPLICANT", arr.getApplicant());			// 우선권번호 
-					tempMap.put("UPC_CURRENT_ALL", arr.getUpc());			// 우선권주장일 
-					tempMap.put("FI_CODE_JP", arr.getFi());					// FI
-					tempMap.put("F_TERM_JP", arr.getFterm());				// F-TERM
+					tempMap.put("APPL_NUM_ORG"		, arr.getLtrtno());					// 문서번호 
+					tempMap.put("NATL_CODE"			, natlCode);						// 국가코드
+					tempMap.put("KINDS_IP_CODE"		, getKindsIpCode(arr.getRegisterNo(), natlCode));			// 문헌번호 
+					tempMap.put("KINDS_IP_TYPE"		, getKindsIpType(natlCode));		// 문헌번호 
+					tempMap.put("TITLE"				, arr.getInventionName());			// 발명의명칭 
+					tempMap.put("IPC_ALL"			, arr.getIpc());					// IPC
+					tempMap.put("REGI_NUM"			, arr.getRegisterNo());				// 등록번호 
+					tempMap.put("REGI_DATE"			, arr.getRegisterDate());			// 등록일 	
+					tempMap.put("APPL_NUM"			, arr.getApplicationNo());			// 출원번호 
+					tempMap.put("APPL_DATE"			, arr.getApplicationDate());		// 출원일 
+					tempMap.put("OPEN_NUM"			, arr.getPublishrNo());				// 공개번호 	: 공고번호 사용  
+					tempMap.put("OPEN_DATE"			, arr.getPublishrDate());			// 공개일		: 공고일자 사용 
+					tempMap.put("LAID_PUBLIC_NUM"	, arr.getPublishrNo());				// 공고번호 
+					tempMap.put("LAID_PUBLIC_DATE"	, arr.getPublishrDate());			// 공고일 
+//					tempMap.put("APPLICANT"			, arr.getApplicant());				// 우선권번호 
+//					tempMap.put("UPC_CURRENT_ALL"	, arr.getUpc());					// 우선권주장일 
+//					tempMap.put("FI_CODE_JP"		, arr.getFi());						// FI
+//					tempMap.put("F_TERM_JP"			, arr.getFterm());					// F-TERM
 					list.add(tempMap);
 				}				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 문헌종류코드
+	 * @param regiNum
+	 * @param natlCode
+	 * @return
+	 */
+	private String getKindsIpCode(String regiNum, String natlCode) {
+		String result = "";
+		if("WO".equals(natlCode))
+			result = "A";
+		else
+			result = !StringUtil.isNull(regiNum) ? "B" : "A";
+		return result;
+	}
+	
+	/**
+	 * 특허/실용 구분
+	 * @param natlCode
+	 * @return
+	 */
+	private String getKindsIpType(String natlCode) {
+		return "P";
 	}
 }

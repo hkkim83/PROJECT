@@ -14,6 +14,7 @@ import kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorArtDocumentsInf
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.PriorityInfo;
 
 public class KrBibliographyParser extends BibliographyParser{
+	private static final String DELIMITER = " | ";
 		
 	public KrBibliographyParser(Map<String, String> map) {
 		super(map);
@@ -24,6 +25,7 @@ public class KrBibliographyParser extends BibliographyParser{
 	 * @param biblioSummaryInfo
 	 */
 	public void setBiblioSummaryInfo(BiblioSummaryInfo[] biblioSummaryInfos) {
+		logger.info("KrBibliographyParser::::::::::");
 		if(biblioSummaryInfos == null || biblioSummaryInfos.length < 1) return;
 		for(int i=0; i<biblioSummaryInfos.length; i++) {
 			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getInventionTitle());
@@ -47,15 +49,15 @@ public class KrBibliographyParser extends BibliographyParser{
 		String regiNum = getRegiNum(biblioSummaryInfo.getRegisterNumber());
 		String regiDate = getRegiDate(biblioSummaryInfo.getRegisterDate());
 		String registerStatus = biblioSummaryInfo.getRegisterStatus();
-		if(StringUtil.isNull(map.get("TITLE"))) map.put("TITLE", "*"+title);
-		if(StringUtil.isNull(map.get("APPL_DATE"))) map.put("APPL_DATE", "*"+applDate);
-		if(StringUtil.isNull(map.get("OPEN_NUM"))) map.put("OPEN_NUM", "*"+openNum);
-		if(StringUtil.isNull(map.get("OPEN_DATE"))) map.put("OPEN_DATE", "*"+openDate);
-		if(StringUtil.isNull(map.get("LAID_PULBIC_NUM"))) map.put("LAID_PULBIC_NUM", "*"+laidPulbicNum);
-		if(StringUtil.isNull(map.get("LAID_PULBIC_DATE"))) map.put("LAID_PULBIC_DATE", "*"+laidPulbicDate);
-		if(StringUtil.isNull(map.get("REGI_NUM"))) map.put("REGI_NUM", "*"+regiNum);
-		if(StringUtil.isNull(map.get("REGI_DATE"))) map.put("REGI_DATE", "*"+regiDate);	
-		if(StringUtil.isNull(map.get("LEGAL_STATUS"))) map.put("LEGAL_STATUS", "*"+registerStatus);	
+		if(StringUtil.isNull(map.get("TITLE"))) map.put("TITLE", title);
+		if(StringUtil.isNull(map.get("APPL_DATE"))) map.put("APPL_DATE", applDate);
+		if(StringUtil.isNull(map.get("OPEN_NUM"))) map.put("OPEN_NUM", openNum);
+		if(StringUtil.isNull(map.get("OPEN_DATE"))) map.put("OPEN_DATE", openDate);
+		if(StringUtil.isNull(map.get("LAID_PUBLIC_NUM"))) map.put("LAID_PUBLIC_NUM", laidPulbicNum);
+		if(StringUtil.isNull(map.get("LAID_PUBLIC_DATE"))) map.put("LAID_PUBLIC_DATE", laidPulbicDate);
+		if(StringUtil.isNull(map.get("REGI_NUM"))) map.put("REGI_NUM", regiNum);
+		if(StringUtil.isNull(map.get("REGI_DATE"))) map.put("REGI_DATE", regiDate);	
+		if(StringUtil.isNull(map.get("LEGAL_STATUS"))) map.put("LEGAL_STATUS", registerStatus);	
 	}
 	
 	/**
@@ -67,14 +69,14 @@ public class KrBibliographyParser extends BibliographyParser{
 		StringBuilder sb = new StringBuilder();
 		for(IpcInfo ipcInfo : ipcInfos) {
 			if(ipcInfo == null) return;
-			sb.append(ipcInfo.getIpcNumber()).append(",");
+			sb.append(ipcInfo.getIpcNumber()).append(DELIMITER);
 			logger.info("ipcInfos:::::\n"+ipcInfo.getIpcNumber());
 		}
 		logger.info("setIpcInfo::::::"+sb.toString());
-		map.put("IPC_ALL", "*"+sb.toString());
+		if(StringUtil.isNull(map.get("IPC_ALL"))) map.put("IPC_ALL", getIpcAll(sb.toString()));
 //		IpcInfo ipcInfo = ipcInfos[0];
 //		String ipcAll = getIpcAll(ipcInfo.getIpcCd());
-//		if(StringUtil.isNull(map.get("IPC_ALL"))) map.put("IPC_ALL", "*"+ipcAll);
+//		if(StringUtil.isNull(map.get("IPC_ALL"))) map.put("IPC_ALL", ipcAll);
 	}
 	
 	/**
@@ -86,15 +88,15 @@ public class KrBibliographyParser extends BibliographyParser{
 		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<abstractInfos.length; i++) {
 			if(abstractInfos[i] == null) return;
-			sb.append(abstractInfos[i].getAstrtCont()).append(",");
+			sb.append(abstractInfos[i].getAstrtCont());
 			logger.info("abstractInfos:::"+abstractInfos[i]);
 		}
-		logger.info("setAbstractInfo::::::"+sb.toString());
-		map.put("ABSTRACT", "*"+sb.toString());
+		logger.info("setAbstractInfo::::::"+sb.toString().trim());
+		if(StringUtil.isNull(map.get("ABSTRACT"))) map.put("ABSTRACT", getAbstract(sb.toString()));
 //		AbstractInfo abstractInfo = abstractInfos[0];
 //		if(abstractInfo == null) return;
 //		String astrtCont = getAbstract(abstractInfo.getAstrtCont());
-//		if(StringUtil.isNull(map.get("ABSTRACT"))) map.put("ABSTRACT", "*"+astrtCont);	
+//		if(StringUtil.isNull(map.get("ABSTRACT"))) map.put("ABSTRACT", astrtCont);	
 	}
 	
 	/**
@@ -107,15 +109,15 @@ public class KrBibliographyParser extends BibliographyParser{
 		logger.info("claimInfos:::::\n"+claimInfos);
 		for(int i=0; i<claimInfos.length; i++) {
 			if(claimInfos[i] == null) return;
-			sb.append(claimInfos[i].getClaim()).append(",");
+			sb.append(claimInfos[i].getClaim());
 			logger.info("claimInfos::"+i+":::\n"+claimInfos[i].getClaim());
 		}
+		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));
 		logger.info("setClaimInfo::::::"+sb.toString());
-		map.put("CLAIM_MAIN", "*"+sb.toString());
 //		ClaimInfo claimInfo = claimInfos[0];
 //		if(claimInfo == null) return;
 //		String claimMain = getClaimMain(claimInfo.getClaim());
-//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", "*"+claimMain);
+//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", claimMain);
 	}
 	
 	/**
@@ -132,8 +134,8 @@ public class KrBibliographyParser extends BibliographyParser{
 		if(applicantInfo == null) return;
 		String applicant = getApplicant(applicantInfo.getName());
 		String applicantNatl = getApplicantNatl(applicantInfo.getCountry());
-		if(StringUtil.isNull(map.get("APPLICANT"))) map.put("APPLICANT", "*"+applicant);	
-		if(StringUtil.isNull(map.get("APPLICANT_NATL"))) map.put("APPLICANT_NATL", "*"+applicantNatl);	
+		if(StringUtil.isNull(map.get("APPLICANT"))) map.put("APPLICANT", applicant);	
+		if(StringUtil.isNull(map.get("APPLICANT_NATL"))) map.put("APPLICANT_NATL", applicantNatl);	
 	}
 	
 	/**
@@ -148,7 +150,7 @@ public class KrBibliographyParser extends BibliographyParser{
 		InventorInfo inventorInfo = inventorInfos[0];
 		if(inventorInfo == null) return;
 		String inventor = getInventor(inventorInfo.getName());
-		if(StringUtil.isNull(map.get("INVENTOR"))) map.put("INVENTOR", "*"+inventor);	
+		if(StringUtil.isNull(map.get("INVENTOR"))) map.put("INVENTOR", inventor);	
 	}
 	
 	/**
@@ -168,9 +170,9 @@ public class KrBibliographyParser extends BibliographyParser{
 		String priorityDate = getPriorityDate(priorityInfo.getPriorityApplicationDate());
 		String priorityNatl = getPriorityNatl(priorityInfo.getPriorityApplicationCountry());
 
-		if(StringUtil.isNull(map.get("PRIORITY_NUM"))) map.put("PRIORITY_NUM", "*"+priorityNum);	
-		if(StringUtil.isNull(map.get("PRIORITY_DATE"))) map.put("PRIORITY_DATE", "*"+priorityDate);	
-		if(StringUtil.isNull(map.get("PRIORITY_NATL"))) map.put("PRIORITY_NATL", "*"+priorityNatl);	
+		if(StringUtil.isNull(map.get("PRIORITY_NUM"))) map.put("PRIORITY_NUM", priorityNum);	
+		if(StringUtil.isNull(map.get("PRIORITY_DATE"))) map.put("PRIORITY_DATE", priorityDate);	
+		if(StringUtil.isNull(map.get("PRIORITY_NATL"))) map.put("PRIORITY_NATL", priorityNatl);	
 	}
 
 	/**
@@ -183,10 +185,11 @@ public class KrBibliographyParser extends BibliographyParser{
 		bcCount = priorArtDocumentsInfos.length;
 		if(bcCount > 0 && priorArtDocumentsInfos != null) {
 			for(PriorArtDocumentsInfo priorArtDocumentsInfo : priorArtDocumentsInfos) {
-				bcBeNum += priorArtDocumentsInfo.getDocumentsNumber()+",";
+				bcBeNum += priorArtDocumentsInfo.getDocumentsNumber()+DELIMITER;
 			}				
 		}
-		map.put("BC_BE_NUM", bcBeNum);
-		map.put("BC_COUNT",  String.valueOf(bcCount));			
+
+		if(StringUtil.isNull(map.get("BC_BE_NUM"))) map.put("BC_BE_NUM", getBcBeNum(bcBeNum));
+		if(StringUtil.isNull(map.get("BC_COUNT"))) map.put("BC_COUNT", String.valueOf(bcCount));
 	}
 }
