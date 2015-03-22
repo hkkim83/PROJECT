@@ -19,7 +19,8 @@ mark {background-color:#ff9; color:#000; font-style:normal; font-weight:bold;}
 del {text-decoration: line-through;}
 abbr[title], dfn[title] {border-bottom:1px dotted; cursor:help;}
 table {border-collapse:collapse; border-spacing:0;}
-body,td{word-break:break-all;font-weight:normal}
+/* body,td{word-break:break-all;font-weight:normal} */
+body,td{font-weight:normal}
 hr {display:none;}
 input, select, img {vertical-align:middle;}
 img {border:0 none; margin:0;}

@@ -271,7 +271,7 @@ color: #304c9b;text-decoration: underline;font-size: 0.9em;letter-spacing: -1px;
 .tbl_bbs4 table th {padding:8px 3px;overflow:hidden;text-align:center;background:#f2f2f2;border-left:1px solid #e3e3e3;border-bottom:1px solid #e3e3e3;vertical-align:middle;letter-spacing:-1px;color:#222}
 .tbl_bbs4 table tr th:first-child {border-left:0 none;}
 .tbl_bbs4 table td {padding:8px 5px;overflow:hidden;border-left:1px solid #f2f2f2;border-bottom:1px solid #e3e3e3;vertical-align:middle;color:#666;}
-.tbl_bbs4 table td textarea {height:100px;}
+.tbl_bbs4 table td textarea {height:200px;}
 
 .tbl_bbs5 {clear:both;border-top:1px solid #efefef}
 .tbl_bbs5 table {width:100%;}
@@ -491,6 +491,7 @@ textarea.w95{width:91% !important;}
 .mt15 {margin-top:15px}
 .mt10 {margin-top:10px}
 .mt08 {margin-top:8px}
+.mt05 {margin-top:5px}
 .mb10 {margin-bottom:10px;}
 .mb20 {margin-bottom:20px;}
 

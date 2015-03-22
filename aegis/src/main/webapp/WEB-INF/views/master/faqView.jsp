@@ -10,8 +10,8 @@
 .layer_dialog iframe{
 	position:absolute;
 	top:200px;
-	width:500px;
-	height:500px;
+	width:600px;
+	height:700px;
 	z-index:10;
 	border:none;
 }

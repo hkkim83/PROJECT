@@ -126,11 +126,13 @@
     <div id="header">
 		<div class="headConts">
 <% if(user != null){ 
-	String str = StringUtil.comma(user.getPoint());
+	String point = StringUtil.comma(user.getPoint());
+	String priority = user.getPriority();
+	String userName = "A".equals(priority) ? user.getCompany() : user.getName();
 %>
 			<ul class="topAdmin">
-				<li><strong><%=user.getName()%></strong>님</li>
-				<li>잔여포인트 : <em><%=str%>p</em></li>
+				<li><strong><%=userName%></strong>님</li>
+				<li>잔여포인트 : <em><%=point%>p</em></li>
 				<li><label for="">프로젝트</label>
 					<select name="loginProjectList" id="loginProjectList">
 <%	if(!user.getProjectList().isEmpty() || user.getProjectList().size() > 0) {

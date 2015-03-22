@@ -40,10 +40,12 @@ div.gridbox_dhx_skyblue table.hdr td {
 div.gridbox_dhx_skyblue {
   border:1px solid  #72c3ac;
 }
-div.gridbox_dhx_skyblue table.obj tr  td{
-    padding-top:3px;
-    padding-bottom:3px;
+div.gridbox_dhx_skyblue table.obj tr td {
+	padding:5px 10px; 
+	vertical-align:middle;
+	height:20px; 
 }
+
 * html .gridbox_dhx_skyblue .obj td{
     height:auto;
     padding-top=3px;

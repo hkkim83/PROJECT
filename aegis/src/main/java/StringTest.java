@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 import kr.co.aegis.util.StringUtil;
 
 
-public class CC {
+public class StringTest {
 	
 	private Map<String, String> AA;
 	
-	public CC(Map<String, String> map) { AA = map; }
+	public StringTest(Map<String, String> map) { AA = map; }
 	
 	public void setAA(String str) {AA.put("abc", str);}
 	public Map<String, String> getAA() { return AA; }
@@ -47,7 +47,7 @@ public class CC {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("num", "567");
-		CC c = new CC(map);
+		StringTest c = new StringTest(map);
 		c.setAA("efg");
 //		System.out.println(c.getAA());
 //		System.out.println(map);

@@ -22,6 +22,8 @@ import kr.or.kipris.plus.webservice.services.patentbean.xsd.ApplicantInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.BiblioSummaryInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.ClaimInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.FilePathInfo;
+import kr.or.kipris.plus.webservice.services.patentbean.xsd.FilePathRevisionInfo;
+import kr.or.kipris.plus.webservice.services.patentbean.xsd.FullTextCheckResult;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.ImagePathInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.InventorInfo;
 import kr.or.kipris.plus.webservice.services.patentbean.xsd.IpcInfo;
@@ -59,6 +61,11 @@ public class KrPatentFilePath extends PatentFilePath{
 		String patentFullText = null; 
 		String imageMain      = null;
 		String imageSmall     = null;
+		String openTextYn     = null;
+		String regiTextYn     = null;
+		String reviTextYn     = null;
+		String imageMainYn    = null;
+		FilePathInfo filePathInfo = null;
 		
 		try {
 			stub.setHeader(_soapId);
@@ -69,19 +76,46 @@ public class KrPatentFilePath extends PatentFilePath{
 			if(StringUtil.isNull(applNum)) 
 				return;
 			
+			// 대표전문, 대표도면 유무 조회 
+			FullTextCheckResult checkResult = (FullTextCheckResult)stub.fullTextCheck(applNum);
+			// 공개전문 
+			openTextYn = checkResult.getUnexPubfullDocPDFCheckResult();
+			// 등록전문 
+			regiTextYn = checkResult.getExamPubfullDocPDFCheckResult();
+			// 정정전문 
+			reviTextYn = checkResult.getRevisionfullDocPDFCheckResult();
+			// 대표도면
+			imageMainYn = checkResult.getAbstractFigureCheckResult();			
 			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
-			FilePathInfo filePathInfo = (FilePathInfo)stub.unexPubfullDocPDFInfo(applNum);
-			ImagePathInfo[] imagePathInfos = (ImagePathInfo[])stub.abstractFigure(applNum);
+			// 전문 
+			if("Y".equals(reviTextYn)) {
+				FilePathRevisionInfo[] array = (FilePathRevisionInfo[])stub.revisionfullDocPDFInfo(applNum);
+				if(array != null) {
+					patentFullText = array[0] == null ? "" : array[0].getPath();
+				}
+			} else if("Y".equals(regiTextYn)) {
+				filePathInfo = (FilePathInfo)stub.examPubfullDocPDFInfo(applNum);
+				patentFullText = filePathInfo.getPath();
+			} else if("Y".equals(openTextYn)) {
+				filePathInfo = (FilePathInfo)stub.unexPubfullDocPDFInfo(applNum);
+				patentFullText = filePathInfo.getPath();
+			} 
 			
-			patentFullText = filePathInfo.getPath(); 
-			imageMain      = imagePathInfos == null || imagePathInfos.length == 0 ? "" : imagePathInfos[0].getLargePath();
-			imageSmall     = imagePathInfos == null || imagePathInfos.length == 0 ? "" : imagePathInfos[0].getPath();
+			// 대표도면 
+			if("Y".equals(imageMainYn)) {
+				ImagePathInfo[] imagePathInfos = (ImagePathInfo[])stub.abstractFigure(applNum);
+				if(imagePathInfos != null) {
+					imageMain  = imagePathInfos[0] == null ? "" : imagePathInfos[0].getLargePath(); 
+					imageSmall = imagePathInfos[0] == null ? "" : imagePathInfos[0].getPath(); 
+				}
+			}			
+
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		} finally {
-			map.put("PATENT_FULLTXT", StringUtil.isNull(patentFullText)  ? _defaultTxtPath : patentFullText);
-			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)  ? _defaultPath : imageMain);
-			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall) ? _defaultPath : imageSmall);
+			map.put("PATENT_FULLTXT", StringUtil.isNull(patentFullText) ? _defaultTxtPath : patentFullText);
+			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)      ? _defaultPath : imageMain);
+			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall)     ? _defaultPath : imageSmall);
 			
 			logger.info("patentFullText::::"+patentFullText);
 			logger.info("imageMain::::"+imageMain);

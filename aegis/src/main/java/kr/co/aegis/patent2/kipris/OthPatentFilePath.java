@@ -24,11 +24,14 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DocdbFamilyIn
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FiInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FtermInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.InventorsInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.IpcInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.LtrtnoInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OpenFullTextInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.PriorityNumberDateInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RegistrationFullTextInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.RepresentationImageInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResult;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResultArray;
@@ -93,6 +96,11 @@ public class OthPatentFilePath extends PatentFilePath{
 		String patentFullText = null; 
 		String imageMain      = null;
 		String imageSmall     = null;
+		String openTextYn     = null;
+		String regiTextYn     = null;
+		String reviTextYn     = null;
+		String imageMainYn    = null;
+		
 		try {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
@@ -104,18 +112,43 @@ public class OthPatentFilePath extends PatentFilePath{
 				return;
 			
 			logger.info("applNum::::::"+applNum+" , "+natlCode+" , "+_defaultTxtPath+" , "+_defaultPath);
-			FullTextInfo fullTextInfo = (FullTextInfo)stub.fullTextInfo(applNum, natlCode);
-	
-			RepresentationImageInfo[] imagePathInfos = (RepresentationImageInfo[])stub.representationImageInfo(applNum, natlCode);
-			patentFullText = fullTextInfo.getPath(); 
-			imageMain      = imagePathInfos[0] == null || imagePathInfos.length == 0 ? "" : imagePathInfos[0].getJpgPath();
-			imageSmall     = imagePathInfos[0] == null || imagePathInfos.length == 0 ? "" : imagePathInfos[0].getJpgPath();
+			
+			// 대표전문, 대표도면 유무 조회 
+			FullTextCheckResult checkResult = (FullTextCheckResult)stub.fullTextCheck(applNum, natlCode);
+			
+			// 공개전문 
+			openTextYn = checkResult.getOpenFullTextCheckResult();
+			// 등록전문 
+			regiTextYn = checkResult.getRegistrationFullTextCheckResult();
+			// 정정전문 
+			reviTextYn = checkResult.getRevisionAnnounceFullTextCheckResult();
+			// 대표도면
+			imageMainYn = checkResult.getRepresentationImageInfo();
+			
+			// 전문 
+			if("Y".equals(regiTextYn)) {
+				RegistrationFullTextInfo regiFullTextInfo = (RegistrationFullTextInfo)stub.registrationFullTextInfo(applNum, natlCode);
+				patentFullText = regiFullTextInfo.getPath();
+			} else if("Y".equals(openTextYn)) {
+				OpenFullTextInfo openFullTextInfo = (OpenFullTextInfo)stub.openFullTextInfo(applNum, natlCode);
+				patentFullText = openFullTextInfo.getPath();
+			} else {
+				FullTextInfo fullTextInfo = (FullTextInfo)stub.fullTextInfo(applNum, natlCode);
+				patentFullText = fullTextInfo.getPath();
+			} 
+			
+			// 대표도면 
+			if("Y".equals(imageMainYn)) {
+				RepresentationImageInfo[] imagePathInfos = stub.representationImageInfo(applNum, natlCode);
+				if(imagePathInfos != null)
+					imageMain = imagePathInfos[0] == null ? "" : imagePathInfos[0].getJpgPath(); 
+			}
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		} finally {
 			map.put("PATENT_FULLTXT", StringUtil.isNull(patentFullText)  ? _defaultTxtPath : patentFullText);
-			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)  ? _defaultPath : imageMain);
-			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall) ? _defaultPath : imageSmall);
+			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)       ? _defaultPath    : imageMain);
+			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall)      ? _defaultPath    : imageMain);
 			logger.info("imageMain::::"+imageMain+"::::::");
 			logger.info("patentFullText::::"+patentFullText);
 		}		

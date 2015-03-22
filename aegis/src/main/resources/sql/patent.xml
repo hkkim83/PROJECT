@@ -213,6 +213,8 @@
 			     , CASE WHEN LAID_PUBLIC_DATE IS NOT NULL AND LAID_PUBLIC_DATE <> '' THEN CAST(STR_TO_DATE(LAID_PUBLIC_DATE,'%Y%m%d') AS CHAR) ELSE LAID_PUBLIC_DATE END AS LAID_PUBLIC_DATE /* 공개일 */
 			     , REGI_NUM              /* 등록번호 */
 			     , CASE WHEN REGI_DATE IS NOT NULL AND REGI_DATE <> '' THEN CAST(STR_TO_DATE(REGI_DATE,'%Y%m%d') AS CHAR) ELSE REGI_DATE END AS REGI_DATE /* 등록일 */
+			     , OPEN_NUM              /* 공개번호 */
+			     , CASE WHEN OPEN_DATE IS NOT NULL AND OPEN_DATE <> '' THEN CAST(STR_TO_DATE(OPEN_DATE,'%Y%m%d') AS CHAR) ELSE OPEN_DATE END AS OPEN_DATE /* 공개일 */
 			     , INVENTOR              /* 발명자/고인자 */
 			     , IPC_ALL               /* IPC(All) */
 			     , F_TERM_JP             /* F-Term(JP) */

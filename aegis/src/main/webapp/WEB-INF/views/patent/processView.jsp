@@ -33,7 +33,7 @@
 .file_input_hidden{ 
 	font-size:20px;
 	position:absolute;
-	width:70px;
+	width:50px;
 	opacity:0; 
 	filter:alpha(opacity=0);
 	-ms-filter:"alpha(opacity=0)";
@@ -435,11 +435,9 @@
 						<div class="btnArea2 right">
 							<select class="db_selectbox" id="db_type"></select>
 							<input type="hidden" id="fileName" readonly/>
-							<div class="imageup1">
-	                             <input type="file" id="file" name="file" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-								<h4>파일 추가</h4>
-                             </div>													
-							<a id="btn_batch" href="#" class="btntype4"><span>일괄 등록</span></a>
+	                        <input type="file" id="file" name="file" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
+							<a id="btnAddImageFile" href="#" class="btntype3"><span>파일추가</span></a>
+							<a id="btn_batch" href="#" class="btntype4"><span>일괄등록</span></a>
 						</div>
 						<div class="searchexpression">
 							<div id="divBox" class="expressionBox">

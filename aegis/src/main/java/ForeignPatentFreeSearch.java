@@ -11,7 +11,7 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResult;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.SearchResultArray;
 
 
-public class HH {
+public class ForeignPatentFreeSearch {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -30,8 +30,8 @@ public class HH {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
 
-			String str = "AB=[method^3digital]";
-			SearchResultArray bean = stub.freeSearch(str, "JP,PJ", "0", "15", "", "");
+			String str = "(TL=[electric*car*charger]+AB=[electric*car*charger]+CL=[electric*car*charger])";
+			SearchResultArray bean = stub.freeSearch(str, "US", "0", "15", "", "");
 			SearchResult[] arrays = bean.getSearchTestResult();
 			System.out.println("totalSearchCount:::::"+totalSearchCount);
 			for(int i=0; i<arrays.length; i++)

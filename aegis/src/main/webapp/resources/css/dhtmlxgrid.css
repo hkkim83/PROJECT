@@ -43,6 +43,7 @@ div.gridbox table.obj td {
     padding-top:0px;
     padding-bottom:0px;
     empty-cells:show;
+    white-space:nowrap;
 	}
 div.gridbox table.obj th, div.gridbox table.hdr th{
 	padding:0px 0px 0px 0px ;

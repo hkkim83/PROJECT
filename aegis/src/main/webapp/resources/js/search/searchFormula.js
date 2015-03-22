@@ -204,7 +204,7 @@ var SearchFormulaGenerator = function(){
 			var oResult = new Object();
 			oResult['keyword'] = keyword;
 			oResult['field'] = oKeyword['field'];
-			console.log("oKeyword['field']::::"+oKeyword['field']);
+			// console.log("oKeyword['field']::::"+oKeyword['field']);
 			if(oKeyword['fieldCode'].match(/01|02|03/)) {	// 발명의 명칭, 요약, 대표청구항인 경우 OR로 결합한다.
 				arrResultOr.push(oResult);				
 			} else {
@@ -218,8 +218,8 @@ var SearchFormulaGenerator = function(){
 		// 발명의 명칭, 요약, 대표청구항인 경우 OR로 연결 
 		var searchFormulaOr = '';
 		for(var i=0; i<arrResultOr.length; i++){
-			console.log(":::::arrResultOr:::::");
-			console.log(arrResultOr[i])
+			// console.log(":::::arrResultOr:::::");
+			// console.log(arrResultOr[i])
 			var oResult = arrResultOr[i];
 			if(oResult['keyword'] != '()'){
 				if(i != 0){
@@ -233,8 +233,8 @@ var SearchFormulaGenerator = function(){
 		// 그외 필드인 경우에는 AND로 연결 
 		var searchFormula = '';
 		for(var i=0; i<arrResult.length; i++){
-			console.log(":::::arrResult:::::");
-			console.log(arrResult[i])
+			// console.log(":::::arrResult:::::");
+			// console.log(arrResult[i]);
 			var oResult = arrResult[i];
 			if(oResult['keyword'] != '()'){
 				if(i != 0){

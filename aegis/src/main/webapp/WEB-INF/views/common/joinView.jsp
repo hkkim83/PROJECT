@@ -201,9 +201,9 @@
 										<td colspan="3"><input type="text" id="NAME" class="w50" /></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="PASSWORD">* 관리자 PWD</label></th>
+										<th scope="row"><label for="PASSWORD">* 관리자 PW</label></th>
 										<td><input type="password" id="PASSWORD" class="w90" /></td>
-										<th scope="row"><label for="RE_PASSWORD">PWD 확인</label></th>
+										<th scope="row"><label for="RE_PASSWORD">PW 확인</label></th>
 										<td><input type="password" id="RE_PASSWORD" class="w90" /></td>
 									</tr>
 									<tr>
@@ -233,7 +233,7 @@
 								</fieldset>
 							</form>
 						</div>
-						<p class="txt">문의전화 : 070-8891-6347(직통), 02-562-1716(대표전화) [ 전화상담 운영시간 (평일) 09:00 ~ 18:00 ],  이메일 : chyim@airsgroup.com</p>
+						<p class="txt"> 담당자 : 임청홍 차장  문의전화 : 070-8891-6347(직통), 010-2669-0214(핸드폰) [ 전화상담 운영시간 (평일) 09:00 ~ 18:00 ],  이메일 : chyim@airsgroup.com</p>
 					</div>
 					<!-- //회원가입폼 -->
 					

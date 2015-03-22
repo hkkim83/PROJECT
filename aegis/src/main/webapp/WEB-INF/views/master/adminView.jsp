@@ -10,7 +10,7 @@
 .layer_dialog iframe{
 	position:absolute;
 	top:200px;
-	width:500px;
+	width:600px;
 	height:500px;
 	z-index:10;
 	border:none;
@@ -35,7 +35,7 @@
 	    arr[idx++] = [""      		,"OLD_PASSWORD"	,"0"	,"left"		,"ro"	,"str"	,"false"];
 	    arr[idx++] = ["회사명"  		,"COMPANY"		,"*"	,"left"		,"ro"	,"str"	,"false"];
 	    arr[idx++] = ["아이디"  		,"ID"			,"80"	,"left"		,"ro"	,"str"	,"false"];
-	    arr[idx++] = ["관리자이름" 		,"NAME"			,"100"	,"left"		,"ro"	,"str"	,"false"];
+	    arr[idx++] = ["관리자이름"     ,"NAME"			,"100"	,"left"		,"ro"	,"str"	,"false"];
 	    arr[idx++] = [""  			,"BIZ_NO1"		,"0"	,"left"		,"ro"	,"str"	,"false"];
 	    arr[idx++] = [""  			,"BIZ_NO2"		,"0"	,"left"		,"ro"	,"str"	,"false"];
 	    arr[idx++] = [""  			,"BIZ_NO3"		,"0"	,"left"		,"ro"	,"str"	,"false"];
@@ -393,11 +393,11 @@
 										<td><input type="text" id="NAME" class="w90" /></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="PASSWORD">*관리자 PWD</label></th>
+										<th scope="row"><label for="PASSWORD">*관리자 PW</label></th>
 										<td><input type="password" id="PASSWORD" class="w90" /></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="RE_PASSWORD">PWD 확인</label></th>
+										<th scope="row"><label for="RE_PASSWORD">PW 확인</label></th>
 										<td><input type="password" id="RE_PASSWORD" class="w90" /></td>
 									</tr>
 									<tr>

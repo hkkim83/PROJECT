@@ -117,12 +117,12 @@ var BoardDlg = function(data, fnOkCallback, fnCloseCallback){
 					<tr>
 						<th scope="row"><label for="content">질문</label></th>
 						<td>
-							<textarea class="w95" id="content"></textarea>
+							<textarea class="w95 h2" id="content"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<th scope="row"><label for="reply">답변</label></th>
-						<td><textarea class="w95" id="reply"></textarea></td>
+						<td><textarea class="w95 h3" id="reply"></textarea></td>
 					</tr>
 					</tbody>
 					</table>

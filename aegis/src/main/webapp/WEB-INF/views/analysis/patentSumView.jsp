@@ -7,16 +7,17 @@
 .file_input_div{
 	position:relative; overflow:hidden; padding:15px 0 5px 0
 }
-.file_input_hidden{ 
+.file_input_hidden { 
 	font-size:20px;
 	position:absolute;
-	width:70px;
+	width:50px;
 	opacity:0; 
 	filter:alpha(opacity=0);
 	-ms-filter:"alpha(opacity=0)";
 	-khtml-opacity:0;
 	-moz-opacity:0;
 }
+
 
 </style>
 
@@ -319,7 +320,7 @@
 								<dt class="detailMenu">
 									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}"><div class="sub_btn">기본리스트</div></a>
 									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.LIST_PAGE_NO}"><div class="sub_btn">초록/대표도</div></a>
-									<a href="#" id="btnDownload"><div class="download_btn">다운로드</div></a>
+									<a href="#" id="btnDownload"><div class="download_btn1">엑셀 요지리스트 다운로드</div></a>
 								</dt>
 								<dd class="btn">
 									<c:if test="${PARAM.WRITE_YN == 1}">
@@ -347,11 +348,13 @@
 								</dl>
 								<div id="greenResult" class="greenRepresent">
 									<div class="representLeft">
+										<div>
 										<a id="IMAGE_MAIN_A" href="/patent/imageView.do?IMAGE=${PATENT.IMAGE_MAIN}" target="_blank" ><img id="IMAGE_MAIN" src="${PATENT.IMAGE_MAIN}" alt="" width="258" height="362"></a>
-										<div class="imageup">
-											<input type="file" id="file" name="file" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-											<h4>도면변경</h4>
-											<input type="hidden" id="fileName"/>
+										</div>
+										<div>
+											<input type="hidden" id="fileName" readonly/>
+											<input type="file" id="file" name="file" class="file_input_hidden mt05" title="파일추가" onchange="javascript:document.getElementById('fileName1').value = this.value" />
+											<a id="btnAddImageFile" href="#" class="btntype5 mt05"><span>도면변경</span></a>
 										</div>
 									</div>
 									<div class="representRight">
@@ -392,9 +395,9 @@
 											</tr>
 											<tr>
 												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호</h4></th>
-												<td id="LAID_PUBLIC_NUM">${PATENT.LAID_PUBLIC_NUM}</td>
+												<td id="OPEN_NUM">${PATENT.OPEN_NUM}</td>
 												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개일자</h4></th>
-												<td id="LAID_PUBLIC_DATE">${PATENT.LAID_PUBLIC_DATE}</td>
+												<td id="OPEN_DATE">${PATENT.OPEN_DATE}</td>
 											</tr>
 											<tr>
 												<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호</h4></th>
@@ -429,6 +432,9 @@
 														<option value="A">A</option>
 														<option value="B">B</option>
 														<option value="C">C</option>
+														<option value="X">X</option>
+														<option value="Y">Y</option>
+														<option value="Z">Z</option>
 													</select>
 												</td>
 											</tr>

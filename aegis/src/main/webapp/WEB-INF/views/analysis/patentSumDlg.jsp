@@ -10,7 +10,7 @@
 .file_input_hidden{ 
 	font-size:20px;
 	position:absolute;
-	width:70px;
+	width:50px;
 	opacity:0; 
 	filter:alpha(opacity=0);
 	-ms-filter:"alpha(opacity=0)";
@@ -155,6 +155,10 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 		$('#IMAGE_VIEW').attr("href", "/patent/imageView.do?IMAGE="+data.IMAGE_MAIN);
 	};
 
+	// 파일정보 보여주기
+	var uploadPDFCompleted = function(data) {
+		$('#btnPDFView').attr("href", "/patent/pdfView.do?PDF="+data.PATENT_FULLTXT).attr("target", "_blank");
+	};
 	
 	$('#btnClose').bind('click', fnCloseCallback);
 	// 정보저장
@@ -193,6 +197,28 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 				alert(data.RESULT_MSG);
 			}
 		}
+	});
+	
+	// 전문변경
+	$('#file1').fileupload({
+		url: '/patent/uploadPDF.do?PROJECT_ID='+projectId+"&PATENT_ID="+patentId,
+		dataType: 'json',
+		beforeSend:function() {
+			var fileName = $('#fileName1').val();
+			var index = fileName.lastIndexOf(".");
+			var ext = fileName.substring(index+1, fileName.length);
+				if(!(ext == "pdf" || ext == "PDF")) {
+				alert("PDF파일만 업로드 가능합니다.");
+				return false;
+			}
+		},
+		success: function( data ) {
+			if(data.RESULT_CD == "SUCC_0001") {
+				uploadPDFCompleted(data.FILE_INFO);
+			} else {
+				alert(data.RESULT_MSG);
+			}
+		}
 	});	
 };
 
@@ -225,10 +251,9 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 							<a href="#" class="btntype3"><span>워드다운</span></a>
 							<a href="#" id="btnDownload" class="btntype3"><span>엑셀다운</span></a>
 							<a href="#" id="PATENT_FULLTXT" class="btntype6"><span>전문보기</span></a>
-							<div class="imageup2">
-								<input name="imageup2" type="file">
-								<h4>전문변경</h4>
-							</div>
+							<input type="hidden" id="fileName1" readonly/>
+							<input type="file" id="file1" name="file1" class="file_input_hidden" title="파일추가" onchange="javascript:document.getElementById('fileName1').value = this.value" />
+							<a id="btnAddPDFFile" href="#" class="btntype4"><span>전문변경</span></a>
 						</dd>
 					</div>					
 					<form>
@@ -241,10 +266,12 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 						</dl>
 						<div id="greenResult" class="greenRepresent">
 							<div class="representLeft">
+								<div>
 								<a id="IMAGE_VIEW" href="#" target="_blank" ><img id="IMAGE_MAIN" width="258" height="362"></a>
-								<div class="imageup">
-									<input type="file" id="file" name="file" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
-									<h4>도면변경</h4>
+								</div>
+								<div>
+									<input type="file" id="file" name="file" class="file_input_hidden mt05" title="파일추가" onchange="javascript:document.getElementById('fileName').value = this.value" />
+									<a id="btnAddImageFile" href="#" class="btntype5 mt05"><span>도면변경</span></a>
 									<input type="hidden" id="fileName"/>
 								</div>						
 							</div>
@@ -288,9 +315,9 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 									</tr>
 									<tr>
 										<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개번호</h4></th>
-										<td id="LAID_PUBLIC_NUM"></td>
+										<td id="OPEN_NUM"></td>
 										<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;공개일자</h4></th>
-										<td id="LAID_PUBLIC_DATE"></td>
+										<td id="OPEN_DATE"></td>
 									</tr>
 									<tr>
 										<th scope="row"><h4><i class="fa fa-caret-right"></i>&nbsp;등록번호</h4></th>

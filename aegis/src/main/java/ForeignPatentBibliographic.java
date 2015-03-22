@@ -22,7 +22,7 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.UpcInfo;
 import org.apache.axis.message.SOAPHeaderElement;
 
 
-public class DD {
+public class ForeignPatentBibliographic {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,20 +39,20 @@ public class DD {
 		stub.setHeader(_soapId);
 		stub.setHeader(_soapKey);
 		
-//		String applNum  = "000006176986B1";
-//		String natlCode = "US";
-		String applNum  = "200200007321A1";
-		String natlCode = "WO";		
+		String applNum  = "200720017209Y0";
+		String natlCode = "CN";
+//		String applNum  = "200200007321A1";
+//		String natlCode = "WO";		
 //		String applNum  = "201300223310A0";
 //		String natlCode = "PJ";		
 		try {
 			Map<String, String> map = new HashMap<String, String>();
 			BibliographyParser parser = new OthBibliographyParser(map);
 			// 서지정보
-//			System.out.println("getKiprisBibliography::::"+applNum+","+natlCode);
-//			BibliographicSummaryInfo biblioSummaryInfo = (BibliographicSummaryInfo)stub.bibliographicSummaryInfo(applNum, natlCode);
-//			parser.setBibliographicSummaryInfo(biblioSummaryInfo);
-//			System.out.println("getKiprisBibliography::::"+biblioSummaryInfo);
+			System.out.println("getKiprisBibliography::::"+applNum+","+natlCode);
+			BibliographicSummaryInfo biblioSummaryInfo = (BibliographicSummaryInfo)stub.bibliographicSummaryInfo(applNum, natlCode);
+			parser.setBibliographicSummaryInfo(biblioSummaryInfo);
+			System.out.println("getKiprisBibliography::::"+biblioSummaryInfo);
 			
 //			
 //			// ipc정보
@@ -62,7 +62,9 @@ public class DD {
 ////			// 초록
 			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
 			parser.setSummation(summations);
-			System.out.println("summations1::::"+summations.length);
+			System.out.println("summations1::::"+summations.length+","+summations);
+			for(int i=0; i<summations.length; i++)
+				System.out.println(summations[i]);
 //
 //			// 청구항
 			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);

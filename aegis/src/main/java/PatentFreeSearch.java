@@ -14,7 +14,7 @@ import kr.or.kipris.plus.webservice.services.patentbean.xsd.CategorySearchQuery;
 import org.apache.axis.message.SOAPHeaderElement;
 
 
-public class GG {
+public class PatentFreeSearch {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

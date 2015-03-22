@@ -11,7 +11,7 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.LtrtnoInfo;
 import org.apache.axis.message.SOAPHeaderElement;
 
 
-public class FF {
+public class ForeignPatentLtrtnoInfo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

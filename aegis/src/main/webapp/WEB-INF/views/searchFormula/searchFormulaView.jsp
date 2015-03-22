@@ -590,9 +590,17 @@ select {
 			apply();
 		});
 		
+		/*
+		$('#btn_copy_search_formula').bind('click', function(event) {
+			alert($('#text_search_formula').val());
+		});
+		*/
+		
 		$('#btn_copy_search_formula').zclip({ 
 			  path:'/resources/swf/ZeroClipboard.swf'
-			, copy:function(){return $('#text_search_formula').val();}
+			, copy:function(){ 
+				return $('#text_search_formula').val();
+			}
 		});
 		
 		$('#btn_go_to_search_db').bind('click', function(event){
@@ -769,8 +777,8 @@ select {
 								</table>	
 							</div>
 							<div class="btnArea right">
-								<a id="btn_apply" href="#" class="btntype2"><span>검색식 DB반영</span></a>
-								<a id="btn_copy_search_formula" href="#" class="btntype3"><span>복사</span></a>
+								<a id="btn_apply" href="#" class="btntype2"><span>검색 및 DB반영</span></a>
+								<a id="btn_copy_search_formula" href="#" class="btntype3"><span>검색식 복사</span></a>
 								<a id="btn_go_to_search_db" href="#" class="btntype1"><span>검색DB 바로가기</span></a>
 							</div>
 						</div>
