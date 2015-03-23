@@ -360,14 +360,17 @@ a.btnSmall {font-size:11px;letter-spacing:-1px;height:18px;line-height:20px;padd
 .btnArea2 {clear:both;overflow:hidden;padding:6px 5px 6px;background:#f2f2f2;overflow:hidden}
 .btnArea2.right {text-align:right;}
 
+button.btntype1 {display:inline-block; background: linear-gradient(#fff 0%, #fff 30%, #d8d8d8 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #d8d8d8; font-weight: bold; color:#707070; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype1 {display:inline-block; background: linear-gradient(#fff 0%, #fff 30%, #d8d8d8 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #d8d8d8; font-weight: bold; color:#707070; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 /*a.btntype1:hover {background:linear-gradient(#c1c1c1 0%, #c1c1c1 40%, #8c8c8c 100%) -23px; text-decoration:none; border-radius: 3px;}*/
 a.btntype1 span {display:inline-block; background: linear-gradient(#fff 0%, #fff 30%, #d8d8d8 100%) no-repeat right 0; border-radius: 3px; line-height:230%; padding-right:10px; height:23px;overflow:hidden;}
 /*a.btntype1:hover span {background:linear-gradient(#c1c1c1 0%, #c1c1c1 40%, #8c8c8c 100%) no-repeat right -23px; border-radius: 3px; color:#fff;}*/
 
+button.btntype2 {display:inline-block; background:linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #FF6D5A;  font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype2 {display:inline-block; background:linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #FF6D5A;  font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype2 span {display:inline-block; background:linear-gradient(#FF6D5A 0%, #FF6D5A 40%, #F74B2D 100%) no-repeat right 0; border-radius: 3px; line-height:230%; line-height:230%;padding-right:10px; height:23px;overflow:hidden;}
 
+button.btntype3 {display:inline-block; background: linear-gradient(#72c3ac 0%, #72c3ac 50%, #589c89 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #72c3ac; font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype3 {display:inline-block; background: linear-gradient(#72c3ac 0%, #72c3ac 50%, #589c89 100%) no-repeat right 0; border-radius: 3px; border: solid 1px #72c3ac; font-weight: bold; color:#fff; font-size:11px;padding-left:10px; height:23px;overflow:hidden; cursor:pointer;letter-spacing:-1px;}
 a.btntype3 span {display:inline-block; border-radius: 3px; line-height:230%; padding-right:10px; height:20px;overflow:hidden;}
 

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.aegis.patent2.header.ExcelHeader;
+import kr.co.aegis.patent2.excel.Header;
 import kr.co.aegis.util.DateUtil;
 import kr.co.aegis.util.FileUtil;
 import kr.co.aegis.util.StringUtil;
@@ -318,7 +318,7 @@ public class HSSExcel extends Excel{
 		style2.setAlignment(HSSFCellStyle.ALIGN_LEFT);
 		
 		int index = 1;
-		String[] headList = ExcelHeader.PATENT_HEADER;
+		String[] headList = Header.PATENT_HEADER;
 		String str = "";
 		for(Map<String, String> map : list) {
 			row   = sheet.createRow((short)(++index));
@@ -372,7 +372,7 @@ public class HSSExcel extends Excel{
 		HSSFCellStyle style = fCell.getCellStyle();
 		
 		int index = 0;
-		String[] headList = ExcelHeader.PATENT_HEADER_ALL;
+		String[] headList = Header.PATENT_HEADER_ALL;
 		String str = "";
 		for(Map<String, String> map : list) {
 			row   = sheet.createRow((short)(++index));

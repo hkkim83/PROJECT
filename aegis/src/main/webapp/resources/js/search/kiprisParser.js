@@ -9,26 +9,20 @@ var KiprisParser = function(){
 	
 	
 	this.parse = function(strSource){
-		console.log(4);
 		
 		if(strSource.trim() == ''){
 			return null;
 		}
 
 		var oKeyword = new Object();
-		console.log(5);
 		
 		// 키워드 parsing
 		{
 			var keyword = '';
 			var firstCh = strSource.charAt(0);
-			console.log(6);
 			
 			if(firstCh != '('){
 				var arrResult = strSource.match(/.+?=\[/);
-				console.log("strSource::::"+strSource);
-				console.log("arrResult11::::"+arrResult);
-				console.log("arrResult22::::"+arrResult[0]);
 				if(arrResult){
 					var errorIdx = arrResult[0].regexLastIndexOf(/\*|\+/);
 					// 시작문자가 '('가 아니고 필드도 포함되지않을경우('*', '+'가 포함된경우 올바른 필드가 아니다.)의 키워드를 선택한다.
@@ -70,11 +64,8 @@ var KiprisParser = function(){
 			oKeyword = this.parseParameters(oKeyword);
 		}
 		
-		console.log(7);
-		
 		// 연산자 parsing
 		{
-			console.log(8);
 			if(strSource.trim() != ''){
 				strSource = strSource.ltrim();	// 왼쪽 공백제거
 				var conjunction = '';

@@ -242,12 +242,12 @@
 			     , KINDS_TECH            /* 기술분류 */
 			     , KINDS_LCATE           /* 대분류 */
 			     , KINDS_MCATE           /* 중분류 */
-			     , GRADE_IDEA            /* Idea등급
-			     , IFNULL(GRADE_OBJ,'')   GRADE_OBJ            /* 목적등급 */
-			     , IFNULL(GRADE_CONST,'') GRADE_CONST          /* 구성등급 */
+			     , GRADE_IDEA            /* Idea등급 */
+			     , IFNULL(GRADE_OBJ,'')    GRADE_OBJ            /* 목적등급 */
+			     , IFNULL(GRADE_CONST,'')  GRADE_CONST          /* 구성등급 */
 			     , LEGAL_STATUS          /* 법적상태 */
-			     , CMT_LAW_FIRMS         /* 검토의견(사무소) */
-			     , CMT_CO                /* 검토의견(참여기관) */
+			     , IFNULL(CMT_LAW_FIRMS,'') CMT_LAW_FIRMS       /* 검토의견(사무소) */
+			     , IFNULL(CMT_CO,'')        CMT_CO              /* 검토의견(참여기관) */
 			     , IMPORTANT_YN          /* 중요특허여부 */
 			     , ( SELECT COMM_NAME FROM COMMON WHERE GROUP_CODE = '26' AND COMM_CODE = PT.IMPORTANT_YN ) AS IMPORTANT_YN_NM  /* 중요특허여부명 */
 			     , DEL_YN                /* 삭제여부 */

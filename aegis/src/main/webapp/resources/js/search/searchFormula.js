@@ -5,10 +5,8 @@ var SearchFormula = function(){
 	// 분석
 	//
 	this.parse = function(srcSource){
-		console.log(1);
 		var parser = new SearchFormulaParser();
 		var dbTypeCd = parser.checkDbType(srcSource);
-		console.log("dbTypeCod ::: "+dbTypeCd);
 		switch(dbTypeCd){
 		case SearchFormula.DB_TYPE_WIPSON :
 			parser = new WipsonParser();
@@ -21,11 +19,9 @@ var SearchFormula = function(){
 			break;
 		}
 
-		console.log(2);
 		var strTarget = srcSource;
 		strTarget = parser.removeUselessParenthesis(strTarget);
 		var arrKeyword = parser.parse(strTarget);
-		console.log(3);
 		
 		var mapResult = new Object();
 		mapResult['dbTypeCd'] = dbTypeCd;
@@ -250,8 +246,8 @@ var SearchFormulaGenerator = function(){
 		// 키프리스를 위한 검색식 만들기  
 		var searchFormulaKp = '';
 		for(var i=0; i<arrResultKp.length; i++){
-			console.log(":::::arrResult:::::");
-			console.log(arrResultKp[i])
+			// console.log(":::::arrResult:::::");
+			// console.log(arrResultKp[i])
 			var oResult = arrResultKp[i];
 			if(oResult['keyword'] != '()'){
 				if(i != 0){

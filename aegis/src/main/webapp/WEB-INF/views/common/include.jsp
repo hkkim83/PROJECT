@@ -14,7 +14,7 @@
 <script type="text/javascript" src="/resources/js/json2.js" ></script>
 <script type="text/javascript" src="/resources/js/jquery.ui.dialog.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.watermark.min.js"></script>
-<script type="text/javascript" src="/resources/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="/resources/js/ZeroClipboard.min.js"></script>
 <script type="text/javascript" src="/resources/js/validate.form.js"></script>
 <script type="text/javascript" src="/resources/js/i18n/grid.locale-kr.js" ></script>
 <script type="text/javascript" src="/resources/js/dhtmlxGrid/dhtmlxcommon.js"></script>

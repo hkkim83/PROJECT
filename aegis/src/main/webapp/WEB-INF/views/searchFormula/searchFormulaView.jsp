@@ -552,7 +552,7 @@ select {
 	};
 	
 	$(document).ready(function(){
-		
+	
 		$trBaseParameter = $('#tr_parameter').remove();
 		$trBaseKeyword = $('#tr_keyword').remove();
 
@@ -590,13 +590,23 @@ select {
 			apply();
 		});
 		
-		/*
-		$('#btn_copy_search_formula').bind('click', function(event) {
-			alert($('#text_search_formula').val());
+		
+		var clip = new ZeroClipboard($('#btn_copy_search_formula'));
+		clip.on("ready", function() {
+			this.on("aftercopy", function(event) {
+			    alert("검색식이 복사되었습니다.");
+			    return;
+			});
 		});
-		*/
+		
 		
 		$('#btn_copy_search_formula').bind('click', function(event) {
+			event.preventDefault();
+		});
+		
+		/*
+		$('#btn_copy_search_formula').bind('click', function(event) {
+			event.preventDefault();
 			var text = $('#text_search_formula').val();
 			if(window.clipboardData) {
 				window.clipboardData.setData('text', text);
@@ -607,6 +617,7 @@ select {
 				});
 			}
 		});
+		*/
 
 		/*
 		$('#btn_copy_search_formula').zclip({ 
@@ -791,9 +802,9 @@ select {
 								</table>	
 							</div>
 							<div class="btnArea right">
-								<a id="btn_apply" href="#" class="btntype2"><span>검색 및 DB반영</span></a>
-								<a id="btn_copy_search_formula" href="#" class="btntype3"><span>검색식 복사</span></a>
-								<a id="btn_go_to_search_db" href="#" class="btntype1"><span>검색DB 바로가기</span></a>
+								<button id="btn_apply" class="btntype2">검색 및 DB반영</button>
+								<button id="btn_copy_search_formula" class="btntype3" data-clipboard-target="text_search_formula">검색식 복사</button>
+								<button id="btn_go_to_search_db" class="btntype1">검색DB 바로가기</button>
 							</div>
 						</div>
 						</fieldset>

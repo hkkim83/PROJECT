@@ -91,7 +91,8 @@ public class KrBibliographyParser extends BibliographyParser{
 			sb.append(abstractInfos[i].getAstrtCont());
 			logger.info("abstractInfos:::"+abstractInfos[i]);
 		}
-		logger.info("setAbstractInfo::::::"+sb.toString().trim());
+		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
+		logger.info(map.get("APPL_NUM_ORG")+":::setAbstractInfo::::::"+sb.toString().trim());
 		if(StringUtil.isNull(map.get("ABSTRACT"))) map.put("ABSTRACT", getAbstract(sb.toString()));
 //		AbstractInfo abstractInfo = abstractInfos[0];
 //		if(abstractInfo == null) return;
@@ -110,10 +111,11 @@ public class KrBibliographyParser extends BibliographyParser{
 		for(int i=0; i<claimInfos.length; i++) {
 			if(claimInfos[i] == null) return;
 			sb.append(claimInfos[i].getClaim());
-			logger.info("claimInfos::"+i+":::\n"+claimInfos[i].getClaim());
+			logger.info(":::claimInfos::"+i+":::\n"+claimInfos[i].getClaim());
 		}
+		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
+		logger.info(map.get("APPL_NUM_ORG")+":::setClaimInfo::::::"+sb.toString());
 		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));
-		logger.info("setClaimInfo::::::"+sb.toString());
 //		ClaimInfo claimInfo = claimInfos[0];
 //		if(claimInfo == null) return;
 //		String claimMain = getClaimMain(claimInfo.getClaim());

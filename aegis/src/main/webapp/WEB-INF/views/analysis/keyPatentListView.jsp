@@ -74,7 +74,7 @@
 			}
 		});
 		
-		console.log(data["REGI_NUM"]+"/"+data["REGI_DATE"]);
+		// console.log(data["REGI_NUM"]+"/"+data["REGI_DATE"]);
 		$('#'+str+"_APPL_NUM").text(data["APPL_NUM"]+" ( "+data["APPL_DATE"]+" )");
 		$('#'+str+"_LAID_PUBLIC_NUM").text(data["LAID_PUBLIC_NUM"]+" ( "+data["LAID_PUBLIC_DATE"]+" )");
 		$('#'+str+"_REGI_NUM").text(data["REGI_NUM"]+" ( "+data["REGI_DATE"]+" )");
