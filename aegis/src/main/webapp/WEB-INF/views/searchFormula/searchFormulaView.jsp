@@ -596,13 +596,27 @@ select {
 		});
 		*/
 		
+		$('#btn_copy_search_formula').bind('click', function(event) {
+			var text = $('#text_search_formula').val();
+			if(window.clipboardData) {
+				window.clipboardData.setData('text', text);
+			} else {
+				$(this).zclip({
+					path:'/resources/swf/ZeroClipboard.swf',
+					copy: function() { return text;}
+				});
+			}
+		});
+
+		/*
 		$('#btn_copy_search_formula').zclip({ 
 			  path:'/resources/swf/ZeroClipboard.swf'
 			, copy:function(){ 
 				return $('#text_search_formula').val();
 			}
 		});
-		
+		*/
+
 		$('#btn_go_to_search_db').bind('click', function(event){
 			event.preventDefault();
 			var dbUrl = 'http://'+$('#db_type').find('option:selected').attr('VAL_1');

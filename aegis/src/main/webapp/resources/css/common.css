@@ -53,7 +53,7 @@ Date : 2013-12-20
 .loinmm .right {position:absolute;right:12px;top:66px}
 
 /*로그인버튼*/
-.btnLogin{float:left; width: 51px; height: 46px; border: solid 1px #8cc63f; letter-spacing: -0.09em; background: linear-gradient(#62b43e 0%, #62b43e 50%,#256708 100%); color: #fff; font-size: 12px; margin:11px 0 0 7px;}
+.btnLogin{float:left; width: 51px; height: 46px; border: solid 1px #8cc63f; letter-spacing: -0.09em; background: linear-gradient(#62b43e 0%, #62b43e 50%,#256708 100%); color: #fff; font-size: 12px; margin:3px 0 0 7px;}
 
 /* main tab */
 .notice {float:left;position:relative;width:312px;left:50px;height:100%;}
