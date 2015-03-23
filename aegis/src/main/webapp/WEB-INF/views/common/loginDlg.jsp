@@ -113,7 +113,7 @@ var LoginDlg = function(data, fnOkCallback, fnCloseCallback){
 							<input type="password" id="password" placeholder="비밀번호" />
 						</li>
 					</ul>
-					<span><a href="#" class="btnLogin" id="btn_login" ><img src="/resources/images/main/btn_login.gif" alt="로그인" /></a></span>
+					<span><a href="#" class="btnLogin1" id="btn_login" ><img src="/resources/images/main/btn_login.gif" alt="로그인" /></a></span>
 					<div class="loinmm" style="display:none;">
 						<span class="left"><a href="">회원가입</a></span>
 						<span class="right"><a href="">아이디/비밀번호찾기</a></span>

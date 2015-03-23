@@ -53,35 +53,29 @@ Date : 2013-12-20
 .loinmm .right {position:absolute;right:12px;top:66px}
 
 /*로그인버튼*/
-.btnLogin{float:left; width: 51px; height: 46px; border: solid 1px #8cc63f; letter-spacing: -0.09em; background: linear-gradient(#62b43e 0%, #62b43e 50%,#256708 100%); color: #fff; font-size: 12px; margin:3px 0 0 7px;}
+.btnLogin{float:left; width: 51px; height: 46px; border: solid 1px #8cc63f; letter-spacing: -0.09em; background: linear-gradient(#62b43e 0%, #62b43e 50%,#256708 100%); color: #fff; font-size: 12px; margin:11px 0 0 7px;}
+.btnLogin1{float:left; width: 51px; height: 46px; border: solid 1px #8cc63f; letter-spacing: -0.09em; background: linear-gradient(#62b43e 0%, #62b43e 50%,#256708 100%); color: #fff; font-size: 12px; margin:3px 0 0 7px;}
 
 /* main tab */
 .notice {float:left;position:relative;width:312px;left:50px;height:100%;}
-.mainTab {width:100%;border-bottom:1px solid #ccc;height:30px;}
-.mainTab li {float:left;border:1px solid #ccc;border-bottom:0;margin-left:-1px;text-align:center;}
+.mainTab {width:100%;border-bottom:1px solid #ccc; height:26px; padding-top: 3px;}
 .mainTab li img {vertical-align:middle;}
-.mainTab li a {display:block;height:30px;width:82px;line-height:30px;color:transparent;}
-.mainTab li a.on {border-top:1px solid #8cc63f;background-color:#fff;}
-.mainTab li span.mm01 {background:url(/resources/images/common/tab_menu01_off.png) no-repeat left 0;}
-.mainTab li span.mm02 {background:url(/resources/images/common/tab_menu02_off.png) no-repeat left 0;}
-.mainTab li span.mm03 {background:url(/resources/images/common/tab_menu03_off.png) no-repeat left 0;}
-.mainTab li a.on span.mm01 {background:url(/resources/images/common/tab_menu01_on.png) no-repeat left 0;}
-.mainTab li a.on span.mm02 {background:url(/resources/images/common/tab_menu02_on.png) no-repeat left 0;}
-.mainTab li a.on span.mm03 {background:url(/resources/images/common/tab_menu03_on.png) no-repeat left 0;}
+.mainTab li a {display:block;height:30px;width:58px;line-height:30px;color:transparent;}
+.mainTab li span.mm01 {background:url(../images/common/tab_menu01_off.png) no-repeat left 0;}
 
 .noticeList {margin:0;padding:0;clear:both;}
 .noticeList.inb_con {display:none;}
 .noticeList.active {display:block;}
 .noticeList ul {padding:15px 0 0;width:100%;}
-.noticeList ul li {background:url(/resources/images/common/bul_arrow.png) no-repeat left 5px;padding:0 0 5px 5px;line-height:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.noticeList ul li {background:url(../images/common/bul_arrow.png) no-repeat left 5px;padding:0 0 5px 5px;line-height:14px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 .noticeList ul li a:hover {text-decoration:underline}
-.notice .btnMore {position:absolute;top:5px;right:0;}
+.notice .btnMore {position:absolute;top:3px;right:0;}
 
 /* main 서비스 안내 */
-.mainServie {float:right;position:relative;width:252px;text-align:left;margin-right:40px;height:100%}
+.mainServie {float:right;position:relative;width:252px;text-align:left;margin-right:40px;height:100%; padding-top:3px;}
 .service-wrap {padding:10px 0 0}
 .servList {position:relative;}
-.servList li {float:left;border:1px solid #e4e4e4;width:250px;height:94px;background:url(/resources/images/common/bg_service.gif) repeat-x left top;}
+.servList li {float:left;border:1px solid #e4e4e4;width:250px;height:94px;background:url(../images/common/bg_service.gif) repeat-x left top;}
 .servList li dl {position:relative;width:100%;}
 .servList li dl dt {position:absolute;left:13px; top:13px;}
 .servList li dl dd {position:absolute;right:13px; top:13px;width:63%;}

@@ -273,14 +273,14 @@ var downloadFile = function(filePath) {
 				<!-- 공지사항 -->
 				<div class="notice" style="height:auto;">
 					<ul class="mainTab tab">
-						<li><a href="#" class="on"><span class="mm01">공지사항</span></a></li>
-						<li><a href="#"><span class="mm03">Q&amp;A</span></a></li>
-						<li><a href="#"><span class="mm02">FAQ</span></a></li>
+						<li>
+						    <a href="#notice01"><img src="/resources/images/main/h3_notice.gif" width="58" height="16" alt="공지사항" /></a>
+                        </li>
 					</ul>
 
 					<div>
 						<h3 class="blind">공지사항</h3>
-						<div class="noticeList inb_con active">
+						<div id="notice01" class="noticeList inb_con active">
 							<ul id="nList">
 								<li></li>
 								<li></li>
@@ -290,33 +290,6 @@ var downloadFile = function(filePath) {
 						</div>
 						<span class="btnMore"><a href="#" id="btnNotice"><img src="/resources/images/main/btn_more.gif" alt="공지사항 더보기" /></a></span>
 					</div>
-
-					<div style="display:none;">
-						<h3 class="blind">Q&amp;A</h3>
-						<div class="noticeList inb_con active">
-							<ul id="qList">
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-						<span class="btnMore"><a href="#" id="btnQna"><img src="/resources/images/main/btn_more.gif" alt="Q&amp;A 더보기" /></a></span>
-					</div>
-					
-					<div style="display:none;">
-						<h3 class="blind">FAQ</h3>
-						<div class="noticeList inb_con active">
-							<ul id="fList">
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-						<span class="btnMore"><a href="#" id="btnFaq"><img src="/resources/images/main/btn_more.gif" alt="FAQ 더보기" /></a></span>
-					</div>
-					
 				</div>
 				<!-- //공지사항 -->
 
@@ -325,7 +298,7 @@ var downloadFile = function(filePath) {
 
 				<!-- 서비스 안내 -->
 				<div class="mainServie">
-					<h3><img src="/resources/images/main/h3_service.gif" alt="서비스안내" /></h3>
+					<h3><img src="/resources/images/main/h3_service.gif" width="71" height="16" alt="서비스안내" /></h3>
 					<div id='serviceSwipe' class='swipe'>
 					  <div class='swipe-wrap'>
 							<div class="service-wrap">

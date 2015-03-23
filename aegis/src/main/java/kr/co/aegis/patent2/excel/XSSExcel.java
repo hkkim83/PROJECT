@@ -104,15 +104,17 @@ public class XSSExcel extends Excel{
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("KINDS_DB", kindsDB);
 			StringBuilder sb = new StringBuilder();
-			
 			for (Cell cell : row) {
 				key   = DBMap.get(titleArr[cell.getColumnIndex()]);
 				value = "";
+				logger.info("key::::"+key+","+cell.getCellType());
 				switch (cell.getCellType()) {
 					case XSSFCell.CELL_TYPE_STRING:
+						logger.info("CELL_TYPE_STRING:::value::::"+cell.getRichStringCellValue().getString());
 						value = cell.getRichStringCellValue().getString();
 						break;
 					case XSSFCell.CELL_TYPE_NUMERIC:
+						logger.info("CELL_TYPE_NUMERIC:::value::::"+cell.getNumericCellValue());
 						value = String.valueOf((long)cell.getNumericCellValue());
 						break;
 					case XSSFCell.CELL_TYPE_FORMULA:
