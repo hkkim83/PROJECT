@@ -170,7 +170,7 @@ jQuery(document).ready(function(){
 	
  	// 스마트 파인더 보기 버튼 토글기능
 	jQuery("#ToggleSmartFinder, #DummySmartFinder, #ToggleSmartFinder2").click(function(){
-
+		console.log(2);
 		var scrltop = $(window).scrollTop();
 		var xpos= ($(window).width() - btn_width) / 2;
 
@@ -248,6 +248,7 @@ jQuery(document).ready(function(){
                                         });
 
                                     }
+                        
 
                         }
 			// 스마트파인더 보기버튼의 원래 위치보다 스크롤이 위에 있는 경우
@@ -272,6 +273,7 @@ jQuery(document).ready(function(){
                                 global_timer = ClearTimer(global_timer);
 			}
 
+                        console.log('close');
 			sf_stat = "open";
 			jQuery("#ToggleSmartFinder")
 				.prop("alt", "스마트검색 닫기")
@@ -348,6 +350,8 @@ jQuery(document).ready(function(){
 				});         
 
 			}
+
+                        console.log('open');
 			sf_stat = "close";
 			jQuery("#ToggleSmartFinder")
 				.prop("alt", "스마트검색 열기")
@@ -355,6 +359,9 @@ jQuery(document).ready(function(){
 			jQuery("#DummySmartFinder")
 				.prop("alt", "스마트검색 열기")
 				.prop("src", "../images/common/btn_smartfinder_open_m.gif");
+			
+			console.log(1235);
+			jQuery('html, body').animate({scrollTop:0}, 500);
                                 
                         //스마트검색 이미지 변경에 따라 스마트검색창을 열고 닫을 때 스마트검색 왼쪽버튼 표시 상태 변경함. by lhy 2013.08.06
                         $(".sfinder_btn_left").show();        
@@ -1944,7 +1951,7 @@ function hideSmartFinder()
         sf_stat = "close";
 	jQuery("#ToggleSmartFinder").prop("src", "/images/common/btn_smartfinder_open_m.gif");
 	jQuery("#divSmartFinderWrap").hide();	// 스마트 파인더 감추기
-        
+    console.log(1);
         //스마트검색 이미지 변경에 따라 스마트검색창을 열고 닫을 때 스마트검색 왼쪽버튼 표시 상태 변경함. by lhy 2013.08.13
         $(".sfinder_btn_left").show();
 }

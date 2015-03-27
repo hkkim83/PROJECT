@@ -183,6 +183,7 @@ public class PatentController extends BaseController {
 		String strKeywordList = null;
 		if(list != null && !list.isEmpty()) {
 			patentMap = list.get(0);
+			StringUtil.convertToBr(patentMap, "APPLICANT_RENAME");
 			List<Map<String, String>> keywordList = categoryService.selectPatentCategoryList(patentMap);
 			strKeywordList = getKeywordList(keywordList);
 			// 키워드리스트 조회

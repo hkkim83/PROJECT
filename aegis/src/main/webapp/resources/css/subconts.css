@@ -48,8 +48,8 @@ Date : 2013-12-25
 
 /*본문입력*/
 .searchtitle{float: left; width: 70px; font-weight: bold; padding-top: 2px;}
-.searchbody{width: 595px; height: auto; float: left; line-height: 130%; font-weight: bold;}
-.searchbody-1{width: 670px; height: auto; float: left; line-height: 130%; font-weight: bold;}
+.searchbody{width: 545px; height: auto; float: left; line-height: 130%; font-weight: bold;}
+.searchbody-1{width: 620px; height: auto; float: left; line-height: 130%; font-weight: bold;}
 
 /* 검색결과 상세 내용 */
 .finderDetail {clear:both; float: left; margin-top:20px; width:100%;}

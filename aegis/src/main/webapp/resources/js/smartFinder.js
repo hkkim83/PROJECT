@@ -355,7 +355,9 @@ jQuery(document).ready(function(){
 			jQuery("#DummySmartFinder")
 				.prop("alt", "스마트검색 열기")
 				.prop("src", "/resources/images/common/btn_smartfinder_open_m.gif");
-                                
+             
+			jQuery('html, body').animate({scrollTop:136}, 200);
+			
                         //스마트검색 이미지 변경에 따라 스마트검색창을 열고 닫을 때 스마트검색 왼쪽버튼 표시 상태 변경함. by lhy 2013.08.06
                         $(".sfinder_btn_left").show();        
 		}

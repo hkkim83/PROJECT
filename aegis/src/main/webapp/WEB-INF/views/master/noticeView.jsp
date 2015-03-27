@@ -173,8 +173,6 @@
 						<div class="master">
 							<ul class="masterTab">
 								<li><a href="/board/view.do" class="on">공지사항</a></li>
-								<li><a href="/board/qnaView.do">Q&amp;A</a></li>
-								<li><a href="/board/faqView.do">FAQ</a></li>
 							</ul>
 							<div id="gridList" class="mt20" style="background-color:white; width:100%; height:400px;"></div>
 <% 

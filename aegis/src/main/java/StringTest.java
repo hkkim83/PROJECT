@@ -97,6 +97,13 @@ public class StringTest {
         String ast = "<P align=\"JUSTIFIED\" indent=\"14\">아날로그 영상 신호를 인코딩하는 방법으로서";
         ast.replaceAll("<P align=\"JUSTIFIED\" indent=\"14\">", "");
         System.out.println(ast);
+        
+        String value = "Gary Lee Firman, II | Thomas Chrapkiewicz | Richard P. Cuplin";
+	    System.out.println("before::::::"+value);
+	    value = value.replace(", Inc", "");
+	    value = value.replace(",", "<br>");
+	    value = value.replace("|", "<br>");
+	    System.out.println("after::::::"+value);
 	}
 
 }

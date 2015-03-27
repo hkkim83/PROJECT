@@ -3,6 +3,7 @@ package kr.co.aegis.util;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -371,5 +372,23 @@ public class StringUtil {
 		if(isNull(str)) return "";
 		String[] arr = str.split("\\s");
 		return isNull(arr[0]) ? "" : arr[0].replaceAll(regex, replacement);
+	}
+	
+	/**
+	 * 개행 <br>
+	 * 로 변경
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static void convertToBr(Map<String, String> map, String key) {
+	    String value = map.get(key);
+	    if(isNull(value)) return;
+	    System.out.println("before::::::"+value);
+	    value = value.replace(", Inc", "");
+	    value = value.replace(",", "<br>");
+	    value = value.replace("|", "<br>");
+	    System.out.println("after::::::"+value);
+	    map.put(key, value);
 	}
 }

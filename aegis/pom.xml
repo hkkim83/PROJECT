@@ -263,7 +263,7 @@
 				<version>2.1</version>
 				<configuration>
 					<path>/</path>
-					<url>http://112.216.191.58:8080/manager/text</url>
+					<url>http://110.15.51.112:8080/manager/text</url>
 					<username>tomcat</username>
 					<password>tomcat</password>
 					<warFile>target/aegis-1.0.0.war</warFile>

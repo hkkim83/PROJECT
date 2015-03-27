@@ -183,6 +183,12 @@
 			searchCnt("4");
 		});
 		
+		
+		// 전체검색2
+		$("#btnAbleCnt2").bind("click", function() {
+			searchCnt("0");
+		});
+		
 		// 중요특허2(하단)
 		$("#btnImportCnt").bind("click", function() {
 			searchCnt("1");
@@ -307,6 +313,7 @@
 								<span class="searchbody-1">${PARAM.INPUT_STRING}</span>
 							</p>
 							<p class="right">
+								<button type="button" id="btnAbleCnt2" class="btnSmall write">전체특허</button>
 								<button type="button" id="btnImportCnt" class="btnSmall write">중요특허</button>
 								<span>총 <c:out value="${TOTAL.PA_IMPORTANT_CNT}"/>건</span>
 								<span>(아래 리스트의  <img src="/resources/images/common/ico_ferretout.gif" alt="" /> 색줄)</span>

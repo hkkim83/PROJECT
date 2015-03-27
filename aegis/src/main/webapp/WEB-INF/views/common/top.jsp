@@ -71,7 +71,7 @@
 					return;
 				} else {
 					alert('프로젝트가 변경되었습니다.');
-					if(beforeURI.indexOf("patentSumView") > -1)
+					if(beforeURI.indexOf("patent") > -1 ) 
 						location.href = '/patent/view.do';
 					else if(beforeURI.indexOf("process")  > -1 ||
 						beforeURI.indexOf("applicant")    > -1 ||
