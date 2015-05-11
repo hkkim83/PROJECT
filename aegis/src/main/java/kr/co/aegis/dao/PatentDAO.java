@@ -64,8 +64,25 @@ public class PatentDAO extends BaseDAO {
 	public String selectExistsApplNum(Map<String, String> param) {
 		return getSqlSession().selectOne("sql.patent.selectExistsApplNum", param);
 	}
-	
-	
+		
+	/**
+	 * 조사 기준 통계 조회
+	 * 
+	 * @return
+	 */
+	public Map<String, String> selectGradeConstCount(Map<String, String> param) {
+		return getSqlSession().selectOne("sql.patent.selectGradeConstCount", param);
+	}
+         
+	/**
+	 * 주요 선행 기술 조회
+	 * 
+	 * @return
+	 */
+	public List<Map<String, String>> selectGradeConst(Map<String, String> param) {
+		return getSqlSession().selectList("sql.patent.selectGradeConst", param);
+	}
+		
 	/**
 	 * 업로드 임시 조회
 	 * 

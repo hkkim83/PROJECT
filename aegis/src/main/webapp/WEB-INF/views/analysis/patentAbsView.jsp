@@ -417,7 +417,9 @@
 									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">초록/대표도</div></a>
 									<a href="#" id="btnDownload0"><div class="download_btn">전체다운</div></a>
 									<a href="#" id="btnDownload1"><div class="download_btn">엑셀다운</div></a>
-									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>																	
+									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>	
+									<a href="/patent/wordView.do" id="btnDownload3"><div class="download_btn">워드다운</div></a>
+									<a href="/patent/hwpView.do" id="btnDownload4"><div class="download_btn">한글다운</div></a>																
 								</dt>
 								<dd>
 									<span>총 <c:out value="${TOTAL.PA_TOTAL_CNT}"/>건 검색</span>

@@ -219,6 +219,65 @@ public class PatentController extends BaseController {
 		return new ModelAndView("analysis/patentSumDlg");
 	}
 	
+	
+	/**
+	 * 특허검색 결과 word로 출력
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 * @throws InterruptedException 
+	 */
+	@RequestMapping(value = "/wordView.do")
+	public ModelAndView wordView(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("analysis/wordView");
+		Map<String, String> param = new HashMap<String, String>();
+		// 세션에서 현재 선택된 프로젝트 정보 가져오기
+		User user = (User)session.getAttribute(USER_SESSION);
+		param.put("PROJECT_ID"  , user.getProjectId());
+		logger.info("param>>>>>>>>>>>>"+param);
+		Map<String, String> map = patentService.selectGradeConstCount(param);
+		List<Map<String, String>> list = patentService.selectGradeConst(param);
+		logger.info("map:::::"+map);
+		logger.info("list:::::"+list);
+		
+		modelAndView.addObject("MAP", map);
+		modelAndView.addObject("LIST", list);
+		
+		return modelAndView;
+	}
+	
+	/**
+	 * 특허검색 결과 hwp로 출력
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 * @throws InterruptedException 
+	 */
+	@RequestMapping(value = "/hwpView.do")
+	public ModelAndView hwpView(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView("analysis/hwpView");
+		Map<String, String> param = new HashMap<String, String>();
+		// 세션에서 현재 선택된 프로젝트 정보 가져오기
+		User user = (User)session.getAttribute(USER_SESSION);
+		param.put("PROJECT_ID"  , user.getProjectId());
+		logger.info("param>>>>>>>>>>>>"+param);
+		Map<String, String> map = patentService.selectGradeConstCount(param);
+		List<Map<String, String>> list = patentService.selectGradeConst(param);
+		logger.info("map:::::"+map);
+		logger.info("list:::::"+list);
+		
+		modelAndView.addObject("MAP", map);
+		modelAndView.addObject("LIST", list);
+		
+		return modelAndView;
+	}
+	
 	/**
 	 * 특허저장
 	 * @param request

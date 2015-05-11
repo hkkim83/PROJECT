@@ -80,7 +80,6 @@ public class XSSExcel extends Excel{
 		
 	    return DBName;
 	}
-	
 
 	/**
 	 * 업로드한 엑셀파일 읽어오기
@@ -96,48 +95,44 @@ public class XSSExcel extends Excel{
 		String value = "";
 		String key   = "";
 		
-		// DB 매핑정보 가져오기
-		getDBMap(kindsDB);
-		
-		for (Row row : wb.getSheetAt(0)) {
-			if(row.getRowNum() < 1) continue;
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("KINDS_DB", kindsDB);
-			StringBuilder sb = new StringBuilder();
-			for (Cell cell : row) {
-				key   = DBMap.get(titleArr[cell.getColumnIndex()]);
-				value = "";
-				logger.info("key::::"+key+","+cell.getCellType());
-				switch (cell.getCellType()) {
-					case XSSFCell.CELL_TYPE_STRING:
-						logger.info("CELL_TYPE_STRING:::value::::"+cell.getRichStringCellValue().getString());
-						value = cell.getRichStringCellValue().getString();
-						break;
-					case XSSFCell.CELL_TYPE_NUMERIC:
-						logger.info("CELL_TYPE_NUMERIC:::value::::"+cell.getNumericCellValue());
-						value = String.valueOf((long)cell.getNumericCellValue());
-						break;
-					case XSSFCell.CELL_TYPE_FORMULA:
-						value = cell.getCellFormula();
-						break;
-					case XSSFCell.CELL_TYPE_BOOLEAN:
-						value = String.valueOf(cell.getBooleanCellValue());
-						break;
-					default:
-						break;
+			// DB 매핑정보 가져오기
+			getDBMap(kindsDB);
+			
+			for (Row row : wb.getSheetAt(0)) {
+				if(row.getRowNum() < 1) continue;
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("KINDS_DB", kindsDB);
+				StringBuilder sb = new StringBuilder();
+				for (Cell cell : row) {
+					key   = DBMap.get(titleArr[cell.getColumnIndex()]);
+					value = getCellData(cell);
+					if(cell.getColumnIndex() < 3) 
+						sb.append(value);
+					if(key != null)
+						map.put(key, value);
 				}
-				if(cell.getColumnIndex() < 3) 
-					sb.append(value);
-				if(key != null)
-					map.put(key, value);
+				// 컬럼값이 존재하지 않으면 루프를 탈출한다.
+				if(StringUtil.isNull(sb.toString())) break;
+				list.add(map);
 			}
-			// 컬럼값이 존재하지 않으면 루프를 탈출한다.
-			if(StringUtil.isNull(sb.toString())) break;
-			list.add(map);
-		}
-		return list;
+			return list;
 	}
 
+	/**
+	 * cell에서 값 가져오기 
+	 * @param cell
+	 * @return
+	 */
+	private String getCellData(Cell cell) {
+		String str = "";
+		try {
+			str = cell.toString();
+		} catch ( IllegalStateException e) {
+			str = "";
+		}
+		return str;
+	}
+	
 	/**
 	 * KIPRIS 국내/국외 구분 가져오기
 	 * @param file
@@ -208,6 +203,7 @@ public class XSSExcel extends Excel{
 	    	}
 	    }
 	    logger.info("setTitleArr::::::::::::::::::\n");
-	    logger.info(titleArr);
+	    for(int i=0; i<titleArr.length; i++)
+	    	logger.info(i+":::::"+titleArr[i]);
 	}
 }

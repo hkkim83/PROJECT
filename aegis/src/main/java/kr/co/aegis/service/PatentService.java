@@ -89,6 +89,25 @@ public class PatentService extends BaseService {
 	}
 	
 	/**
+	 * 조사 기준 통계 조회
+	 * 
+	 * @return
+	 */
+	public Map<String, String> selectGradeConstCount(Map<String, String> param) {
+		return patentDAO.selectGradeConstCount(param);
+	}
+	     
+	/**
+	 * 주요 선행 기술 조회
+	 * 
+	 * @return
+	 */
+	public List<Map<String, String>> selectGradeConst(Map<String, String> param) {
+		return patentDAO.selectGradeConst(param);
+	}
+	
+	
+	/**
 	 * 업로드 임시 리스트
 	 * @param param
 	 * @return

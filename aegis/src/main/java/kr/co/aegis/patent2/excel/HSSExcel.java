@@ -121,23 +121,7 @@ public class HSSExcel extends Excel{
 			
 			for (Cell cell : row) {
 				key   = DBMap.get(titleArr[cell.getColumnIndex()]);
-				value = "";
-				switch (cell.getCellType()) {
-					case HSSFCell.CELL_TYPE_STRING:
-						value = cell.getRichStringCellValue().getString();
-						break;
-					case HSSFCell.CELL_TYPE_NUMERIC:
-						value = String.valueOf((long)cell.getNumericCellValue());
-						break;
-					case HSSFCell.CELL_TYPE_FORMULA:
-						value = cell.getCellFormula();
-						break;
-					case HSSFCell.CELL_TYPE_BOOLEAN:
-						value = String.valueOf(cell.getBooleanCellValue());
-						break;
-					default:
-						break;
-				}
+				value = getCellData(cell);
 				if(cell.getColumnIndex() < 3) 
 					sb.append(value);
 				if(key != null)
@@ -473,6 +457,21 @@ public class HSSExcel extends Excel{
 		stream.close();
 		
 		return fileName;
+	}
+
+	/**
+	 * cell에서 값 가져오기 
+	 * @param cell
+	 * @return
+	 */
+	private String getCellData(Cell cell) {
+		String str = "";
+		try {
+			str = cell.toString();
+		} catch ( IllegalStateException e) {
+			str = "";
+		}
+		return str;
 	}
 	
 	/**

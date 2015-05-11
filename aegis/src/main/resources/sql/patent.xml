@@ -669,6 +669,37 @@
 		]]>
 	</select>
 	
+	<!-- 조사 기준 통계 조회 -->
+	<select id="selectGradeConstCount" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT IFNULL(SUM(CASE WHEN NATL_CODE = 'KR' THEN 1 ELSE 0 END),0) KR_COUNT
+			     , IFNULL(SUM(CASE WHEN NATL_CODE = 'US' THEN 1 ELSE 0 END),0) US_COUNT
+			     , IFNULL(SUM(CASE WHEN NATL_CODE = 'CN' THEN 1 ELSE 0 END),0) CN_COUNT
+			     , IFNULL(SUM(CASE WHEN NATL_CODE = 'JP' THEN 1 ELSE 0 END),0) JP_COUNT
+			     , IFNULL(SUM(CASE WHEN NATL_CODE = 'EP' THEN 1 ELSE 0 END),0) EP_COUNT
+			     , IFNULL(SUM(CASE WHEN NATL_CODE = 'WO' THEN 1 ELSE 0 END),0) PCT_COUNT
+				 , IFNULL(SUM(1),0)                                            TOT_COUNT
+			  FROM PATENT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN     = '0'
+			   AND GRADE_CONST IN ('X','Y','Z')			
+		]]>
+	</select>
+
+	<!-- 주요 선행 기술 조회  -->
+	<select id="selectGradeConst" resultType="HashMap" parameterType="java.lang.String" >
+		<![CDATA[
+			SELECT NATL_CODE
+			     , CASE WHEN IFNULL(REGI_NUM,'') = '' THEN IFNULL(OPEN_NUM, '') ELSE IFNULL(REGI_NUM,'') END REGI_NUM
+			     , KINDS_IP_CODE
+			     , GRADE_CONST
+			  FROM PATENT
+			 WHERE PROJECT_ID = #{PROJECT_ID}
+			   AND DEL_YN     = '0'
+			   AND GRADE_CONST IN ('X','Y','Z')   		
+		]]>
+	</select>
+		
 	<!-- 키워드 저장 -->
 	<update id="updatePatent" parameterType="HashMap" >
 		<![CDATA[

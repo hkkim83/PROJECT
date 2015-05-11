@@ -247,8 +247,6 @@ var SummaryDlg = function(projectId, patentId, fnCloseCallback){
 					<!-- 리스트 시작 -->
 					<div class="top_right_btn">
 						<dd class="btn">
-							<a href="#" class="btntype3"><span>한글다운</span></a>
-							<a href="#" class="btntype3"><span>워드다운</span></a>
 							<a href="#" id="btnDownload" class="btntype3"><span>엑셀다운</span></a>
 							<a href="#" id="PATENT_FULLTXT" class="btntype6"><span>전문보기</span></a>
 							<input type="hidden" id="fileName1" readonly/>
