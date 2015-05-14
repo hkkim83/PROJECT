@@ -86,7 +86,7 @@ public class KrPatentFilePath extends PatentFilePath{
 			reviTextYn = checkResult.getRevisionfullDocPDFCheckResult();
 			// 대표도면
 			imageMainYn = checkResult.getAbstractFigureCheckResult();			
-			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
+//			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
 			// 전문 
 			if("Y".equals(reviTextYn)) {
 				FilePathRevisionInfo[] array = (FilePathRevisionInfo[])stub.revisionfullDocPDFInfo(applNum);
@@ -117,8 +117,8 @@ public class KrPatentFilePath extends PatentFilePath{
 			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)      ? _defaultPath : imageMain);
 			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall)     ? _defaultPath : imageSmall);
 			
-			logger.info("patentFullText::::"+patentFullText);
-			logger.info("imageMain::::"+imageMain);
+//			logger.info("patentFullText::::"+patentFullText);
+//			logger.info("imageMain::::"+imageMain);
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class KrPatentFilePath extends PatentFilePath{
 		PatentBibliographicInfoServicePortTypeProxy proxy = new PatentBibliographicInfoServicePortTypeProxy();
 		PatentBibliographicInfoServiceSoap11BindingStub stub =(PatentBibliographicInfoServiceSoap11BindingStub)proxy.getPatentBibliographicInfoServicePortType();
 		String applNum = map.get("APPL_NUM_ORG");
-		logger.info("getBibliographygetBibliography:::::"+applNum);
+//		logger.info("getBibliographygetBibliography:::::"+applNum);
 		try {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
@@ -202,7 +202,7 @@ public class KrPatentFilePath extends PatentFilePath{
 				return;
 			
 			FamilyInfo[] arrays = (FamilyInfo[])stub.familyInfo(applNum);
-			logger.info("getFamilyInfo_fmCount::::"+arrays.length);
+//			logger.info("getFamilyInfo_fmCount::::"+arrays.length);
 			fmCount = arrays.length;
 			if(fmCount > 0 && arrays != null) {
 				for(FamilyInfo familyInfo : arrays) {
@@ -218,8 +218,8 @@ public class KrPatentFilePath extends PatentFilePath{
 			if(StringUtil.isNull(map.get("FM_NUM"))) map.put("FM_NUM", StringUtil.subStr2(fmNum, -3));
 			if(StringUtil.isNull(map.get("FM_COUNT"))) map.put("FM_COUNT", String.valueOf(fmCount));	
 			
-			logger.info("getFamilyInfo_fmNum::::"+fmNum);
-			logger.info("getFamilyInfo_fmCount::::"+fmCount);
+//			logger.info("getFamilyInfo_fmNum::::"+fmNum);
+//			logger.info("getFamilyInfo_fmCount::::"+fmCount);
 		}
 	}
 	
@@ -240,10 +240,10 @@ public class KrPatentFilePath extends PatentFilePath{
 			stub.setHeader(_soapKey);
 			
 			String content = map.get("CONTENT");
-			logger.info("content::::::::::"+content);
+//			logger.info("content::::::::::"+content);
 			AdvancedSearchArray bean = stub.freeSearch(content, 1, 1, true, true, "", "", true);		
 			totalSearchCount = bean.getTotalSearchCount();
-			logger.info("totalSearchCount::::::::"+totalSearchCount);
+//			logger.info("totalSearchCount::::::::"+totalSearchCount);
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		} 

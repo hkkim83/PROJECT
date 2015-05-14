@@ -320,9 +320,11 @@ select {
 			getNatlCode();
 			$('#div_radio').show();
 			$('#btn_apply').show();
+			$('#btn_go_to_search_db').hide();
 		} else {
 			$('#div_radio').hide();
 			$('#btn_apply').hide();
+			$('#btn_go_to_search_db').show();
 		}
 	};
 	
@@ -337,6 +339,7 @@ select {
 			, type: 'POST'
 			, async: false
 			, success: function(data){
+				console.log(data);
 				if(data.RESULT_CD == "SUCC_0001") {
 					if(parseInt(data.USER.POINT) < parseInt(data.USER.COUNT)) {
 						alert("포인트가 부족합니다. 충전 후 사용하세요.\n[문의전화 : 070-8891-6347(직통), 02-562-1716(대표전화)] ");
@@ -494,7 +497,7 @@ select {
 		
 		var content = $('#text_search_formula_kp').val();
 		if(content.trim() == ''){
-			alert('DB에 반영할 검색식이 없습니다.\n반영필드:전체,발명의 명칭,요약,대표 청구항,IPC,출원인,발명자');
+			alert('DB에 반영할 검색식이 없습니다.\n반영필드:전체,발명의 명칭, 요약, 대표 청구항, IPC, 출원인, 발명자');
 			return;
 		}		
 

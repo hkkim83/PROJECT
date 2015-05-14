@@ -183,7 +183,8 @@ public class PatentController extends BaseController {
 		String strKeywordList = null;
 		if(list != null && !list.isEmpty()) {
 			patentMap = list.get(0);
-			StringUtil.convertToBr(patentMap, "APPLICANT_RENAME");
+			// 2015.05.12 출원인 기존 방식 유지 
+			// StringUtil.convertToBr(patentMap, "APPLICANT_RENAME");
 			List<Map<String, String>> keywordList = categoryService.selectPatentCategoryList(patentMap);
 			strKeywordList = getKeywordList(keywordList);
 			// 키워드리스트 조회
@@ -237,11 +238,11 @@ public class PatentController extends BaseController {
 		// 세션에서 현재 선택된 프로젝트 정보 가져오기
 		User user = (User)session.getAttribute(USER_SESSION);
 		param.put("PROJECT_ID"  , user.getProjectId());
-		logger.info("param>>>>>>>>>>>>"+param);
+//		logger.info("param>>>>>>>>>>>>"+param);
 		Map<String, String> map = patentService.selectGradeConstCount(param);
 		List<Map<String, String>> list = patentService.selectGradeConst(param);
-		logger.info("map:::::"+map);
-		logger.info("list:::::"+list);
+//		logger.info("map:::::"+map);
+//		logger.info("list:::::"+list);
 		
 		modelAndView.addObject("MAP", map);
 		modelAndView.addObject("LIST", list);
@@ -266,11 +267,11 @@ public class PatentController extends BaseController {
 		// 세션에서 현재 선택된 프로젝트 정보 가져오기
 		User user = (User)session.getAttribute(USER_SESSION);
 		param.put("PROJECT_ID"  , user.getProjectId());
-		logger.info("param>>>>>>>>>>>>"+param);
+//		logger.info("param>>>>>>>>>>>>"+param);
 		Map<String, String> map = patentService.selectGradeConstCount(param);
 		List<Map<String, String>> list = patentService.selectGradeConst(param);
-		logger.info("map:::::"+map);
-		logger.info("list:::::"+list);
+//		logger.info("map:::::"+map);
+//		logger.info("list:::::"+list);
 		
 		modelAndView.addObject("MAP", map);
 		modelAndView.addObject("LIST", list);
@@ -435,7 +436,7 @@ public class PatentController extends BaseController {
 	@RequestMapping(value = "/uploadPDF.do")
 	public ModelAndView uploadPDF(@RequestParam("file1") MultipartFile file, @RequestParam("PROJECT_ID") String PROJECT_ID, @RequestParam("PATENT_ID") String PATENT_ID, HttpServletRequest request, HttpSession session) throws FileNotFoundException, IOException
 	{
-		logger.info("uploadPDF:::::::::::::::::::");
+//		logger.info("uploadPDF:::::::::::::::::::");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 파일명
 		String fileName = file.getOriginalFilename();
@@ -453,9 +454,9 @@ public class PatentController extends BaseController {
 		File newFile = new File(svrfilePath, svrFileName);
 		file.transferTo(newFile);
 		
-		logger.info("svrfilePath:::"+svrfilePath);
-		logger.info("svrfilePath2:::"+svrfilePath2);
-		logger.info("svrFileName:::"+svrFileName);
+//		logger.info("svrfilePath:::"+svrfilePath);
+//		logger.info("svrfilePath2:::"+svrfilePath2);
+//		logger.info("svrFileName:::"+svrFileName);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("FILE_NAME"     , fileName);

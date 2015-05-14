@@ -64,17 +64,17 @@ public class OthPatentFilePath extends PatentFilePath{
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
 
-			logger.info(":::::::setKiprisApplNumOrg:::::::::");
-			logger.info("natlCode::"+natlCode);
-			logger.info("applNum::"+applNum);
-			logger.info("openNum::"+openNum);
-			logger.info("regiNum::"+regiNum);
+//			logger.info(":::::::setKiprisApplNumOrg:::::::::");
+//			logger.info("natlCode::"+natlCode);
+//			logger.info("applNum::"+applNum);
+//			logger.info("openNum::"+openNum);
+//			logger.info("regiNum::"+regiNum);
 			
 			LtrtnoInfo[] arrays = stub.getLtrtno(natlCode, applNum, openNum, regiNum, null);
 			if(arrays == null || arrays.length < 1) return;
-			logger.info("arrays::::::"+arrays.length);
+//			logger.info("arrays::::::"+arrays.length);
 			for(LtrtnoInfo ltrtnoInfo : arrays) {
-				logger.info("ltrtnoInfo::::::"+ltrtnoInfo.getLtrtno());	
+//				logger.info("ltrtnoInfo::::::"+ltrtnoInfo.getLtrtno());	
 				applNumOrg = ltrtnoInfo.getLtrtno();
 			}
 		} catch ( Exception e ) {
@@ -111,7 +111,7 @@ public class OthPatentFilePath extends PatentFilePath{
 			if(StringUtil.isNull(applNum)) 
 				return;
 			
-			logger.info("applNum::::::"+applNum+" , "+natlCode+" , "+_defaultTxtPath+" , "+_defaultPath);
+//			logger.info("applNum::::::"+applNum+" , "+natlCode+" , "+_defaultTxtPath+" , "+_defaultPath);
 			
 			// 대표전문, 대표도면 유무 조회 
 			FullTextCheckResult checkResult = (FullTextCheckResult)stub.fullTextCheck(applNum, natlCode);
@@ -149,8 +149,8 @@ public class OthPatentFilePath extends PatentFilePath{
 			map.put("PATENT_FULLTXT", StringUtil.isNull(patentFullText)  ? _defaultTxtPath : patentFullText);
 			map.put("IMAGE_MAIN"    , StringUtil.isNull(imageMain)       ? _defaultPath    : imageMain);
 			map.put("IMAGE_SMALL"   , StringUtil.isNull(imageSmall)      ? _defaultPath    : imageMain);
-			logger.info("imageMain::::"+imageMain+"::::::");
-			logger.info("patentFullText::::"+patentFullText);
+//			logger.info("imageMain::::"+imageMain+"::::::");
+//			logger.info("patentFullText::::"+patentFullText);
 		}		
 		
 	}
@@ -161,7 +161,7 @@ public class OthPatentFilePath extends PatentFilePath{
 	 * @throws RemoteException
 	 */
 	public void getBibliography(Map<String, String>map) {
-		logger.info("please!!!!!!!!!"+map);
+//		logger.info("please!!!!!!!!!"+map);
 		ForeignPatentBibliographicServicePortTypeProxy proxy = new ForeignPatentBibliographicServicePortTypeProxy();
 		ForeignPatentBibliographicServiceSoap11BindingStub stub =(ForeignPatentBibliographicServiceSoap11BindingStub)proxy.getForeignPatentBibliographicServicePortType();
 		String applNum  = map.get("APPL_NUM_ORG");
@@ -176,10 +176,10 @@ public class OthPatentFilePath extends PatentFilePath{
 			
 			BibliographyParser parser = new OthBibliographyParser(map);
 			// 서지정보
-			logger.info("getKiprisBibliography::::"+applNum+","+natlCode);
+//			logger.info("getKiprisBibliography::::"+applNum+","+natlCode);
 			BibliographicSummaryInfo biblioSummaryInfo = (BibliographicSummaryInfo)stub.bibliographicSummaryInfo(applNum, natlCode);
 			parser.setBibliographicSummaryInfo(biblioSummaryInfo);
-			logger.info("getKiprisBibliography::::"+biblioSummaryInfo);
+//			logger.info("getKiprisBibliography::::"+biblioSummaryInfo);
 			
 			
 			// ipc정보
@@ -188,12 +188,12 @@ public class OthPatentFilePath extends PatentFilePath{
 			// 초록
 			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
 			parser.setSummation(summations);
-			logger.info("summations1::::"+summations.length);
+//			logger.info("summations1::::"+summations.length);
 
 			// 청구항
 			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);
 			parser.setDemandParagraphInfo(demandParagraphInfos);
-			logger.info("demandParagraphInfos::::"+demandParagraphInfos.length);
+//			logger.info("demandParagraphInfos::::"+demandParagraphInfos.length);
 			
 			// 출원인정보
 			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
@@ -227,7 +227,7 @@ public class OthPatentFilePath extends PatentFilePath{
 			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
 			parser.setEclaInfo(eclaInfos);
 			
-			logger.info("getKiprisBibliography++++++"+map);
+//			logger.info("getKiprisBibliography++++++"+map);
 			
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -261,7 +261,7 @@ public class OthPatentFilePath extends PatentFilePath{
 			if(StringUtil.isNull(applNum)) 
 				return;
 			
-			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
+//			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
 			DocdbFamilyInfo[] arrays = (DocdbFamilyInfo[])stub.familyInfo(applNum, natlCode);
 			fmCount = arrays.length;
 			if(fmCount > 0 && arrays != null) {
@@ -278,8 +278,8 @@ public class OthPatentFilePath extends PatentFilePath{
 			if(StringUtil.isNull(map.get("FM_NUM"))) map.put("FM_NUM", StringUtil.subStr2(fmNum, -3));
 			if(StringUtil.isNull(map.get("FM_COUNT"))) map.put("FM_COUNT", String.valueOf(fmCount));	
 			
-			logger.info("getFamilyInfo_fmNum::::"+fmNum);
-			logger.info("getFamilyInfo_fmCount::::"+fmCount);
+//			logger.info("getFamilyInfo_fmNum::::"+fmNum);
+//			logger.info("getFamilyInfo_fmCount::::"+fmCount);
 		}
 	}	
 
@@ -345,8 +345,8 @@ public class OthPatentFilePath extends PatentFilePath{
 					tempMap.put("REGI_DATE"			, arr.getRegisterDate());			// 등록일 	
 					tempMap.put("APPL_NUM"			, arr.getApplicationNo());			// 출원번호 
 					tempMap.put("APPL_DATE"			, arr.getApplicationDate());		// 출원일 
-					tempMap.put("OPEN_NUM"			, arr.getPublishrNo());				// 공개번호 	: 공고번호 사용  
-					tempMap.put("OPEN_DATE"			, arr.getPublishrDate());			// 공개일		: 공고일자 사용 
+					tempMap.put("OPEN_NUM"			, arr.getPublishrNo());				// 공개번호 
+					tempMap.put("OPEN_DATE"			, arr.getPublishrDate());			// 공개일	 
 					tempMap.put("LAID_PUBLIC_NUM"	, arr.getPublishrNo());				// 공고번호 
 					tempMap.put("LAID_PUBLIC_DATE"	, arr.getPublishrDate());			// 공고일 
 //					tempMap.put("APPLICANT"			, arr.getApplicant());				// 우선권번호 

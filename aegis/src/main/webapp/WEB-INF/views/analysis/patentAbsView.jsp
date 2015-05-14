@@ -411,15 +411,10 @@
 						</div>
 						<!-- 검색 상세리스트 -->
 						<div class="finderDetail">
-							<dl class="detailTop tye2">
+							<dl class="detailTop">
 								<dt class="detailMenu">
 									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="sub_btn">기본리스트</div></a>
-									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">초록/대표도</div></a>
-									<a href="#" id="btnDownload0"><div class="download_btn">전체다운</div></a>
-									<a href="#" id="btnDownload1"><div class="download_btn">엑셀다운</div></a>
-									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>	
-									<a href="/patent/wordView.do" id="btnDownload3"><div class="download_btn">워드다운</div></a>
-									<a href="/patent/hwpView.do" id="btnDownload4"><div class="download_btn">한글다운</div></a>																
+									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">초록/대표도</div></a>																
 								</dt>
 								<dd>
 									<span>총 <c:out value="${TOTAL.PA_TOTAL_CNT}"/>건 검색</span>
@@ -429,7 +424,16 @@
 										<option value="150">150개씩 보기</option>
 									</select>
 								</dd>
-							</dl>						
+							</dl>	
+							<dl class="detailTop_down">
+								<dt>
+									<a href="#" id="btnDownload0"><div class="full_download_btn">전체 raw data 다운(엑셀)</div></a>
+									<a href="#" id="btnDownload1"><div class="conference_download_btn">회의자료 다운(엑셀)</div></a>
+									<a href="#" id="btnDownload2"><div class="conference_download_btn">회의자료 다운(PDF)</div></a>
+									<a href="/patent/wordView.do" id="btnDownload3"><div class="technology_download_btn">선행기술보고서 다운(워드)</div></a>
+									<a href="/patent/hwpView.do" id="btnDownload4"><div class="technology_download_btn">선행기술보고서 다운(한글)</div></a>
+								</dt>
+							</dl>													
 							<!-- 리스트 시작 -->
 							<c:choose>
 							<c:when test="${! empty PATENT_LIST}"> 

@@ -297,13 +297,13 @@ public class SearchFormulaController extends BaseController {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         saveMap.put("LOGIN_ID", getLoginId(session));
         
-        logger.info("map:::::"+map);
+//        logger.info("map:::::"+map);
         ExcelParser parser = new ExcelParser();
         // kipris api를 통해 데이터 가져오기 
         parser.getAdvancedSearch(list, map, userId, userKey, kiprisUrl, defaultPath);
         
-        logger.info("list::::::::::::::::::::::::::");
-        logger.info(list);
+//        logger.info("list::::::::::::::::::::::::::");
+//        logger.info(list);
         saveMap.put("list", list);
         patentService.savePatentTemp(saveMap);
 		modelAndView.success();

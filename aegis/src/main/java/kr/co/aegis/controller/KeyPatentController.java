@@ -81,7 +81,7 @@ public class KeyPatentController extends BaseController {
 		Map<String, Object> param = super.parseRequest(request);
 		Map<String, String> map = patentService.selectPatentDtl(param);
 
-		logger.info("map::::"+map);
+//		logger.info("map::::"+map);
 		modelAndView.addObject("LIST", map);
 		modelAndView.success();
 		return modelAndView;

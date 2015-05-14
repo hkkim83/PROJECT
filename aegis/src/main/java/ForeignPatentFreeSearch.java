@@ -30,12 +30,13 @@ public class ForeignPatentFreeSearch {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
 
-			String str = "(TL=[electric*car*charger]+AB=[electric*car*charger]+CL=[electric*car*charger])";
+			String str = "(TL=[Customer-controlled*instant-response*anti-fraud/anti-identity*theft*devices])";
+			// String str = "(TL=[electric*car*charger]+AB=[electric*car*charger]+CL=[electric*car*charger])";
 			SearchResultArray bean = stub.freeSearch(str, "US", "0", "15", "", "");
 			SearchResult[] arrays = bean.getSearchTestResult();
 			System.out.println("totalSearchCount:::::"+totalSearchCount);
 			for(int i=0; i<arrays.length; i++)
-				System.out.println(i+"::::"+arrays[i].getInventionName()+","+arrays[i].getApplicationNo());
+				System.out.println(i+"::::"+arrays[i].getInventionName()+","+arrays[i].getApplicationNo()+","+arrays[i].getLtrtno());
 			totalSearchCount = Integer.parseInt(bean.getTotalSearchCount());
 			
 		} catch (Exception e) {

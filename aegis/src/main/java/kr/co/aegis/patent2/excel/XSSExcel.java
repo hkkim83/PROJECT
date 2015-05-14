@@ -202,8 +202,8 @@ public class XSSExcel extends Excel{
 					break;					
 	    	}
 	    }
-	    logger.info("setTitleArr::::::::::::::::::\n");
-	    for(int i=0; i<titleArr.length; i++)
-	    	logger.info(i+":::::"+titleArr[i]);
+//	    logger.info("setTitleArr::::::::::::::::::\n");
+//	    for(int i=0; i<titleArr.length; i++)
+//	    	logger.info(i+":::::"+titleArr[i]);
 	}
 }

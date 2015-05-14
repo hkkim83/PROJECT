@@ -44,11 +44,11 @@ public class OthBibliographyParser extends BibliographyParser{
 		if(StringUtil.isNull(map.get("LAID_PUBLIC_NUM"))) map.put("LAID_PUBLIC_NUM", laidPulbicNum);
 		if(StringUtil.isNull(map.get("LAID_PUBLIC_DATE"))) map.put("LAID_PUBLIC_DATE", laidPulbicDate);
 
-		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getApplicationNumber());
-		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getApplicationDate());
-		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getInventionTitle());
-		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getPublicationNumber());
-		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getPublishDate());		
+//		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getApplicationNumber());
+//		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getApplicationDate());
+//		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getInventionTitle());
+//		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getPublicationNumber());
+//		logger.info("OtherbiblioSummaryInfo:::::\n"+biblioSummaryInfo.getPublishDate());		
 	}
 	
 	/**
@@ -61,9 +61,9 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<ipcInfos.length; i++) {
 			if(ipcInfos[i] == null) return;
 			sb.append(ipcInfos[i].getIpcCd()).append(DELIMITER);
-			logger.info("OtheripcInfos:::::\n"+ipcInfos[i].getIpcCd());
+//			logger.info("OtheripcInfos:::::\n"+ipcInfos[i].getIpcCd());
 		}
-		logger.info("OthersetIpcInfo::::::"+sb.toString());
+//		logger.info("OthersetIpcInfo::::::"+sb.toString());
 		if(StringUtil.isNull(map.get("IPC_ALL"))) map.put("IPC_ALL", getIpcAll(sb.toString()));
 //		IpcInfo ipcInfo = ipcInfos[0];
 //		String ipcAll = getIpcAll(ipcInfo.getIpcCd());
@@ -81,7 +81,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<summations.length; i++) {
 			if(summations[i] == null) return;
 			sb.append(summations[i].getAstrtCont());
-			logger.info("Othersummations2:::"+summations[i]);
+//			logger.info("Othersummations2:::"+summations[i]);
 //			logger.info("summations3:::"+i+"::\n"+summations[i].getAstrtCont());
 		}
 		logger.info("OthersetSummation::::::"+sb.toString());
@@ -97,20 +97,20 @@ public class OthBibliographyParser extends BibliographyParser{
 	 */
 	public void setDemandParagraphInfo(DemandParagraphInfo[] demandParagraphInfos) {
 		if(demandParagraphInfos == null || demandParagraphInfos.length < 1) return;
-		StringBuilder sb = new StringBuilder();
-		for(int i=0; i<demandParagraphInfos.length; i++) {
-			logger.info("OtherdemandParagraphInfos:::"+demandParagraphInfos[i]);
-			if(demandParagraphInfos[i] == null) return;
-			sb.append(demandParagraphInfos[i].getClaimText());
-			logger.info("OtherdemandParagraphInfos:::"+demandParagraphInfos[i]);
+//		StringBuilder sb = new StringBuilder();
+//		for(int i=0; i<demandParagraphInfos.length; i++) {
+//			logger.info("OtherdemandParagraphInfos:::"+demandParagraphInfos[i]);
+//			if(demandParagraphInfos[i] == null) return;
+//			sb.append(demandParagraphInfos[i].getClaimText());
+//			logger.info("OtherdemandParagraphInfos:::"+demandParagraphInfos[i]);
 //			logger.info("summations3:::"+i+"::\n"+summations[i].getAstrtCont());
-		}
-		logger.info("setDemandParagraphInfo::::::"+sb.toString());
-		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));	
-//		DemandParagraphInfo demandParagraphInfo = demandParagraphInfos[0];
-//		if(demandParagraphInfo == null) return;
-//		String claimMain = getAbstract(demandParagraphInfo.getClaimText());
-//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", claimMain);			
+//		}
+//		logger.info("setDemandParagraphInfo::::::"+sb.toString());
+//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));	
+		DemandParagraphInfo demandParagraphInfo = demandParagraphInfos[0];
+		if(demandParagraphInfo == null) return;
+		String claimMain = getClaimMain(demandParagraphInfo.getClaimText());
+		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", claimMain);			
 	}
 	
 	/**
@@ -119,13 +119,16 @@ public class OthBibliographyParser extends BibliographyParser{
 	 */
 	public void setApplicantInfo(ApplicantInfo[] applicantInfos) {
 		if(applicantInfos == null || applicantInfos.length < 1) return;
+		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<applicantInfos.length; i++) {
-			logger.info("OtherapplicantInfos:::"+i+"::\n"+applicantInfos[i].getApplicantName());
-			logger.info("OtherapplicantInfos:::"+i+"::\n"+applicantInfos[i].getApplicantName());
+			if(applicantInfos[i] == null) return;
+			sb.append(applicantInfos[i].getApplicantName());
+//			logger.info("OtherapplicantInfos:::"+i+"::\n"+applicantInfos[i].getApplicantName());
+//			logger.info("OtherapplicantInfos:::"+i+"::\n"+applicantInfos[i].getApplicantName());
 		}
 		ApplicantInfo applicantInfo = applicantInfos[0];
 		if(applicantInfo == null) return;
-		String applicant = getApplicant(applicantInfo.getApplicantName());
+		String applicant = getApplicant(sb.toString());
 		String applicantNatl = getApplicantNatl(applicantInfo.getApplicantCountry());
 		if(StringUtil.isNull(map.get("APPLICANT"))) map.put("APPLICANT", applicant);	
 		if(StringUtil.isNull(map.get("APPLICANT_NATL"))) map.put("APPLICANT_NATL", applicantNatl);	
@@ -137,12 +140,13 @@ public class OthBibliographyParser extends BibliographyParser{
 	 */
 	public void setInventorsInfo(InventorsInfo[] inventorInfos) {
 		if(inventorInfos == null || inventorInfos.length < 1) return;
+		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<inventorInfos.length; i++) {
-			logger.info("OtherinventorInfos:::"+i+"::\n"+inventorInfos[i].getInventorName());
+			if(inventorInfos[i] == null) return;
+			sb.append(inventorInfos[i].getInventorName());
+//			logger.info("OtherinventorInfos:::"+i+"::\n"+inventorInfos[i].getInventorName());
 		}
-		InventorsInfo inventorInfo = inventorInfos[0];
-		if(inventorInfo == null) return;
-		String inventor = getInventor(inventorInfo.getInventorName());
+		String inventor = getInventor(sb.toString());
 		if(StringUtil.isNull(map.get("INVENTOR"))) map.put("INVENTOR", inventor);	
 	}
 	
@@ -152,11 +156,11 @@ public class OthBibliographyParser extends BibliographyParser{
 	 */
 	public void setPriorityNumberDateInfo(PriorityNumberDateInfo[] priorityInfos) {
 		if(priorityInfos == null || priorityInfos.length < 1) return;
-		for(int i=0; i<priorityInfos.length; i++) {
-			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationNumber());
-			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationDate());
-			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationCountry());
-		}
+//		for(int i=0; i<priorityInfos.length; i++) {
+//			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationNumber());
+//			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationDate());
+//			logger.info("OtherpriorityInfos:::"+i+"::\n"+priorityInfos[i].getPriorityApplicationCountry());
+//		}
 		PriorityNumberDateInfo priorityInfo = priorityInfos[0];
 		if(priorityInfo == null) return;
 		String priorityNum = getPriorityNum(priorityInfo.getPriorityApplicationNumber());
@@ -178,7 +182,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<ftermInfos.length; i++) {
 			if(ftermInfos[i] == null) return;
 			sb.append(ftermInfos[i].getFTermCode()).append(DELIMITER);
-			logger.info("OtherftermInfos:::"+i+"::\n"+ftermInfos[i].getFTermCode());
+//			logger.info("OtherftermInfos:::"+i+"::\n"+ftermInfos[i].getFTermCode());
 		}
 		if(StringUtil.isNull(map.get("F_TERM_JP"))) map.put("F_TERM_JP", getFtermJp(sb.toString()));		
 
@@ -198,7 +202,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<fiInfos.length; i++) {
 			if(fiInfos[i] == null) return;
 			sb.append(fiInfos[i].getPublKey()).append(DELIMITER);
-			logger.info("OtherfiInfos:::"+i+"::\n"+fiInfos[i].getPublKey());
+//			logger.info("OtherfiInfos:::"+i+"::\n"+fiInfos[i].getPublKey());
 		}
 		if(StringUtil.isNull(map.get("FI_CODE_JP"))) map.put("FI_CODE_JP", getFiCodeJp(sb.toString()));	
 
@@ -218,7 +222,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<upcInfos.length; i++) {
 			if(upcInfos[i] == null) return;
 			sb.append(upcInfos[i].getUpcUspdCd()).append(DELIMITER);
-			logger.info("OtherupcInfos:::"+i+"::\n"+upcInfos[i].getUpcUspdCd());
+//			logger.info("OtherupcInfos:::"+i+"::\n"+upcInfos[i].getUpcUspdCd());
 		}
 		if(StringUtil.isNull(map.get("UPC_CURRENT_ALL"))) map.put("UPC_CURRENT_ALL", getUpcCurrentAll(sb.toString()));	
 //		UpcInfo upcInfo = upcInfos[0];
@@ -237,7 +241,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<cpcInfos.length; i++) {
 			if(cpcInfos[i] == null) return;
 			sb.append(cpcInfos[i].getCpcCd()).append(DELIMITER);
-			logger.info("OtherCpcInfos:::"+i+"::\n"+cpcInfos[i].getCpcCd());
+//			logger.info("OtherCpcInfos:::"+i+"::\n"+cpcInfos[i].getCpcCd());
 		}
 		if(StringUtil.isNull(map.get("CPC"))) map.put("CPC", getCpc(sb.toString()));	
 //		CpcInfo cpcInfo = cpcInfos[0];
@@ -256,7 +260,7 @@ public class OthBibliographyParser extends BibliographyParser{
 		for(int i=0; i<eclaInfos.length; i++) {
 			if(eclaInfos[i] == null) return;
 			sb.append(eclaInfos[i].getClssCd()).append(DELIMITER);
-			logger.info("OtherEpcInfos:::"+i+"::\n"+eclaInfos[i].getClssCd());
+//			logger.info("OtherEpcInfos:::"+i+"::\n"+eclaInfos[i].getClssCd());
 		}
 		if(StringUtil.isNull(map.get("EPC"))) map.put("EPC", getEpc(sb.toString()));
 //		EclaInfo eclaInfo = eclaInfos[0];

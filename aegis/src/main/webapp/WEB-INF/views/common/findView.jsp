@@ -154,7 +154,7 @@
 								</div>
 								</fieldset>
 							</form>
-							<p class="logTxt">가입정보로 아이디를 찾을수 있습니다.</p>
+							<p class="logTxt">가입정보로 아이디를 찾을 수 있습니다.</p>
 						</div>
 						<div class="rightConts">
 							<div class="savebtn1">
@@ -195,13 +195,6 @@
 						</div>
 					</div>
 					<!-- //아이디/비밀번호 재설정 -->
-
-					<div class="join_info">
-						<p class="clrBlue">AEGIS 시스템의 각 회사 관리자 아이디찾기/비밀번호 재설정 화면입니다.<br />
-							회사 관리자가 설정한 사용자 정보를 찾기 원하시는 분은 사내 담당자에게 문의하세요.</p>
-						<p>담당자 : 임청홍 차장  문의전화 : 070-8891-6347(직통), 010-2669-0214(핸드폰) [ 전화상담 운영시간 (평일) 09:00 ~ 18:00 ],  이메일 : chyim@airsgroup.com</p>
-					</div>
-
 				</div>
 				<!-- //contents body -->
 			</div>

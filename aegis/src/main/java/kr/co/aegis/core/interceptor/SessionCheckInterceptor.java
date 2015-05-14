@@ -152,6 +152,12 @@ public class SessionCheckInterceptor extends HandlerInterceptorAdapter implement
 		if(uri.indexOf("/searchFormula/lstDlg.do") != -1) {	// 검색식불러오기 다이얼로그
 			return false;
 		}
+		if(uri.indexOf("/searchFormula/progressDlg.do") != -1) {	// 검색식 반영 상태바
+			return false;
+		}
+		if(uri.indexOf("/searchFormula/progressDlg2.do") != -1) {	// 검색식 반영 상태바
+			return false;
+		}		
 		if(uri.indexOf("board") != -1) {					// 게시판화면
 			return false;
 		}

@@ -308,7 +308,7 @@ var downloadFile = function(filePath) {
 											<dt><img src="/resources/images/main/img_sevice.gif" alt="안내 이미지" /></dt>
 											<dd>
 												<p>
-													<strong>11 서비스</strong>
+													<strong>서비스</strong>
 													<span><a href=""><img src="/resources/images/main/btn_detail.gif" alt="자세히보기" /></a></span>
 												</p>
 												<p>특허출원후 등록까지의 전과정 
@@ -327,7 +327,7 @@ var downloadFile = function(filePath) {
 											<dt><img src="/resources/images/main/img_sevice.gif" alt="안내 이미지" /></dt>
 											<dd>
 												<p>
-													<strong>22 서비스</strong>
+													<strong>서비스</strong>
 													<span><a href=""><img src="/resources/images/main/btn_detail.gif" alt="자세히보기" /></a></span>
 												</p>
 												<p>특허출원후 등록까지의 전과정 
@@ -346,7 +346,7 @@ var downloadFile = function(filePath) {
 											<dt><img src="/resources/images/main/img_sevice.gif" alt="안내 이미지" /></dt>
 											<dd>
 												<p>
-													<strong>33 서비스</strong>
+													<strong>서비스</strong>
 													<span><a href=""><img src="/resources/images/main/btn_detail.gif" alt="자세히보기" /></a></span>
 												</p>
 												<p>특허출원후 등록까지의 전과정 

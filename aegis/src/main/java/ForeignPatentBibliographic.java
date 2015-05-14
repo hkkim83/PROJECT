@@ -39,49 +39,53 @@ public class ForeignPatentBibliographic {
 		stub.setHeader(_soapId);
 		stub.setHeader(_soapKey);
 		
-		String applNum  = "200720017209Y0";
-		String natlCode = "CN";
+		String applNum  = "000006285924B1";
+		String natlCode = "US";
 //		String applNum  = "200200007321A1";
 //		String natlCode = "WO";		
-//		String applNum  = "201300223310A0";
+//		String applNum  = "200400160235A0";
 //		String natlCode = "PJ";		
 		try {
 			Map<String, String> map = new HashMap<String, String>();
 			BibliographyParser parser = new OthBibliographyParser(map);
 			// 서지정보
-			System.out.println("getKiprisBibliography::::"+applNum+","+natlCode);
-			BibliographicSummaryInfo biblioSummaryInfo = (BibliographicSummaryInfo)stub.bibliographicSummaryInfo(applNum, natlCode);
-			parser.setBibliographicSummaryInfo(biblioSummaryInfo);
-			System.out.println("getKiprisBibliography::::"+biblioSummaryInfo);
+//			System.out.println("getKiprisBibliography::::"+applNum+","+natlCode);
+//			BibliographicSummaryInfo biblioSummaryInfo = (BibliographicSummaryInfo)stub.bibliographicSummaryInfo(applNum, natlCode);
+//			parser.setBibliographicSummaryInfo(biblioSummaryInfo);
+//			System.out.println("getKiprisBibliography::::"+biblioSummaryInfo);
 			
 //			
 //			// ipc정보
-			IpcInfo[] ipcInfos = (IpcInfo[])stub.ipcInfo(applNum, natlCode);
-			parser.setIpcInfo(ipcInfos);
+//			IpcInfo[] ipcInfos = (IpcInfo[])stub.ipcInfo(applNum, natlCode);
+//			parser.setIpcInfo(ipcInfos);
 			
 ////			// 초록
-			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
-			parser.setSummation(summations);
-			System.out.println("summations1::::"+summations.length+","+summations);
-			for(int i=0; i<summations.length; i++)
-				System.out.println(summations[i]);
+//			Summation[] summations = (Summation[])stub.summation(applNum, natlCode);
+//			parser.setSummation(summations);
+//			System.out.println("summations1::::"+summations.length+","+summations);
+//			for(int i=0; i<summations.length; i++)
+//				System.out.println(summations[i]);
 //
 //			// 청구항
 			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);
+			String claimMain = demandParagraphInfos[0].getClaimText();
+			System.out.println("demandParagraphInfos1::::"+claimMain);
+			int index = claimMain.indexOf("2.");
+			claimMain = claimMain.substring(0, index);
 			parser.setDemandParagraphInfo(demandParagraphInfos);
-			System.out.println("demandParagraphInfos::::"+demandParagraphInfos.length);
+			System.out.println("demandParagraphInfos2::::"+claimMain);
 //			
 //			// 출원인정보
-			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
-			parser.setApplicantInfo(applicantInfos);
+//			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
+//			parser.setApplicantInfo(applicantInfos);
 //			
 //			// 발명자정보
-			InventorsInfo[] inventorInfos = (InventorsInfo[])stub.inventorsInfo(applNum, natlCode);
-			parser.setInventorsInfo(inventorInfos);
+//			InventorsInfo[] inventorInfos = (InventorsInfo[])stub.inventorsInfo(applNum, natlCode);
+//			parser.setInventorsInfo(inventorInfos);
 //			
 //			// 우선권정보
-			PriorityNumberDateInfo[] priorityInfos = (PriorityNumberDateInfo[])stub.priorityNumberDateInfo(applNum, natlCode);
-			parser.setPriorityNumberDateInfo(priorityInfos);
+//			PriorityNumberDateInfo[] priorityInfos = (PriorityNumberDateInfo[])stub.priorityNumberDateInfo(applNum, natlCode);
+//			parser.setPriorityNumberDateInfo(priorityInfos);
 //			
 //			// f-term정보
 //			FtermInfo[] ftermInfos = (FtermInfo[])stub.ftermInfo(applNum, natlCode);
@@ -92,16 +96,18 @@ public class ForeignPatentBibliographic {
 //			parser.setFiInfo(fiInfos);
 //			
 //			// upc정보
-			UpcInfo[] upcInfos = (UpcInfo[])stub.upcInfo(applNum, natlCode);
-			parser.setUpcInfo(upcInfos);
+//			UpcInfo[] upcInfos = (UpcInfo[])stub.upcInfo(applNum, natlCode);
+//			parser.setUpcInfo(upcInfos);
 //			
 //			// cpc정보 
-			CpcInfo[] cpcInfos = (CpcInfo[])stub.cpcInfo(applNum, natlCode);
-			parser.setCpcInfo(cpcInfos);
+//			CpcInfo[] cpcInfos = (CpcInfo[])stub.cpcInfo(applNum, natlCode);
+//			parser.setCpcInfo(cpcInfos);
 
 			// epc정보 
-			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
-			parser.setEclaInfo(eclaInfos);
+//			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
+//			parser.setEclaInfo(eclaInfos);
+			
+			// 패밀리정보 
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

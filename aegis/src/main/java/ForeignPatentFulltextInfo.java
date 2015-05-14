@@ -48,8 +48,8 @@ public class ForeignPatentFulltextInfo {
 			stub.setHeader(_soapId);
 			stub.setHeader(_soapKey);
 			
-			String applNum  = "000004012681A1";
-			String natlCode = "US";
+			String applNum  = "200500065206A3";
+			String natlCode = "WO";
 			
 			if(StringUtil.isNull(applNum)) 
 				return;
@@ -65,6 +65,8 @@ public class ForeignPatentFulltextInfo {
 			reviTextYn = checkResult.getRevisionAnnounceFullTextCheckResult();
 			// 대표도면
 			imageMainYn = checkResult.getRepresentationImageInfo();
+			
+			System.out.println(openTextYn+","+regiTextYn+","+reviTextYn+","+imageMainYn);
 			
 			if("Y".equals(openTextYn)) {
 				OpenFullTextInfo openFullTextInfo = (OpenFullTextInfo)stub.openFullTextInfo(applNum, natlCode);

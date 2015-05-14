@@ -130,7 +130,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/upload.do")
 	public ModelAndView upload(@RequestParam("type") String type, @RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpSession session) throws FileNotFoundException, IOException
 	{
-		logger.info("type::::::"+type);
+//		logger.info("type::::::"+type);
 		
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 파일명
@@ -179,8 +179,8 @@ public class ProcessController extends BaseController {
 			int index = tempFileName.lastIndexOf(".");
 			String ext = tempFileName.substring(index + 1, tempFileName.length());
 			if (ext.startsWith("xls")) {			
-				logger.info("path:::::"+path);
-				logger.info(tempFileName+"::::::"+tempFileName.indexOf(".xlsx"));
+//				logger.info("path:::::"+path);
+//				logger.info(tempFileName+"::::::"+tempFileName.indexOf(".xlsx"));
 				if( tempFileName.indexOf(".xlsx") > -1 || tempFileName.indexOf(".xlsm") > -1)
 					excel = new XSSExcel(path);
 				else 
@@ -280,7 +280,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/register.do")
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, InterruptedException
 	{	
-		logger.info("registerregisterregisterregisterregister");
+//		logger.info("registerregisterregisterregisterregister");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		// 1. 업로드 폴더에서 파일 목록을 가져온다.
 		String svrfilePath = FileUtil.getFilePath(uploadDir, getLoginId(session));
@@ -404,7 +404,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/deleteDuplication.do")
 	public ModelAndView deleteDuplication(@RequestParam("PROJECT_ID") String projectId, HttpSession session) throws IOException, InterruptedException
 	{
-		logger.info("deleteDuplicationdeleteDuplicationdeleteDuplication");
+//		logger.info("deleteDuplicationdeleteDuplicationdeleteDuplication");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		Map<String, String> param = new HashMap<String, String>();
 		User user = (User)session.getAttribute(USER_SESSION);
@@ -440,7 +440,7 @@ public class ProcessController extends BaseController {
 	@RequestMapping(value = "/getKiprisData.do")
 	public ModelAndView getKiprisData(@RequestParam("PROJECT_ID") String projectId, @RequestParam("IS_FILE") String isFile, HttpSession session) throws IOException, InterruptedException
 	{	
-		logger.info("getKiprisDatagetKiprisDatagetKiprisDatagetKiprisDatagetKiprisData");
+//		logger.info("getKiprisDatagetKiprisDatagetKiprisDatagetKiprisDatagetKiprisData");
 		JsonModelAndView modelAndView = new JsonModelAndView();
 		int ret = 0;
 		Map<String, String> param = new HashMap<String, String>();

@@ -417,11 +417,6 @@
 								<dt class="detailMenu">
 									<a href="/patent/view.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="basiclist">기본리스트</div></a>
 									<a href="/patent/abstractView.do?${PARAM.QUERY_STRING}&PAGE_NO=${PARAM.PAGE_NO}"><div class="sub_btn">초록/대표도</div></a>
-									<a href="#" id="btnDownload0"><div class="download_btn">전체다운</div></a>
-									<a href="#" id="btnDownload1"><div class="download_btn">엑셀다운</div></a>
-									<a href="#" id="btnDownload2"><div class="download_btn">PDF다운</div></a>
-									<a href="/patent/wordView.do" id="btnDownload3"><div class="download_btn">워드다운</div></a>
-									<a href="/patent/hwpView.do" id="btnDownload4"><div class="download_btn">한글다운</div></a>
 								</dt>
 								<dd>
 									<span>총 <c:out value="${TOTAL.PA_TOTAL_CNT}"/>건 검색</span>
@@ -432,6 +427,15 @@
 									</select>
 								</dd>
 							</dl>
+							<dl class="detailTop_down">
+								<dt>
+									<a href="#" id="btnDownload0"><div class="full_download_btn">전체 raw data 다운(엑셀)</div></a>
+									<a href="#" id="btnDownload1"><div class="conference_download_btn">회의자료 다운(엑셀)</div></a>
+									<a href="#" id="btnDownload2"><div class="conference_download_btn">회의자료 다운(PDF)</div></a>
+									<a href="/patent/wordView.do" id="btnDownload3"><div class="technology_download_btn">선행기술보고서 다운(워드)</div></a>
+									<a href="/patent/hwpView.do" id="btnDownload4"><div class="technology_download_btn">선행기술보고서 다운(한글)</div></a>
+								</dt>
+							</dl>							
 							<div class="detailList">
 								<table summary="연번,국가,구분,출원번호,출원일자,발명의 명칭,등급,전문,출원인">
 								<colgroup>

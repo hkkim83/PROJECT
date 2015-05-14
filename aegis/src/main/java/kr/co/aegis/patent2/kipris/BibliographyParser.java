@@ -145,7 +145,15 @@ public class BibliographyParser {
 		return astrtCont.trim();
 	}
 	
+	/**
+	 * 대표청구항 
+	 * 2015.05.14 청구항 중 1번만 데이터에 반영
+	 * @param claimMain
+	 * @return
+	 */
 	protected String getClaimMain(String claimMain) {
+		int index = claimMain.indexOf("2.") > -1 ? claimMain.indexOf("2.") : claimMain.length();
+		claimMain = claimMain.substring(0, index);
 		return claimMain.trim();
 	}
 	

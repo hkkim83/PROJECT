@@ -25,17 +25,17 @@ public class KrBibliographyParser extends BibliographyParser{
 	 * @param biblioSummaryInfo
 	 */
 	public void setBiblioSummaryInfo(BiblioSummaryInfo[] biblioSummaryInfos) {
-		logger.info("KrBibliographyParser::::::::::");
+//		logger.info("KrBibliographyParser::::::::::");
 		if(biblioSummaryInfos == null || biblioSummaryInfos.length < 1) return;
-		for(int i=0; i<biblioSummaryInfos.length; i++) {
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getInventionTitle());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getApplicationNumber());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getApplicationDate());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getPublicationNumber());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getPublicationDate());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getRegisterNumber());
-			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getRegisterDate());
-		}
+//		for(int i=0; i<biblioSummaryInfos.length; i++) {
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getInventionTitle());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getApplicationNumber());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getApplicationDate());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getPublicationNumber());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getPublicationDate());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getRegisterNumber());
+//			logger.info("biblioSummaryInfo:::"+i+"::\n"+biblioSummaryInfos[i].getRegisterDate());
+//		}
 		
 		BiblioSummaryInfo biblioSummaryInfo = biblioSummaryInfos[0];
 		if(biblioSummaryInfo == null) return;
@@ -70,9 +70,9 @@ public class KrBibliographyParser extends BibliographyParser{
 		for(IpcInfo ipcInfo : ipcInfos) {
 			if(ipcInfo == null) return;
 			sb.append(ipcInfo.getIpcNumber()).append(DELIMITER);
-			logger.info("ipcInfos:::::\n"+ipcInfo.getIpcNumber());
+//			logger.info("ipcInfos:::::\n"+ipcInfo.getIpcNumber());
 		}
-		logger.info("setIpcInfo::::::"+sb.toString());
+//		logger.info("setIpcInfo::::::"+sb.toString());
 		if(StringUtil.isNull(map.get("IPC_ALL"))) map.put("IPC_ALL", getIpcAll(sb.toString()));
 //		IpcInfo ipcInfo = ipcInfos[0];
 //		String ipcAll = getIpcAll(ipcInfo.getIpcCd());
@@ -89,10 +89,10 @@ public class KrBibliographyParser extends BibliographyParser{
 		for(int i=0; i<abstractInfos.length; i++) {
 			if(abstractInfos[i] == null) return;
 			sb.append(abstractInfos[i].getAstrtCont());
-			logger.info("abstractInfos:::"+abstractInfos[i]);
+//			logger.info("abstractInfos:::"+abstractInfos[i]);
 		}
-		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
-		logger.info(map.get("APPL_NUM_ORG")+":::setAbstractInfo::::::"+sb.toString().trim());
+//		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
+//		logger.info(map.get("APPL_NUM_ORG")+":::setAbstractInfo::::::"+sb.toString().trim());
 		if(StringUtil.isNull(map.get("ABSTRACT"))) map.put("ABSTRACT", getAbstract(sb.toString()));
 //		AbstractInfo abstractInfo = abstractInfos[0];
 //		if(abstractInfo == null) return;
@@ -106,20 +106,20 @@ public class KrBibliographyParser extends BibliographyParser{
 	 */
 	public void setClaimInfo(ClaimInfo[] claimInfos) {
 		if(claimInfos == null || claimInfos.length < 1) return;
-		StringBuilder sb = new StringBuilder();
-		logger.info("claimInfos:::::\n"+claimInfos);
-		for(int i=0; i<claimInfos.length; i++) {
-			if(claimInfos[i] == null) return;
-			sb.append(claimInfos[i].getClaim());
-			logger.info(":::claimInfos::"+i+":::\n"+claimInfos[i].getClaim());
-		}
-		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
-		logger.info(map.get("APPL_NUM_ORG")+":::setClaimInfo::::::"+sb.toString());
-		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));
-//		ClaimInfo claimInfo = claimInfos[0];
-//		if(claimInfo == null) return;
-//		String claimMain = getClaimMain(claimInfo.getClaim());
-//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", claimMain);
+//		StringBuilder sb = new StringBuilder();
+//		logger.info("claimInfos:::::\n"+claimInfos);
+//		for(int i=0; i<claimInfos.length; i++) {
+//			if(claimInfos[i] == null) return;
+//			sb.append(claimInfos[i].getClaim());
+//			logger.info(":::claimInfos::"+i+":::\n"+claimInfos[i].getClaim());
+//		}
+//		logger.info(map.get("APPL_NUM_ORG")+":::"+map.get("CLAIM_MAIN"));
+//		logger.info(map.get("APPL_NUM_ORG")+":::setClaimInfo::::::"+sb.toString());
+//		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", getClaimMain(sb.toString()));
+		ClaimInfo claimInfo = claimInfos[0];
+		if(claimInfo == null) return;
+		String claimMain = getClaimMain(claimInfo.getClaim());
+		if(StringUtil.isNull(map.get("CLAIM_MAIN"))) map.put("CLAIM_MAIN", claimMain);
 	}
 	
 	/**
@@ -128,13 +128,16 @@ public class KrBibliographyParser extends BibliographyParser{
 	 */
 	public void setApplicantInfo(ApplicantInfo[] applicantInfos) {
 		if(applicantInfos == null || applicantInfos.length < 1) return;
+		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<applicantInfos.length; i++) {
-			logger.info("applicantInfos::"+i+":::\n"+applicantInfos[i].getName());
-			logger.info("applicantInfos::"+i+":::\n"+applicantInfos[i].getCountry());
+			if(applicantInfos[i] == null) return;
+			sb.append(applicantInfos[i].getName());
+//			logger.info("applicantInfos::"+i+":::\n"+applicantInfos[i].getName());
+//			logger.info("applicantInfos::"+i+":::\n"+applicantInfos[i].getCountry());
 		}
 		ApplicantInfo applicantInfo = applicantInfos[0];
 		if(applicantInfo == null) return;
-		String applicant = getApplicant(applicantInfo.getName());
+		String applicant = getApplicant(sb.toString());
 		String applicantNatl = getApplicantNatl(applicantInfo.getCountry());
 		if(StringUtil.isNull(map.get("APPLICANT"))) map.put("APPLICANT", applicant);	
 		if(StringUtil.isNull(map.get("APPLICANT_NATL"))) map.put("APPLICANT_NATL", applicantNatl);	
@@ -146,12 +149,13 @@ public class KrBibliographyParser extends BibliographyParser{
 	 */
 	public void setInventorsInfo(InventorInfo[] inventorInfos) {
 		if(inventorInfos == null || inventorInfos.length < 1) return;
+		StringBuilder sb = new StringBuilder();
 		for(int i=0; i<inventorInfos.length; i++) {
-			logger.info("inventorInfos::"+i+":::\n"+inventorInfos[i].getName());
+			if(inventorInfos[i] == null) return;
+			sb.append(inventorInfos[i].getName());
+//			logger.info("inventorInfos::"+i+":::\n"+inventorInfos[i].getName());
 		}
-		InventorInfo inventorInfo = inventorInfos[0];
-		if(inventorInfo == null) return;
-		String inventor = getInventor(inventorInfo.getName());
+		String inventor = getInventor(sb.toString());
 		if(StringUtil.isNull(map.get("INVENTOR"))) map.put("INVENTOR", inventor);	
 	}
 	
@@ -161,11 +165,11 @@ public class KrBibliographyParser extends BibliographyParser{
 	 */
 	public void setPriorityNumberDateInfo(PriorityInfo[] priorityInfos) {
 		if(priorityInfos == null || priorityInfos.length < 1) return;
-		for(int i=0; i<priorityInfos.length; i++) {
-			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationNumber());
-			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationDate());
-			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationCountry());
-		}
+//		for(int i=0; i<priorityInfos.length; i++) {
+//			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationNumber());
+//			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationDate());
+//			logger.info("priorityInfos::"+i+":::\n"+priorityInfos[i].getPriorityApplicationCountry());
+//		}
 		PriorityInfo priorityInfo = priorityInfos[0];
 		if(priorityInfo == null) return;
 		String priorityNum = getPriorityNum(priorityInfo.getPriorityApplicationNumber());
