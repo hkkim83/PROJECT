@@ -7,7 +7,7 @@
 		</layout>
 	</appender>
 	<appender name="rollingFile" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="/home/aegis/log/error.log" />
+		<param name="File" value="/Users/khk/work/Java/home/logs/error.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="2" />

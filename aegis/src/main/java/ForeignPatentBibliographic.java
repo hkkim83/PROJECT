@@ -7,17 +7,8 @@ import kr.co.aegis.patent2.kipris.OthBibliographyParser;
 import kr.or.kipris.plus.ForeignPatentBibliographicServicePortTypeProxy;
 import kr.or.kipris.plus.ForeignPatentBibliographicServiceSoap11BindingStub;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.ApplicantInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.BibliographicSummaryInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.CpcInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DemandParagraphInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FiInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FtermInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.InventorsInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.IpcInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.PriorityNumberDateInfo;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.Summation;
-import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.UpcInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo;
 
 import org.apache.axis.message.SOAPHeaderElement;
 
@@ -39,7 +30,7 @@ public class ForeignPatentBibliographic {
 		stub.setHeader(_soapId);
 		stub.setHeader(_soapKey);
 		
-		String applNum  = "000006285924B1";
+		String applNum  = "201400267585A1";
 		String natlCode = "US";
 //		String applNum  = "200200007321A1";
 //		String natlCode = "WO";		
@@ -67,17 +58,20 @@ public class ForeignPatentBibliographic {
 //				System.out.println(summations[i]);
 //
 //			// 청구항
-			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);
-			String claimMain = demandParagraphInfos[0].getClaimText();
-			System.out.println("demandParagraphInfos1::::"+claimMain);
-			int index = claimMain.indexOf("2.");
-			claimMain = claimMain.substring(0, index);
-			parser.setDemandParagraphInfo(demandParagraphInfos);
-			System.out.println("demandParagraphInfos2::::"+claimMain);
+//			DemandParagraphInfo[] demandParagraphInfos = (DemandParagraphInfo[])stub.demandParagraphInfo(applNum, natlCode);
+//			String claimMain = demandParagraphInfos[0].getClaimText();
+//			System.out.println("demandParagraphInfos1::::"+claimMain);
+//			int index = claimMain.indexOf("2.");
+//			claimMain = claimMain.substring(0, index);
+//			parser.setDemandParagraphInfo(demandParagraphInfos);
+//			System.out.println("demandParagraphInfos2::::"+claimMain);
 //			
 //			// 출원인정보
-//			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
-//			parser.setApplicantInfo(applicantInfos);
+			ApplicantInfo[] applicantInfos = (ApplicantInfo[])stub.applicantInfo(applNum, natlCode);
+			for(int i=0; i<applicantInfos.length; i++) {
+				if(applicantInfos[i] == null) return;
+				System.out.println(applicantInfos[i].getApplicantName());
+			}			
 //			
 //			// 발명자정보
 //			InventorsInfo[] inventorInfos = (InventorsInfo[])stub.inventorsInfo(applNum, natlCode);
@@ -108,6 +102,9 @@ public class ForeignPatentBibliographic {
 //			parser.setEclaInfo(eclaInfos);
 			
 			// 패밀리정보 
+//			FamilyInfo[] familyInfos = stub.familyInfo(applNum, natlCode);
+//			for(int i=0; i<familyInfos.length; i++)
+//				System.out.println(familyInfos[i].getFamilyNumber()+familyInfos[i].getFamilyKind());
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -228,7 +228,7 @@
 			     , FM_COUNT              /* 패밀리문헌수(출원기준) */
 			     , LEGAL_STATUS_DOCDB    /* DOCDB법적상태 */
 			     , SEQ_NUM               /* 연번 */
-			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CONCAT('* ',APPLICANT) ELSE APPLICANT_RENAME END APPLICANT_RENAME       /* 출원인대표명화 */
+			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CASE WHEN IFNULL(APPLICANT, '') = '' THEN '' ELSE CONCAT('* ',APPLICANT) END ELSE APPLICANT_RENAME END APPLICANT_RENAME /* 출원인대표명화 */
 			     , FM_TYPE               /* 패밀리구분 */
 			     , FM_SEQ_NUM            /* 패밀리연번 */
 			     , IMAGE_MAIN            /* 대표도면 */
@@ -453,7 +453,7 @@
 			     , FM_COUNT              /* 패밀리문헌수(출원기준) */
 			     , LEGAL_STATUS_DOCDB    /* DOCDB법적상태 */
 			     , SEQ_NUM               /* 연번 */
-			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CONCAT('* ',APPLICANT) ELSE APPLICANT_RENAME END APPLICANT_RENAME       /* 출원인대표명화 */
+			     , CASE WHEN IFNULL(APPLICANT_RENAME,'') = '' THEN CASE WHEN IFNULL(APPLICANT, '') = '' THEN '' ELSE CONCAT('* ',APPLICANT) END ELSE APPLICANT_RENAME END APPLICANT_RENAME /* 출원인대표명화 */
 			     , FM_TYPE               /* 패밀리구분 */
 			     , FM_SEQ_NUM            /* 패밀리연번 */
 			     , IMAGE_MAIN            /* 대표도면 */

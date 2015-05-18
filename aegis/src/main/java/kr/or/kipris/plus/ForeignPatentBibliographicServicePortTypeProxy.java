@@ -140,6 +140,12 @@ public class ForeignPatentBibliographicServicePortTypeProxy implements kr.or.kip
     return foreignPatentBibliographicServicePortType.otherPublicationsInfo(literatureNumber, countryCode);
   }
   
+  public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[] familyInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
+    if (foreignPatentBibliographicServicePortType == null)
+      _initForeignPatentBibliographicServicePortTypeProxy();
+    return foreignPatentBibliographicServicePortType.familyInfo(literatureNumber, countryCode);
+  }
+  
   public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.GetOpenAnnounceNumber getOpenAnnounceNumber(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException{
     if (foreignPatentBibliographicServicePortType == null)
       _initForeignPatentBibliographicServicePortTypeProxy();

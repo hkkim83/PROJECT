@@ -65,7 +65,7 @@ abstract public class PatentFilePath {
 	/**
 	 * 패밀리 정보 가져오기
 	 */
-	abstract public void getFamilyInfo(Map<String, String>map);
+	public void getFamilyInfo(Map<String, String>map) {}
 	
 
 	/**

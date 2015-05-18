@@ -16,10 +16,11 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[30];
+        _operations = new org.apache.axis.description.OperationDesc[31];
         _initOperationDesc1();
         _initOperationDesc2();
         _initOperationDesc3();
+        _initOperationDesc4();
     }
 
     private static void _initOperationDesc1(){
@@ -342,6 +343,25 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         _operations[16] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("familyInfo");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param.setOmittable(true);
+        param.setNillable(true);
+        oper.addParameter(param);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "countryCode"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
+        param.setOmittable(true);
+        param.setNillable(true);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoArray"));
+        oper.setReturnClass(kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "return"));
+        param = oper.getReturnParamDesc();
+        param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "familyInfo"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[17] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
         oper.setName("themeCodeInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
         param.setOmittable(true);
@@ -358,7 +378,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "themeCodeInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[17] = oper;
+        _operations[18] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("eclaInfo");
@@ -377,8 +397,13 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "eclaInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[18] = oper;
+        _operations[19] = oper;
 
+    }
+
+    private static void _initOperationDesc3(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("ipcVersionInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -396,13 +421,8 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "ipcVersionInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[19] = oper;
+        _operations[20] = oper;
 
-    }
-
-    private static void _initOperationDesc3(){
-        org.apache.axis.description.OperationDesc oper;
-        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("demandParagraphInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -420,7 +440,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "demandParagraphInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[20] = oper;
+        _operations[21] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("relatedUsApplicationDataDetailInfo");
@@ -439,7 +459,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "relatedUsApplicationDataDetailInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[21] = oper;
+        _operations[22] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("judgesInfo");
@@ -458,7 +478,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "judgesInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[22] = oper;
+        _operations[23] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("bibliographicInfo");
@@ -475,7 +495,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         oper.setReturnQName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "return"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[23] = oper;
+        _operations[24] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("openNumberInfo");
@@ -494,7 +514,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "openNumberInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[24] = oper;
+        _operations[25] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("ftermInfo");
@@ -513,7 +533,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "ftermInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[25] = oper;
+        _operations[26] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("designationInfo");
@@ -532,7 +552,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "designationInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[26] = oper;
+        _operations[27] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("fiInfo");
@@ -551,7 +571,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "fiInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[27] = oper;
+        _operations[28] = oper;
 
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("getfield");
@@ -570,8 +590,13 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "getfield"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[28] = oper;
+        _operations[29] = oper;
 
+    }
+
+    private static void _initOperationDesc4(){
+        org.apache.axis.description.OperationDesc oper;
+        org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("upcInfo");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "literatureNumber"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"), java.lang.String.class, false, false);
@@ -589,7 +614,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
         param.setItemQName(new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "upcInfo"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
-        _operations[29] = oper;
+        _operations[30] = oper;
 
     }
 
@@ -745,6 +770,22 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "EclaInfo");
             qName2 = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "eclaInfo");
+            cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
+            cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
+
+            qName = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfo");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo.class;
+            cachedSerClasses.add(cls);
+            cachedSerFactories.add(beansf);
+            cachedDeserFactories.add(beandf);
+
+            qName = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfoArray");
+            cachedSerQNames.add(qName);
+            cls = kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[].class;
+            cachedSerClasses.add(cls);
+            qName = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "FamilyInfo");
+            qName2 = new javax.xml.namespace.QName("http://foreignpatentbean.services.webservice.plus.kipris.or.kr/xsd", "familyInfo");
             cachedSerFactories.add(new org.apache.axis.encoding.ser.ArraySerializerFactory(qName, qName2));
             cachedDeserFactories.add(new org.apache.axis.encoding.ser.ArrayDeserializerFactory());
 
@@ -1703,12 +1744,46 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
 }
     }
 
-    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.ThemeCodeInfo[] themeCodeInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[] familyInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
         _call.setOperation(_operations[17]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("urn:familyInfo");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://plus.kipris.or.kr/xsd", "familyInfo"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {literatureNumber, countryCode});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[]) org.apache.axis.utils.JavaUtils.convert(_resp, kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[].class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.ThemeCodeInfo[] themeCodeInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[18]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:themeCodeInfo");
         _call.setEncodingStyle(null);
@@ -1742,7 +1817,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[18]);
+        _call.setOperation(_operations[19]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:eclaInfo");
         _call.setEncodingStyle(null);
@@ -1776,7 +1851,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[19]);
+        _call.setOperation(_operations[20]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:ipcVersionInfo");
         _call.setEncodingStyle(null);
@@ -1810,7 +1885,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[20]);
+        _call.setOperation(_operations[21]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:demandParagraphInfo");
         _call.setEncodingStyle(null);
@@ -1844,7 +1919,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[21]);
+        _call.setOperation(_operations[22]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:relatedUsApplicationDataDetailInfo");
         _call.setEncodingStyle(null);
@@ -1878,7 +1953,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[22]);
+        _call.setOperation(_operations[23]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:judgesInfo");
         _call.setEncodingStyle(null);
@@ -1912,7 +1987,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[23]);
+        _call.setOperation(_operations[24]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:bibliographicInfo");
         _call.setEncodingStyle(null);
@@ -1946,7 +2021,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[24]);
+        _call.setOperation(_operations[25]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:openNumberInfo");
         _call.setEncodingStyle(null);
@@ -1980,7 +2055,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[25]);
+        _call.setOperation(_operations[26]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:ftermInfo");
         _call.setEncodingStyle(null);
@@ -2014,7 +2089,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[26]);
+        _call.setOperation(_operations[27]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:designationInfo");
         _call.setEncodingStyle(null);
@@ -2048,7 +2123,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[27]);
+        _call.setOperation(_operations[28]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:fiInfo");
         _call.setEncodingStyle(null);
@@ -2082,7 +2157,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[28]);
+        _call.setOperation(_operations[29]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:getfield");
         _call.setEncodingStyle(null);
@@ -2116,7 +2191,7 @@ public class ForeignPatentBibliographicServiceSoap11BindingStub extends org.apac
             throw new org.apache.axis.NoEndPointException();
         }
         org.apache.axis.client.Call _call = createCall();
-        _call.setOperation(_operations[29]);
+        _call.setOperation(_operations[30]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("urn:upcInfo");
         _call.setEncodingStyle(null);

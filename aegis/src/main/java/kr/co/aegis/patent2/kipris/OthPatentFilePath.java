@@ -22,6 +22,7 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.CpcInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DemandParagraphInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DocdbFamilyInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FiInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FtermInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FullTextCheckResult;
@@ -106,7 +107,7 @@ public class OthPatentFilePath extends PatentFilePath{
 			stub.setHeader(_soapKey);
 			
 			String applNum  = map.get("APPL_NUM_ORG");
-			String natlCode = map.get("NATL_CODE");
+			String natlCode = "CN".equals(map.get("NATL_CODE")) ? "CP" : map.get("NATL_CODE");
 			
 			if(StringUtil.isNull(applNum)) 
 				return;
@@ -227,6 +228,10 @@ public class OthPatentFilePath extends PatentFilePath{
 			EclaInfo[] eclaInfos = (EclaInfo[])stub.eclaInfo(applNum, natlCode);
 			parser.setEclaInfo(eclaInfos);
 			
+			// family정보 
+			FamilyInfo[] familyInfos = (FamilyInfo[])stub.familyInfo(applNum, natlCode);
+			parser.setFamilyInfo(familyInfos);
+			
 //			logger.info("getKiprisBibliography++++++"+map);
 			
 		} catch ( Exception e ) {
@@ -235,53 +240,6 @@ public class OthPatentFilePath extends PatentFilePath{
 		
 	};
 	
-	/***
-	 * 패밀리정보 가져오기
-	 * @param map
-	 * @throws RemoteException
-	 */
-	public void getFamilyInfo(Map<String, String>map) {
-		
-		DOCDBServicePortTypeProxy proxy = new DOCDBServicePortTypeProxy();
-		DOCDBServiceSoap11BindingStub stub =(DOCDBServiceSoap11BindingStub)proxy.getDOCDBServicePortType();
-		String docdbCountryCode = null; 
-		String docdbLiteratureNumber      = null;
-		String docdbLiteratureIdCode    = null;
-		
-		String fmNum = "";
-		int fmCount = 0;
-		
-		try {
-			stub.setHeader(_soapId);
-			stub.setHeader(_soapKey);
-			
-			String natlCode = map.get("NATL_CODE");
-			String applNum  = map.get("APPL_NUM_ORG");
-			
-			if(StringUtil.isNull(applNum)) 
-				return;
-			
-//			logger.info("applNum::::::"+applNum+" , "+_defaultTxtPath+" , "+_defaultPath);
-			DocdbFamilyInfo[] arrays = (DocdbFamilyInfo[])stub.familyInfo(applNum, natlCode);
-			fmCount = arrays.length;
-			if(fmCount > 0 && arrays != null) {
-				for(DocdbFamilyInfo familyInfo : arrays) {
-					docdbCountryCode = familyInfo.getDocdbCountryCode();
-					docdbLiteratureNumber = familyInfo.getDocdbLiteratureNumber();
-					docdbLiteratureIdCode = familyInfo.getDocdbLiteratureIdCode();
-					fmNum += docdbCountryCode+docdbLiteratureNumber+docdbLiteratureIdCode+" | ";
-				}				
-			}
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		} finally {
-			if(StringUtil.isNull(map.get("FM_NUM"))) map.put("FM_NUM", StringUtil.subStr2(fmNum, -3));
-			if(StringUtil.isNull(map.get("FM_COUNT"))) map.put("FM_COUNT", String.valueOf(fmCount));	
-			
-//			logger.info("getFamilyInfo_fmNum::::"+fmNum);
-//			logger.info("getFamilyInfo_fmCount::::"+fmCount);
-		}
-	}	
 
 	/**
 	 * KIPRIS DB검색식으로 전체건수 구하기 

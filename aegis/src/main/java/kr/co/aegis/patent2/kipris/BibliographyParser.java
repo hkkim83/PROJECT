@@ -7,6 +7,7 @@ import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.Bibliographic
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.CpcInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.DemandParagraphInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo;
+import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FiInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FtermInfo;
 import kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.InventorsInfo;
@@ -47,6 +48,7 @@ public class BibliographyParser {
 	public void setUpcInfo(UpcInfo[] upcInfos) {}
 	public void setCpcInfo(CpcInfo[] cpcInfos) {}
 	public void setEclaInfo(EclaInfo[] eclaInfos) {}
+	public void setFamilyInfo(FamilyInfo[] familyInfos) {}
 	
 	public BibliographyParser(Map<String, String> map) {
 		this.map = map;
@@ -163,7 +165,8 @@ public class BibliographyParser {
 	 * @return
 	 */
 	protected String getApplicant(String applicant) {
-		return StringUtil.isNull(applicant) ? "" : applicant.split(",")[0];
+		return "null".equals(applicant) ? "" : applicant;
+		//return StringUtil.isNull(applicant) ? "" : applicant.split(",")[0];
 	}
 	
 	/**

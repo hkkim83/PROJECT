@@ -70,6 +70,7 @@ encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/DocSummationOtherInfo.java=UTF-8
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/DocdbFamilyInfo.java=UTF-8
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/EclaInfo.java=UTF-8
+encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/FamilyInfo.java=UTF-8
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/FiInfo.java=UTF-8
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/ForeignBiblio.java=UTF-8
 encoding//src/main/java/kr/or/kipris/plus/webservice/services/foreignpatentbean/xsd/ForeignPatentDocumentsInfo.java=UTF-8

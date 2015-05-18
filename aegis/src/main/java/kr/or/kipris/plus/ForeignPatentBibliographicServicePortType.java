@@ -24,6 +24,7 @@ public interface ForeignPatentBibliographicServicePortType extends java.rmi.Remo
     public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.PriorityNumberDateInfo[] priorityNumberDateInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
     public void setForeignPatentBibliographicService(kr.or.kipris.plus.webservice.services.xsd.ForeignPatentBibliographicService foreignPatentBibliographicService) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.OtherPublicationsInfo[] otherPublicationsInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
+    public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.FamilyInfo[] familyInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.GetOpenAnnounceNumber getOpenAnnounceNumber(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.ThemeCodeInfo[] themeCodeInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
     public kr.or.kipris.plus.webservice.services.foreignpatentbean.xsd.EclaInfo[] eclaInfo(java.lang.String literatureNumber, java.lang.String countryCode) throws java.rmi.RemoteException;
